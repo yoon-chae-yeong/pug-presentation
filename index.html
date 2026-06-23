@@ -1,0 +1,1122 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 역량 성장 대시보드 (Competency Radar Chart)</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Google Fonts Inter & Noto Sans KR -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <script>
+        // Warm Clean Minimalism palette (PUG Design Guide)
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        paper: '#FBF8F3',   // Warm Paper (페이지 배경)
+                        card:  '#FFFFFF',   // Pure White (카드 면)
+                        beige: '#F0EAE0',   // Cloud Beige (트랙/보조 면)
+                        ink:   '#33271F',   // Espresso Ink (텍스트/구조)
+                        taupe: '#8A7B6E',   // Soft Taupe (보조 텍스트)
+                        pug:   '#F5B041'    // Pug Yellow (포인트)
+                    },
+                    borderRadius: {
+                        lg: '8px'
+                    }
+                }
+            }
+        };
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', 'Noto Sans KR', sans-serif;
+        }
+        /* Custom scrollbar - clean warm tone */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #F0EAE0;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #CBBBA8;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #8A7B6E;
+        }
+    </style>
+</head>
+<body class="bg-paper text-ink min-h-screen flex flex-col antialiased">
+
+    <!-- GNB / Header -->
+    <header class="bg-paper sticky top-0 z-50 px-6 py-4 flex flex-wrap items-center justify-between gap-4">
+        <div class="flex items-center gap-3">
+            <div class="p-2.5 bg-pug text-ink rounded-lg">
+                <i data-lucide="trending-up" class="w-6 h-6"></i>
+            </div>
+            <div>
+                <h1 class="text-xl font-bold tracking-tight text-ink flex items-center gap-2">
+                    AI 역량 성장 분석 대시보드
+                    <span class="text-xs font-bold bg-pug text-ink px-2.5 py-0.5 rounded-full">Growth Insight Map</span>
+                </h1>
+                <p class="text-xs text-taupe">설문조사 데이터 기반의 3월 Before / 5월 After 개인별 영역별 성장 가치 시각화</p>
+            </div>
+        </div>
+        
+        <div class="flex items-center gap-2">
+            <button onclick="toggleImportModal()" class="flex items-center gap-2 px-3.5 py-2 text-sm font-medium bg-card hover:bg-beige text-ink rounded-lg transition duration-150">
+                <i data-lucide="file-text" class="w-4 h-4"></i>
+                TSV 데이터 가져오기
+            </button>
+            <button onclick="exportData()" class="flex items-center gap-2 px-3.5 py-2 text-sm font-bold bg-pug hover:bg-ink hover:text-card text-ink rounded-lg transition duration-150">
+                <i data-lucide="download" class="w-4 h-4"></i>
+                데이터 내보내기 (JSON)
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Workspace -->
+    <main class="flex-1 max-w-7xl w-full mx-auto p-4 lg:p-6 grid grid-cols-1 lg:grid-cols-12 gap-6">
+        
+        <!-- Left Sidebar: Member Selector -->
+        <section class="lg:col-span-3 flex flex-col gap-4">
+            <div class="bg-card rounded-lg p-4">
+                <div class="flex items-center justify-between mb-3 pb-2">
+                    <h2 class="text-sm font-semibold text-ink flex items-center gap-2">
+                        <i data-lucide="users" class="w-4 h-4 text-ink"></i>
+                        팀 멤버 목록
+                    </h2>
+                    <span class="text-xs text-taupe" id="member-count">8명</span>
+                </div>
+                
+                <!-- Search bar -->
+                <div class="relative mb-3">
+                    <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-taupe">
+                        <i data-lucide="search" class="w-4 h-4"></i>
+                    </span>
+                    <input type="text" id="member-search" oninput="filterMembers()" placeholder="이름 검색..." class="w-full bg-beige rounded-lg pl-9 pr-3 py-2 text-sm text-ink placeholder-taupe focus:outline-none focus:ring-2 focus:ring-pug">
+                </div>
+
+                <!-- Compare mode toggle -->
+                <div class="flex items-center justify-between bg-beige p-2.5 rounded-lg mb-3">
+                    <span class="text-xs font-medium text-ink flex items-center gap-2">
+                        <i data-lucide="sliders" class="w-4 h-4 text-ink"></i>
+                        다중 비교 모드
+                    </span>
+                    <label class="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" id="compare-mode-toggle" class="sr-only peer" onchange="toggleCompareMode()">
+                        <div class="w-9 h-5 bg-card peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-ink after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-pug peer-checked:after:bg-ink"></div>
+                    </label>
+                </div>
+
+                <!-- Members List Container -->
+                <div class="space-y-1.5 overflow-y-auto max-h-[calc(100vh-320px)] pr-1" id="members-list">
+                    <!-- Dynamic member buttons will go here -->
+                </div>
+            </div>
+
+            <!-- Team summary KPI box -->
+            <div class="bg-card rounded-lg p-4 text-ink">
+                <h3 class="text-xs font-bold text-ink mb-2 uppercase tracking-wider">팀 전체 평균 성장률</h3>
+                <div class="space-y-2 text-sm">
+                    <div class="flex justify-between items-center bg-beige p-2.5 rounded-lg">
+                        <span class="text-xs text-taupe">3월 평균 진척률</span>
+                        <span class="font-semibold text-ink text-sm">22.2%</span>
+                    </div>
+                    <div class="flex justify-between items-center bg-beige p-2.5 rounded-lg">
+                        <span class="text-xs text-taupe">5월 평균 진척률</span>
+                        <span class="font-semibold text-ink text-sm">86.1%</span>
+                    </div>
+                    <div class="flex justify-between items-center bg-pug p-2.5 rounded-lg">
+                        <span class="text-xs font-medium text-ink">평균 성장 성취도</span>
+                        <span class="font-extrabold text-ink text-sm">+63.9%p 🚀</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Right Main Workspace: Radar Chart & Data Breakdown -->
+        <section class="lg:col-span-9 flex flex-col gap-6">
+            
+            <!-- Dashboard Top Cards (Dynamic details of selected member) -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4" id="kpi-cards">
+                <!-- Selected Member Summary -->
+                <div class="bg-card rounded-lg p-4 md:col-span-1 flex flex-col justify-center">
+                    <div class="text-xs text-taupe font-medium mb-1">선택된 타겟 분석</div>
+                    <h2 class="text-2xl font-bold text-ink tracking-tight flex items-center gap-2" id="selected-member-name">
+                        -
+                    </h2>
+                    <p class="text-[11px] text-taupe mt-1" id="selected-member-info">분석할 팀원을 클릭하세요.</p>
+                </div>
+
+                <!-- Growth KPI -->
+                <div class="bg-card rounded-lg p-4 flex items-center justify-between">
+                    <div>
+                        <div class="text-xs text-taupe font-medium mb-1">총 역량 성장폭</div>
+                        <div class="text-3xl font-extrabold text-ink" id="member-growth-gap">-</div>
+                    </div>
+                    <div class="p-3 bg-pug rounded-lg text-ink">
+                        <i data-lucide="trending-up" class="w-6 h-6"></i>
+                    </div>
+                </div>
+
+                <!-- Top Competency -->
+                <div class="bg-card rounded-lg p-4 flex items-center justify-between">
+                    <div>
+                        <div class="text-xs text-taupe font-medium mb-1">최대 역량 보유 영역</div>
+                        <div class="text-sm font-bold text-ink line-clamp-2" id="member-top-field">-</div>
+                    </div>
+                    <div class="p-3 bg-beige rounded-lg text-ink">
+                        <i data-lucide="award" class="w-6 h-6"></i>
+                    </div>
+                </div>
+
+                <!-- Growth Champion Domain -->
+                <div class="bg-card rounded-lg p-4 flex items-center justify-between">
+                    <div>
+                        <div class="text-xs text-taupe font-medium mb-1">가장 크게 성장한 영역</div>
+                        <div class="text-sm font-bold text-ink line-clamp-2" id="member-growth-field">-</div>
+                    </div>
+                    <div class="p-3 bg-beige rounded-lg text-ink">
+                        <i data-lucide="zap" class="w-6 h-6"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chart & Pentagon Visualization Pane -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 bg-card rounded-lg p-5">
+                <!-- Radar Chart Container -->
+                <div class="lg:col-span-7 flex flex-col items-center justify-center p-2 relative min-h-[350px]">
+                    <h3 class="absolute top-0 left-0 text-sm font-semibold text-ink flex items-center gap-1.5">
+                        <i data-lucide="radar" class="w-4 h-4 text-ink"></i>
+                        역량 성장 오각형 (Radar Chart)
+                    </h3>
+                    <div class="w-full max-w-[380px] h-[350px] mt-6 flex items-center justify-center">
+                        <canvas id="radarChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Pentagon Legend & Stats Box -->
+                <div class="lg:col-span-5 flex flex-col justify-between pt-5 lg:pt-0 lg:pl-6 gap-4">
+                    <div>
+                        <h4 class="text-sm font-semibold text-ink mb-4 flex items-center gap-2">
+                            <i data-lucide="bar-chart-2" class="w-4 h-4 text-ink"></i>
+                            핵심 5대 역량 성장 분석
+                        </h4>
+                        
+                        <!-- 5 competency bars representing the pentagon corners -->
+                        <div class="space-y-3.5" id="pentagon-bars">
+                            <!-- Dynamic rendering of 5 dimension scores -->
+                        </div>
+                    </div>
+
+                    <!-- Informational hint -->
+                    <div class="bg-beige p-3 rounded-lg text-xs text-ink/70 leading-relaxed">
+                        <span class="text-ink font-bold">💡 실시간 인터랙션 가이드:</span> 하단의 체크리스트를 클릭하여 역량을 획득/제거하면, 상단 오각형의 꼭짓점 크기와 점수가 즉각적으로 실시간 변동됩니다.
+                    </div>
+                </div>
+            </div>
+
+            <!-- DETAILED GROWTH JOURNEY: "어느 영역에서 어떻게 성장했는가" -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                
+                <!-- Dynamic AI Growth Commentary (Left 5 cols) -->
+                <div class="lg:col-span-5 bg-card rounded-lg p-5 flex flex-col justify-between min-h-[300px]">
+                    <div>
+                        <h3 class="text-sm font-semibold text-ink flex items-center gap-2 mb-3">
+                            <i data-lucide="message-square" class="w-4 h-4 text-ink"></i>
+                            AI 성장 스토리 분석 리포트
+                        </h3>
+                        <p class="text-xs text-ink/80 leading-relaxed space-y-2" id="ai-commentary">
+                            <!-- Dynamic text loaded by JavaScript -->
+                            성장 리포트 분석 중...
+                        </p>
+                    </div>
+                    <div class="mt-4 pt-3 flex items-center gap-2 text-[11px] text-taupe">
+                        <span class="w-2 h-2 rounded-full bg-pug"></span>
+                        실시간 체크박스 데이터가 코멘트에 즉시 반영됩니다.
+                    </div>
+                </div>
+
+                <!-- Gained Skills Timeline (Right 7 cols) -->
+                <div class="lg:col-span-7 bg-card rounded-lg p-5 flex flex-col">
+                    <h3 class="text-sm font-semibold text-ink flex items-center gap-2 mb-3">
+                        <i data-lucide="sparkles" class="w-4 h-4 text-ink"></i>
+                        3월 ➔ 5월 새롭게 마스터한 핵심 역량 리스트
+                    </h3>
+                    <p class="text-xs text-taupe mb-3">3월 조사 대비 5월에 새롭게 체크(☑️/✅)되어 괄목할 성장을 증명한 실무 역량 목록입니다.</p>
+                    
+                    <div class="flex-1 overflow-y-auto max-h-[220px] space-y-2 pr-1" id="acquired-skills-list">
+                        <!-- Dynamic skill list loaded here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Details & Interactive Checkmark Editor -->
+            <div class="bg-card rounded-lg p-5 flex flex-col gap-4">
+                <div class="flex flex-wrap items-center justify-between gap-4 pb-3">
+                    <div>
+                        <h3 class="text-base font-bold text-ink flex items-center gap-2">
+                            <i data-lucide="clipboard-check" class="w-5 h-5 text-ink"></i>
+                            개인별 상세 설문 응답 및 실시간 역량 편집기
+                        </h3>
+                        <p class="text-xs text-taupe">각 항목의 3월/5월 체크박스를 클릭하면 상단의 오각형 레이더 차트와 AI 리포트가 함께 즉각적으로 실시간 변동됩니다.</p>
+                    </div>
+                    <div class="flex gap-2">
+                        <button onclick="changeAllCheckboxes(true)" class="text-xs bg-beige hover:bg-pug text-ink px-3 py-1.5 rounded-lg transition">전체 체크</button>
+                        <button onclick="changeAllCheckboxes(false)" class="text-xs bg-beige hover:bg-pug text-ink px-3 py-1.5 rounded-lg transition">전체 해제</button>
+                    </div>
+                </div>
+
+                <!-- Competency Items Grouped list -->
+                <div class="space-y-4 max-h-[500px] overflow-y-auto pr-2" id="checklist-editor-container">
+                    <!-- Dynamic rendering of items -->
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+    <!-- TSV Import Modal -->
+    <div id="import-modal" class="hidden fixed inset-0 z-50 bg-ink/40 flex items-center justify-center p-4">
+        <div class="bg-card w-full max-w-2xl rounded-lg p-6 flex flex-col gap-4">
+            <div class="flex justify-between items-center pb-3">
+                <h3 class="text-lg font-bold text-ink flex items-center gap-2">
+                    <i data-lucide="file-spreadsheet" class="w-5 h-5 text-ink"></i>
+                    엑셀/구글시트 복사본(TSV) 가져오기
+                </h3>
+                <button onclick="toggleImportModal()" class="text-taupe hover:text-ink p-1 rounded-lg">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+            
+            <p class="text-xs text-taupe leading-relaxed">
+                질문하신 원본 표 데이터(열 구분: 탭, 행 구분: 엔터)를 구글 스프레드리트나 엑셀에서 복사하여 아래 영역에 붙여넣기 한 뒤 '불러오기' 버튼을 누르시면, 새로운 데이터를 기반으로 대시보드가 즉시 완벽히 재배열됩니다!
+            </p>
+
+            <textarea id="tsv-input" placeholder="여기에 복사한 데이터를 붙여넣기 하세요..." class="w-full h-48 bg-beige rounded-lg p-3 text-xs text-mono text-ink focus:outline-none focus:ring-2 focus:ring-pug" spellcheck="false"></textarea>
+
+            <div class="flex justify-between items-center text-xs text-taupe">
+                <span>* 현재 선택된 포맷: [대분류 - 소분류 - 항목 - 3월/5월 * 8명] 구조</span>
+                <div class="flex gap-2">
+                    <button onclick="toggleImportModal()" class="px-4 py-2 bg-beige hover:bg-ink hover:text-card text-ink font-medium rounded-lg transition">취소</button>
+                    <button onclick="importTsvData()" class="px-4 py-2 bg-pug hover:bg-ink hover:text-card text-ink font-bold rounded-lg transition">가져오기</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Alert Toast -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 bg-ink text-card px-4 py-3 rounded-lg flex items-center gap-2.5 translate-y-20 opacity-0 transition duration-300">
+        <i data-lucide="info" class="w-5 h-5 text-pug" id="toast-icon"></i>
+        <span class="text-sm font-medium" id="toast-msg">메시지가 전송되었습니다.</span>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-paper text-center py-5 text-xs text-taupe px-6">
+        <p>© 2026 AI Competency Analysis Center. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // --- Core Competency Dimensions Definitions ---
+        const DIMENSIONS = [
+            "코딩 및 DB 기초",
+            "AI 협업 및 개발",
+            "LLM 및 RAG 이해",
+            "자동화 및 인프라",
+            "협업 및 에이전트 설계"
+        ];
+
+        // --- Core Items with mapping to Dimension index ---
+        const METRIC_ITEMS = [
+            // Dimension 0: 코딩 및 DB 기초 (8 items)
+            { id: 1, category: "1. 코딩 기초 이해", sub: "11. 기본 개념 및 언어", title: "변수/자료형/함수 개념을 이해하고 간단한 함수 작성이 가능하다", dimension: 0 },
+            { id: 2, category: "1. 코딩 기초 이해", sub: "11. 기본 개념 및 언어", title: "JavaScript 또는 Python 중 1개로 기본 문법을 활용할 수 있다", dimension: 0 },
+            { id: 3, category: "1. 코딩 기초 이해", sub: "11. 기본 개념 및 언어", title: "간단한 스크립트로 업무 자동화를 해본 경험이 있다", dimension: 0 },
+            { id: 4, category: "1. 코딩 기초 이해", sub: "12. DB 기초 개념", title: "테이블/행/컬럼 개념을 이해한다", dimension: 0 },
+            { id: 5, category: "1. 코딩 기초 이해", sub: "12. DB 기초 개념", title: "관계형 DB Key(PK/FK) 개념을 이해하고 테이블 관계를 설명할 수 있다", dimension: 0 },
+            { id: 6, category: "1. 코딩 기초 이해", sub: "13. FE / BE 분리 이해", title: "FE에서 처리해야 할 일과 BE에서 처리해야 할 일을 구분할 수 있다", dimension: 0 },
+            { id: 7, category: "1. 코딩 기초 이해", sub: "13. FE / BE 분리 이해", title: "FE/BE 역할을 구분하고, 사용자 입력 → 서버 요청 → 응답 표시 흐름을 이해한다", dimension: 0 },
+            { id: 8, category: "1. 코딩 기초 이해", sub: "13. FE / BE 분리 이해", title: "로컬에서 서버를 실행해보고 REST API(GET/POST) 개념을 이해한다", dimension: 0 },
+
+            // Dimension 1: AI 협업 및 개발 (7 items)
+            { id: 9, category: "2. 바이브 코딩 역량", sub: "21. AI와 협업하는 방식", title: "요구사항을 자연어로 명확히 정의하고, 단계적으로 기능을 확장할 수 있다", dimension: 1 },
+            { id: 10, category: "2. 바이브 코딩 역량", sub: "21. AI와 협업하는 방식", title: "에러 로그 기반으로 AI에게 재질문하며 문제를 해결할 수 있다", dimension: 1 },
+            { id: 11, category: "2. 바이브 코딩 역량", sub: "22. 개발환경 & 서버 실행", title: "(직접 또는 AI툴 활용) 로컬 개발환경 구성 및 서버 실행이 가능하다", dimension: 1 },
+            { id: 12, category: "2. 바이브 코딩 역량", sub: "22. 개발환경 & 서버 실행", title: "port / .env 설정을 만져보고 FE–BE 연동 테스트를 진행해본 경험이 있다", dimension: 1 },
+            { id: 13, category: "2. 바이브 코딩 역량", sub: "23. API 구현 및 활용", title: "API 명세를 보고 요청(Request)과 응답(Response) 구조를 파악할 수 있다", dimension: 1 },
+            { id: 14, category: "2. 바이브 코딩 역량", sub: "23. API 구현 및 활용", title: "API 명세를 보고 필수/선택 파라미터를 구분할 수 있다", dimension: 1 },
+            { id: 15, category: "2. 바이브 코딩 역량", sub: "23. API 구현 및 활용", title: "필요한 경우 AI툴에 API 설계나 구현을 요청할 수 있다", dimension: 1 },
+
+            // Dimension 2: LLM 및 RAG 이해 (9 items)
+            { id: 16, category: "3. LLM 기본 원리 및 활용", sub: "31. LLM 이해", title: "LLM의 강점과 한계를 설명할 수 있다", dimension: 2 },
+            { id: 17, category: "3. LLM 기본 원리 및 활용", sub: "31. LLM 이해", title: "시스템 프롬프트와 유저 프롬프트를 구분할 수 있다", dimension: 2 },
+            { id: 18, category: "3. LLM 기본 원리 및 활용", sub: "31. LLM 이해", title: "Temperature 개념을 이해하고 값을 바꿔가며 응답 차이를 체감해보았다", dimension: 2 },
+            { id: 19, category: "3. LLM 기본 원리 및 활용", sub: "32. 컨텍스트 설계 기초", title: "컨텍스트 재전송이 필요한 상황을 직접 겪어본다", dimension: 2 },
+            { id: 20, category: "3. LLM 기본 원리 및 활용", sub: "32. 컨텍스트 설계 기초", title: "고정 컨텍스트와 동적 컨텍스트를 나눠 설계해보고 길이 제한을 고려해본다", dimension: 2 },
+            { id: 21, category: "3. LLM 기본 원리 및 활용", sub: "33. LLM API 활용", title: "LLM API 호출 흐름을 따라 구현해보고 응답을 받아보았다", dimension: 2 },
+            { id: 22, category: "3. LLM 기본 원리 및 활용", sub: "33. LLM API 활용", title: "onpremises LLM API를 실제로 호출해 사용해보았다", dimension: 2 },
+            { id: 23, category: "3. LLM 기본 원리 및 활용", sub: "34. RAG 기초 이해", title: "RAG 적용 전/후 차이를 비교해보고 할루시네이션 완화 효과를 체감해보았다", dimension: 2 },
+            { id: 24, category: "3. LLM 기본 원리 및 활용", sub: "34. RAG 기초 이해", title: "Chunking과 TopK 검색을 설정해 검색 결과 차이를 확인해보았다", dimension: 2 },
+
+            // Dimension 3: 자동화 및 인프라 (9 items)
+            { id: 25, category: "4. 오케스트레이션 & 업무 자동화", sub: "41. 자동화 구축 및 연동", title: "n8n / Power Automate / RPA 중 하나 이상으로 자동화를 직접 구성해본 경험이 있다", dimension: 3 },
+            { id: 26, category: "4. 오케스트레이션 & 업무 자동화", sub: "41. 자동화 구축 및 연동", title: "Webhook·스케줄·이벤트 기반 트리거를 설정해 실행해보았다", dimension: 3 },
+            { id: 27, category: "4. 오케스트레이션 & 업무 자동화", sub: "41. 자동화 구축 및 연동", title: "“수집 → 처리 → 게시” 흐름을 자동화 툴로 구현해보았다", dimension: 3 },
+            { id: 28, category: "4. 오케스트레이션 & 업무 자동화", sub: "41. 자동화 구축 및 연동", title: "중간 단계에 LLM을 삽입해 트리거/스케줄 기반으로 실행해보았다", dimension: 3 },
+            { id: 29, category: "6. 배포와 운영", sub: "61. 인프라 및 환경 설정", title: "로컬 환경에서의 서비스 실행을 이해한다", dimension: 3 },
+            { id: 30, category: "6. 배포와 운영", sub: "61. 인프라 및 환경 설정", title: "조직 내에서의 배포 방식(onpremise, Azure Cloud)에 대해 이해한다", dimension: 3 },
+            { id: 31, category: "6. 배포와 운영", sub: "61. 인프라 및 환경 설정", title: "호스팅과 DNS의 개념에 대해 이해하고 실무 적용 방식에 대해 이해한다", dimension: 3 },
+            { id: 32, category: "6. 배포와 운영", sub: "61. 인프라 및 환경 설정", title: "배포와 운영에 필요한 환경변수 설정을 이해한다", dimension: 3 },
+            { id: 33, category: "6. 배포와 운영", sub: "61. 인프라 및 환경 설정", title: "자동화된 배포 흐름(빌드→배포→실행)의 필요성에 대해 공감한다", dimension: 3 },
+
+            // Dimension 4: 협업 및 에이전트 설계 (7 items)
+            { id: 34, category: "5. Git & 협업 기초", sub: "51. 버전 관리 및 형상 관리", title: "Git의 역할을 이해한다", dimension: 4 },
+            { id: 35, category: "5. Git & 협업 기초", sub: "51. 버전 관리 및 형상 관리", title: "Git 저장소(Repository)를 생성할 수 있다", dimension: 4 },
+            { id: 36, category: "5. Git & 협업 기초", sub: "51. 버전 관리 및 형상 관리", title: "Github을 통해 코드 변경·관리 흐름을 경험해보았다", dimension: 4 },
+            { id: 37, category: "7. AI 에이전트 관점 종합 역량", sub: "71. 에이전트 설계 및 구현", title: "특정 업무를 AI 에이전트로 대체하는 시나리오를 직접 설계해보았다", dimension: 4 },
+            { id: 38, category: "7. AI 에이전트 관점 종합 역량", sub: "71. 에이전트 설계 및 구현", title: "에이전트의 역할·입력·출력을 정의해보았다", dimension: 4 },
+            { id: 39, category: "7. AI 에이전트 관점 종합 역량", sub: "71. 에이전트 설계 및 구현", title: "LLM + API + DB를 결합한 구조를 실제로 구성해보았다", dimension: 4 },
+            { id: 40, category: "7. AI 에이전트 관점 종합 역량", sub: "71. 에이전트 설계 및 구현", title: "에이전트를 “작동하는 MVP” 수준까지 구현해보았다", dimension: 4 }
+        ];
+
+        // --- Raw TSV Data ---
+        const initialRawTSV = `대분	소분류	체크리스트 항목	강주혁		강응준		김보근		김진용		박다솜		박지훈		윤성수		현재호	
+대분	소분류	체크리스트 항목	3월	5월	3월	5월	3월	5월	3월	5월	3월	5월	3월	5월	3월	5월	3월	5월
+1. 코딩 기초 이해	11. 기본 개념 및 언어	변수/자료형/함수 개념을 이해하고 간단한 함수 작성이 가능하다			✅	☑️	✅	☑️		☑️		☑️	✅	☑️		☑️	✅	☑️
+		JavaScript 또는 Python 중 1개로 기본 문법을 활용할 수 있다			✅		✅	☑️	✅	☑️		☑️	✅	☑️	✅	☑️		☑️
+		간단한 스크립트로 업무 자동화를 해본 경험이 있다		☑️	✅	☑️	✅	☑️	✅	☑️		☑️	✅	☑️	✅	☑️		☑️
+	12. DB 기초 개념	테이블/행/컬럼 개념을 이해한다		☑️	✅	☑️		☑️		☑️		☑️	✅	☑️	✅	☑️	✅	☑️
+		관계형 DB Key(PK/FK) 개념을 이해하고 테이블 관계를 설명할 수 있다		☑️		☑️		☑️		☑️		☑️		☑️		☑️		☑️
+	13. FE / BE 분리 이해	FE에서 처리해야 할 일과 BE에서 처리해야 할 일을 구분할 수 있다		☑️	✅	☑️		☑️		☑️		☑️		☑️	✅	☑️	✅	☑️
+		FE/BE 역할을 구분하고, 사용자 입력 → 서버 요청 → 응답 표시 흐름을 이해한다		☑️	✅	☑️		☑️		☑️		☑️		☑️		☑️	✅	☑️
+		로컬에서 서버를 실행해보고 REST API(GET/POST) 개념을 이해한다		☑️				☑️		☑️		☑️		☑️		☑️	✅	☑️
+2. 바이브 코딩 역량	21. AI와 협업하는 방식	요구사항을 자연어로 명확히 정의하고, 단계적으로 기능을 확장할 수 있다		☑️	✅	☑️		☑️	✅	☑️		☑️	✅	☑️	✅	☑️	✅	☑️
+		에러 로그 기반으로 AI에게 재질문하며 문제를 해결할 수 있다		☑️	✅	☑️		☑️	✅	☑️		☑️	✅	☑️	✅	☑️	✅	☑️
+	22. 개발환경 & 서버 실행	(직접 또는 AI툴 활용) 로컬 개발환경 구성 및 서버 실행이 가능하다		☑️		☑️		☑️	✅	☑️		☑️		☑️		☑️	✅	☑️
+		port / .env 설정을 만져보고 FE–BE 연동 테스트를 진행해본 경험이 있다		☑️		☑️		☑️		☑️		☑️		☑️		☑️	✅	☑️
+	23. API 구현 및 활용	API 명세를 보고 요청(Request)과 응답(Response) 구조를 파악할 수 있다				☑️		☑️				☑️				☑️	✅	☑️
+		API 명세를 보고 필수/선택 파라미터를 구분할 수 있다								☑️						☑️		☑️
+		필요한 경우 AI툴에 API 설계나 구현을 요청할 수 있다		☑️					✅	☑️		☑️		☑️		☑️	✅	☑️
+3. LLM 기본 원리 및 활용	31. LLM 이해	LLM의 강점과 한계를 설명할 수 있다	✅		✅	☑️		☑️	✅	☑️		☑️			✅	☑️	✅	☑️
+		시스템 프롬프트와 유저 프롬프트를 구분할 수 있다		☑️	✅	☑️				☑️		☑️		☑️		☑️	✅	☑️
+		Temperature 개념을 이해하고 값을 바꿔가며 응답 차이를 체감해보았다		☑️	✅	☑️		☑️	✅	☑️		☑️		☑️		☑️	✅	☑️
+	32. 컨텍스트 설계 기초	컨텍스트 재전송이 필요한 상황을 직접 겪어본다		☑️				☑️		☑️	✅	☑️			✅	☑️	✅	☑️
+		고정 컨텍스트와 동적 컨텍스트를 나눠 설계해보고 길이 제한을 고려해본다				☑️				☑️		☑️				☑️		☑️
+	33. LLM API 활용	LLM API 호출 흐름을 따라 구현해보고 응답을 받아보았다		☑️	✅	☑️		☑️		☑️		☑️		☑️		☑️	✅	☑️
+		onpremises LLM API를 실제로 호출해 사용해보았다		☑️	✅	☑️		☑️				☑️		☑️		☑️		☑️
+	34. RAG 기초 이해	RAG 적용 전/후 차이를 비교해보고 할루시네이션 완화 효과를 체감해보았다		☑️		☑️		☑️		☑️		☑️		☑️		☑️	✅	☑️
+		Chunking과 TopK 검색을 설정해 검색 결과 차이를 확인해보았다		☑️		☑️		☑️		☑️		☑️		☑️		☑️	✅	☑️
+4. 오케스트레이션 & 업무 자동화	41. 자동화 구축 및 연동	n8n / Power Automate / RPA 중 하나 이상으로 자동화를 직접 구성해본 경험이 있다		☑️		☑️		☑️		☑️		☑️		☑️		☑️	✅	☑️
+		Webhook·스케줄·이벤트 기반 트리거를 설정해 실행해보았다				☑️		☑️		☑️		☑️			✅	☑️		☑️
+		“수집 → 처리 → 게시” 흐름을 자동화 툴로 구현해보았다		☑️	✅	☑️		☑️		☑️		☑️		☑️		☑️	✅	☑️
+		중간 단계에 LLM을 삽입해 트리거/스케줄 기반으로 실행해보았다				☑️		☑️				☑️				☑️	✅	☑️
+5. Git & 협업 기초	51. 버전 관리 및 형상 관리	Git의 역할을 이해한다		☑️		☑️		☑️	✅	☑️	✅	☑️	✅	☑️		☑️	✅	☑️
+		Git 저장소(Repository)를 생성할 수 있다		☑️		☑️		☑️	✅	☑️		☑️	✅	☑️		☑️	✅	☑️
+		Github을 통해 코드 변경·관리 흐름을 경험해보았다		☑️		☑️		☑️	✅	☑️		☑️	✅	☑️		☑️	✅	☑️
+6. 배포와 운영	61. 인프라 및 환경 설정	로컬 환경에서의 서비스 실행을 이해한다		☑️	✅	☑️		☑️				☑️	✅	☑️		☑️	✅	☑️
+		조직 내에서의 배포 방식(onpremise, Azure Cloud)에 대해 이해한다		☑️		☑️		☑️		☑️				☑️		☑️	✅	☑️
+		호스팅과 DNS의 개념에 대해 이해하고 실무 적용 방식에 대해 이해한다				☑️		☑️				☑️				☑️		☑️
+		배포와 운영에 필요한 환경변수 설정을 이해한다		☑️		☑️		☑️		☑️						☑️		☑️
+		자동화된 배포 흐름(빌드→배포→실행)의 필요성에 대해 공감한다				☑️		☑️					✅	☑️		☑️	✅	☑️
+7. AI 에이전트 관점 종합 역량	71. 에이전트 설계 및 구현	특정 업무를 AI 에이전트로 대체하는 시나리오를 직접 설계해보았다		☑️	✅	☑️		☑️	✅	☑️			✅	☑️		☑️	✅	☑️
+		에이전트의 역할·입력·출력을 정의해보았다		☑️	✅	☑️		☑️	✅	☑️				☑️		☑️	✅	☑️
+		LLM + API + DB를 결합한 구조를 실제로 구성해보았다		☑️		☑️		☑️		☑️						☑️	✅	☑️
+		에이전트를 “작동하는 MVP” 수준까지 구현해보았다		☑️		☑️		☑️								☑️	✅	☑️`;
+
+        // --- State Management ---
+        let teamData = {}; // Format: { memberName: { m3: [40], m5: [40] } }
+        let memberNames = [];
+        let selectedMember = "";
+        let compareMode = false;
+        let selectedCompareMembers = [];
+        let radarChartInstance = null;
+
+        function parseTSV(tsvString) {
+            const lines = tsvString.trim().split('\n');
+            if (lines.length < 3) return null;
+
+            const nameCells = lines[0].split('\t');
+            const parsedNames = [];
+            
+            for (let i = 3; i < nameCells.length; i += 2) {
+                const name = nameCells[i].trim();
+                if (name) {
+                    parsedNames.push(name);
+                }
+            }
+
+            const parsedTeamData = {};
+            parsedNames.forEach(name => {
+                parsedTeamData[name] = {
+                    m3: Array(40).fill(false),
+                    m5: Array(40).fill(false)
+                };
+            });
+
+            let itemIndex = 0;
+            for (let lineIdx = 2; lineIdx < lines.length; lineIdx++) {
+                const cells = lines[lineIdx].split('\t');
+                if (cells.length < 4) continue;
+                
+                const questionText = cells[2]?.trim();
+                if (!questionText) continue;
+
+                const metricIndex = METRIC_ITEMS.findIndex(m => m.title.replace(/\s+/g, '') === questionText.replace(/\s+/g, ''));
+                const activeIndex = metricIndex !== -1 ? metricIndex : itemIndex;
+                if (activeIndex >= 40) continue;
+
+                parsedNames.forEach((name, nameIdx) => {
+                    const m3CellIdx = 3 + (nameIdx * 2);
+                    const m5CellIdx = 4 + (nameIdx * 2);
+
+                    const hasM3 = cells[m3CellIdx] && (cells[m3CellIdx].includes('✅') || cells[m3CellIdx].includes('☑️'));
+                    const hasM5 = cells[m5CellIdx] && (cells[m5CellIdx].includes('✅') || cells[m5CellIdx].includes('☑️'));
+
+                    parsedTeamData[name].m3[activeIndex] = !!hasM3;
+                    parsedTeamData[name].m5[activeIndex] = !!hasM5;
+                });
+
+                itemIndex++;
+            }
+
+            return { names: parsedNames, data: parsedTeamData };
+        }
+
+        function showToast(msg, type = "success") {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toast-msg');
+            const toastIcon = document.getElementById('toast-icon');
+
+            toastMsg.innerText = msg;
+            toast.className = "fixed bottom-6 right-6 z-50 bg-ink text-card px-4 py-3 rounded-lg flex items-center gap-2.5 transition duration-300";
+            if (type === "error") {
+                toastIcon.setAttribute('data-lucide', 'alert-circle');
+            } else {
+                toastIcon.setAttribute('data-lucide', 'check-circle2');
+            }
+            toastIcon.className = 'w-5 h-5 text-pug';
+            lucide.createIcons();
+
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+                toast.classList.remove('translate-y-0', 'opacity-100');
+            }, 3000);
+        }
+
+        function calculateScores(name) {
+            const member = teamData[name];
+            if (!member) return { m3: [0,0,0,0,0], m5: [0,0,0,0,0] };
+
+            const scores = { m3: [0,0,0,0,0], m5: [0,0,0,0,0] };
+            const counts = [0, 0, 0, 0, 0];
+
+            METRIC_ITEMS.forEach((item, index) => {
+                const d = item.dimension;
+                counts[d]++;
+                if (member.m3[index]) scores.m3[d]++;
+                if (member.m5[index]) scores.m5[d]++;
+            });
+
+            for (let i = 0; i < 5; i++) {
+                scores.m3[i] = Math.round((scores.m3[i] / counts[i]) * 100);
+                scores.m5[i] = Math.round((scores.m5[i] / counts[i]) * 100);
+            }
+
+            return scores;
+        }
+
+        window.onload = function() {
+            lucide.createIcons();
+
+            const result = parseTSV(initialRawTSV);
+            if (result) {
+                memberNames = result.names;
+                teamData = result.data;
+                selectedMember = memberNames[0]; 
+                selectedCompareMembers = [selectedMember];
+            }
+
+            renderMembersList();
+            updateDashboard();
+        };
+
+        function renderMembersList() {
+            const listContainer = document.getElementById('members-list');
+            listContainer.innerHTML = '';
+
+            memberNames.forEach(name => {
+                const scores = calculateScores(name);
+                const avgM5 = Math.round(scores.m5.reduce((a,b)=>a+b, 0) / 5);
+                const avgM3 = Math.round(scores.m3.reduce((a,b)=>a+b, 0) / 5);
+                const growth = avgM5 - avgM3;
+
+                const isSelected = compareMode ? selectedCompareMembers.includes(name) : selectedMember === name;
+
+                const btn = document.createElement('button');
+                btn.className = `w-full text-left p-3 rounded-lg transition duration-150 flex flex-col gap-2 ${
+                    isSelected 
+                    ? 'bg-pug text-ink' 
+                    : 'bg-beige hover:bg-pug/30 text-ink'
+                }`;
+
+                btn.onclick = () => selectMember(name);
+
+                btn.innerHTML = `
+                    <div class="flex justify-between items-center w-full">
+                        <span class="font-bold text-sm text-ink">${name}</span>
+                        <span class="text-[11px] font-bold px-2 py-0.5 rounded-full ${isSelected ? 'bg-ink text-pug' : 'bg-card text-ink'}">+${growth}%p 성장</span>
+                    </div>
+                    
+                    <div class="space-y-1">
+                        <div class="flex justify-between text-[10px] text-ink/60">
+                            <span>초기: ${avgM3}%</span>
+                            <span class="text-ink/80">최종: ${avgM5}%</span>
+                        </div>
+                        <div class="w-full bg-card h-1.5 rounded-full overflow-hidden">
+                            <div class="bg-ink h-full rounded-full transition-all duration-500" style="width: ${avgM5}%"></div>
+                        </div>
+                    </div>
+                `;
+
+                listContainer.appendChild(btn);
+            });
+
+            document.getElementById('member-count').innerText = `${memberNames.length}명`;
+        }
+
+        function toggleCompareMode() {
+            compareMode = document.getElementById('compare-mode-toggle').checked;
+            if (compareMode) {
+                selectedCompareMembers = [selectedMember];
+                showToast("다중 비교 모드가 활성화되었습니다. 다른 멤버를 클릭해 비교해보세요.");
+            } else {
+                selectedMember = selectedCompareMembers[0] || memberNames[0];
+                showToast("단일 멤버 상세 분석 모드로 전환되었습니다.");
+            }
+            renderMembersList();
+            updateDashboard();
+        }
+
+        function selectMember(name) {
+            if (compareMode) {
+                const idx = selectedCompareMembers.indexOf(name);
+                if (idx > -1) {
+                    if (selectedCompareMembers.length > 1) {
+                        selectedCompareMembers.splice(idx, 1);
+                    } else {
+                        showToast("비교 모드에서는 최소 1명 이상 선택해야 합니다.", "error");
+                    }
+                } else {
+                    if (selectedCompareMembers.length >= 4) {
+                        showToast("동시 비교는 최대 4명까지만 지원합니다.", "error");
+                        return;
+                    }
+                    selectedCompareMembers.push(name);
+                }
+            } else {
+                selectedMember = name;
+            }
+            renderMembersList();
+            updateDashboard();
+        }
+
+        function updateDashboard() {
+            const nameEl = document.getElementById('selected-member-name');
+            const infoEl = document.getElementById('selected-member-info');
+            const growthEl = document.getElementById('member-growth-gap');
+            const topEl = document.getElementById('member-top-field');
+            const growthFieldEl = document.getElementById('member-growth-field');
+
+            if (compareMode) {
+                nameEl.innerHTML = `<span class="text-ink">다중 멤버 비교</span>`;
+                infoEl.innerText = `${selectedCompareMembers.join(', ')} 동시 비교 중`;
+                growthEl.innerText = "-";
+                topEl.innerText = "비교 모드";
+                growthFieldEl.innerText = "비교 모드";
+            } else {
+                const scores = calculateScores(selectedMember);
+                const avgM3 = Math.round(scores.m3.reduce((a,b)=>a+b, 0) / 5);
+                const avgM5 = Math.round(scores.m5.reduce((a,b)=>a+b, 0) / 5);
+                const growthVal = avgM5 - avgM3;
+
+                nameEl.innerHTML = `${selectedMember} <span class="text-xs font-normal text-taupe">님</span>`;
+                infoEl.innerText = `40개 지표 중 5월 총 ${teamData[selectedMember].m5.filter(Boolean).length}개 마스터 완료`;
+                growthEl.innerText = `+${growthVal}%p`;
+
+                // Calculate top and fastest growth
+                let topIdx = 0, topScore = -1;
+                let maxGrowthIdx = 0, maxGrowthVal = -101;
+
+                for (let i = 0; i < 5; i++) {
+                    if (scores.m5[i] > topScore) { 
+                        topScore = scores.m5[i]; 
+                        topIdx = i; 
+                    }
+                    const diff = scores.m5[i] - scores.m3[i];
+                    if (diff > maxGrowthVal) {
+                        maxGrowthVal = diff;
+                        maxGrowthIdx = i;
+                    }
+                }
+
+                topEl.innerText = `${DIMENSIONS[topIdx]} (${topScore}점)`;
+                growthFieldEl.innerText = `${DIMENSIONS[maxGrowthIdx]} (+${maxGrowthVal}%p)`;
+            }
+
+            renderRadarChart();
+            renderPentagonScoreBars();
+            renderChecklistEditor();
+            renderGrowthDetails(); // Load specific "어느 영역에서 어떻게" details
+        }
+
+        function renderRadarChart() {
+            const ctx = document.getElementById('radarChart').getContext('2d');
+            
+            if (radarChartInstance) {
+                radarChartInstance.destroy();
+            }
+
+            let datasets = [];
+
+            if (compareMode) {
+                // Warm clean palette: Pug Yellow / Espresso Ink tones only
+                const colors = [
+                    { r: 245, g: 176, b: 65 },   // Pug Yellow
+                    { r: 51,  g: 39,  b: 31 },   // Espresso Ink
+                    { r: 201, g: 149, b: 47 },   // Deep Gold (pug shade)
+                    { r: 138, g: 123, b: 110 }   // Soft Taupe
+                ];
+
+                selectedCompareMembers.forEach((name, idx) => {
+                    const color = colors[idx % colors.length];
+                    const scores = calculateScores(name);
+                    datasets.push({
+                        label: `${name} (5월 최종)`,
+                        data: scores.m5,
+                        fill: true,
+                        backgroundColor: `rgba(${color.r}, ${color.g}, ${color.b}, 0.18)`,
+                        borderColor: `rgb(${color.r}, ${color.g}, ${color.b})`,
+                        pointBackgroundColor: `rgb(${color.r}, ${color.g}, ${color.b})`,
+                        pointBorderColor: '#FFFFFF',
+                        pointHoverBackgroundColor: '#FFFFFF',
+                        borderWidth: 2
+                    });
+                });
+            } else {
+                const scores = calculateScores(selectedMember);
+                datasets = [
+                    {
+                        label: '3월 (Before 초기)',
+                        data: scores.m3,
+                        fill: true,
+                        backgroundColor: 'rgba(51, 39, 31, 0.08)', 
+                        borderColor: 'rgba(51, 39, 31, 0.80)',
+                        pointBackgroundColor: 'rgba(51, 39, 31, 1)',
+                        pointBorderColor: '#FFFFFF',
+                        borderWidth: 2
+                    },
+                    {
+                        label: '5월 (After 최종)',
+                        data: scores.m5,
+                        fill: true,
+                        backgroundColor: 'rgba(245, 176, 65, 0.35)', 
+                        borderColor: 'rgba(245, 176, 65, 1)',
+                        pointBackgroundColor: 'rgba(245, 176, 65, 1)',
+                        pointBorderColor: '#33271F',
+                        borderWidth: 3
+                    }
+                ];
+            }
+
+            radarChartInstance = new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: DIMENSIONS,
+                    datasets: datasets
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: '#33271F',
+                                font: {
+                                    family: 'Noto Sans KR',
+                                    size: 11
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        r: {
+                            angleLines: { color: 'rgba(51, 39, 31, 0.12)' },
+                            grid: { color: 'rgba(51, 39, 31, 0.12)' },
+                            pointLabels: {
+                                color: '#33271F',
+                                font: {
+                                    family: 'Noto Sans KR',
+                                    size: 11,
+                                    weight: 'bold'
+                                }
+                            },
+                            ticks: {
+                                backdropColor: 'transparent',
+                                color: '#8A7B6E',
+                                font: { size: 10 },
+                                stepSize: 20
+                            },
+                            min: 0,
+                            max: 100
+                        }
+                    }
+                }
+            });
+        }
+
+        function renderPentagonScoreBars() {
+            const container = document.getElementById('pentagon-bars');
+            container.innerHTML = '';
+
+            if (compareMode) {
+                DIMENSIONS.forEach((dim, dimIdx) => {
+                    const barGroup = document.createElement('div');
+                    barGroup.className = "space-y-1.5";
+                    barGroup.innerHTML = `<span class="text-xs font-bold text-ink block">${dim}</span>`;
+
+                    selectedCompareMembers.forEach(name => {
+                        const scores = calculateScores(name);
+                        const score = scores.m5[dimIdx];
+                        const childBar = document.createElement('div');
+                        childBar.className = "flex items-center gap-3 text-xs";
+                        childBar.innerHTML = `
+                            <span class="w-14 truncate text-taupe">${name}</span>
+                            <div class="flex-1 bg-beige h-2 rounded-full overflow-hidden">
+                                <div class="bg-pug h-full rounded-full" style="width: ${score}%"></div>
+                            </div>
+                            <span class="w-8 text-right font-semibold text-ink">${score}%</span>
+                        `;
+                        barGroup.appendChild(childBar);
+                    });
+                    container.appendChild(barGroup);
+                });
+            } else {
+                const scores = calculateScores(selectedMember);
+                DIMENSIONS.forEach((dim, dimIdx) => {
+                    const m3 = scores.m3[dimIdx];
+                    const m5 = scores.m5[dimIdx];
+                    const progress = m5 - m3;
+
+                    const barGroup = document.createElement('div');
+                    barGroup.className = "space-y-1 bg-beige p-2.5 rounded-lg";
+                    barGroup.innerHTML = `
+                        <div class="flex justify-between text-xs mb-1">
+                            <span class="font-bold text-ink">${dim}</span>
+                            <span class="text-ink font-semibold">+${progress}%p 성장</span>
+                        </div>
+                        <div class="space-y-1.5">
+                            <div class="flex items-center gap-2 text-[10px]">
+                                <span class="w-10 text-taupe">3월 (초기)</span>
+                                <div class="flex-1 bg-card h-1 rounded-full overflow-hidden">
+                                    <div class="bg-ink h-full rounded-full" style="width: ${m3}%"></div>
+                                </div>
+                                <span class="w-6 text-right font-medium text-taupe">${m3}%</span>
+                            </div>
+                            <div class="flex items-center gap-2 text-[10px]">
+                                <span class="w-10 text-ink font-medium">5월 (최종)</span>
+                                <div class="flex-1 bg-card h-2 rounded-full overflow-hidden">
+                                    <div class="bg-pug h-full rounded-full" style="width: ${m5}%"></div>
+                                </div>
+                                <span class="w-6 text-right font-bold text-ink">${m5}%</span>
+                            </div>
+                        </div>
+                    `;
+                    container.appendChild(barGroup);
+                });
+            }
+        }
+
+        function renderGrowthDetails() {
+            const aiCommentaryBox = document.getElementById('ai-commentary');
+            const acquiredSkillsContainer = document.getElementById('acquired-skills-list');
+
+            if (compareMode) {
+                aiCommentaryBox.innerHTML = `
+                    <span class="text-taupe">다중 멤버 비교 모드입니다.</span><br><br>
+                    비교 모드에서는 AI 코멘트가 제공되지 않습니다. 상세한 성장 분석을 원하시면 <strong class="text-ink">좌측 멤버 목록에서 한 명의 멤버만 개별로 선택</strong>해 주세요.
+                `;
+                acquiredSkillsContainer.innerHTML = `
+                    <div class="flex flex-col items-center justify-center p-8 text-center text-taupe bg-beige rounded-lg h-full">
+                        <i data-lucide="eye-off" class="w-8 h-8 mb-2 text-taupe"></i>
+                        <span class="text-xs">비교 모드에서는 새롭게 마스터한 역량 리스트를 출력할 수 없습니다.</span>
+                    </div>
+                `;
+                lucide.createIcons();
+                return;
+            }
+
+            const member = teamData[selectedMember];
+            if (!member) return;
+
+            // 1. Identify specific gained skills (3월: false ➔ 5월: true)
+            const gainedSkills = [];
+            METRIC_ITEMS.forEach((item, index) => {
+                if (!member.m3[index] && member.m5[index]) {
+                    gainedSkills.push(item);
+                }
+            });
+
+            // Render Gained Skills Timeline
+            acquiredSkillsContainer.innerHTML = '';
+            if (gainedSkills.length === 0) {
+                acquiredSkillsContainer.innerHTML = `
+                    <div class="flex flex-col items-center justify-center p-8 text-center text-taupe h-full">
+                        <i data-lucide="smile" class="w-8 h-8 mb-2 text-ink"></i>
+                        <span class="text-xs">3월과 5월 역량에 변동이 없거나, 이미 3월에 마스터 상태였습니다.</span>
+                    </div>
+                `;
+            } else {
+                gainedSkills.forEach(skill => {
+                    const skillNode = document.createElement('div');
+                    skillNode.className = "flex items-start gap-2.5 p-2 bg-beige rounded-lg transition duration-150";
+                    skillNode.innerHTML = `
+                        <span class="p-1.5 bg-pug text-ink rounded-lg shrink-0 mt-0.5">
+                            <i data-lucide="check" class="w-3.5 h-3.5"></i>
+                        </span>
+                        <div>
+                            <div class="flex items-center gap-1.5 flex-wrap">
+                                <span class="text-[9px] font-bold bg-ink text-card px-1.5 py-0.5 rounded">${DIMENSIONS[skill.dimension]}</span>
+                                <span class="text-[10px] text-taupe">${skill.sub}</span>
+                            </div>
+                            <p class="text-[11px] text-ink font-medium mt-1">${skill.title}</p>
+                        </div>
+                    `;
+                    acquiredSkillsContainer.appendChild(skillNode);
+                });
+            }
+
+            // 2. Synthesize AI narrative analysis
+            const scores = calculateScores(selectedMember);
+            
+            // Calculate progress per dimension
+            const growthDeltas = DIMENSIONS.map((dim, i) => ({
+                name: dim,
+                delta: scores.m5[i] - scores.m3[i],
+                final: scores.m5[i]
+            }));
+
+            // Sort by growth delta to find the champion domain
+            const sortedByGrowth = [...growthDeltas].sort((a,b) => b.delta - a.delta);
+            const primaryGrowth = sortedByGrowth[0];
+            const secondaryGrowth = sortedByGrowth[1];
+
+            // Sort by absolute score to find current highest competency
+            const sortedByScore = [...growthDeltas].sort((a,b) => b.final - a.final);
+            const highestCompetency = sortedByScore[0];
+
+            let aiHtml = `<strong class="text-ink">📊 ${selectedMember}님의 역량 성장 스토리 요약</strong><br><br>`;
+            
+            if (primaryGrowth.delta > 0) {
+                aiHtml += `${selectedMember}님은 지난 3개월 동안 <strong class="text-ink">${primaryGrowth.name}</strong> 영역에서 <strong class="bg-pug text-ink px-1 rounded">+${primaryGrowth.delta}%p</strong>라는 가장 극적인 역량 수직상승을 이루어 냈습니다. `;
+                if (secondaryGrowth && secondaryGrowth.delta > 0) {
+                    aiHtml += `뒤이어 <strong class="text-ink">${secondaryGrowth.name}(+${secondaryGrowth.delta}%p)</strong> 분야에서도 견고한 성장을 보였습니다.<br><br>`;
+                } else {
+                    aiHtml += `<br><br>`;
+                }
+            } else {
+                aiHtml += `${selectedMember}님은 이미 초기(3월)부터 전 영역에 걸쳐 기본기가 고루 발달했던 멤버입니다.<br><br>`;
+            }
+
+            // Highlight concrete skill acquisition
+            if (gainedSkills.length > 0) {
+                aiHtml += `구체적으로는 <strong class="text-ink">총 ${gainedSkills.length}개의 구체적 행동 실무 지표</strong>를 추가 마스터했으며, 주요 성과로 `;
+                // Give a teaser of 2 skills
+                const sampleSkills = gainedSkills.slice(0, 2).map(s => `"${s.title.substring(0, 24)}..."`).join(', ');
+                aiHtml += `<strong class="text-ink">${sampleSkills}</strong> 등을 실무 환경에서 능숙하게 활용하기 시작했습니다.<br><br>`;
+            }
+
+            // Actionable advice based on lowest score
+            const lowestCompetency = sortedByScore[4];
+            if (lowestCompetency && lowestCompetency.final < 90) {
+                aiHtml += `💡 <strong class="text-ink">다음 단계 성장 제언:</strong><br>`;
+                aiHtml += `현재 상대적으로 보완의 여지가 있는 영역은 <strong class="bg-pug text-ink px-1 rounded">${lowestCompetency.name}(${lowestCompetency.final}점)</strong>입니다. 대시보드 하단의 체크되지 않은 항목들을 목표로 삼아 차례로 극복해나간다면, 더욱 치우침 없는 완벽한 실무 해결사로 거듭날 것입니다.`;
+            } else {
+                aiHtml += `🎉 <strong class="text-ink">종합 역량 완성:</strong><br>`;
+                aiHtml += `현재 모든 핵심 5대 역량 평가 항목에서 만점에 가까운 완성도를 갖춘 훌륭한 핵심 올라운더(All-rounder) 리더십 역량을 보여주고 있습니다. 향후 팀 내 기술적 멘토 역할을 주도적으로 설계하셔도 충분합니다!`;
+            }
+
+            aiCommentaryBox.innerHTML = aiHtml;
+            lucide.createIcons();
+        }
+
+        function renderChecklistEditor() {
+            const container = document.getElementById('checklist-editor-container');
+            container.innerHTML = '';
+
+            if (compareMode) {
+                container.innerHTML = `
+                    <div class="flex flex-col items-center justify-center p-8 text-center text-taupe bg-beige rounded-lg">
+                        <i data-lucide="eye-off" class="w-10 h-10 mb-2"></i>
+                        <h4 class="text-sm font-semibold text-ink">비교 모드 활성화 상태</h4>
+                        <p class="text-xs">개별 질문 실시간 편집기는 단일 인원 전용 분석 모드에서만 사용할 수 있습니다.</p>
+                    </div>
+                `;
+                lucide.createIcons();
+                return;
+            }
+
+            const member = teamData[selectedMember];
+            if (!member) return;
+
+            let currentDim = -1;
+            let currentCategoryDiv = null;
+
+            METRIC_ITEMS.forEach((item, index) => {
+                if (item.dimension !== currentDim) {
+                    currentDim = item.dimension;
+                    currentCategoryDiv = document.createElement('div');
+                    currentCategoryDiv.className = "bg-beige rounded-lg p-4 space-y-3";
+                    
+                    const header = document.createElement('div');
+                    header.className = "pb-2 flex justify-between items-center";
+                    header.innerHTML = `
+                        <h4 class="text-xs font-extrabold text-ink tracking-wider uppercase flex items-center gap-2">
+                            <span class="w-2 h-2 rounded-full bg-pug"></span>
+                            ${DIMENSIONS[currentDim]} 영역
+                        </h4>
+                        <span class="text-[10px] text-taupe">대분류: ${item.category}</span>
+                    `;
+                    currentCategoryDiv.appendChild(header);
+                    container.appendChild(currentCategoryDiv);
+                }
+
+                const itemRow = document.createElement('div');
+                itemRow.className = "flex flex-wrap items-center justify-between gap-4 py-2 hover:bg-card px-2 rounded-lg transition duration-150";
+                
+                const isChecked3 = member.m3[index];
+                const isChecked5 = member.m5[index];
+
+                itemRow.innerHTML = `
+                    <div class="flex-1 min-w-[250px]">
+                        <span class="text-taupe text-[10px] block">${item.sub}</span>
+                        <p class="text-ink text-xs font-medium leading-relaxed">${item.title}</p>
+                    </div>
+                    
+                    <div class="flex items-center gap-6">
+                        <!-- 3월 Checkbox -->
+                        <div class="flex items-center gap-2">
+                            <span class="text-[10px] text-taupe">3월:</span>
+                            <button onclick="toggleItem(${index}, 'm3')" class="w-5 h-5 rounded flex items-center justify-center transition-all ${
+                                isChecked3 
+                                ? 'bg-ink text-card' 
+                                : 'bg-card text-transparent hover:bg-paper'
+                            }">
+                                <i data-lucide="check" class="w-3.5 h-3.5"></i>
+                            </button>
+                        </div>
+
+                        <!-- 5월 Checkbox -->
+                        <div class="flex items-center gap-2">
+                            <span class="text-[10px] text-ink">5월:</span>
+                            <button onclick="toggleItem(${index}, 'm5')" class="w-5 h-5 rounded flex items-center justify-center transition-all ${
+                                isChecked5 
+                                ? 'bg-pug text-ink' 
+                                : 'bg-card text-transparent hover:bg-paper'
+                            }">
+                                <i data-lucide="check" class="w-3.5 h-3.5"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+
+                currentCategoryDiv.appendChild(itemRow);
+            });
+
+            lucide.createIcons();
+        }
+
+        function toggleItem(index, monthKey) {
+            if (compareMode) return;
+            const prevVal = teamData[selectedMember][monthKey][index];
+            teamData[selectedMember][monthKey][index] = !prevVal;
+            
+            updateDashboard();
+            renderMembersList();
+        }
+
+        function changeAllCheckboxes(state) {
+            if (compareMode) return;
+            teamData[selectedMember].m3.fill(state);
+            teamData[selectedMember].m5.fill(state);
+            updateDashboard();
+            renderMembersList();
+            showToast(`${selectedMember}님의 모든 응답 지표가 ${state ? '선택' : '해제'}되었습니다.`);
+        }
+
+        function filterMembers() {
+            const query = document.getElementById('member-search').value.toLowerCase();
+            const listContainer = document.getElementById('members-list');
+            const btns = listContainer.getElementsByTagName('button');
+
+            for (let i = 0; i < btns.length; i++) {
+                const nameText = btns[i].querySelector('span').innerText.toLowerCase();
+                if (nameText.includes(query)) {
+                    btns[i].style.display = "";
+                } else {
+                    btns[i].style.display = "none";
+                }
+            }
+        }
+
+        function toggleImportModal() {
+            const modal = document.getElementById('import-modal');
+            modal.classList.toggle('hidden');
+        }
+
+        function importTsvData() {
+            const tsvText = document.getElementById('tsv-input').value;
+            if (!tsvText.trim()) {
+                showToast("텍스트 영역이 비어 있습니다.", "error");
+                return;
+            }
+
+            const parsed = parseTSV(tsvText);
+            if (parsed && parsed.names.length > 0) {
+                memberNames = parsed.names;
+                teamData = parsed.data;
+                selectedMember = memberNames[0];
+                selectedCompareMembers = [selectedMember];
+                
+                renderMembersList();
+                updateDashboard();
+                toggleImportModal();
+                showToast("엑셀 데이터를 성공적으로 불러와 대시보드에 적용했습니다!");
+            } else {
+                showToast("데이터 구문 분석에 실패했습니다. 포맷을 복사해 넣었는지 다시 확인해 주세요.", "error");
+            }
+        }
+
+        function exportData() {
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(teamData, null, 2));
+            const downloadAnchor = document.createElement('a');
+            downloadAnchor.setAttribute("href", dataStr);
+            downloadAnchor.setAttribute("download", `ai_competency_team_data_${new Date().toISOString().slice(0,10)}.json`);
+            document.body.appendChild(downloadAnchor);
+            downloadAnchor.click();
+            downloadAnchor.remove();
+            showToast("팀 설문 역량 원본 파일(JSON)을 다운로드했습니다.");
+        }
+    </script>
+</body>
+</html>
