@@ -40,6 +40,8 @@
         .slide-media { width: 100%; max-height: 420px; display: block; background: #F0EAE0; object-fit: contain; }
         .slide-media-tall { width: 100%; max-height: calc(100vh - 140px); min-height: 560px; display: block; background: #F0EAE0; object-fit: contain; }
         .slide-photo { width: 100%; height: 220px; display: block; object-fit: cover; background: #F0EAE0; }
+        .photo-grid--dense .slide-photo { height: 168px; }
+        .photo-grid--dense figcaption { padding-top: 0.4rem; padding-bottom: 0.55rem; }
         .radar-mode-btn { padding: 0.45rem 0.9rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 700; color: #8A7B6E; background: #F0EAE0; transition: all 0.2s; }
         .radar-mode-btn:hover { color: #33271F; }
         .radar-mode-btn.active { background: #33271F; color: #FFFFFF; }
@@ -358,7 +360,14 @@
             { icon: 'sparkles', title: '활동 촉진 — 구글 AI 서비스 구독 지원', desc: 'AI 도구 활용을 위한 구독 지원' },
             { icon: 'github', title: '활동 촉진 — GitHub Organization 개설 및 관리', video: 'assets/github-org.mp4' },
             { icon: 'book-open', title: '활동 촉진 — 표준 기술스택 가이드 제공', teamsPost: true },
-            { icon: 'book', title: '활동 촉진 — 관련 책 배부', desc: '비전공자를 위한 IT 지식 서적 제공' },
+            { icon: 'book', title: '활동 촉진 — 관련 책 배부', desc: '「<strong>비전공자를 위한 이해할 수 있는 IT 지식</strong>」 — IT 기초 역량 강화를 위한 서적을 PUG 멤버에게 배부했습니다.', photos: [
+                { src: 'assets/book-distribution.png', caption: '서적 배부 준비' },
+                { src: 'assets/book-group.png', caption: 'PUG 멤버 전원 수령' },
+                { src: 'assets/book-members-1.png', caption: '멤버와 함께' },
+                { src: 'assets/book-members-2.png', caption: '멤버와 함께' },
+                { src: 'assets/book-members-3.png', caption: '멤버와 함께' },
+                { src: 'assets/book-members-4.png', caption: '멤버와 함께' }
+            ]},
             { icon: 'flask-conical', title: '활동 촉진 — AI Playground 활용 방법 안내', desc: '안전한 실험 환경 활용 가이드' },
             { icon: 'code-2', title: '활동 촉진 — API 개발 지원', desc: 'PoC 구현 과정의 API 개발 기술 지원' }
         ];
@@ -554,15 +563,20 @@
                 });
             }
             if (s.photos) {
-                const photoGrid = s.photos.map(p => `<figure class="bg-card rounded-lg overflow-hidden">
-                        <img src="${p.src}" alt="${p.caption}" class="slide-photo">
-                        <figcaption class="px-3 py-3 text-xs font-bold text-ink text-center leading-snug">${p.caption}</figcaption>
-                    </figure>`).join('');
+                const intro = s.desc ? `<p class="text-base text-ink/85 mb-4 leading-relaxed">${s.desc}</p>` : '';
+                const dense = s.photos.length > 3 ? ' photo-grid--dense' : '';
+                const photoGrid = s.photos.map(p => {
+                    const cap = p.caption ? `<figcaption class="px-3 py-3 text-xs font-bold text-ink text-center leading-snug">${p.caption}</figcaption>` : '';
+                    return `<figure class="bg-card rounded-lg overflow-hidden">
+                        <img src="${p.src}" alt="${p.caption || s.title}" class="slide-photo">
+                        ${cap}
+                    </figure>`;
+                }).join('');
                 return contentSlide({
                     label: 'Support · 디전센 × PUG',
                     title: s.title,
                     scroll: true,
-                    body: `<div class="grid md:grid-cols-3 gap-4">${photoGrid}</div>`
+                    body: `${intro}<div class="grid md:grid-cols-3 gap-3${dense}">${photoGrid}</div>`
                 });
             }
             if (s.image) {

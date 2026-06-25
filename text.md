@@ -366,9 +366,10 @@ assets/github-org.mp4
 
 33페이지 (활동 촉진 — 관련 책 배부)
 -------------------
-소제목(라벨): Support · 활동 촉진
-제목: 관련 책 배부 — 비전공자를 위한 IT 지식
-내용: 비전공자를 위한 IT 지식 서적 제공
+소제목(라벨): Support · 디전센 × PUG
+제목: 활동 촉진 — 관련 책 배부
+내용: 「비전공자를 위한 이해할 수 있는 IT 지식」 — IT 기초 역량 강화를 위한 서적을 PUG 멤버에게 배부
+사진: book-distribution.png, book-group.png, book-members-1~4.png (6장 그리드)
 
 
 34페이지 (활동 촉진 — AI Playground)
