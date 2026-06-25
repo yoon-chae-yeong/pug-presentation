@@ -123,6 +123,20 @@
         .photo-banner-grid--in-layout .slide-photo-banner { width: 100%; max-width: 100%; height: auto; }
         .photo-grid--dense .slide-photo { height: 168px; }
         .photo-grid--dense figcaption { padding-top: 0.4rem; padding-bottom: 0.55rem; }
+        .meeting-reveal { width: 100%; }
+        .meeting-reveal-stack { position: relative; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.75rem; height: min(480px, calc(100vh - 260px)); max-height: 520px; }
+        .meeting-reveal-photo { background: #fff; border: 1px solid #F0EAE0; border-radius: 8px; overflow: hidden; display: flex; flex-direction: column; min-height: 0; margin: 0; }
+        .meeting-reveal-photo img { width: 100%; flex: 1; min-height: 0; object-fit: cover; display: block; background: #F0EAE0; }
+        .meeting-reveal-photo figcaption { flex-shrink: 0; font-size: 0.72rem; font-weight: 700; text-align: center; padding: 0.45rem 0.5rem; color: #33271F; background: #FBF8F3; line-height: 1.3; }
+        .meeting-reveal-overlay { position: absolute; inset: 0; z-index: 2; margin: 0; opacity: 0; pointer-events: none; transform: scale(0.97); transition: opacity 0.45s ease, transform 0.45s ease; box-shadow: 0 8px 32px rgba(51,39,31,.18); border: 2px solid #F5B041; }
+        .meeting-reveal.is-revealed .meeting-reveal-overlay { opacity: 1; pointer-events: auto; transform: scale(1); }
+        .meeting-reveal-overlay img { object-fit: cover; }
+        .meeting-reveal.is-revealed .meeting-reveal-overlay { cursor: pointer; }
+        .slide-title-row { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 0.5rem; }
+        .slide-title-row h2 { margin-bottom: 0 !important; flex: 1; min-width: 0; }
+        .meeting-reveal-btn { display: inline-flex; align-items: center; padding: 0.28rem 0.65rem; border-radius: 9999px; font-size: 0.68rem; font-weight: 600; color: #8A7B6E; background: #F0EAE0; border: 1px solid #E5DFD5; cursor: pointer; transition: background 0.2s, color 0.2s; font-family: inherit; white-space: nowrap; flex-shrink: 0; }
+        .meeting-reveal-btn:hover { background: #E8E2D8; color: #33271F; }
+        .meeting-reveal-btn.is-hidden { display: none; }
         .radar-mode-btn { padding: 0.45rem 0.9rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 700; color: #8A7B6E; background: #F0EAE0; transition: all 0.2s; }
         .radar-mode-btn:hover { color: #33271F; }
         .radar-mode-btn.active { background: #33271F; color: #FFFFFF; }
@@ -134,14 +148,46 @@
         #growth-detail-list { gap: 0.2rem; min-height: 0; display: flex; flex-direction: column; justify-content: space-between; flex: 1; }
         .growth-dim-row { padding: 0.3rem 0.45rem; }
         .growth-dim-row.active { background: #F0EAE0; box-shadow: inset 0 0 0 2px #F5B041; }
-        .member-radar-wrap { width: 100%; height: min(520px, calc(100vh - 250px)); max-height: min(520px, calc(100vh - 250px)); min-height: 0; display: flex; flex-direction: column; }
+        .member-radar-wrap { width: 100%; height: min(520px, calc(100vh - 300px)); max-height: min(520px, calc(100vh - 300px)); min-height: 0; display: flex; flex-direction: column; gap: 0.45rem; }
         .member-radar-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-template-rows: repeat(2, minmax(0, 1fr)); gap: 0.45rem; flex: 1; min-height: 0; }
+        .member-radar-summary { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.45rem; flex-shrink: 0; }
+        .member-radar-summary .checklist-stat {
+            background: #33271F;
+            border: none;
+            border-radius: 8px;
+            padding: 0.55rem 0.75rem;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(51,39,31,.15);
+        }
+        .member-radar-summary .checklist-stat__label { font-size: 0.62rem; font-weight: 700; color: rgba(251,248,243,0.65); margin-bottom: 0.15rem; }
+        .member-radar-summary .checklist-stat__value { font-size: 0.88rem; font-weight: 800; color: #FBF8F3; line-height: 1.25; }
+        .member-radar-summary .checklist-stat__value .text-pug { color: #F5B041 !important; }
         .member-radar-cell { background: #fff; border: 1px solid #F0EAE0; border-radius: 8px; padding: 0.3rem 0.35rem 0.2rem; display: flex; flex-direction: column; min-height: 0; min-width: 0; }
         .member-radar-name { font-size: 0.7rem; font-weight: 800; text-align: center; color: #33271F; margin: 0 0 0.1rem; flex-shrink: 0; }
         .member-radar-canvas-wrap { flex: 1; min-height: 0; position: relative; height: 100%; }
         .member-radar-canvas-wrap canvas { max-height: 100%; }
+        .checklist-slide-body { width: 100%; display: flex; flex-direction: column; gap: 0; max-height: min(580px, calc(100vh - 210px)); min-height: 0; flex: 1; }
+        .checklist-stat { background: #fff; border: 1px solid #F0EAE0; border-radius: 8px; padding: 0.45rem 0.65rem; }
+        .checklist-stat__label { font-size: 0.6rem; font-weight: 700; color: #8A7B6E; margin-bottom: 0.1rem; }
+        .checklist-stat__value { font-size: 0.78rem; font-weight: 800; color: #33271F; line-height: 1.25; }
+        .checklist-panel { flex: 1; min-height: 0; display: flex; flex-direction: column; background: #fff; border: 1px solid #F0EAE0; border-radius: 8px; overflow: hidden; }
+        .checklist-tabs { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 0.25rem; padding: 0.45rem 0.5rem 0.35rem; background: #FBF8F3; border-bottom: 1px solid #F0EAE0; flex-shrink: 0; }
+        .checklist-tab { padding: 0.35rem 0.25rem; border-radius: 6px; font-size: 0.62rem; font-weight: 700; color: #8A7B6E; background: #F0EAE0; border: none; cursor: pointer; transition: all 0.2s; font-family: inherit; line-height: 1.25; text-align: center; }
+        .checklist-tab:hover { color: #33271F; }
+        .checklist-tab.active { background: #33271F; color: #fff; }
+        .checklist-detail { flex: 1; min-height: 0; overflow-y: auto; padding: 0.75rem 0.9rem; }
+        .checklist-detail__title { font-size: 0.92rem; font-weight: 800; color: #33271F; margin: 0 0 0.65rem; padding-bottom: 0.45rem; border-bottom: 2px solid #F5B041; }
+        .checklist-detail__sub { margin-bottom: 0.65rem; }
+        .checklist-detail__sub:last-child { margin-bottom: 0; }
+        .checklist-detail__sub-title { font-size: 0.72rem; font-weight: 700; color: #4A3C33; margin: 0 0 0.35rem; }
+        .checklist-detail__list { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 0.3rem; }
+        .checklist-detail__list li { display: flex; align-items: flex-start; gap: 0.45rem; font-size: 0.74rem; line-height: 1.45; color: #4A3C33; }
+        .checklist-detail__list li::before { content: ''; flex-shrink: 0; width: 0.75rem; height: 0.75rem; margin-top: 0.15rem; border: 1.5px solid #CBBBA8; border-radius: 2px; background: #F0EAE0; }
+        .checklist-detail-view { display: none; }
+        .checklist-detail-view.active { display: block; animation: checklistFade 0.25s ease; }
+        @keyframes checklistFade { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
         @media (max-width: 1024px) {
-            .member-radar-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: repeat(4, minmax(0, 1fr)); }
+            .checklist-tabs { grid-template-columns: repeat(4, minmax(0, 1fr)); }
         }
         .teams-channel { background: #F5F5F5; border: 1px solid #E1DFDD; border-radius: 4px; padding: 10px; font-family: 'Segoe UI', 'Noto Sans KR', sans-serif; color: #242424; }
         .teams-post { background: #FFFFFF; border: 1px solid #EDEBE9; border-radius: 2px; padding: 10px 12px 8px; }
@@ -194,6 +240,14 @@
         .design-guide-wrap { min-height: 0; height: 100%; overflow: hidden; }
         .design-guide-scaler { width: 100%; height: 100%; overflow: hidden; }
         .design-guide-iframe { width: 100%; height: 100%; border: 0; display: block; background: #fff; zoom: 0.72; }
+        .notion-embed-wrap { height: min(520px, calc(100vh - 300px)); min-height: 400px; border-radius: 10px; overflow: hidden; border: 1px solid rgba(42,42,42,0.85); box-shadow: 0 8px 32px rgba(25,25,25,.22); }
+        .notion-embed-iframe { width: 100%; height: 100%; border: 0; display: block; background: #191919; }
+        .slide-notion-embed .slide-notion-head { margin-bottom: 0.75rem; }
+        .slide-notion-embed .slide-notion-head h2 { margin-bottom: 0.25rem !important; }
+        .slide-notion-embed .slide-notion-desc { font-size: 0.875rem; color: rgba(51,39,31,0.72); line-height: 1.5; margin: 0 0 0.85rem; }
+        .slide-notion-embed > div > p.text-sm.font-bold { margin-bottom: 0.35rem; }
+        .slide-notion-embed > div > h2 { margin-bottom: 0.2rem !important; }
+        .slide-notion-embed > div > p.leading-relaxed { margin-bottom: 0.75rem !important; font-size: 0.875rem; }
         .design-consult-photos { height: 100%; min-height: 0; }
         .design-consult-photo-wrap { flex: 1; min-height: 0; display: flex; flex-direction: column; border-radius: 8px; overflow: hidden; background: #F0EAE0; }
         .design-consult-photo { flex: 1; min-height: 0; width: 100%; object-fit: cover; display: block; }
@@ -239,16 +293,20 @@
             </section>`;
         }
 
-        function contentSlide({ label, title, message, body, scroll = false, wide = false, alignTop = false, compact = false }) {
+        function contentSlide({ label, title, message, body, scroll = false, wide = false, alignTop = false, compact = false, titleExtra, slideClass = '' }) {
             const scrollCls = scroll ? ' py-12 overflow-y-auto' : '';
             const alignCls = alignTop ? ' justify-start pt-6 pb-16 overflow-hidden' : ' justify-center pb-14';
             const maxW = wide ? 'max-w-6xl' : 'max-w-5xl';
             const titleCls = compact ? 'text-3xl font-extrabold mb-2 leading-tight' : 'text-4xl font-extrabold mb-3';
             const msgMb = compact ? 'mb-4' : 'mb-7';
-            return `<section class="slide w-full h-screen flex-col${alignCls} px-8 lg:px-24${scrollCls}">
+            const titleBlock = titleExtra
+                ? `<div class="slide-title-row shrink-0"><h2 class="${titleCls.replace(' mb-2', '').replace(' mb-3', '')}">${title}</h2>${titleExtra}</div>`
+                : `<h2 class="${titleCls} shrink-0">${title}</h2>`;
+            const slideExtraCls = slideClass ? ` ${slideClass}` : '';
+            return `<section class="slide w-full h-screen flex-col${alignCls} px-8 lg:px-24${scrollCls}${slideExtraCls}">
                 <div class="${maxW} w-full mx-auto min-h-0${alignTop ? ' flex flex-col flex-1 overflow-hidden' : ''}">
                     <p class="text-sm font-bold text-pug mb-2 uppercase tracking-wider shrink-0">${label}</p>
-                    <h2 class="${titleCls} shrink-0">${title}</h2>
+                    ${titleBlock}
                     ${message ? `<p class="text-sm text-ink/80 leading-relaxed ${msgMb} max-w-3xl shrink-0">${message}</p>` : ''}
                     <div class="${alignTop ? 'min-h-0 flex-1 overflow-hidden' : ''}">${body}</div>
                 </div>
@@ -551,9 +609,40 @@
                 ],
                 photoTall: true
             },
-            { week: '4월 4주차', title: 'Webhook 기반 API 이해, 배포 개념 학습, UI/UX 기초 개념', topics: ['Webhook API', '빌드→배포→실행', '환경변수·DNS', 'UI/UX 기초'] },
+            { week: '4월 4주차', title: 'Webhook 기반 API 이해, 배포 개념 학습', topics: ['Webhook API', 'FastAPI', 'POST 요청 처리', 'n8n·Teams 연동', '빌드→배포→실행'],
+                message: 'FastAPI로 웹훅 서버 구현 및 POST 요청 처리 경험. 프론트엔드 → 서버 → 메시지 전송까지 전체 흐름 실습.',
+                mainImage: { src: 'assets/21-webhook-api/main-n8n-flow.png', caption: 'Webhook → Teams 메시지 전송 흐름' },
+                subImages: [
+                    { src: 'assets/21-webhook-api/sub-fastapi-webhook.png', caption: 'FastAPI 웹훅 서버 · 프론트엔드 POST 연동' }
+                ]
+            },
+            { week: '4월 4주차', title: 'UI/UX 기초 개념', topics: ['Design vs UX', 'UI 컴포넌트', '디자인 시스템', 'AI 디자인 도구'],
+                mainImage: { src: 'assets/22-uiux-basics/uiux-design-vs-ux.png', caption: 'Design vs User Experience' },
+                subImages: [
+                    { src: 'assets/22-uiux-basics/uiux-components.png', caption: 'UI/UX 핵심 컴포넌트 42가지' },
+                    { src: 'assets/22-uiux-basics/uiux-v0-design.png', caption: 'v0 AI 디자인 — Pastel Modernism 적용' }
+                ],
+                photoTall: true
+            },
             { week: '4월 5주차', title: 'AI 에이전트 핵심 메커니즘, LLM vs 에이전트, Multi-Agent 설계', topics: ['에이전트 역할·입출력', 'LLM과 에이전트 차이', 'Multi-Agent 패턴', 'MVP 구조 설계'] },
-            { week: '6월 2주차', title: 'Outlook·Teams API 서비스 소개, Full-Stack Live Coding', topics: ['Outlook API', 'Teams API', 'Full-Stack Live Coding', '실무 연동'] },
+            { week: '5월 1주차', title: 'PUG Quiz Race — 비전공자를 위한 IT 지식', topics: ['Quiz Race', 'IT 기초 지식', '비전공자 대상', '경쟁형 학습'],
+                mainImage: { src: 'assets/18-quiz-race/main-leaderboard.png', caption: 'PUG Quiz Race 최종 순위' },
+                subImages: [
+                    { src: 'assets/18-quiz-race/sub-winner.png', caption: 'Quiz Race 우승자 시상' }
+                ],
+                photoTall: true
+            },
+            { week: '5월 4주차', title: 'AI PUG 개발 컨벤션 가이드 교육', topics: ['코딩 컨벤션', '개발 가이드', '협업 규칙', 'PoC 품질'],
+                mainImage: { src: 'assets/19-dev-convention/main-session.png', caption: '개발 컨벤션 가이드 교육 세션' },
+                photoTall: true
+            },
+            { week: '6월 2주차', title: 'Outlook·Teams API 서비스 소개, Full-Stack Live Coding', topics: ['Outlook API', 'Teams API', 'Full-Stack Live Coding', '실무 연동'],
+                mainImage: { src: 'assets/20-outlook-teams-api/main-session.png', caption: 'Full-Stack Live Coding 세션' },
+                subImages: [
+                    { src: 'assets/20-outlook-teams-api/sub-api-playground.png', caption: 'pug-api-playground — Outlook·Teams API 연동' }
+                ],
+                photoTall: true
+            },
             { week: '6월 3주차', title: '바이브코딩 디자인 가이드를 활용한 UI/UX 가이드', topics: ['디자인 가이드', 'UI/UX 원칙', '바이브 코딩 적용', 'PoC UI 개선'] }
         ];
 
@@ -688,14 +777,13 @@
                 { src: 'assets/24-design-consulting/consulting-1.png', caption: 'PoC UI/UX 컨설팅 세션' },
                 { src: 'assets/24-design-consulting/consulting-2.png', caption: '1:1 디자인 피드백' }
             ]},
-            { icon: 'users', title: "디지털전략센터 Laeder's Talk", photos: [
+            { icon: 'users', title: "디지털전략센터 Laeder's Talk", meetingReveal: true, photos: [
                 { src: 'assets/25-meeting/meeting-reflection.png', caption: 'AI 시대에 대한 고찰 (정민석님)' },
-                { src: 'assets/25-meeting/meeting-playground.png', caption: 'AI Playground 소개 (신민규님)' },
-                { src: 'assets/25-meeting/meeting-dinner.png', caption: '간담회 식사' }
-            ]},
+                { src: 'assets/25-meeting/meeting-playground.png', caption: 'AI Playground 소개 (신민규님)' }
+            ], overlayPhoto: { src: 'assets/25-meeting/meeting-dinner.png', caption: '간담회 식사' }},
             { icon: 'message-square', title: '운영진 활동 — 주차별 활동 요약 (팀즈 채널)', video: 'assets/26-teams-channel/teams-channel.mp4' },
             { icon: 'folder-open', title: '운영진 활동 — 주차별 실습자료 공유', desc: '교육 자료·실습 가이드 지속 공유' },
-            { icon: 'archive', title: '운영진 활동 — 주차별 미팅노트 아카이빙 & 회고', desc: '미팅노트 축적 및 회고 문화 정착' },
+            { icon: 'archive', title: '운영진 활동 — 주차별 미팅노트 아카이빙 & 회고', desc: '미팅노트 축적 및 회고 문화 정착', notionEmbed: 'assets/27-meeting-notes/pug-meeting-notes.html' },
             { icon: 'graduation-cap', title: '개발 환경 지원 — AI/Dev 온라인 강의 선별', desc: 'PoC 수행에 필요한 AI·개발 역량 강화를 위해 인프런 등 온라인 강의를 선별·추천했습니다.', photoBanner: true, photos: [
                 { src: 'assets/29-online-lectures/lecture-llm.png', caption: 'LLM 핵심 이론, 구조로 이해하기' },
                 { src: 'assets/29-online-lectures/lecture-github.png', caption: '우주에서 가장 쉬운 GitHub 베이스캠프' },
@@ -707,7 +795,7 @@
             { icon: 'sparkles', title: '개발 환경 지원 — AI 도구 활용을 위한 구독 지원', desc: 'AI 도구 활용을 위한 구독 지원' },
             { icon: 'github', title: '개발 환경 지원 — GitHub Organization 개설 및 관리', video: 'assets/31-github-org/github-org.mp4' },
             { icon: 'book-open', title: '개발 환경 지원 — 표준 기술스택 가이드 제공', teamsPost: true },
-            { icon: 'book', title: '개발 환경 지원 — 관련 책 배부', desc: '「<strong>비전공자를 위한 이해할 수 있는 IT 지식</strong>」 — IT 기초 역량 강화를 위한 서적을 PUG 멤버에게 배부했습니다.', photos: [
+            { icon: 'book', title: '개발 환경 지원 — IT 기초 역량 강화를 위한 서적 배부', desc: '「<strong>비전공자를 위한 이해할 수 있는 IT 지식</strong>」 —  프로그래밍 언어, 운영체제, 네트워크, API, JSON, 데이터베이스, 깃(Git)', photos: [
                 { src: 'assets/33-book/book-distribution.png', caption: '서적 배부 준비' },
                 { src: 'assets/33-book/book-group.png', caption: 'PUG 멤버 전원 수령' },
                 { src: 'assets/33-book/book-members-1.png', caption: '박다솜님 & 윤성수님' },
@@ -931,6 +1019,30 @@
             </div>`;
         }
 
+        function buildNotionEmbedLayout(src) {
+            return `<div class="notion-embed-wrap">
+                <iframe src="${src}" title="PUG Meeting Notes" class="notion-embed-iframe" loading="lazy"></iframe>
+            </div>`;
+        }
+
+        function buildMeetingRevealLayout({ photos, overlayPhoto }) {
+            const basePhotos = photos.map(p =>
+                `<figure class="meeting-reveal-photo">
+                    <img src="${p.src}" alt="${p.caption || ''}" loading="lazy">
+                    ${p.caption ? `<figcaption>${p.caption}</figcaption>` : ''}
+                </figure>`
+            ).join('');
+            const overlay = overlayPhoto ? `<figure class="meeting-reveal-photo meeting-reveal-overlay" id="meeting-reveal-overlay">
+                <img src="${overlayPhoto.src}" alt="${overlayPhoto.caption || '간담회'}" loading="lazy">
+                ${overlayPhoto.caption ? `<figcaption>${overlayPhoto.caption}</figcaption>` : ''}
+            </figure>` : '';
+            return `<div class="meeting-reveal" id="meeting-reveal">
+                <div class="meeting-reveal-stack">${basePhotos}${overlay}</div>
+            </div>`;
+        }
+
+        const MEETING_REVEAL_BTN = '<button type="button" id="meeting-reveal-btn" class="meeting-reveal-btn">간담회 사진 보기</button>';
+
         function supportSlide(s) {
             if (s.embedGuide) {
                 return contentSlide({
@@ -938,6 +1050,27 @@
                     title: s.title,
                     wide: true,
                     body: buildDesignConsultLayout(s)
+                });
+            }
+            if (s.notionEmbed) {
+                return contentSlide({
+                    label: 'Support · 디전센 × PUG',
+                    title: s.title,
+                    message: s.desc,
+                    wide: true,
+                    compact: true,
+                    slideClass: 'slide-notion-embed',
+                    body: buildNotionEmbedLayout(s.notionEmbed)
+                });
+            }
+            if (s.meetingReveal) {
+                return contentSlide({
+                    label: 'Support · 디전센 × PUG',
+                    title: s.title,
+                    wide: true,
+                    compact: true,
+                    titleExtra: MEETING_REVEAL_BTN,
+                    body: buildMeetingRevealLayout(s)
                 });
             }
             if (s.teamsPost) {
@@ -1032,15 +1165,29 @@
             return contentSlide({
                 label: 'Effect · 역량 강화',
                 title: '체크리스트 Before / After — 멤버별 성장 차트',
-                message: '동일 체크리스트 40문항 기준, <strong class="text-ink">멤버별 7개 역량 영역</strong> Before / After 비교입니다.',
+                message: 'PUG 활동 전후, <strong class="text-ink">동일 40문항 · 7개 역량 영역</strong> 기준 멤버별 Before / After 비교입니다.',
                 compact: true,
                 wide: true,
                 body: `<div class="member-radar-wrap">
-                    <div class="flex items-center justify-center gap-5 mb-2 text-xs font-semibold shrink-0">
+                    <div class="flex items-center justify-center gap-5 text-xs font-semibold shrink-0">
                         <span class="flex items-center gap-1.5 text-taupe"><span class="w-3 h-3 rounded-sm bg-ink"></span> Before</span>
                         <span class="flex items-center gap-1.5 text-ink"><span class="w-3 h-3 rounded-sm bg-pug"></span> After</span>
                     </div>
                     <div id="member-radar-grid" class="member-radar-grid">${cells}</div>
+                    <div class="member-radar-summary">
+                        <div class="checklist-stat">
+                            <p class="checklist-stat__label">평균 달성률</p>
+                            <p class="checklist-stat__value">28% → <span class="text-pug">87%</span></p>
+                        </div>
+                        <div class="checklist-stat">
+                            <p class="checklist-stat__label">평균 체크 항목</p>
+                            <p class="checklist-stat__value">11.0 → <span class="text-pug">34.8</span>개</p>
+                        </div>
+                        <div class="checklist-stat">
+                            <p class="checklist-stat__label">전체 변화</p>
+                            <p class="checklist-stat__value text-pug">+59%p</p>
+                        </div>
+                    </div>
                 </div>`
             });
         }
@@ -1106,24 +1253,15 @@
             contentSlide({
                 label: 'Effect · 체크리스트',
                 title: '역량 측정 체크리스트 — 40문항',
-                message: 'PUG 활동 전후, 아래 <strong class="text-ink">동일 40문항</strong>을 멤버별 자기 점검하여 Before / After를 비교했습니다.',
-                scroll: true,
-                body: `<div class="space-y-5">
-                    <div class="grid md:grid-cols-2 gap-4">
-                        <div class="bg-card rounded-lg p-5">
-                            <h3 class="text-sm font-bold mb-3">결과 분석 요약</h3>
-                            <p class="text-sm text-ink/85 leading-relaxed mb-4">전체 멤버 역량은 Before 평균 <strong class="text-ink">28%</strong>에서 After 평균 <strong class="text-pug">87%</strong>로 향상되었습니다. 체크 항목 수는 평균 <strong class="text-ink">11.0개</strong>에서 <strong class="text-pug">34.8개</strong>로 증가했습니다.</p>
-                            <table class="tbl nowrap-first"><thead><tr><th>구분</th><th>Before</th><th>After</th><th>변화</th></tr></thead><tbody>
-                                <tr><td>평균 체크 항목 수</td><td>11.0개</td><td>34.8개</td><td class="text-pug font-bold">+23.8개</td></tr>
-                                <tr><td>평균 달성률</td><td>28%</td><td>87%</td><td class="text-pug font-bold">+59%</td></tr>
-                            </tbody></table>
-                        </div>
-                        <div class="bg-ink text-card rounded-lg p-5 flex flex-col justify-center">
-                            <p class="text-xs font-bold uppercase tracking-wider text-taupe mb-2">발표용 한 줄</p>
-                            <p class="text-base font-bold leading-relaxed">AI PUG 활동을 통해 멤버들은 Before 단계의 <span class="text-taupe">기초 이해 중심 역량</span>에서 After 단계의 <span class="text-pug">AI 기반 PoC 구현·자동화·에이전트 설계 역량</span>으로 성장했습니다.</p>
-                        </div>
+                message: '7개 역량 영역별 <strong class="text-ink">40문항 전체</strong>입니다. 탭을 클릭하거나 자동 전환으로 확인할 수 있습니다.',
+                compact: true,
+                wide: true,
+                alignTop: true,
+                body: `<div class="checklist-slide-body">
+                    <div class="checklist-panel" id="checklist-panel">
+                        <div class="checklist-tabs" id="checklist-tabs"></div>
+                        <div class="checklist-detail" id="checklist-body"></div>
                     </div>
-                    <div id="checklist-body"></div>
                 </div>`
             }),
 
@@ -1247,22 +1385,73 @@
             ]}
         ];
 
+        let checklistInteractiveReady = false;
+        let checklistAutoTimer = null;
+        let activeChecklistIdx = 0;
+
+        const CHECKLIST_TAB_LABELS = ['코딩', '바이브', 'LLM', '자동화', 'Git', '배포', '에이전트'];
+
+        function selectChecklistCategory(idx, { fromAuto = false } = {}) {
+            activeChecklistIdx = idx;
+            if (!fromAuto) stopChecklistAutoLoop();
+            document.querySelectorAll('.checklist-tab').forEach((btn, i) => {
+                btn.classList.toggle('active', i === idx);
+            });
+            document.querySelectorAll('.checklist-detail-view').forEach((view, i) => {
+                view.classList.toggle('active', i === idx);
+            });
+            const detail = document.getElementById('checklist-body');
+            if (detail) detail.scrollTop = 0;
+        }
+
+        function stopChecklistAutoLoop() {
+            if (checklistAutoTimer) {
+                clearInterval(checklistAutoTimer);
+                checklistAutoTimer = null;
+            }
+        }
+
+        function startChecklistAutoLoop() {
+            stopChecklistAutoLoop();
+            checklistAutoTimer = setInterval(() => {
+                selectChecklistCategory((activeChecklistIdx + 1) % CHECKLIST.length, { fromAuto: true });
+            }, 4500);
+        }
+
+        function initChecklistInteractive() {
+            if (checklistInteractiveReady) {
+                selectChecklistCategory(activeChecklistIdx);
+                startChecklistAutoLoop();
+                return;
+            }
+            checklistInteractiveReady = true;
+            document.addEventListener('click', e => {
+                const tab = e.target.closest('.checklist-tab');
+                if (!tab) return;
+                e.stopPropagation();
+                selectChecklistCategory(+tab.dataset.checklistIdx);
+            });
+            selectChecklistCategory(0);
+            startChecklistAutoLoop();
+        }
+
         function renderChecklistBody() {
+            const tabsEl = document.getElementById('checklist-tabs');
             const el = document.getElementById('checklist-body');
-            if (!el) return;
-            el.innerHTML = CHECKLIST.map(cat => {
+            if (!tabsEl || !el) return;
+
+            tabsEl.innerHTML = CHECKLIST.map((cat, i) =>
+                `<button type="button" class="checklist-tab${i === activeChecklistIdx ? ' active' : ''}" data-checklist-idx="${i}">${CHECKLIST_TAB_LABELS[i]}</button>`
+            ).join('');
+
+            el.innerHTML = CHECKLIST.map((cat, i) => {
                 const subs = cat.subs.map(s => `
-                    <div class="mb-3 last:mb-0">
-                        <p class="text-xs font-bold text-taupe mb-1.5">${s.sub}</p>
-                        <ul class="space-y-1">${s.items.map(item => `
-                            <li class="flex items-start gap-2 text-xs text-ink/85 leading-relaxed">
-                                <span class="mt-0.5 shrink-0 w-3.5 h-3.5 border border-taupe/50 rounded-sm bg-beige"></span>
-                                <span>${item}</span>
-                            </li>`).join('')}
-                        </ul>
+                    <div class="checklist-detail__sub">
+                        <p class="checklist-detail__sub-title">${s.sub}</p>
+                        <ul class="checklist-detail__list">${s.items.map(item => `<li>${item}</li>`).join('')}</ul>
                     </div>`).join('');
-                return `<div class="bg-card rounded-lg p-5">
-                    <h3 class="text-sm font-bold mb-3 pb-2 border-b border-beige">${cat.title}</h3>
+                return `<div class="checklist-detail-view${i === activeChecklistIdx ? ' active' : ''}" data-checklist-view="${i}">
+                    <h3 class="checklist-detail__title">${cat.title}</h3>
                     ${subs}
                 </div>`;
             }).join('');
@@ -1659,6 +1848,34 @@
             });
         }
 
+        function initMeetingReveal() {
+            const wrap = document.getElementById('meeting-reveal');
+            const btn = document.getElementById('meeting-reveal-btn');
+            const overlay = document.getElementById('meeting-reveal-overlay');
+            if (!wrap || !btn || wrap.dataset.bound) return;
+            wrap.dataset.bound = '1';
+            const showOverlay = () => {
+                wrap.classList.add('is-revealed');
+                btn.classList.add('is-hidden');
+            };
+            const hideOverlay = () => {
+                wrap.classList.remove('is-revealed');
+                btn.classList.remove('is-hidden');
+            };
+            btn.addEventListener('click', showOverlay);
+            overlay?.addEventListener('click', hideOverlay);
+        }
+
+        function resetMeetingReveal() {
+            const wrap = document.getElementById('meeting-reveal');
+            if (wrap) {
+                wrap.classList.remove('is-revealed');
+                delete wrap.dataset.bound;
+            }
+            const btn = document.getElementById('meeting-reveal-btn');
+            if (btn) btn.classList.remove('is-hidden');
+        }
+
         function initPainReveal() {
             const grid = document.getElementById('pain-review-grid');
             const btn = document.getElementById('pain-reveal-btn');
@@ -1735,7 +1952,9 @@
             if (!slides[current]?.querySelector('#growthRadar')) stopRadarSlide();
             if (!slides[current]?.querySelector('#tech-stack-panel')) stopStackAutoLoop();
             if (!slides[current]?.querySelector('#pain-review-grid')) resetPainReveal();
+            if (!slides[current]?.querySelector('#meeting-reveal')) resetMeetingReveal();
             if (!slides[current]?.querySelector('#member-radar-grid')) stopMemberRadarSlide();
+            if (!slides[current]?.querySelector('#checklist-panel')) stopChecklistAutoLoop();
             document.getElementById('cur').innerText = current + 1;
             document.getElementById('progress-bar').style.width = ((current + 1) / slides.length * 100) + '%';
             lucide.createIcons();
@@ -1746,10 +1965,13 @@
                 startRadarAutoLoop();
             } else if (slides[current]?.querySelector('#checklist-body')) {
                 renderChecklistBody();
+                initChecklistInteractive();
             } else if (slides[current]?.querySelector('#tech-stack-panel')) {
                 initTechStackInteractive();
             } else if (slides[current]?.querySelector('#pain-review-grid')) {
                 initPainReveal();
+            } else if (slides[current]?.querySelector('#meeting-reveal')) {
+                initMeetingReveal();
             } else if (slides[current]?.querySelector('#member-radar-grid')) {
                 renderMemberRadars();
                 startMemberRadarAutoLoop();

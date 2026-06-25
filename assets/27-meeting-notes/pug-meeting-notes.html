@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PUG Meeting Notes</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html, body {
+            height: 100%;
+            overflow: hidden;
+            background: #191919;
+            color: rgba(255,255,255,0.9);
+            font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans KR", Arial, sans-serif;
+            font-size: 14px;
+            -webkit-font-smoothing: antialiased;
+        }
+        .app { height: 100%; display: flex; flex-direction: column; min-height: 0; padding: 36px 0 0; }
+        .page-title {
+            font-size: 40px;
+            font-weight: 700;
+            line-height: 1.2;
+            letter-spacing: -0.03em;
+            padding: 0 96px 2px;
+            color: rgba(255,255,255,0.93);
+        }
+        .toolbar-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 8px 96px 10px;
+            flex-shrink: 0;
+        }
+        .view-tabs { display: flex; align-items: center; gap: 2px; min-width: 0; }
+        .view-tab {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 14px;
+            line-height: 1.2;
+            color: rgba(255,255,255,0.5);
+            white-space: nowrap;
+        }
+        .view-tab.active {
+            background: rgba(255,255,255,0.055);
+            color: rgba(255,255,255,0.81);
+            font-weight: 500;
+        }
+        .view-tab svg { width: 16px; height: 16px; flex-shrink: 0; opacity: 0.72; }
+        .toolbar-actions { display: flex; align-items: center; gap: 2px; flex-shrink: 0; }
+        .toolbar-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            border-radius: 4px;
+            color: rgba(255,255,255,0.46);
+        }
+        .toolbar-btn:hover { background: rgba(255,255,255,0.055); }
+        .toolbar-btn svg { width: 16px; height: 16px; }
+        .toolbar-new {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            margin-left: 6px;
+            padding: 0 10px;
+            height: 28px;
+            border-radius: 4px;
+            background: #2383E2;
+            color: #fff;
+            font-size: 14px;
+            font-weight: 500;
+            border: none;
+            font-family: inherit;
+            white-space: nowrap;
+        }
+        .toolbar-new svg { width: 14px; height: 14px; flex-shrink: 0; }
+        .toolbar-new .chev { width: 10px; height: 10px; opacity: 0.9; margin-left: -2px; }
+        .list-scroll {
+            flex: 1;
+            min-height: 0;
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding: 2px 0 16px;
+        }
+        .list-scroll::-webkit-scrollbar { width: 12px; }
+        .list-scroll::-webkit-scrollbar-track { background: transparent; }
+        .list-scroll::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.14); border-radius: 10px; border: 3px solid #191919; }
+        .list-row {
+            display: flex;
+            align-items: center;
+            min-height: 34px;
+            padding: 1px 96px 1px 88px;
+            transition: background 0.1s;
+        }
+        .list-row:hover { background: rgba(255,255,255,0.028); }
+        .row-title {
+            flex: 1;
+            min-width: 0;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 14px;
+            line-height: 1.4;
+            color: rgba(255,255,255,0.81);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            padding-right: 24px;
+        }
+        .row-icon { flex-shrink: 0; font-size: 16px; line-height: 1; width: 18px; text-align: center; }
+        .row-icon--empty { width: 18px; flex-shrink: 0; }
+        .row-icon--mushroom { filter: saturate(1.1); }
+        .row-comments {
+            flex-shrink: 0;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 12px;
+            color: rgba(255,255,255,0.35);
+            margin-left: 6px;
+        }
+        .row-comments svg { width: 13px; height: 13px; }
+        .row-meta { display: flex; align-items: center; gap: 24px; flex-shrink: 0; }
+        .row-date {
+            width: 176px;
+            font-size: 14px;
+            line-height: 1.4;
+            color: rgba(255,255,255,0.46);
+            white-space: nowrap;
+        }
+        .tag {
+            display: inline-block;
+            min-width: 72px;
+            text-align: center;
+            padding: 1px 6px;
+            border-radius: 3px;
+            font-size: 14px;
+            font-weight: 400;
+            white-space: nowrap;
+            line-height: 1.35;
+        }
+        .tag--regular { background: rgba(93, 48, 10, 0.45); color: rgb(255, 171, 102); }
+        .tag--ops { background: rgba(20, 73, 38, 0.45); color: rgb(111, 221, 141); }
+        .tag--casual { background: rgba(68, 42, 104, 0.45); color: rgb(192, 155, 230); }
+        .tag--present { background: rgba(104, 32, 44, 0.45); color: rgb(255, 145, 155); }
+        .tag--etc { background: rgba(68, 68, 66, 0.45); color: rgba(255,255,255,0.55); }
+        .tag--future { background: rgba(88, 68, 18, 0.45); color: rgb(255, 214, 102); }
+        .tag--empty { visibility: hidden; min-width: 72px; }
+        .avatar {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            overflow: hidden;
+            background: #3a3a3a;
+        }
+        .avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    </style>
+</head>
+<body>
+<div class="app">
+    <h1 class="page-title">PUG Meeting Notes</h1>
+    <div class="toolbar-row">
+        <div class="view-tabs">
+            <span class="view-tab active">
+                <svg viewBox="0 0 16 16" fill="currentColor"><path d="M2.5 4.5a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0 3.5a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0 3.5a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/></svg>
+                리스트 보기
+            </span>
+            <span class="view-tab">
+                <svg viewBox="0 0 16 16" fill="currentColor"><path d="M1 2.5A1.5 1.5 0 0 1 2.5 1h2A1.5 1.5 0 0 1 6 2.5v2A1.5 1.5 0 0 1 4.5 6h-2A1.5 1.5 0 0 1 1 4.5v-2zm0 5A1.5 1.5 0 0 1 2.5 6h2A1.5 1.5 0 0 1 6 7.5v2A1.5 1.5 0 0 1 4.5 11h-2A1.5 1.5 0 0 1 1 9.5v-2zm0 5A1.5 1.5 0 0 1 2.5 11h2a1.5 1.5 0 0 1 1.5 1.5v2A1.5 1.5 0 0 1 4.5 16h-2a1.5 1.5 0 0 1-1.5-1.5v-2zM7.5 2.5A1.5 1.5 0 0 1 9 1h2a1.5 1.5 0 0 1 1.5 1.5v2A1.5 1.5 0 0 1 11 6H9A1.5 1.5 0 0 1 7.5 4.5v-2zM9 7.5A1.5 1.5 0 0 1 10.5 6h2A1.5 1.5 0 0 1 14 7.5v2A1.5 1.5 0 0 1 12.5 11h-2A1.5 1.5 0 0 1 9 9.5v-2zm0 5a1.5 1.5 0 0 1 1.5-1.5h2a1.5 1.5 0 0 1 1.5 1.5v2A1.5 1.5 0 0 1 12.5 16h-2A1.5 1.5 0 0 1 9 14.5v-2z"/></svg>
+                표
+            </span>
+        </div>
+        <div class="toolbar-actions">
+            <span class="toolbar-btn" title="필터"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M1.5 3.5A.5.5 0 0 1 2 3h12a.5.5 0 0 1 0 1H2a.5.5 0 0 1-.5-.5zm3 4A.5.5 0 0 1 5 7h8a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5zm3 4a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1H8a.5.5 0 0 1-.5-.5z"/></svg></span>
+            <span class="toolbar-btn" title="정렬"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M3 2.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 2.5zm0 3a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 5.5zm0 3a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 8.5z"/></svg></span>
+            <span class="toolbar-btn" title="자동화"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M11 1a1 1 0 0 1 1 1v1h1a1 1 0 0 1 0 2h-1v1a1 1 0 1 1-2 0V5h-1a1 1 0 0 1 0-2h1V2a1 1 0 0 1 1-1zM4 4.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm0 3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm0 3a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5z"/></svg></span>
+            <span class="toolbar-btn" title="검색"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85zm-5.242 1.156a4.5 4.5 0 1 1 0-9 4.5 4.5 0 0 1 0 9z"/></svg></span>
+            <button type="button" class="toolbar-new">
+                <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 3.5a.5.5 0 0 0-1 0V7H3.5a.5.5 0 0 0 0 1H7v3.5a.5.5 0 0 0 1 0V8h3.5a.5.5 0 0 0 0-1H8V3.5z"/></svg>
+                새로 만들기
+                <svg class="chev" viewBox="0 0 16 16" fill="currentColor"><path d="M4.646 6.646a.5.5 0 0 1 .708 0L8 9.293l2.646-2.647a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 0 1 0-.708z"/></svg>
+            </button>
+        </div>
+    </div>
+    <div class="list-scroll" id="list"></div>
+</div>
+<script>
+const TAG = {
+    '정기미팅': 'tag--regular',
+    '운영진': 'tag--ops',
+    '캐주얼미팅': 'tag--casual',
+    '발표': 'tag--present',
+    '기타': 'tag--etc',
+    '미래성장토론': 'tag--future',
+    '인터뷰': 'tag--interview'
+};
+
+const AVATAR = 'avatar.svg';
+
+const NOTES = [
+    { title: 'PUG 6월 4주차 (26.06.24)', date: '2026년 6월 24일', tag: '정기미팅', icon: 'mushroom' },
+    { title: 'PUG 6월 3주차 (26.06.17)', date: '2026년 6월 17일', tag: '정기미팅', icon: 'mushroom' },
+    { title: '7월 세미나 논의', date: '2026년 6월 12일', tag: '운영진' },
+    { title: '6월 2주차 모임(26.06.10)', date: '2026년 6월 10일', tag: '정기미팅', icon: 'mushroom' },
+    { title: '박다솜님 미팅', date: '2026년 5월 29일', tag: '캐주얼미팅' },
+    { title: '5월 4주차 모임(26.05.27)', date: '2026년 5월 27일', tag: '정기미팅', icon: 'mushroom' },
+    { title: '5월 1주차 모임(26.05.06)', date: '2026년 5월 6일', tag: '정기미팅', icon: 'mushroom' },
+    { title: '4월 5주차 모임(26.04.29)', date: '2026년 4월 29일', tag: '정기미팅', icon: 'mushroom' },
+    { title: 'AX 데이 미팅 (26.04.24)', date: '2026년 4월 24일', tag: '' },
+    { title: '4월 4주차 모임(26.04.22)', date: '2026년 4월 22일', tag: '정기미팅', icon: 'mushroom' },
+    { title: '4월 3주차 모임(26.04.15)', date: '2026년 4월 15일', tag: '정기미팅', icon: 'mushroom' },
+    { title: '4월 2주차 모임(26.04.08)', date: '2026년 4월 8일', tag: '정기미팅', icon: 'mushroom' },
+    { title: '4월 1주차 모임(26.04.01)', date: '2026년 4월 1일', tag: '정기미팅', icon: 'mushroom' },
+    { title: 'PUG 운영진 미팅', date: '2026년 3월 27일 오전 9:00', tag: '운영진' },
+    { title: '3월 4주차 모임(26.03.25)', date: '2026년 3월 25일', tag: '정기미팅', icon: 'mushroom' },
+    { title: '3월 4주차 발표 (26.03.25)', date: '2026년 3월 25일', tag: '발표' },
+    { title: 'PUG 운영진 미팅', date: '2026년 3월 19일 오후 2:00', tag: '운영진' },
+    { title: 'PUG 간담회', date: '2026년 3월 18일 오후 6:00', tag: '기타' },
+    { title: '3월 3주차 모임(26.03.18)', date: '2026년 3월 18일', tag: '정기미팅', icon: 'mushroom' },
+    { title: 'PUG 운영진 미팅', date: '2026년 3월 12일 오후 2:00', tag: '운영진' },
+    { title: '3월 2주차 모임 (26.03.11)', date: '2026년 3월 11일', tag: '정기미팅', icon: 'mushroom' },
+    { title: 'PUG 운영진 미팅', date: '2026년 3월 5일 오후 5:00', tag: '운영진' },
+    { title: '3월 1주차 모임 (26.03.04)', date: '2026년 3월 4일', tag: '정기미팅', icon: 'mushroom', comments: 2 },
+    { title: '집중반 3월 1주차 운영 준비', date: '2026년 2월 27일', tag: '운영진', comments: 4 },
+    { title: 'PUG 운영진 미팅', date: '2026년 2월 26일 오전 10:30', tag: '운영진' },
+    { title: 'PUG 집중반 킥오프 (26.02.25)', date: '2026년 2월 25일', tag: '정기미팅', icon: 'mushroom' },
+    { title: '송영복님 복귀 후 공유사항 (예정)', date: '2026년 2월 23일', tag: '운영진', comments: 1 },
+    { title: 'PUG 미성토 (26.02.04)', date: '2026년 2월 4일', tag: '미래성장토론' },
+    { title: 'People 팀 지원 요청', date: '2026년 1월 29일', tag: '기타', comments: 3 },
+    { title: 'PUG 관련 협의 회의록 (People팀 · 사업기획)', date: '2026년 1월 29일', tag: '기타' },
+    { title: 'PUG 미성토 준비 운영진 미팅', date: '2026년 1월 14일 오후 3:00', tag: '미래성장토론', comments: 2 },
+    { title: '현재호님 인터뷰', date: '2026년 1월 14일 오후 2:00', tag: '인터뷰' },
+    { title: '구성원별 종합 인터뷰 내용(요약)', date: '2026년 1월 12일', tag: '인터뷰' },
+    { title: 'PUG 운영진 미팅', date: '2026년 1월 12일', tag: '운영진' }
+];
+
+const commentSvg = '<svg viewBox="0 0 16 16" fill="currentColor"><path d="M2.678 11.894a1 1 0 0 1 .287.801 10.97 10.97 0 0 1-.398 2c1.395-.323 2.247-.697 2.634-.893a1 1 0 0 1 .71-.074A8.06 8.06 0 0 0 8 14c3.996 0 7-2.807 7-6 0-3.192-3.004-6-7-6S1 4.808 1 8c0 1.468.617 2.83 1.678 3.894z"/></svg>';
+
+function rowIcon(n) {
+    if (n.icon === 'mushroom') return '<span class="row-icon row-icon--mushroom">🍄</span>';
+    if (n.icon) return `<span class="row-icon">${n.icon}</span>`;
+    return '<span class="row-icon--empty"></span>';
+}
+
+document.getElementById('list').innerHTML = NOTES.map(n => {
+    const comments = n.comments ? `<span class="row-comments">${commentSvg}${n.comments}</span>` : '';
+    const tagHtml = n.tag
+        ? `<span class="tag ${TAG[n.tag]}">${n.tag}</span>`
+        : `<span class="tag tag--empty">&nbsp;</span>`;
+    return `<div class="list-row">
+        <div class="row-title">${rowIcon(n)}<span>${n.title}</span>${comments}</div>
+        <div class="row-meta">
+            <span class="row-date">${n.date}</span>
+            ${tagHtml}
+            <span class="avatar"><img src="${AVATAR}" alt=""></span>
+        </div>
+    </div>`;
+}).join('');
+</script>
+</body>
+</html>
