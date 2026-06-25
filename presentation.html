@@ -58,10 +58,39 @@
         .teams-table-title { font-size: 11.5px; font-weight: 700; margin: 0 0 5px; }
         .teams-table { width: 100%; border-collapse: collapse; font-size: 10.5px; line-height: 1.32; }
         .teams-table th, .teams-table td { border: 1px solid #EDEBE9; padding: 3px 6px; vertical-align: top; text-align: left; }
+        .tech-stack-main .teams-channel,
+        .tech-stack-main .teams-post,
+        .tech-stack-main .teams-post__body { display: flex; flex-direction: column; flex: 1; min-height: 0; }
+        .tech-stack-main .teams-table-wrap { flex: 1; min-height: 380px; display: flex; }
+        .tech-stack-main .teams-table { flex: 1; height: 100%; table-layout: fixed; font-size: 10.5px; line-height: 1.4; }
+        .tech-stack-main .teams-table th,
+        .tech-stack-main .teams-table td { padding: 7px 8px; vertical-align: middle; }
+        .tech-stack-main .teams-table tbody tr { height: calc(100% / 12); }
         .teams-table th { background: #F3F2F1; font-weight: 700; color: #242424; }
         .teams-table td:first-child { font-weight: 700; white-space: nowrap; width: 96px; }
         .teams-table td:nth-child(2) { width: 132px; }
         .teams-table code { background: #F3F2F1; padding: 0 4px; border-radius: 2px; font-family: Consolas, 'Courier New', monospace; font-size: 10px; }
+        .teams-table tbody tr { transition: background 0.25s; }
+        .teams-table tbody tr.stack-row-active { background: rgba(245, 176, 65, 0.18); }
+        .stack-tab { padding: 0.5rem 0.65rem; border-radius: 8px; font-size: 0.72rem; font-weight: 700; color: #8A7B6E; background: #F0EAE0; transition: all 0.2s; text-align: center; width: 100%; }
+        .stack-tab:hover { color: #33271F; }
+        .stack-tab.active { background: #33271F; color: #FFFFFF; }
+        .stack-item { padding: 0.55rem 0.7rem; border-radius: 8px; background: #FBF8F3; border: 1px solid #F0EAE0; cursor: default; min-height: 44px; box-sizing: border-box; }
+        .stack-item:hover { border-color: #F5B041; }
+        .stack-item--empty { visibility: hidden; border-color: transparent; background: transparent; }
+        .stack-item__name { font-size: 0.78rem; font-weight: 700; color: #33271F; line-height: 1.25; }
+        .stack-item__desc { font-size: 0.66rem; color: #8A7B6E; margin-top: 2px; line-height: 1.3; min-height: 1.3em; }
+        .stack-tag { display: inline-block; font-size: 0.6rem; font-weight: 700; padding: 1px 6px; border-radius: 4px; background: #F5B041; color: #33271F; margin-left: 4px; vertical-align: middle; }
+        .stack-panel { display: flex; flex-direction: column; }
+        .stack-panel-detail-wrap { position: relative; height: 392px; flex-shrink: 0; }
+        .stack-panel-view { position: absolute; inset: 0; display: flex; flex-direction: column; gap: 0.4rem; opacity: 0; pointer-events: none; transition: opacity 0.2s ease; }
+        .stack-panel-view.active { opacity: 1; pointer-events: auto; }
+        .stack-panel-summary { font-size: 0.68rem; color: #8A7B6E; margin: 0 0 0.35rem; min-height: 1.1rem; flex-shrink: 0; }
+        .tech-stack-layout { align-items: stretch; }
+        .tech-stack-main { display: flex; }
+        .tech-stack-main .teams-channel { flex: 1; width: 100%; }
+        .tech-stack-side { display: flex; }
+        .tech-stack-side .stack-panel { flex: 1; width: 100%; }
     </style>
 </head>
 <body class="bg-paper text-ink antialiased overflow-hidden">
@@ -103,10 +132,11 @@
             </section>`;
         }
 
-        function contentSlide({ label, title, message, body, scroll = false }) {
+        function contentSlide({ label, title, message, body, scroll = false, wide = false }) {
             const scrollCls = scroll ? ' py-12 overflow-y-auto' : '';
+            const maxW = wide ? 'max-w-6xl' : 'max-w-5xl';
             return `<section class="slide w-full h-screen flex-col justify-center px-8 lg:px-24${scrollCls}">
-                <div class="max-w-5xl w-full mx-auto">
+                <div class="${maxW} w-full mx-auto">
                     <p class="text-sm font-bold text-pug mb-2 uppercase tracking-wider">${label}</p>
                     <h2 class="text-4xl font-extrabold mb-3">${title}</h2>
                     ${message ? `<p class="text-sm text-ink/80 leading-relaxed mb-7 max-w-3xl">${message}</p>` : ''}
@@ -334,23 +364,153 @@
         ];
 
         const TECH_STACK_ROWS = [
-            ['기본 언어', 'HTML, CSS, JS, TS', '신규 프로젝트 시 <strong>TypeScript</strong> 사용 강력 권장'],
-            ['프론트엔드 FW', 'React, Next.js, Streamlit', '일반 웹은 React/Next.js, 간단한 구조는 Streamlit(Python All-in-One)도 가능'],
-            ['프론트엔드 빌드', 'Vite (비트)', '표준 빌드 도구'],
-            ['CSS FW', 'Tailwind CSS', '일관된 디자인 시스템 및 빠른 퍼블리싱용'],
-            ['백엔드 FW', 'FastAPI, Django', '생산성 중심의 파이썬 계열'],
-            ['백엔드 빌드', '<strong>Poetry</strong>', '<code>pyproject.toml</code> 기반의 의존성 관리 표준화'],
-            ['데이터베이스', '<strong>PostgreSQL</strong>, Chroma', '메인은 Postgres(RDB, NoSQL, Vector), 빠른 AI 검증은 Chroma'],
-            ['AI / ML', 'Python Libraries', '파이썬 생태계 내 라이브러리 활용 (추가 확장 가능)'],
-            ['데이터 시각화', 'Recharts, Chart.js', 'React 최적화는 Recharts, 범용 환경은 Chart.js'],
-            ['기타 (Only 학습용)', 'Flask', '실제 서비스보다는 개인 학습 및 프로토타입용'],
-            ['자동화', 'n8n, Power Automate', '자동화 구현, 백엔드 대체 가능'],
-            ['모바일', 'Flutter', '웹, 모바일, 데스크톱 앱을 아우르는 단일 코드 베이스 크로스 플랫폼']
+            ['기본 언어', 'HTML, CSS, JS, TS', '신규 프로젝트 시 <strong>TypeScript</strong> 사용 강력 권장', 'front'],
+            ['프론트엔드 FW', 'React, Next.js, Streamlit', '일반 웹은 React/Next.js, 간단한 구조는 Streamlit(Python All-in-One)도 가능', 'front'],
+            ['프론트엔드 빌드', 'Vite (비트)', '표준 빌드 도구', 'front'],
+            ['CSS FW', 'Tailwind CSS', '일관된 디자인 시스템 및 빠른 퍼블리싱용', 'front'],
+            ['백엔드 FW', 'FastAPI, Django', '생산성 중심의 파이썬 계열', 'back'],
+            ['백엔드 빌드', '<strong>Poetry</strong>', '<code>pyproject.toml</code> 기반의 의존성 관리 표준화', 'back'],
+            ['데이터베이스', '<strong>PostgreSQL</strong>, Chroma', '메인은 Postgres(RDB, NoSQL, Vector), 빠른 AI 검증은 Chroma', 'db'],
+            ['AI / ML', 'Python Libraries', '파이썬 생태계 내 라이브러리 활용 (추가 확장 가능)', 'ai'],
+            ['데이터 시각화', 'Recharts, Chart.js', 'React 최적화는 Recharts, 범용 환경은 Chart.js', 'front'],
+            ['기타 (Only 학습용)', 'Flask', '실제 서비스보다는 개인 학습 및 프로토타입용', 'back'],
+            ['자동화', 'n8n, Power Automate', '자동화 구현, 백엔드 대체 가능', 'ai'],
+            ['모바일', 'Flutter', '웹, 모바일, 데스크톱 앱을 아우르는 단일 코드 베이스 크로스 플랫폼', 'front']
         ];
 
+        const STACK_CATEGORIES = {
+            front: {
+                label: '프론트엔드',
+                summary: 'UI · 빌드 · 시각화 · 크로스 플랫폼',
+                items: [
+                    { name: 'TypeScript', tag: '권장', desc: '신규 프로젝트 표준 언어' },
+                    { name: 'React / Next.js', desc: '일반 웹 애플리케이션' },
+                    { name: 'Streamlit', desc: 'Python All-in-One UI' },
+                    { name: 'Vite', desc: '프론트엔드 빌드 도구' },
+                    { name: 'Tailwind CSS', desc: '디자인 시스템 · 퍼블리싱' },
+                    { name: 'Recharts / Chart.js', desc: '데이터 시각화' },
+                    { name: 'Flutter', desc: '웹 · 모바일 · 데스크톱' }
+                ]
+            },
+            back: {
+                label: '백엔드',
+                summary: 'API · 서버 · 의존성 관리',
+                items: [
+                    { name: 'FastAPI', tag: '권장', desc: 'API 개발 · PoC 표준' },
+                    { name: 'Django', desc: '생산성 중심 웹 FW' },
+                    { name: 'Poetry', desc: 'pyproject.toml 의존성 관리' },
+                    { name: 'Flask', tag: '학습용', desc: '프로토타입 · 개인 학습' }
+                ]
+            },
+            db: {
+                label: '데이터베이스',
+                summary: 'RDB · Vector · AI 검증',
+                items: [
+                    { name: 'PostgreSQL', tag: '메인', desc: 'RDB · NoSQL · Vector' },
+                    { name: 'Chroma', desc: '빠른 AI/RAG 벡터 검증' }
+                ]
+            },
+            ai: {
+                label: 'AI / ML',
+                summary: 'LLM · RAG · 자동화',
+                items: [
+                    { name: 'Python Libraries', desc: 'AI/ML 생태계 기반' },
+                    { name: 'LLM API', desc: 'On-premise · Cloud 연동' },
+                    { name: 'RAG', desc: '검색 증강 생성 파이프라인' },
+                    { name: 'n8n / Power Automate', desc: '워크플로 · 업무 자동화' }
+                ]
+            }
+        };
+
+        let activeStackCat = 'front';
+        let stackAutoTimer = null;
+        let stackInteractiveReady = false;
+        const STACK_CAT_ORDER = ['front', 'back', 'db', 'ai'];
+
+        const STACK_MAX_ITEMS = 7;
+
+        function renderStackPanelDetail(cat) {
+            const c = STACK_CATEGORIES[cat];
+            if (!c) return '';
+            const slots = [...c.items];
+            while (slots.length < STACK_MAX_ITEMS) slots.push(null);
+            const cards = slots.map(item => {
+                if (!item) return '<div class="stack-item stack-item--empty">&nbsp;</div>';
+                return `<div class="stack-item">
+                    <div class="stack-item__name">${item.name}${item.tag ? `<span class="stack-tag">${item.tag}</span>` : ''}</div>
+                    <div class="stack-item__desc">${item.desc}</div>
+                </div>`;
+            }).join('');
+            return `<p class="stack-panel-summary">${c.summary}</p>${cards}`;
+        }
+
+        function buildTechStackPanel() {
+            const tabs = STACK_CAT_ORDER.map(id => {
+                const c = STACK_CATEGORIES[id];
+                return `<button type="button" class="stack-tab${id === activeStackCat ? ' active' : ''}" data-stack-cat="${id}">${c.label}</button>`;
+            }).join('');
+            const views = STACK_CAT_ORDER.map(id =>
+                `<div class="stack-panel-view${id === activeStackCat ? ' active' : ''}" data-stack-view="${id}">${renderStackPanelDetail(id)}</div>`
+            ).join('');
+            return `<div class="stack-panel bg-card rounded-lg p-5 border border-beige" id="tech-stack-panel">
+                <p class="text-xs font-bold text-pug mb-1 uppercase tracking-wider">Interactive</p>
+                <h3 class="text-sm font-bold mb-3">영역별 기술 스택</h3>
+                <div class="grid grid-cols-2 gap-2 mb-3 flex-shrink-0">${tabs}</div>
+                <div class="stack-panel-detail-wrap">${views}</div>
+            </div>`;
+        }
+
+        function highlightStackTableRows(cat) {
+            document.querySelectorAll('.teams-table tbody tr').forEach(tr => {
+                tr.classList.toggle('stack-row-active', tr.dataset.stackCat === cat);
+            });
+        }
+
+        function selectStackCategory(cat, { fromAuto = false } = {}) {
+            activeStackCat = cat;
+            if (!fromAuto) stopStackAutoLoop();
+            document.querySelectorAll('.stack-tab').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.stackCat === cat);
+            });
+            document.querySelectorAll('.stack-panel-view').forEach(view => {
+                view.classList.toggle('active', view.dataset.stackView === cat);
+            });
+            highlightStackTableRows(cat);
+        }
+
+        function stopStackAutoLoop() {
+            if (stackAutoTimer) { clearInterval(stackAutoTimer); stackAutoTimer = null; }
+        }
+
+        function startStackAutoLoop() {
+            stopStackAutoLoop();
+            let idx = STACK_CAT_ORDER.indexOf(activeStackCat);
+            stackAutoTimer = setInterval(() => {
+                idx = (idx + 1) % STACK_CAT_ORDER.length;
+                selectStackCategory(STACK_CAT_ORDER[idx], { fromAuto: true });
+            }, 3500);
+        }
+
+        function initTechStackInteractive() {
+            if (stackInteractiveReady) {
+                selectStackCategory(activeStackCat);
+                startStackAutoLoop();
+                return;
+            }
+            stackInteractiveReady = true;
+            document.addEventListener('click', e => {
+                const tab = e.target.closest('.stack-tab');
+                if (!tab) return;
+                e.stopPropagation();
+                selectStackCategory(tab.dataset.stackCat);
+            });
+            selectStackCategory(activeStackCat);
+            startStackAutoLoop();
+        }
+
         function buildTechStackTeamsPost() {
-            const rows = TECH_STACK_ROWS.map(r => `<tr><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td></tr>`).join('');
-            return `<div class="teams-channel">
+            const rows = TECH_STACK_ROWS.map(r => `<tr data-stack-cat="${r[3]}"><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td></tr>`).join('');
+            const post = `<div class="teams-channel">
                 <article class="teams-post">
                     <header class="teams-post__header">
                         <div class="teams-avatar">
@@ -369,12 +529,18 @@
                         <p class="teams-post__intro">PUG 멤버들이 한눈에 파악하기 좋도록 기술 스택 가이드를 카테고리별 표 형식으로 정리했습니다.</p>
                         <hr class="teams-post__divider">
                         <p class="teams-table-title">🛠️ 사내 표준 기술 스택 요약표</p>
-                        <table class="teams-table">
-                            <thead><tr><th>구분</th><th>기술 스택</th><th>권장 사항 및 용도</th></tr></thead>
-                            <tbody>${rows}</tbody>
-                        </table>
+                        <div class="teams-table-wrap">
+                            <table class="teams-table">
+                                <thead><tr><th>구분</th><th>기술 스택</th><th>권장 사항 및 용도</th></tr></thead>
+                                <tbody>${rows}</tbody>
+                            </table>
+                        </div>
                     </div>
                 </article>
+            </div>`;
+            return `<div class="tech-stack-layout grid lg:grid-cols-3 gap-5 items-stretch">
+                <div class="tech-stack-main lg:col-span-2">${post}</div>
+                <div class="tech-stack-side lg:col-span-1">${buildTechStackPanel()}</div>
             </div>`;
         }
 
@@ -383,6 +549,7 @@
                 return contentSlide({
                     label: 'Support · 디전센 × PUG',
                     title: s.title,
+                    wide: true,
                     body: buildTechStackTeamsPost()
                 });
             }
@@ -928,6 +1095,7 @@
                 if (i !== current) s.querySelectorAll('video').forEach(v => v.pause());
             });
             if (!slides[current]?.querySelector('#growthRadar')) stopRadarSlide();
+            if (!slides[current]?.querySelector('#tech-stack-panel')) stopStackAutoLoop();
             document.getElementById('cur').innerText = current + 1;
             document.getElementById('progress-bar').style.width = ((current + 1) / slides.length * 100) + '%';
             lucide.createIcons();
@@ -938,6 +1106,8 @@
                 startRadarAutoLoop();
             } else if (slides[current]?.querySelector('#checklist-body')) {
                 renderChecklistBody();
+            } else if (slides[current]?.querySelector('#tech-stack-panel')) {
+                initTechStackInteractive();
             }
         }
         function changeSlide(dir) {
