@@ -9,17 +9,12 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+KR:wght@300;400;500;700;800&display=swap" rel="stylesheet">
     <script>
-        // Warm Clean Minimalism palette (PUG Design Guide)
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        paper: '#FBF8F3',
-                        card:  '#FFFFFF',
-                        beige: '#F0EAE0',
-                        ink:   '#33271F',
-                        taupe: '#8A7B6E',
-                        pug:   '#F5B041'
+                        paper: '#FBF8F3', card: '#FFFFFF', beige: '#F0EAE0',
+                        ink: '#33271F', taupe: '#8A7B6E', pug: '#F5B041'
                     },
                     borderRadius: { lg: '8px' }
                 }
@@ -28,532 +23,449 @@
     </script>
     <style>
         body { font-family: 'Inter', 'Noto Sans KR', sans-serif; }
-
         .slide { display: none; animation: fade 0.35s ease; }
         .slide.active { display: flex; }
-        @keyframes fade {
-            from { opacity: 0; transform: translateY(8px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
+        @keyframes fade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
         .tbl { width: 100%; border-collapse: collapse; }
-        .tbl thead th {
-            background: #F0EAE0; color: #33271F; font-weight: 700;
-            font-size: 0.82rem; text-align: left; padding: 0.7rem 1rem;
-        }
+        .tbl thead th { background: #F0EAE0; color: #33271F; font-weight: 700; font-size: 0.82rem; text-align: left; padding: 0.7rem 1rem; }
         .tbl thead th:first-child { border-top-left-radius: 8px; border-bottom-left-radius: 8px; }
-        .tbl thead th:last-child  { border-top-right-radius: 8px; border-bottom-right-radius: 8px; }
-        .tbl tbody td {
-            padding: 0.7rem 1rem; font-size: 0.85rem; color: #4A3C33;
-            vertical-align: top; border-top: 1px solid #F0EAE0;
-        }
+        .tbl thead th:last-child { border-top-right-radius: 8px; border-bottom-right-radius: 8px; }
+        .tbl tbody td { padding: 0.7rem 1rem; font-size: 0.85rem; color: #4A3C33; vertical-align: top; border-top: 1px solid #F0EAE0; }
         .tbl tbody td:first-child { color: #33271F; font-weight: 600; }
         .tbl.nowrap-first tbody td:first-child { white-space: nowrap; }
         .col-2026 { color: #33271F !important; font-weight: 600 !important; }
-
         ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-track { background: #F0EAE0; }
         ::-webkit-scrollbar-thumb { background: #CBBBA8; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #8A7B6E; }
+        .slide-media { width: 100%; max-height: 420px; display: block; background: #F0EAE0; object-fit: contain; }
+        .slide-media-tall { width: 100%; max-height: calc(100vh - 140px); min-height: 560px; display: block; background: #F0EAE0; object-fit: contain; }
     </style>
 </head>
 <body class="bg-paper text-ink antialiased overflow-hidden">
 
-    <!-- Top progress bar -->
     <div class="fixed top-0 left-0 right-0 h-1 bg-beige z-50">
-        <div id="progress-bar" class="h-full bg-pug transition-all duration-300" style="width: 0%"></div>
+        <div id="progress-bar" class="h-full bg-pug transition-all duration-300" style="width:0%"></div>
     </div>
 
-    <main id="deck" class="w-full h-screen">
+    <main id="deck" class="w-full h-screen"></main>
 
-        <!-- ===== Slide 1: Cover ===== -->
-        <section class="slide active w-full h-screen flex-col items-center justify-center px-8">
-            <div class="max-w-3xl w-full text-center flex flex-col items-center gap-7">
-                <div class="inline-flex items-center gap-2 bg-pug text-ink px-4 py-2 rounded-lg text-sm font-bold">
-                    🐶 AI Power User Group
-                </div>
-                <h1 class="text-5xl md:text-6xl font-extrabold tracking-tight leading-tight">
-                    AI PUG<br>성장 히스토리
-                </h1>
-                <p class="text-base text-taupe max-w-2xl leading-relaxed">
-                    사내 AI 활용 역량을 높이고, 현업 중심의 AI 실험과<br>
-                    지식 공유 문화를 확산해온 AI PUG의 여정.
-                </p>
-            </div>
-        </section>
-
-        <!-- ===== Slide 2: Part 1 - Opening ===== -->
-        <section class="slide w-full h-screen flex-col justify-center px-8 lg:px-24">
-            <div class="max-w-5xl w-full mx-auto">
-                <p class="text-sm font-bold text-pug mb-2 uppercase tracking-wider">01 · Opening</p>
-                <h2 class="text-4xl font-extrabold mb-3">AI PUG의 시작: AI 활용을 함께 고민하다</h2>
-                <p class="text-sm text-ink/80 leading-relaxed mb-7 max-w-3xl">
-                    AI 활용에 대한 관심은 높아졌지만, 실제 업무에 어떻게 적용할지는 각자 막막한 상황이었습니다.
-                    AI PUG는 이런 고민을 함께 풀어가기 위해 시작된 <strong class="text-ink">자발적 학습·공유 그룹</strong>이었습니다.
-                </p>
-                <div class="grid lg:grid-cols-5 gap-6 items-start">
-                    <div class="lg:col-span-3 bg-card rounded-lg p-6">
-                        <table class="tbl nowrap-first">
-                            <tbody>
-                                <tr><td>출범</td><td>2025년 7월</td></tr>
-                                <tr><td>그룹명</td><td>AI Power User Group</td></tr>
-                                <tr><td>목적</td><td>사내 AI 활용 역량 강화 및 자발적 지식 공유 문화 확산</td></tr>
-                                <tr><td>운영 방식</td><td>정기 모임, AI 활용 사례 공유, 실습 중심 활동</td></tr>
-                                <tr><td>출발점</td><td>AI를 실제 업무에 활용하고 싶은 구성원들의 자발적 참여</td></tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="lg:col-span-2 bg-pug text-ink rounded-lg p-6 self-stretch flex flex-col justify-center">
-                        <p class="text-xs font-bold uppercase tracking-wider mb-3 opacity-70">출발 질문</p>
-                        <p class="text-xl font-bold leading-snug">“AI, 우리 업무에<br>어떻게 써볼 수 있을까?”</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ===== Slide 3: PUG의 역할 ===== -->
-        <section class="slide w-full h-screen flex-col justify-center px-8 lg:px-24 py-12 overflow-y-auto">
-            <div class="max-w-5xl w-full mx-auto">
-                <p class="text-sm font-bold text-pug mb-2 uppercase tracking-wider">About · PUG의 역할</p>
-                <h2 class="text-4xl font-extrabold mb-4">AI를 ‘활용하는 조직’으로 전환하기 위한 실험실</h2>
-                <div class="bg-pug text-ink rounded-lg p-4 mb-5 flex items-start gap-3">
-                    <i data-lucide="lightbulb" class="w-6 h-6 shrink-0 mt-0.5"></i>
-                    <p class="text-base md:text-lg font-bold leading-snug">
-                        AI를 ‘도입’하는 조직이 아니라, ‘활용하는 조직’으로 전환하기 위한 실험실
-                    </p>
-                </div>
-
-                <!-- Role illustration -->
-                <div class="bg-card rounded-lg p-5 mb-5 flex justify-center">
-                    <img src="assets/pug-roles.png" alt="AI Power User Group의 5가지 역할: 문화 전파, 신뢰 구축, 파일럿 사용, 사례 창출, 프로세스 번역" class="w-full max-w-3xl h-auto">
-                </div>
-
-                <!-- Activity points (compact row) -->
-                <div class="grid md:grid-cols-3 gap-3 mb-5">
-                    <div class="bg-card rounded-lg px-4 py-3 flex items-center gap-2.5">
-                        <i data-lucide="code-2" class="w-4 h-4 text-pug shrink-0"></i>
-                        <span class="text-xs font-medium text-ink">실습 중심 학습 <span class="text-taupe">(바이브 코딩, LLM API)</span></span>
-                    </div>
-                    <div class="bg-card rounded-lg px-4 py-3 flex items-center gap-2.5">
-                        <i data-lucide="rocket" class="w-4 h-4 text-pug shrink-0"></i>
-                        <span class="text-xs font-medium text-ink">현업 중심 자동화·개발 프로젝트</span>
-                    </div>
-                    <div class="bg-card rounded-lg px-4 py-3 flex items-center gap-2.5">
-                        <i data-lucide="network" class="w-4 h-4 text-pug shrink-0"></i>
-                        <span class="text-xs font-medium text-ink">지식 교류 & 협업 네트워크 구축</span>
-                    </div>
-                </div>
-
-                <div class="bg-ink text-card rounded-lg p-4 flex items-start gap-3">
-                    <i data-lucide="trending-up" class="w-6 h-6 shrink-0 mt-0.5 text-pug"></i>
-                    <p class="text-base font-bold leading-snug">
-                        PUG는 DRB의 <span class="text-pug">AI 실험 샌드박스</span>이자, <span class="text-pug">조직문화 변화의 파일럿 그룹</span>
-                    </p>
-                </div>
-            </div>
-        </section>
-
-        <!-- ===== Slide 4: Part 2 - 2025 활동과 Pain Point ===== -->
-        <section class="slide w-full h-screen flex-col justify-center px-8 lg:px-24">
-            <div class="max-w-5xl w-full mx-auto">
-                <p class="text-sm font-bold text-pug mb-2 uppercase tracking-wider">02 · 2025 Review</p>
-                <h2 class="text-4xl font-extrabold mb-3">2025년: 기반은 만들었지만, 현업 적용에는 한계가 있었다</h2>
-                <p class="text-sm text-ink/80 leading-relaxed mb-7 max-w-3xl">
-                    2025년 PUG는 AI 학습과 공유 문화를 만드는 데 의미가 있었지만,
-                    활동이 <strong class="text-ink">현업 성과로 연결되기에는 몇 가지 한계</strong>가 있었습니다.
-                </p>
-                <div class="bg-card rounded-lg p-6">
-                    <table class="tbl">
-                        <thead><tr><th>2025년 활동</th><th>드러난 Pain Point</th></tr></thead>
-                        <tbody>
-                            <tr><td>AI 도구 사용법 학습</td><td>도구를 배워도 실제 업무 적용 주제가 명확하지 않음</td></tr>
-                            <tr><td>활용 사례 공유</td><td>사례는 쌓였지만 개인별 업무 문제와 연결이 약함</td></tr>
-                            <tr><td>실습 중심 모임</td><td>실습 결과가 지속적인 결과물로 남기 어려움</td></tr>
-                            <tr><td>자발적 참여</td><td>참여 열정은 있었지만 과제 추진 구조가 부족함</td></tr>
-                            <tr><td>월 1회 모임</td><td>활동 사이클이 느리고 실행 관리가 어려움</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="bg-beige rounded-lg p-4 mt-5 text-sm text-ink leading-relaxed">
-                    핵심 한계 — 학습은 있었지만 <strong class="bg-pug px-1 rounded">문제 정의와 실행 구조</strong>가 부족했습니다.
-                </div>
-            </div>
-        </section>
-
-        <!-- ===== Slide 4: Part 3 - 전환점 ===== -->
-        <section class="slide w-full h-screen flex-col justify-center px-8 lg:px-24">
-            <div class="max-w-5xl w-full mx-auto">
-                <p class="text-sm font-bold text-pug mb-2 uppercase tracking-wider">03 · Turning Point</p>
-                <h2 class="text-4xl font-extrabold mb-3">2026년 전환 방향: Learning에서 Problem Solving으로</h2>
-                <p class="text-sm text-ink/80 leading-relaxed mb-6 max-w-3xl">
-                    PUG의 질문을 바꿨습니다. <strong class="text-ink">“AI를 어떻게 쓰는가?”</strong>에서
-                    <strong class="text-ink">“AI로 어떤 업무 문제를 해결할 수 있는가?”</strong>로 전환했습니다.
-                </p>
-                <div class="bg-card rounded-lg p-6">
-                    <table class="tbl">
-                        <thead><tr><th>구분</th><th>2025년</th><th>2026년</th></tr></thead>
-                        <tbody>
-                            <tr><td>활동 중심</td><td>AI 도구 학습</td><td class="col-2026">현업 문제 해결 PoC</td></tr>
-                            <tr><td>주제 선정</td><td>공통 학습 주제 중심</td><td class="col-2026">멤버별 업무 Pain Point 기반</td></tr>
-                            <tr><td>운영 방식</td><td>사례 공유, 실습</td><td class="col-2026">문제 정의, 데이터 확인, 구현 실험</td></tr>
-                            <tr><td>결과물</td><td>학습 경험, 활용 팁</td><td class="col-2026">PoC 결과물, 개선 아이디어</td></tr>
-                            <tr><td>성장 방식</td><td>개인별 사용 경험 축적</td><td class="col-2026">과제 수행을 통한 역량 성장</td></tr>
-                            <tr><td>한계 / 지향</td><td>실제 적용까지 연결이 약함</td><td class="col-2026">적용 가능성을 검증하는 구조 마련</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </section>
-
-        <!-- ===== Slide 5: Part 4 - PoC 중심 운영 프로세스 ===== -->
-        <section class="slide w-full h-screen flex-col justify-center px-8 lg:px-24">
-            <div class="max-w-5xl w-full mx-auto">
-                <p class="text-sm font-bold text-pug mb-2 uppercase tracking-wider">04 · Operation</p>
-                <h2 class="text-4xl font-extrabold mb-3">2026년: PoC 중심 실행 구조로 개선</h2>
-                <p class="text-sm text-ink/80 leading-relaxed mb-7 max-w-3xl">
-                    각자 하나의 현업 문제를 들고 와서, <strong class="text-ink">문제 발굴 → 데이터 검토 → 구현 실험 → 피드백</strong>까지
-                    이어지는 실행형 구조로 운영했습니다.
-                </p>
-                <div class="grid md:grid-cols-3 gap-5" id="process-grid"></div>
-            </div>
-        </section>
-
-        <!-- ===== Slide: 학습 커리큘럼 ===== -->
-        <section class="slide w-full h-screen flex-col justify-center px-8 lg:px-24 py-12 overflow-y-auto">
-            <div class="max-w-5xl w-full mx-auto">
-                <p class="text-sm font-bold text-pug mb-2 uppercase tracking-wider">Curriculum · 학습 커리큘럼</p>
-                <h2 class="text-4xl font-extrabold mb-3">기초부터 PoC까지, 단계적 학습 커리큘럼</h2>
-                <p class="text-sm text-ink/80 leading-relaxed mb-6 max-w-3xl">
-                    PoC 수행에 필요한 역량을 단계적으로 쌓도록, 코딩 기초부터 LLM·자동화·배포·AI 에이전트까지
-                    <strong class="text-ink">체크리스트 기반 커리큘럼</strong>을 운영했습니다.
-                </p>
-                <div class="bg-card rounded-lg p-6">
-                    <table class="tbl nowrap-first">
-                        <thead><tr><th>학습 주제</th><th>주요 학습 내용</th><th>관련 체크리스트 영역</th></tr></thead>
-                        <tbody>
-                            <tr><td>코딩 기초 이해</td><td>Python 기본 문법, 변수·함수</td><td class="!text-taupe">1-1 기본 개념 및 언어</td></tr>
-                            <tr><td>웹·시스템 구조 / 바이브 코딩 ①</td><td>FE/BE 역할, REST API 흐름·서버 개념, AI에게 요구사항 정의·단계적 기능 확장</td><td class="!text-taupe">1-3 FE/BE · 2-3 API · 2-1 AI 협업</td></tr>
-                            <tr><td>바이브 코딩 ②</td><td>에러 로그 기반 재질문, 로컬 실행·환경변수</td><td class="!text-taupe">2-2 개발환경 & 서버 실행</td></tr>
-                            <tr><td>DB 기초 개념</td><td>테이블/행/컬럼, 관계형 DB Key(PK/FK)</td><td class="!text-taupe">1-2 DB 기초 개념</td></tr>
-                            <tr><td>LLM 기본 원리 및 활용</td><td>LLM 강점/한계, 컨텍스트·Temperature 옵션, RAG 기초</td><td class="!text-taupe">3-1~3-4 LLM · RAG</td></tr>
-                            <tr><td>프로젝트 기획</td><td>학습 내용 기반 프로젝트 기획 (AS-IS 정리, PoC 목표·범위 설정)</td><td class="!text-taupe">8. 프로젝트 기획</td></tr>
-                            <tr><td>Git & GitHub 기초</td><td>Git 개념, 저장소 생성, Commit / Push / Pull</td><td class="!text-taupe">5. Git & 협업 기초</td></tr>
-                            <tr><td>배포와 운영</td><td>로컬·운영 환경 차이, 빌드 → 배포 → 실행 흐름</td><td class="!text-taupe">6. 배포와 운영</td></tr>
-                            <tr><td>자동화 & 오케스트레이션</td><td>n8n·Power Automate, 트리거 기반 자동화, LLM 삽입 자동화</td><td class="!text-taupe">4. 오케스트레이션 & 자동화</td></tr>
-                            <tr><td>AI 에이전트 관점</td><td>업무 → 에이전트 전환, MVP 구조 설계</td><td class="!text-taupe">7. AI 에이전트 종합 역량</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </section>
-
-        <!-- ===== Slide 6: Part 5 - 멤버별 PoC ===== -->
-        <section class="slide w-full h-screen flex-col justify-center px-8 lg:px-24 py-12 overflow-y-auto">
-            <div class="max-w-5xl w-full mx-auto">
-                <p class="text-sm font-bold text-pug mb-2 uppercase tracking-wider">05 · PoC Scope</p>
-                <h2 class="text-4xl font-extrabold mb-3">현업 문제에서 출발한 멤버별 PoC</h2>
-                <p class="text-sm text-ink/80 leading-relaxed mb-6 max-w-3xl">
-                    추상적인 AI 학습에서 벗어나, 각 부서와 업무의 <strong class="text-ink">실제 문제</strong>로 활동 범위가 확장되었습니다.
-                    — 교육, 제조, 품질, 생산, 설계, 자동화.
-                </p>
-
-                <!-- Field illustration -->
-                <div class="bg-card rounded-lg p-5 mb-5 flex justify-center">
-                    <img src="assets/poc-fields.png" alt="분야별 PoC: 교육·역량, 제조 데이터, 생산계획, 설계·원가, 업무 자동화" class="w-full max-w-4xl h-auto">
-                </div>
-
-                <div class="bg-card rounded-lg p-6">
-                    <table class="tbl nowrap-first">
-                        <thead><tr><th>분야</th><th>PoC 방향</th><th>개선 포인트</th></tr></thead>
-                        <tbody>
-                            <tr><td>교육·역량</td><td>직무·경력·관심 역량 기반 교육 추천</td><td>개인화된 교육 추천 가능성 검토</td></tr>
-                            <tr><td>제조 데이터</td><td>수율 데이터 분석 및 대시보드</td><td>데이터 기반 품질 현황 파악</td></tr>
-                            <tr><td>실험·센서 데이터</td><td>센서 실험 데이터 분석 자동화</td><td>반복 분석 업무 효율화</td></tr>
-                            <tr><td>생산계획</td><td>AI 기반 생산계획 고도화</td><td>의사결정 지원 가능성 검토</td></tr>
-                            <tr><td>설계·원가</td><td>CATIA·BOM 기반 제조설계 및 원가 보조</td><td>설계·원가 검토 업무 지원</td></tr>
-                            <tr><td>업무 자동화</td><td>반복 업무 자동화 및 데이터 처리</td><td>수작업 감소 및 업무 효율 향상</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </section>
-
-        <!-- ===== Slide 7: Part 6 - 중간점검 ===== -->
-        <section class="slide w-full h-screen flex-col justify-center px-8 lg:px-24">
-            <div class="max-w-5xl w-full mx-auto">
-                <p class="text-sm font-bold text-pug mb-2 uppercase tracking-wider">06 · Review Loop</p>
-                <h2 class="text-4xl font-extrabold mb-3">개인의 실험을 함께 고도화하는 방식으로 변화</h2>
-                <p class="text-sm text-ink/80 leading-relaxed mb-7 max-w-3xl">
-                    중간점검은 단순한 진행 공유가 아니라, 멤버별 PoC를 서로 공유하고 피드백하며
-                    <strong class="text-ink">개인의 실험을 함께 개선하는 구조</strong>였습니다.
-                </p>
-                <div class="grid lg:grid-cols-3 gap-6 items-start">
-                    <div class="lg:col-span-2 bg-card rounded-lg p-6">
-                        <table class="tbl nowrap-first">
-                            <tbody>
-                                <tr><td>발표 내용</td><td>PoC 주제, 추진 배경, 진행 내용, 어려움, 향후 계획</td></tr>
-                                <tr><td>피드백 관점</td><td>데이터 확보 가능성, 구현 방향, 사용자 관점, 확장 가능성</td></tr>
-                                <tr><td>개선 효과</td><td>과제 방향성 보완, 현실성 점검, 적용 가능성 강화</td></tr>
-                                <tr><td>의미</td><td>개인별 학습을 공동의 문제 해결 경험으로 전환</td></tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="bg-pug text-ink rounded-lg p-6 self-stretch flex flex-col justify-center">
-                        <i data-lucide="users-round" class="w-7 h-7 mb-3"></i>
-                        <p class="text-lg font-bold leading-snug">혼자 배우는 활동에서<br>함께 개선하는 구조로</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ===== Slide 8: Part 7 - 역량 변화 Before & After ===== -->
-        <section class="slide w-full h-screen flex-col justify-center px-8 lg:px-24">
-            <div class="max-w-5xl w-full mx-auto">
-                <p class="text-sm font-bold text-pug mb-2 uppercase tracking-wider">07 · Growth Evidence</p>
-                <h2 class="text-4xl font-extrabold mb-3">Before &amp; After로 확인한 PUG 역량 성장</h2>
-                <p class="text-sm text-ink/80 leading-relaxed mb-7 max-w-3xl">
-                    2026년 PUG 시작 전/후, <strong class="text-ink">동일 체크리스트 기반 자기 점검</strong>으로 역량 변화를 확인했습니다.
-                    단순 AI 사용 경험을 넘어 데이터 이해·자동화·PoC 수행 역량까지 전반적으로 확장되었습니다.
-                </p>
-                <div class="grid lg:grid-cols-3 gap-6 items-start">
-                    <div class="lg:col-span-2 bg-card rounded-lg p-6">
-                        <div class="flex items-center justify-center gap-5 mb-2 text-xs font-semibold">
-                            <span class="flex items-center gap-1.5 text-taupe"><span class="w-3 h-3 rounded-sm bg-ink"></span> Before</span>
-                            <span class="flex items-center gap-1.5 text-ink"><span class="w-3 h-3 rounded-sm bg-pug"></span> After</span>
-                        </div>
-                        <div class="w-full h-[380px] flex items-center justify-center">
-                            <canvas id="growthRadar"></canvas>
-                        </div>
-                    </div>
-                    <div class="bg-card rounded-lg p-6 self-stretch">
-                        <h3 class="text-sm font-bold mb-4 flex items-center gap-2"><i data-lucide="clipboard-check" class="w-4 h-4 text-pug"></i> 조사 개요</h3>
-                        <table class="tbl nowrap-first">
-                            <tbody>
-                                <tr><td>조사 시점</td><td>2026년 PUG 시작 전 / 후</td></tr>
-                                <tr><td>조사 방식</td><td>동일 체크리스트 자기 점검</td></tr>
-                                <tr><td>확인 포인트</td><td>항목별 체크 증가, 역량 범위 확장, 평균 향상</td></tr>
-                            </tbody>
-                        </table>
-                        <p class="text-[11px] text-taupe mt-4 leading-relaxed">멤버별 상세 변화는 레이더 차트 대시보드로 별도 제공됩니다.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ===== Slide 9: Part 8 - Pain Point ↔ 개선 결과 종합 ===== -->
-        <section class="slide w-full h-screen flex-col justify-center px-8 lg:px-24 py-12 overflow-y-auto">
-            <div class="max-w-5xl w-full mx-auto">
-                <p class="text-sm font-bold text-pug mb-2 uppercase tracking-wider">08 · Before → After</p>
-                <h2 class="text-4xl font-extrabold mb-3">2025년의 한계를 2026년에는 이렇게 개선했다</h2>
-                <p class="text-sm text-ink/80 leading-relaxed mb-7 max-w-3xl">
-                    2025년의 한계는 <strong class="text-ink">‘AI를 배웠지만 업무 문제와 연결하는 구조가 약했다’</strong>는 점.
-                    PoC 중심 전환으로 활동 주제·결과물·피드백·역량 측정이 모두 구체화되었습니다.
-                </p>
-                <div class="bg-card rounded-lg p-6">
-                    <table class="tbl">
-                        <thead><tr><th>2025년 Pain Point</th><th>2026년 개선 방향</th><th>개선 결과</th></tr></thead>
-                        <tbody>
-                            <tr><td class="!whitespace-normal">AI를 배웠지만 업무 적용 주제가 불명확</td><td>멤버별 현업 Pain Point 기반 PoC 선정</td><td class="col-2026">업무 문제 중심의 과제 구체화</td></tr>
-                            <tr><td class="!whitespace-normal">사례 공유 중심이라 결과물 축적이 어려움</td><td>PoC 산출물 중심 운영</td><td class="col-2026">분석·자동화·추천·대시보드 등 결과물 도출</td></tr>
-                            <tr><td class="!whitespace-normal">개인별 학습 경험에 머무름</td><td>중간점검과 상호 피드백 운영</td><td class="col-2026">과제 완성도·실행 가능성 강화</td></tr>
-                            <tr><td class="!whitespace-normal">활동 성과를 설명하기 어려움</td><td>3월·5월 역량 체크리스트 비교</td><td class="col-2026">Before / After 기반 성장 확인</td></tr>
-                            <tr><td class="!whitespace-normal">AI 활용이 도구 사용에 집중됨</td><td>문제 정의·데이터 검토·구현 실험으로 확장</td><td class="col-2026">현업 문제 해결 역량 강화</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </section>
-
-        <!-- ===== Slide 10: Part 9 - 활동의 의미 ===== -->
-        <section class="slide w-full h-screen flex-col justify-center px-8 lg:px-24">
-            <div class="max-w-5xl w-full mx-auto">
-                <p class="text-sm font-bold text-pug mb-2 uppercase tracking-wider">09 · Meaning</p>
-                <h2 class="text-4xl font-extrabold mb-3">PUG가 만든 변화: AI 활용 방식의 전환</h2>
-                <p class="text-sm text-ink/80 leading-relaxed mb-7 max-w-3xl">
-                    PUG의 성장은 AI 도구를 더 잘 쓰게 된 것이 아니라,
-                    <strong class="text-ink">현업 문제를 AI 관점으로 다시 정의하고 해결 가능성을 검증하는 방식의 성장</strong>입니다.
-                </p>
-                <div class="bg-card rounded-lg p-6">
-                    <table class="tbl nowrap-first">
-                        <thead><tr><th>변화</th><th>의미</th></tr></thead>
-                        <tbody>
-                            <tr><td>도구 중심 → 문제 중심</td><td>AI 활용의 목적이 명확해짐</td></tr>
-                            <tr><td>학습 중심 → 실행 중심</td><td>실제 업무 적용 가능성 검증</td></tr>
-                            <tr><td>개인 경험 → 공동 피드백</td><td>혼자 배우는 활동에서 함께 개선하는 구조로 변화</td></tr>
-                            <tr><td>단기 실습 → PoC 결과물</td><td>활동이 결과물과 개선 아이디어로 축적</td></tr>
-                            <tr><td>역량 체감 → 역량 측정</td><td>Before / After로 성장 확인 가능</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </section>
-
-        <!-- ===== Slide 11: Part 10 - Closing ===== -->
-        <section class="slide w-full h-screen flex-col items-center justify-center px-8">
-            <div class="max-w-3xl w-full text-center flex flex-col items-center gap-8">
-                <p class="text-sm font-bold text-pug uppercase tracking-wider">10 · Closing</p>
-                <div class="flex flex-col md:flex-row items-stretch gap-4 w-full text-left">
-                    <div class="flex-1 bg-card rounded-lg p-6">
-                        <div class="inline-flex items-center gap-2 bg-beige text-ink px-3 py-1 rounded-full text-xs font-bold mb-3">
-                            <span class="w-2 h-2 rounded-full bg-ink"></span> 2025
-                        </div>
-                        <p class="text-sm text-ink/85 leading-relaxed">AI를 배우고 공유하는 <strong class="text-ink">기반을 만든 시기</strong></p>
-                    </div>
-                    <div class="flex-1 bg-card rounded-lg p-6">
-                        <div class="inline-flex items-center gap-2 bg-pug text-ink px-3 py-1 rounded-full text-xs font-bold mb-3">
-                            <span class="w-2 h-2 rounded-full bg-ink"></span> 2026
-                        </div>
-                        <p class="text-sm text-ink/85 leading-relaxed">현업 문제를 발굴하고 PoC로 검증하는 <strong class="text-ink">실행 중심 그룹으로 성장한 시기</strong></p>
-                    </div>
-                </div>
-                <div class="bg-ink text-card rounded-lg p-8 w-full">
-                    <p class="text-xl md:text-2xl font-bold leading-relaxed">
-                        AI PUG의 성장은 <span class="text-taupe">AI 사용법의 성장</span>이 아니라,<br>
-                        현업 문제를 <span class="text-pug">AI로 풀어보는 방식의 성장</span>입니다.
-                    </p>
-                </div>
-            </div>
-        </section>
-
-    </main>
-
-    <!-- Navigation -->
     <div class="fixed bottom-5 left-1/2 -translate-x-1/2 z-50 flex items-center gap-3 bg-card rounded-full px-3 py-2">
         <button onclick="changeSlide(-1)" class="p-2 rounded-full hover:bg-beige text-ink transition" aria-label="이전">
             <i data-lucide="chevron-left" class="w-5 h-5"></i>
         </button>
         <span class="text-sm font-semibold text-ink tabular-nums px-1">
-            <span id="cur">1</span><span class="text-taupe"> / <span id="total">11</span></span>
+            <span id="cur">1</span><span class="text-taupe"> / <span id="total">0</span></span>
         </span>
         <button onclick="changeSlide(1)" class="p-2 rounded-full hover:bg-beige text-ink transition" aria-label="다음">
             <i data-lucide="chevron-right" class="w-5 h-5"></i>
         </button>
     </div>
 
-    <!-- Slide title tag (top-left) -->
     <div class="fixed top-5 left-6 z-40 flex items-center gap-2 text-sm font-bold text-ink/70">
         <span class="bg-pug text-ink px-2 py-0.5 rounded text-xs">🐶 PUG</span>
         <span class="hidden md:inline">AI PUG 성장 히스토리</span>
     </div>
 
     <script>
-        // --- Process steps (slide 5) ---
-        const PROCESS = [
-            { n: '1', title: '문제 발굴', desc: '각 멤버가 본인 업무에서 반복·비효율·개선 필요 업무 선정' },
-            { n: '2', title: 'PoC 주제화', desc: '해결하고자 하는 문제, 기대효과, 적용 범위 정의' },
-            { n: '3', title: '데이터 확인', desc: '활용 가능한 데이터와 제약사항 검토' },
-            { n: '4', title: '구현 실험', desc: 'AI·데이터 분석·자동화·대시보드 등으로 해결 가능성 검증' },
-            { n: '5', title: '중간점검', desc: '진행 상황 공유 및 상호 피드백' },
-            { n: '6', title: '개선 반영', desc: '피드백을 바탕으로 방향 보완 및 결과물 고도화' }
-        ];
-        document.getElementById('process-grid').innerHTML = PROCESS.map(p => `
-            <div class="bg-card rounded-lg p-5">
-                <div class="flex items-center gap-3 mb-2">
-                    <span class="w-8 h-8 rounded-lg bg-pug text-ink font-extrabold flex items-center justify-center text-sm">${p.n}</span>
-                    <h3 class="text-base font-bold">${p.title}</h3>
-                </div>
-                <p class="text-xs text-ink/80 leading-relaxed">${p.desc}</p>
-            </div>
-        `).join('');
+        const deck = document.getElementById('deck');
 
-        // --- Growth radar (slide 8) : 3월 vs 5월 (대표 수치, 실제 설문값으로 교체 가능) ---
+        // ── Slide builders ──
+        function sectionDivider(part, title, subtitle) {
+            return `<section class="slide w-full h-screen flex-col items-center justify-center px-8">
+                <div class="max-w-3xl w-full text-center flex flex-col items-center gap-6">
+                    <div class="inline-flex items-center gap-2 bg-ink text-card px-4 py-2 rounded-lg text-sm font-bold">${part}</div>
+                    <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight leading-tight">${title}</h1>
+                    ${subtitle ? `<p class="text-base text-taupe max-w-xl leading-relaxed">${subtitle}</p>` : ''}
+                </div>
+            </section>`;
+        }
+
+        function contentSlide({ label, title, message, body, scroll = false }) {
+            const scrollCls = scroll ? ' py-12 overflow-y-auto' : '';
+            return `<section class="slide w-full h-screen flex-col justify-center px-8 lg:px-24${scrollCls}">
+                <div class="max-w-5xl w-full mx-auto">
+                    <p class="text-sm font-bold text-pug mb-2 uppercase tracking-wider">${label}</p>
+                    <h2 class="text-4xl font-extrabold mb-3">${title}</h2>
+                    ${message ? `<p class="text-sm text-ink/80 leading-relaxed mb-7 max-w-3xl">${message}</p>` : ''}
+                    ${body}
+                </div>
+            </section>`;
+        }
+
+        function listSlide({ label, title, message, items, highlight }) {
+            const list = items.map(i => `<li class="flex items-start gap-2.5 text-sm text-ink/85"><span class="mt-0.5 shrink-0 p-1 bg-pug text-ink rounded"><i data-lucide="check" class="w-3 h-3"></i></span><span>${i}</span></li>`).join('');
+            return contentSlide({
+                label, title, message,
+                body: `<div class="bg-card rounded-lg p-6"><ul class="space-y-3">${list}</ul></div>
+                    ${highlight ? `<div class="bg-beige rounded-lg p-4 mt-5 text-sm text-ink leading-relaxed">${highlight}</div>` : ''}`
+            });
+        }
+
+        function weekSlide({ week, title, topics }) {
+            const chips = topics.map(t => `<span class="inline-block bg-beige text-ink text-xs font-medium px-3 py-1.5 rounded-lg mr-2 mb-2">${t}</span>`).join('');
+            return contentSlide({
+                label: `Education · ${week}`,
+                title,
+                body: `<div class="bg-card rounded-lg p-8"><div class="flex flex-wrap gap-1">${chips}</div></div>`
+            });
+        }
+
+        // ── PART 1: PUG 출범, 2025 활동 + 회고 ──
+        const part1 = [
+            // Cover
+            `<section class="slide active w-full h-screen flex-col items-center justify-center px-8">
+                <div class="max-w-3xl w-full text-center flex flex-col items-center gap-7">
+                    <div class="inline-flex items-center gap-2 bg-pug text-ink px-4 py-2 rounded-lg text-sm font-bold">🐶 AI Power User Group</div>
+                    <h1 class="text-5xl md:text-6xl font-extrabold tracking-tight leading-tight">AI PUG<br>성장 히스토리</h1>
+                    <p class="text-base text-taupe max-w-2xl leading-relaxed">사내 AI 활용 역량을 높이고, 현업 중심의 AI 실험과<br>지식 공유 문화를 확산해온 AI PUG의 여정.</p>
+                </div>
+            </section>`,
+
+            sectionDivider('PART 1', 'PUG 출범, 2025 활동 + 회고', '어떻게 시작했고, 무엇이 부족했는가'),
+
+            contentSlide({
+                label: 'PUG 소개 · Opening',
+                title: 'AI PUG의 시작: AI 활용을 함께 고민하다',
+                message: 'AI 활용에 대한 관심은 높아졌지만, 실제 업무에 어떻게 적용할지는 각자 막막한 상황이었습니다. AI PUG는 이런 고민을 함께 풀어가기 위해 시작된 <strong class="text-ink">자발적 학습·공유 그룹</strong>이었습니다.',
+                body: `<div class="grid lg:grid-cols-5 gap-6 items-start">
+                    <div class="lg:col-span-3 bg-card rounded-lg p-6"><table class="tbl nowrap-first"><tbody>
+                        <tr><td>출범</td><td>2025년 7월</td></tr>
+                        <tr><td>그룹명</td><td>AI Power User Group</td></tr>
+                        <tr><td>목적</td><td>사내 AI 활용 역량 강화 및 자발적 지식 공유 문화 확산</td></tr>
+                        <tr><td>운영 방식</td><td>정기 모임, AI 활용 사례 공유, 실습 중심 활동</td></tr>
+                        <tr><td>출발점</td><td>AI를 실제 업무에 활용하고 싶은 구성원들의 자발적 참여</td></tr>
+                    </tbody></table></div>
+                    <div class="lg:col-span-2 bg-pug text-ink rounded-lg p-6 self-stretch flex flex-col justify-center">
+                        <p class="text-xs font-bold uppercase tracking-wider mb-3 opacity-70">출발 질문</p>
+                        <p class="text-xl font-bold leading-snug">"AI, 우리 업무에<br>어떻게 써볼 수 있을까?"</p>
+                    </div></div>`
+            }),
+
+            contentSlide({
+                label: 'PUG 소개 · 역할',
+                title: 'AI를 \'활용하는 조직\'으로 전환하기 위한 실험실',
+                body: `<div class="bg-pug text-ink rounded-lg p-4 mb-5 flex items-start gap-3">
+                    <i data-lucide="lightbulb" class="w-6 h-6 shrink-0"></i>
+                    <p class="text-base font-bold">AI를 '도입'하는 조직이 아니라, '활용하는 조직'으로 전환하기 위한 실험실</p>
+                </div>
+                <div class="bg-card rounded-lg p-5 mb-5 flex justify-center">
+                    <img src="assets/pug-roles.png" alt="PUG 5가지 역할" class="w-full max-w-3xl h-auto">
+                </div>
+                <div class="grid md:grid-cols-3 gap-3 mb-5">
+                    <div class="bg-card rounded-lg px-4 py-3 text-xs font-medium">실습 중심 학습 <span class="text-taupe">(바이브 코딩, LLM API)</span></div>
+                    <div class="bg-card rounded-lg px-4 py-3 text-xs font-medium">현업 중심 자동화·개발 프로젝트</div>
+                    <div class="bg-card rounded-lg px-4 py-3 text-xs font-medium">지식 교류 & 협업 네트워크 구축</div>
+                </div>
+                <div class="bg-ink text-card rounded-lg p-4 text-base font-bold">
+                    PUG는 DRB의 <span class="text-pug">AI 실험 샌드박스</span>이자, <span class="text-pug">조직문화 변화의 파일럿 그룹</span>
+                </div>`,
+                scroll: true
+            }),
+
+            contentSlide({
+                label: '2025 Review · 활동 히스토리',
+                title: '2025년 활동 히스토리',
+                message: '최신 도구를 직접 실습하고 활용 경험을 공유하는 방식으로 운영되었습니다.',
+                body: `<div class="bg-card rounded-lg p-6"><table class="tbl">
+                    <thead><tr><th>월</th><th>주요 활동</th><th>키워드</th></tr></thead>
+                    <tbody>
+                        <tr><td>7월</td><td>PUG 출범, 운영 방안 기획 및 검토</td><td>Kick-off</td></tr>
+                        <tr><td>8월</td><td>1차 정기 미팅: AI 활용 현황 공유</td><td>협업, 보안, RPA</td></tr>
+                        <tr><td>9월</td><td>VSCode + Copilot 실습</td><td>바이브 코딩</td></tr>
+                        <tr><td>9월</td><td>Gemini API 실습</td><td>LLM API</td></tr>
+                        <tr><td>10월</td><td>실무 사례 발표 및 회고</td><td>실습 회고, 운영 전환</td></tr>
+                    </tbody>
+                </table></div>
+                <div class="bg-beige rounded-lg p-4 mt-5 text-sm">주요 성과: AI 도구 활용 경험 공유, 바이브 코딩·LLM API 실습, RPA·AI 시스템 아이디어 발굴, 협업 네트워크 형성, <strong class="text-ink">AI NOW</strong> 전사 공유</div>`
+            }),
+
+            contentSlide({
+                label: '2025 Review · 회고',
+                title: '2025년 활동 문제점 & 운영 이슈 회고',
+                message: '2025년 PUG는 AI 학습과 공유 문화를 만드는 데 의미가 있었지만, 활동이 <strong class="text-ink">현업 성과로 연결되기에는 몇 가지 한계</strong>가 있었습니다.',
+                body: `<div class="bg-card rounded-lg p-6"><table class="tbl">
+                    <thead><tr><th>2025년 활동</th><th>드러난 Pain Point</th></tr></thead>
+                    <tbody>
+                        <tr><td>AI 도구 사용법 학습</td><td>도구를 배워도 실제 업무 적용 주제가 명확하지 않음</td></tr>
+                        <tr><td>활용 사례 공유</td><td>사례는 쌓였지만 개인별 업무 문제와 연결이 약함</td></tr>
+                        <tr><td>실습 중심 모임</td><td>실습 결과가 지속적인 결과물로 남기 어려움</td></tr>
+                        <tr><td>자발적 참여</td><td>참여 열정은 있었지만 과제 추진 구조가 부족함</td></tr>
+                        <tr><td>월 1회 모임</td><td>활동 사이클이 느리고 실행 관리가 어려움</td></tr>
+                    </tbody>
+                </table></div>
+                <div class="bg-beige rounded-lg p-4 mt-5 text-sm">핵심 한계 — 학습은 있었지만 <strong class="bg-pug px-1 rounded">문제 정의와 실행 구조</strong>가 부족했습니다.</div>`
+            }),
+
+            contentSlide({
+                label: '2026 Direction · 개선',
+                title: '2026년 개선 사항 — 인터뷰로 이어지는 전환',
+                message: '2025년 회고를 바탕으로 PUG의 질문을 바꿨습니다. <strong class="text-ink">"AI를 어떻게 쓰는가?"</strong>에서 <strong class="text-ink">"AI로 어떤 업무 문제를 해결할 수 있는가?"</strong>로. 다음 단계는 <strong class="text-ink">사전 인터뷰</strong>를 통해 멤버별 니즈를 파악하고, 맞춤형 커리큘럼과 PoC로 연결하는 것입니다.',
+                body: `<div class="bg-card rounded-lg p-6"><table class="tbl">
+                    <thead><tr><th>구분</th><th>2025년</th><th>2026년</th></tr></thead>
+                    <tbody>
+                        <tr><td>활동 중심</td><td>AI 도구 학습</td><td class="col-2026">현업 문제 해결 PoC</td></tr>
+                        <tr><td>주제 선정</td><td>공통 학습 주제 중심</td><td class="col-2026">멤버별 업무 Pain Point 기반</td></tr>
+                        <tr><td>참여 방식</td><td>관심 기반 참여</td><td class="col-2026">사전 인터뷰 기반 선정 및 역할 부여</td></tr>
+                        <tr><td>결과물</td><td>학습 경험, 활용 팁</td><td class="col-2026">PoC 결과물, 개선 아이디어</td></tr>
+                    </tbody>
+                </table></div>`
+            })
+        ];
+
+        // ── PART 2: 인터뷰 → 커리큘럼 → 교육 ──
+        const WEEKLY = [
+            { week: '3월 1주차', title: '웹·시스템 구조 이해와 바이브 코딩(Vibe Coding) 기초 개념', topics: ['FE/BE 역할 구분', 'REST API 흐름', 'AI 협업 코딩 방식', '요구사항 정의·단계적 확장'] },
+            { week: '3월 2주차', title: 'Flask 웹 프레임워크와 Database(SQL) — 웹 서버 기본 구조와 CRUD 실습', topics: ['Flask 기초', 'SQL 개념', '테이블/행/컬럼', '데이터 CRUD 실습'] },
+            { week: '3월 3주차', title: 'LLM의 이해, 컨텍스트 설계, LLM API 활용, RAG 구현', topics: ['LLM 강점/한계', 'Temperature·프롬프트', 'LLM API 호출', 'RAG 기초'] },
+            { week: '3월 4주차', title: 'RAG 기반 챗봇 만들기 개인 발표, n8n 개념 학습 및 실습', topics: ['RAG 챗봇 구현', '개인 발표', 'n8n 자동화 개념', '트리거 기반 실습'] },
+            { week: '4월 1주차', title: 'AI 활용 솔루션 PoC 아이디어 발굴 & 프로젝트 기획', topics: ['업무 Pain Point 도출', 'AS-IS 정리', 'PoC 목표·범위 설정', '기술 스택 선정'] },
+            { week: '4월 3주차', title: 'FastAPI 기반 API 개발 심화, On-premise LLM 연동, Git & GitHub 실습', topics: ['FastAPI 개발', 'On-premise LLM', 'Git 저장소·Commit/Push', 'GitHub 협업'] },
+            { week: '4월 4주차', title: 'Webhook 기반 API 이해, 배포 개념 학습, UI/UX 기초 개념', topics: ['Webhook API', '빌드→배포→실행', '환경변수·DNS', 'UI/UX 기초'] },
+            { week: '4월 5주차', title: 'AI 에이전트 핵심 메커니즘, LLM vs 에이전트, Multi-Agent 설계', topics: ['에이전트 역할·입출력', 'LLM과 에이전트 차이', 'Multi-Agent 패턴', 'MVP 구조 설계'] },
+            { week: '6월 2주차', title: 'Outlook·Teams API 서비스 소개, Full-Stack Live Coding', topics: ['Outlook API', 'Teams API', 'Full-Stack Live Coding', '실무 연동'] },
+            { week: '6월 3주차', title: '바이브코딩 디자인 가이드를 활용한 UI/UX 가이드', topics: ['디자인 가이드', 'UI/UX 원칙', '바이브 코딩 적용', 'PoC UI 개선'] }
+        ];
+
+        const part2 = [
+            sectionDivider('PART 2', '인터뷰 → 커리큘럼 → 교육', '니즈 파악부터 맞춤형 학습까지'),
+
+            listSlide({
+                label: 'Interview · 사전 인터뷰',
+                title: '2026년 PUG 선정 멤버 사전 인터뷰',
+                message: 'PoC 수행 가능성과 필요한 지원 사항을 확인하기 위한 과정이었습니다.',
+                items: [
+                    '각 구성원의 AI 적용 니즈 파악',
+                    '현재 AI·자동화 활용 수준 확인',
+                    '희망 학습 주제와 성장 방향 확인',
+                    '참여 가능 시간과 제약 조건 파악',
+                    'PoC 수행을 위한 지원 방식 설계'
+                ],
+                highlight: '공통 니즈: 실무형 코칭, 보안 가이드, 기술 전문가 협업, <strong class="text-ink">실제 산출물 중심</strong> 활동'
+            }),
+
+            contentSlide({
+                label: 'PoC · 멤버 분석',
+                title: '멤버 분석 + 하고 싶은 PoC 소개',
+                message: '추상적인 AI 학습에서 벗어나, 각 부서와 업무의 <strong class="text-ink">실제 문제</strong>로 활동 범위가 확장되었습니다.',
+                body: `<div class="bg-card rounded-lg p-5 mb-5 flex justify-center">
+                    <img src="assets/poc-fields.png" alt="분야별 PoC" class="w-full max-w-4xl h-auto">
+                </div>
+                <div class="bg-card rounded-lg p-6"><table class="tbl nowrap-first">
+                    <thead><tr><th>분야</th><th>PoC 방향</th><th>개선 포인트</th></tr></thead>
+                    <tbody>
+                        <tr><td>교육·역량</td><td>직무·경력 기반 교육 추천</td><td>개인화 교육 추천 검토</td></tr>
+                        <tr><td>제조 데이터</td><td>수율 데이터 분석·대시보드</td><td>품질 현황 파악</td></tr>
+                        <tr><td>실험·센서</td><td>센서 실험 데이터 분석 자동화</td><td>반복 분석 효율화</td></tr>
+                        <tr><td>생산계획</td><td>AI 기반 생산계획 고도화</td><td>의사결정 지원</td></tr>
+                        <tr><td>설계·원가</td><td>CATIA·BOM 기반 설계·원가 보조</td><td>설계·원가 검토 지원</td></tr>
+                        <tr><td>업무 자동화</td><td>반복 업무 자동화·데이터 처리</td><td>수작업 감소</td></tr>
+                    </tbody>
+                </table></div>`,
+                scroll: true
+            }),
+
+            contentSlide({
+                label: 'Curriculum · 커리큘럼',
+                title: '맞춤형 커리큘럼 제작 & 교육 자료 셀렉',
+                message: '인터뷰 결과를 반영해 PoC 수행에 필요한 역량을 단계적으로 쌓는 <strong class="text-ink">체크리스트 기반 커리큘럼</strong>을 제작하고, 교육 자료를 선별했습니다.',
+                body: `<div class="bg-card rounded-lg p-6"><table class="tbl nowrap-first">
+                    <thead><tr><th>학습 주제</th><th>주요 내용</th><th>체크리스트</th></tr></thead>
+                    <tbody>
+                        <tr><td>코딩 기초</td><td>Python 기본 문법, 변수·함수</td><td class="!text-taupe">1-1</td></tr>
+                        <tr><td>웹·바이브 코딩 ①</td><td>FE/BE, REST API, AI 협업</td><td class="!text-taupe">1-3 · 2-1 · 2-3</td></tr>
+                        <tr><td>바이브 코딩 ②</td><td>에러 로그 재질문, 로컬 실행</td><td class="!text-taupe">2-2</td></tr>
+                        <tr><td>DB 기초</td><td>테이블/행/컬럼, PK/FK</td><td class="!text-taupe">1-2</td></tr>
+                        <tr><td>LLM·RAG</td><td>LLM 원리, 컨텍스트, RAG</td><td class="!text-taupe">3-1~3-4</td></tr>
+                        <tr><td>프로젝트 기획</td><td>AS-IS, PoC 목표·범위</td><td class="!text-taupe">8.</td></tr>
+                        <tr><td>Git & GitHub</td><td>저장소, Commit/Push/Pull</td><td class="!text-taupe">5.</td></tr>
+                        <tr><td>배포·운영</td><td>빌드→배포→실행</td><td class="!text-taupe">6.</td></tr>
+                        <tr><td>자동화</td><td>n8n, 트리거, LLM 삽입</td><td class="!text-taupe">4.</td></tr>
+                        <tr><td>AI 에이전트</td><td>업무→에이전트, MVP</td><td class="!text-taupe">7.</td></tr>
+                    </tbody>
+                </table></div>`,
+                scroll: true
+            }),
+
+            ...WEEKLY.map(w => weekSlide(w))
+        ];
+
+        // ── PART 3: 디전센 X PUG ──
+        const SUPPORT = [
+            { icon: 'presentation', title: '전문가 연결 — 현업 실무자 강의', desc: '도메인 특성을 이해한 실무형 강의 및 코칭' },
+            { icon: 'palette', title: '전문가 연결 — 웹 디자인 컨설팅', desc: 'PoC UI/UX 개선을 위한 디자인 컨설팅' },
+            { icon: 'users', title: '디지털전략센터 직책자 간담회', desc: 'AI 시대에 대한 고찰, AI Playground 소개 & 식사' },
+            { icon: 'message-square', title: '운영 활성화 — 주차별 활동 요약 (팀즈 채널)', desc: '다시 볼 수 있게 주차별 활동 요약 공유' },
+            { icon: 'folder-open', title: '운영 활성화 — 주차별 실습자료 공유', desc: '교육 자료·실습 가이드 지속 공유' },
+            { icon: 'archive', title: '운영 활성화 — 주차별 미팅노트 아카이빙 & 회고', desc: '미팅노트 축적 및 회고 문화 정착' },
+            { icon: 'graduation-cap', title: '개발 환경 지원 — AI/Dev 온라인 강의 선별', desc: '온라인 강의 선별 및 실습 지원' },
+            { icon: 'sparkles', title: '활동 촉진 — 구글 AI 서비스 구독 지원', desc: 'AI 도구 활용을 위한 구독 지원' },
+            { icon: 'github', title: '활동 촉진 — GitHub Organization 개설 및 관리', video: 'assets/github-org.mp4' },
+            { icon: 'book-open', title: '활동 촉진 — 표준 기술스택 가이드 제공', desc: 'PoC 개발 시 참고할 표준 스택 가이드' },
+            { icon: 'book', title: '활동 촉진 — 관련 책 배부', desc: '비전공자를 위한 IT 지식 서적 제공' },
+            { icon: 'flask-conical', title: '활동 촉진 — AI Playground 활용 방법 안내', desc: '안전한 실험 환경 활용 가이드' },
+            { icon: 'code-2', title: '활동 촉진 — API 개발 지원', desc: 'PoC 구현 과정의 API 개발 기술 지원' }
+        ];
+
+        function supportSlide(s) {
+            const videoOnly = s.video && !s.desc;
+            const videoBlock = s.video ? `<div class="bg-card rounded-lg overflow-hidden${videoOnly ? '' : ' mt-5'}">
+                    <video src="${s.video}" controls playsinline preload="metadata" class="${videoOnly ? 'slide-media-tall' : 'slide-media'}"></video>
+                </div>` : '';
+            const descBlock = s.desc ? `<div class="bg-card rounded-lg p-8 flex items-start gap-5">
+                    <div class="p-4 bg-pug text-ink rounded-lg shrink-0"><i data-lucide="${s.icon}" class="w-8 h-8"></i></div>
+                    <p class="text-lg text-ink/85 leading-relaxed pt-2">${s.desc}</p>
+                </div>` : '';
+            return contentSlide({
+                label: 'Support · 디전센 × PUG',
+                title: s.title,
+                scroll: !!s.video,
+                body: `${descBlock}${videoBlock}`
+            });
+        }
+
+        const part3 = [
+            sectionDivider('PART 3', '디전센 × PUG', '디지털전략센터와 함께한 전문가 연결·운영 지원'),
+            ...SUPPORT.map(supportSlide)
+        ];
+
+        // ── PART 4: 활동 효과 ──
+        const part4 = [
+            sectionDivider('PART 4', '활동 효과', '서로 얻어가는 성장과 조직에 남긴 변화'),
+
+            listSlide({
+                label: 'Effect · 서로 얻어가는',
+                title: '실습에서 서로 질문하며 배워가는',
+                message: '혼자 배우는 활동에서 함께 질문하고 토론하며 성장하는 구조로 변화했습니다.',
+                items: [
+                    '실습 중 발생하는 기술 이슈를 서로 질문·답변',
+                    'PoC 진행 상황을 공유하며 피드백 교환',
+                    '데이터 확보, 구현 방향, 사용자 관점 등 다각도 토론',
+                    '개인 실험을 공동의 문제 해결 경험으로 전환'
+                ],
+                highlight: '💬 <strong class="text-ink">질문 & 토론</strong> 내용을 여기에 추가하세요.'
+            }),
+
+            listSlide({
+                label: 'Effect · 콜라보',
+                title: '콜라보 제안',
+                message: 'PUG 활동을 통해 멤버 간, 그리고 디지털전략센터와의 협업 제안이 이루어졌습니다.',
+                items: [
+                    '멤버 간 PoC 주제 연계·기술 공유',
+                    '디지털전략센터 전문가와의 공동 개발',
+                    '부서 간 AI·자동화 적용 사례 확산',
+                    '향후 부서 내 AI 활용 촉진자 역할 수행'
+                ],
+                highlight: '🤝 <strong class="text-ink">콜라보 제안</strong> 사례를 여기에 추가하세요.'
+            }),
+
+            // Radar chart slide
+            contentSlide({
+                label: 'Effect · 역량 강화',
+                title: '체크리스트 Before / After — PUG 역량 성장',
+                message: 'PUG 시작 전/후, <strong class="text-ink">동일 체크리스트 기반 자기 점검</strong>으로 역량 변화를 확인했습니다.',
+                body: `<div class="grid lg:grid-cols-3 gap-6 items-start">
+                    <div class="lg:col-span-2 bg-card rounded-lg p-6">
+                        <div class="flex items-center justify-center gap-5 mb-2 text-xs font-semibold">
+                            <span class="flex items-center gap-1.5 text-taupe"><span class="w-3 h-3 rounded-sm bg-ink"></span> Before</span>
+                            <span class="flex items-center gap-1.5 text-ink"><span class="w-3 h-3 rounded-sm bg-pug"></span> After</span>
+                        </div>
+                        <div class="w-full h-[380px] flex items-center justify-center"><canvas id="growthRadar"></canvas></div>
+                    </div>
+                    <div class="bg-card rounded-lg p-6">
+                        <h3 class="text-sm font-bold mb-4">조사 개요</h3>
+                        <table class="tbl nowrap-first"><tbody>
+                            <tr><td>조사 시점</td><td>PUG 시작 전 / 후</td></tr>
+                            <tr><td>조사 방식</td><td>동일 체크리스트 자기 점검</td></tr>
+                            <tr><td>확인 포인트</td><td>항목별 체크 증가, 역량 확장, 평균 향상</td></tr>
+                        </tbody></table>
+                    </div>
+                </div>`
+            }),
+
+            contentSlide({
+                label: 'Effect · Closing',
+                title: '"AI 활용 문화 확산"이라는 대전제 목표 달성',
+                message: 'PUG의 성장은 AI 도구를 더 잘 쓰게 된 것이 아니라, 현업 문제를 AI 관점으로 다시 정의하고 해결 가능성을 검증하는 방식의 성장입니다.',
+                body: `<div class="bg-card rounded-lg p-6 mb-6"><table class="tbl nowrap-first">
+                    <thead><tr><th>변화</th><th>의미</th></tr></thead>
+                    <tbody>
+                        <tr><td>도구 중심 → 문제 중심</td><td>AI 활용의 목적이 명확해짐</td></tr>
+                        <tr><td>학습 중심 → 실행 중심</td><td>실제 업무 적용 가능성 검증</td></tr>
+                        <tr><td>개인 경험 → 공동 피드백</td><td>함께 개선하는 구조로 변화</td></tr>
+                        <tr><td>역량 체감 → 역량 측정</td><td>Before / After로 성장 확인</td></tr>
+                    </tbody>
+                </table></div>
+                <div class="bg-ink text-card rounded-lg p-8 text-center">
+                    <p class="text-xl md:text-2xl font-bold leading-relaxed">
+                        AI PUG의 성장은 <span class="text-taupe">AI 사용법의 성장</span>이 아니라,<br>
+                        현업 문제를 <span class="text-pug">AI로 풀어보는 방식의 성장</span>입니다.
+                    </p>
+                </div>`
+            })
+        ];
+
+        // Build deck
+        deck.innerHTML = [...part1, ...part2, ...part3, ...part4].join('');
+
+        // ── Radar chart ──
         const GROWTH = [
             { area: '코딩 기초 이해', m3: 45, m5: 78 },
-            { area: '데이터 이해',   m3: 40, m5: 72 },
-            { area: 'AI 활용',       m3: 52, m5: 88 },
-            { area: '자동화',        m3: 35, m5: 70 },
-            { area: 'PoC 수행',      m3: 28, m5: 76 }
+            { area: '데이터 이해', m3: 40, m5: 72 },
+            { area: 'AI 활용', m3: 52, m5: 88 },
+            { area: '자동화', m3: 35, m5: 70 },
+            { area: 'PoC 수행', m3: 28, m5: 76 }
         ];
         let growthRadarInstance = null;
         function renderGrowthRadar() {
             const canvas = document.getElementById('growthRadar');
-            if (!canvas || typeof Chart === 'undefined') return;
-            if (growthRadarInstance) return; // draw once
+            if (!canvas || typeof Chart === 'undefined' || growthRadarInstance) return;
             growthRadarInstance = new Chart(canvas.getContext('2d'), {
                 type: 'radar',
                 data: {
                     labels: GROWTH.map(g => g.area),
                     datasets: [
-                        {
-                            label: 'Before',
-                            data: GROWTH.map(g => g.m3),
-                            fill: true,
-                            backgroundColor: 'rgba(51, 39, 31, 0.08)',
-                            borderColor: 'rgba(51, 39, 31, 0.80)',
-                            pointBackgroundColor: 'rgba(51, 39, 31, 1)',
-                            pointBorderColor: '#FFFFFF',
-                            borderWidth: 2
-                        },
-                        {
-                            label: 'After',
-                            data: GROWTH.map(g => g.m5),
-                            fill: true,
-                            backgroundColor: 'rgba(245, 176, 65, 0.35)',
-                            borderColor: 'rgba(245, 176, 65, 1)',
-                            pointBackgroundColor: 'rgba(245, 176, 65, 1)',
-                            pointBorderColor: '#33271F',
-                            borderWidth: 3
-                        }
+                        { label: 'Before', data: GROWTH.map(g => g.m3), fill: true, backgroundColor: 'rgba(51,39,31,0.08)', borderColor: 'rgba(51,39,31,0.80)', pointBackgroundColor: 'rgba(51,39,31,1)', pointBorderColor: '#FFF', borderWidth: 2 },
+                        { label: 'After', data: GROWTH.map(g => g.m5), fill: true, backgroundColor: 'rgba(245,176,65,0.35)', borderColor: 'rgba(245,176,65,1)', pointBackgroundColor: 'rgba(245,176,65,1)', pointBorderColor: '#33271F', borderWidth: 3 }
                     ]
                 },
                 options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
+                    responsive: true, maintainAspectRatio: false,
                     plugins: { legend: { display: false } },
                     scales: {
-                        r: {
-                            min: 0,
-                            max: 100,
-                            angleLines: { color: 'rgba(51, 39, 31, 0.12)' },
-                            grid: { color: 'rgba(51, 39, 31, 0.12)' },
-                            pointLabels: {
-                                color: '#33271F',
-                                font: { family: 'Noto Sans KR', size: 12, weight: 'bold' }
-                            },
-                            ticks: {
-                                backdropColor: 'transparent',
-                                color: '#8A7B6E',
-                                font: { size: 10 },
-                                stepSize: 20
-                            }
-                        }
+                        r: { min: 0, max: 100, angleLines: { color: 'rgba(51,39,31,0.12)' }, grid: { color: 'rgba(51,39,31,0.12)' },
+                            pointLabels: { color: '#33271F', font: { family: 'Noto Sans KR', size: 12, weight: 'bold' } },
+                            ticks: { backdropColor: 'transparent', color: '#8A7B6E', font: { size: 10 }, stepSize: 20 } }
                     }
                 }
             });
         }
 
-        // --- Slide navigation ---
+        // ── Navigation ──
         const slides = Array.from(document.querySelectorAll('.slide'));
         let current = 0;
-        const total = slides.length;
-        document.getElementById('total').innerText = total;
+        document.getElementById('total').innerText = slides.length;
 
         function render() {
-            slides.forEach((s, i) => s.classList.toggle('active', i === current));
+            slides.forEach((s, i) => {
+                s.classList.toggle('active', i === current);
+                if (i !== current) s.querySelectorAll('video').forEach(v => v.pause());
+            });
             document.getElementById('cur').innerText = current + 1;
-            document.getElementById('progress-bar').style.width = ((current + 1) / total * 100) + '%';
+            document.getElementById('progress-bar').style.width = ((current + 1) / slides.length * 100) + '%';
             lucide.createIcons();
-            // Draw radar chart when its slide first becomes visible (canvas needs layout)
-            if (slides[current] && slides[current].querySelector('#growthRadar')) {
-                renderGrowthRadar();
-                if (growthRadarInstance) growthRadarInstance.resize();
-            }
+            if (slides[current]?.querySelector('#growthRadar')) { renderGrowthRadar(); growthRadarInstance?.resize(); }
         }
-
         function changeSlide(dir) {
             const next = current + dir;
-            if (next < 0 || next >= total) return;
-            current = next;
-            render();
+            if (next < 0 || next >= slides.length) return;
+            current = next; render();
         }
-
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') { e.preventDefault(); changeSlide(1); }
-            else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); changeSlide(-1); }
+        document.addEventListener('keydown', e => {
+            if (['ArrowRight','PageDown',' '].includes(e.key)) { e.preventDefault(); changeSlide(1); }
+            else if (['ArrowLeft','PageUp'].includes(e.key)) { e.preventDefault(); changeSlide(-1); }
             else if (e.key === 'Home') { current = 0; render(); }
-            else if (e.key === 'End') { current = total - 1; render(); }
+            else if (e.key === 'End') { current = slides.length - 1; render(); }
         });
-
         render();
     </script>
 </body>
