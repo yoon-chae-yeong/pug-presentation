@@ -33,6 +33,15 @@
         .tbl tbody td { padding: 0.7rem 1rem; font-size: 0.85rem; color: #4A3C33; vertical-align: top; border-top: 1px solid #F0EAE0; }
         .tbl tbody td:first-child { color: #33271F; font-weight: 600; }
         .tbl.nowrap-first tbody td:first-child { white-space: nowrap; }
+        .tbl-curriculum thead th { font-size: 0.78rem; padding: 0.55rem 0.75rem; }
+        .tbl-curriculum tbody td { font-size: 0.72rem; line-height: 1.45; padding: 0.5rem 0.75rem; vertical-align: top; }
+        .tbl-curriculum tbody td:first-child { white-space: normal; font-weight: 600; min-width: 7rem; max-width: 8.5rem; }
+        .tbl-curriculum .cur-main { font-size: 0.74rem; color: #4A3C33; line-height: 1.4; }
+        .tbl-curriculum .cur-detail { display: flex; flex-direction: column; gap: 0.35rem; }
+        .tbl-curriculum .cur-block-title { font-weight: 700; font-size: 0.68rem; color: #33271F; margin-bottom: 0.08rem; }
+        .tbl-curriculum .cur-block ul { margin: 0; padding-left: 0.95rem; list-style: disc; color: #4A3C33; }
+        .tbl-curriculum .cur-block li { margin-bottom: 0.08rem; }
+        .tbl-curriculum .cur-block li:last-child { margin-bottom: 0; }
         .col-2026 { color: #33271F !important; font-weight: 600 !important; }
         .pain-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.75rem; }
         .pain-card { background: #fff; border: 1px solid #F0EAE0; border-left: 4px solid #F5B041; border-radius: 8px; padding: 1rem 1.1rem; }
@@ -44,6 +53,7 @@
         .week-photo-layout { display: grid; grid-template-columns: 1.55fr 1fr; gap: 0.75rem; height: min(420px, calc(100vh - 300px)); max-height: 420px; margin-top: 0.75rem; }
         .week-photo-layout--equal { grid-template-columns: 1fr 1fr; }
         .week-photo-layout--tall { height: min(540px, calc(100vh - 220px)); max-height: 560px; }
+        .week-photo-layout--compact { height: min(340px, calc(100vh - 380px)); max-height: 360px; }
         .week-photo-main { border-radius: 8px; overflow: hidden; background: #fff; border: 1px solid #F0EAE0; line-height: 0; display: flex; flex-direction: column; min-height: 0; }
         .week-photo-main img { width: 100%; flex: 1; min-height: 0; object-fit: contain; display: block; background: #fff; padding: 6px; }
         .week-photo-main figcaption { flex-shrink: 0; font-size: 9.5px; font-weight: 700; text-align: center; padding: 4px 6px 6px; color: #33271F; background: #FBF8F3; line-height: 1.3; }
@@ -51,6 +61,17 @@
         .week-photo-sub { flex: 1; min-height: 0; border-radius: 8px; overflow: hidden; background: #fff; border: 1px solid #F0EAE0; display: flex; flex-direction: column; }
         .week-photo-sub img { width: 100%; flex: 1; min-height: 0; object-fit: contain; display: block; background: #fff; padding: 6px; }
         .week-photo-sub figcaption { flex-shrink: 0; font-size: 9.5px; font-weight: 700; text-align: center; padding: 4px 6px 6px; color: #33271F; background: #FBF8F3; line-height: 1.3; }
+        .week-present-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-template-rows: repeat(2, minmax(0, 1fr)); gap: 0.5rem; margin-top: 0.75rem; height: min(480px, calc(100vh - 230px)); max-height: 500px; }
+        .week-present-cell { border-radius: 8px; overflow: hidden; background: #F0EAE0; border: 1px solid #F0EAE0; min-height: 0; line-height: 0; }
+        .week-present-cell img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .week-split-layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 0.75rem; height: min(440px, calc(100vh - 270px)); max-height: 460px; margin-top: 0.75rem; min-height: 0; }
+        .week-split-left { min-height: 0; min-width: 0; }
+        .week-split-left__box { background: #F0EAE0; border-radius: 8px; padding: 1.25rem 1.35rem; height: 100%; display: flex; flex-direction: column; justify-content: center; }
+        .week-split-left__box .week-goals-title { font-size: 0.75rem; font-weight: 800; color: #33271F; margin-bottom: 0.85rem; }
+        .week-split-left__box ul { display: flex; flex-direction: column; gap: 0.65rem; }
+        .week-split-left__box li { font-size: 0.875rem; line-height: 1.5; }
+        .week-split-photos { display: flex; flex-direction: column; gap: 0.5rem; min-height: 0; min-width: 0; }
+        .week-split-photos .week-photo-sub img { object-fit: cover; padding: 0; }
         ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-track { background: #F0EAE0; }
         ::-webkit-scrollbar-thumb { background: #CBBBA8; border-radius: 4px; }
@@ -203,11 +224,31 @@
             });
         }
 
-        function weekSlide({ week, title, topics, mainImage, subImages, photoLayout, photoTall }) {
+        function weekSlide({ week, title, topics, message, goals, mainImage, subImages, photoLayout, photoTall, photoGrid, goalsLeft }) {
             const chips = topics.map(t => `<span class="inline-block bg-beige text-ink text-xs font-medium px-3 py-1.5 rounded-lg mr-2 mb-2">${t}</span>`).join('');
+            const goalsList = goals && goals.length
+                ? `<p class="week-goals-title">🎯 목표</p><ul>${goals.map(g => `<li class="flex items-start gap-2 text-ink/85"><span class="text-pug shrink-0 mt-0.5">•</span><span>${g}</span></li>`).join('')}</ul>`
+                : '';
             let photos = '';
-            if (mainImage) {
-                const layoutCls = ['week-photo-layout', photoLayout === 'equal' && 'week-photo-layout--equal', photoTall && 'week-photo-layout--tall'].filter(Boolean).join(' ');
+            if (photoGrid) {
+                const cells = photoGrid.map(p =>
+                    `<figure class="week-present-cell"><img src="${p.src}" alt="${p.caption || title}" loading="lazy"></figure>`
+                ).join('');
+                photos = `<div class="week-present-grid">${cells}</div>`;
+            } else if (goalsLeft && subImages && goalsList) {
+                const subs = subImages.map(p =>
+                    `<figure class="week-photo-sub">
+                        <img src="${p.src}" alt="${p.caption || ''}" loading="lazy">
+                        ${p.caption ? `<figcaption>${p.caption}</figcaption>` : ''}
+                    </figure>`
+                ).join('');
+                photos = `<div class="week-split-layout">
+                    <div class="week-split-left"><div class="week-split-left__box">${goalsList}</div></div>
+                    <div class="week-split-photos">${subs}</div>
+                </div>`;
+            } else if (mainImage) {
+                const hasMeta = !!(message || (goals && goals.length));
+                const layoutCls = ['week-photo-layout', photoLayout === 'equal' && 'week-photo-layout--equal', photoTall && !hasMeta && 'week-photo-layout--tall', hasMeta && 'week-photo-layout--compact'].filter(Boolean).join(' ');
                 const subs = (subImages || []).map(p =>
                     `<figure class="week-photo-sub">
                         <img src="${p.src}" alt="${p.caption || ''}" loading="lazy">
@@ -222,11 +263,16 @@
                     <div class="week-photo-subs">${subs}</div>
                 </div>`;
             }
+            const goalsBlock = goals && !goalsLeft && goalsList
+                ? `<div class="bg-beige rounded-lg p-4 mb-3">${goalsList}</div>`
+                : '';
             return contentSlide({
                 label: `Education · ${week}`,
                 title,
-                compact: !!mainImage,
-                body: `<div class="bg-card rounded-lg p-4"><div class="flex flex-wrap gap-1">${chips}</div></div>${photos}`
+                message,
+                compact: !!(mainImage || photoGrid || message || goalsLeft),
+                wide: !!(photoGrid || mainImage || goalsLeft),
+                body: `<div class="bg-card rounded-lg p-4 mb-3"><div class="flex flex-wrap gap-1">${chips}</div></div>${goalsBlock}${photos}`
             });
         }
 
@@ -357,19 +403,33 @@
                 mainImage: { src: 'assets/14-llm-rag/main-llm-session.png', caption: 'LLM·RAG 교육 세션' },
                 subImages: [
                     { src: 'assets/14-llm-rag/sub-rag-diagram.png', caption: 'RAG 개념 설명' },
-                    { src: 'assets/14-llm-rag/sub-rag-chatbot.png', caption: 'RAG 챗봇 예시' }
+                    { src: 'assets/14-llm-rag/sub-rag-chatbot.png', caption: '슬기로운 DRB 생활 데이터를 활용한 RAG 챗봇 예시' }
                 ],
                 photoTall: true
             },
             { week: '3월 4주차', title: 'RAG 기반 챗봇 만들기 개인 발표, n8n 개념 학습 및 실습', topics: ['RAG 챗봇 구현', '개인 발표', 'n8n 자동화 개념', '트리거 기반 실습'],
-                mainImage: { src: 'assets/15-rag-chatbot/main-tax-rag-chatbot.png', caption: '세법 RAG 업무 비서' },
-                subImages: [
-                    { src: 'assets/15-rag-chatbot/sub-pug-rag-chatbot.png', caption: 'PUG 프로그램 RAG 챗봇' }
-                ],
-                photoLayout: 'equal',
-                photoTall: true
+                photoGrid: [
+                    { src: 'assets/15-rag-chatbot/present-1-vscode.png' },
+                    { src: 'assets/15-rag-chatbot/present-2-webapp.png' },
+                    { src: 'assets/15-rag-chatbot/present-3-pdf-rag.png' },
+                    { src: 'assets/15-rag-chatbot/present-4-diagram.png' },
+                    { src: 'assets/15-rag-chatbot/present-5-sales-bot.png' },
+                    { src: 'assets/15-rag-chatbot/present-6-pug-archive.png' }
+                ]
             },
-            { week: '4월 1주차', title: 'AI 활용 솔루션 PoC 아이디어 발굴 & 프로젝트 기획', topics: ['업무 Pain Point 도출', 'AS-IS 정리', 'PoC 목표·범위 설정', '기술 스택 선정'] },
+            { week: '4월 1주차', title: 'AI 활용 솔루션 PoC 아이디어 발굴 & 프로젝트 기획', topics: ['업무 Pain Point 도출', 'AS-IS 정리', 'PoC 목표·범위 설정', '기술 스택 선정'],
+                message: '이번 활동을 통해 각자의 업무 문제를 AI로 어떻게 풀 수 있을지 구체적으로 고민하고, 실행 가능한 수준까지 정리했습니다.',
+                goals: [
+                    '각 참여자가 <strong class="text-ink">실제 해결 가능한 문제 1개</strong>를 정의',
+                    '해당 문제에 대해 <strong class="text-ink">PoC 수준의 AI 활용 솔루션 기획 초안</strong> 도출',
+                    '“아이디어”가 아니라 <strong class="text-ink">실행 가능한 설계 초안</strong>까지 도달'
+                ],
+                goalsLeft: true,
+                subImages: [
+                    { src: 'assets/16-poc-idea/sub-workshop-1.png', caption: '프로젝트 기획 워크숍' },
+                    { src: 'assets/16-poc-idea/sub-workshop-2.png', caption: 'PoC 설계 협업' }
+                ]
+            },
             { week: '4월 3주차', title: 'FastAPI 기반 API 개발 심화, On-premise LLM 연동, Git & GitHub 실습', topics: ['FastAPI 개발', 'On-premise LLM', 'Git 저장소·Commit/Push', 'GitHub 협업'] },
             { week: '4월 4주차', title: 'Webhook 기반 API 이해, 배포 개념 학습, UI/UX 기초 개념', topics: ['Webhook API', '빌드→배포→실행', '환경변수·DNS', 'UI/UX 기초'] },
             { week: '4월 5주차', title: 'AI 에이전트 핵심 메커니즘, LLM vs 에이전트, Multi-Agent 설계', topics: ['에이전트 역할·입출력', 'LLM과 에이전트 차이', 'Multi-Agent 패턴', 'MVP 구조 설계'] },
@@ -418,23 +478,84 @@
             contentSlide({
                 label: 'Curriculum · 커리큘럼',
                 title: 'AI PUG 맞춤형 커리큘럼 제작',
-                message: '인터뷰 결과를 반영해 PoC 수행에 필요한 역량을 단계적으로 쌓는 <strong class="text-ink">체크리스트 기반 커리큘럼</strong>을 제작하고, 교육 자료를 선별했습니다.',
-                body: `<div class="bg-card rounded-lg p-6"><table class="tbl nowrap-first">
-                    <thead><tr><th>학습 주제</th><th>주요 내용</th><th>체크리스트</th></tr></thead>
+                message: '인터뷰 결과를 반영해 PoC 수행에 필요한 역량을 <strong class="text-ink">단계적으로 쌓는 맞춤형 커리큘럼</strong>을 제작하고, 교육 자료를 선별했습니다.',
+                compact: true,
+                wide: true,
+                scroll: true,
+                body: `<div class="bg-card rounded-lg p-5"><table class="tbl tbl-curriculum">
+                    <thead><tr><th>학습 주제</th><th>주요 학습 내용</th><th>상세</th></tr></thead>
                     <tbody>
-                        <tr><td>코딩 기초</td><td>Python 기본 문법, 변수·함수</td><td class="!text-taupe">1-1</td></tr>
-                        <tr><td>웹·바이브 코딩 ①</td><td>FE/BE, REST API, AI 협업</td><td class="!text-taupe">1-3 · 2-1 · 2-3</td></tr>
-                        <tr><td>바이브 코딩 ②</td><td>에러 로그 재질문, 로컬 실행</td><td class="!text-taupe">2-2</td></tr>
-                        <tr><td>DB 기초</td><td>테이블/행/컬럼, PK/FK</td><td class="!text-taupe">1-2</td></tr>
-                        <tr><td>LLM·RAG</td><td>LLM 원리, 컨텍스트, RAG</td><td class="!text-taupe">3-1~3-4</td></tr>
-                        <tr><td>프로젝트 기획</td><td>AS-IS, PoC 목표·범위</td><td class="!text-taupe">8.</td></tr>
-                        <tr><td>Git & GitHub</td><td>저장소, Commit/Push/Pull</td><td class="!text-taupe">5.</td></tr>
-                        <tr><td>배포·운영</td><td>빌드→배포→실행</td><td class="!text-taupe">6.</td></tr>
-                        <tr><td>자동화</td><td>n8n, 트리거, LLM 삽입</td><td class="!text-taupe">4.</td></tr>
-                        <tr><td>AI 에이전트</td><td>업무→에이전트, MVP</td><td class="!text-taupe">7.</td></tr>
+                        <tr><td>코딩 기초 이해</td><td class="cur-main">Python 기본 문법, 변수·함수</td><td><div class="cur-detail"><div class="cur-block"><ul>
+                            <li>변수/자료형/함수 개념 이해·간단한 함수 작성</li>
+                            <li>JavaScript 또는 Python 기본 문법 활용</li>
+                            <li>간단한 스크립트 업무 자동화 경험</li>
+                        </ul></div></div></td></tr>
+                        <tr><td>웹 &amp; 시스템 구조<br>바이브 코딩 ①</td><td class="cur-main">FE/BE 역할 · REST API 흐름·서버 개념 · AI 요구사항 정의·단계적 확장</td><td><div class="cur-detail">
+                            <div class="cur-block"><div class="cur-block-title">FE/BE 분리</div><ul>
+                                <li>FE·BE 역할 구분, 입력→요청→응답 흐름 이해</li>
+                                <li>로컬 서버 실행·REST API(GET/POST) 개념</li>
+                            </ul></div>
+                            <div class="cur-block"><div class="cur-block-title">API 구현·활용</div><ul>
+                                <li>Request/Response 구조·필수/선택 파라미터 파악</li>
+                                <li>AI툴로 API 설계·구현 요청</li>
+                            </ul></div>
+                            <div class="cur-block"><div class="cur-block-title">AI 협업 코딩</div><ul>
+                                <li>자연어 요구사항 정의·단계적 기능 확장</li>
+                                <li>에러 로그 기반 AI 재질문·문제 해결</li>
+                            </ul></div>
+                        </div></td></tr>
+                        <tr><td>바이브 코딩 ②</td><td class="cur-main">에러 로그 기반 재질문, 로컬 실행·환경변수</td><td><div class="cur-detail"><div class="cur-block"><ul>
+                            <li>로컬 개발환경 구성·서버 실행</li>
+                            <li>port/.env 설정, FE–BE 연동 테스트</li>
+                        </ul></div></div></td></tr>
+                        <tr><td>DB 기초 개념</td><td class="cur-main">테이블/행/컬럼, 관계형 DB Key(PK/FK)</td><td><div class="cur-detail"><div class="cur-block"><ul>
+                            <li>테이블/행/컬럼 개념 이해</li>
+                            <li>PK/FK·테이블 관계 설명</li>
+                        </ul></div></div></td></tr>
+                        <tr><td>LLM 기본 원리<br>및 활용</td><td class="cur-main">LLM 강점/한계 · 컨텍스트 · Temperature 등 옵션</td><td><div class="cur-detail">
+                            <div class="cur-block"><div class="cur-block-title">LLM 이해</div><ul>
+                                <li>강점/한계, 시스템·유저 프롬프트 구분</li>
+                                <li>Temperature 값 변경·응답 차이 체감</li>
+                            </ul></div>
+                            <div class="cur-block"><div class="cur-block-title">컨텍스트 설계</div><ul>
+                                <li>컨텍스트 재전송 필요 상황 경험</li>
+                                <li>고정/동적 컨텍스트·길이 제한 고려</li>
+                            </ul></div>
+                            <div class="cur-block"><div class="cur-block-title">LLM API</div><ul>
+                                <li>API 호출 흐름 구현·응답 수신</li>
+                                <li>on-premise LLM API 실 호출</li>
+                            </ul></div>
+                            <div class="cur-block"><div class="cur-block-title">RAG</div><ul>
+                                <li>적용 전/후·할루시네이션 완화 체감</li>
+                                <li>Chunking·Top-K 검색 결과 비교</li>
+                            </ul></div>
+                        </div></td></tr>
+                        <tr><td>프로젝트 기획</td><td class="cur-main">학습 내용 기반 프로젝트 기획</td><td><div class="cur-detail"><div class="cur-block"><ul>
+                            <li>Pain Point 도출·AS-IS 정리·AI·자동화 적용 지점</li>
+                            <li>PoC 목표·MVP 범위·기술 스택 선정</li>
+                            <li>예상 리스크·대응 방안</li>
+                        </ul></div></div></td></tr>
+                        <tr><td>Git &amp; GitHub</td><td class="cur-main">Git 개념 · 저장소 생성 · Commit/Push/Pull</td><td><div class="cur-detail"><div class="cur-block"><ul>
+                            <li>Git 역할·Repository 생성</li>
+                            <li>GitHub 코드 변경·관리 흐름 경험</li>
+                        </ul></div></div></td></tr>
+                        <tr><td>배포와 운영</td><td class="cur-main">로컬 vs 운영 환경 · 빌드→배포→실행</td><td><div class="cur-detail"><div class="cur-block"><ul>
+                            <li>로컬 실행·on-prem/Azure 배포 방식</li>
+                            <li>호스팅·DNS·환경변수 설정</li>
+                            <li>자동화된 배포 흐름(빌드→배포→실행)</li>
+                        </ul></div></div></td></tr>
+                        <tr><td>자동화 &amp;<br>오케스트레이션</td><td class="cur-main">n8n·Power Automate · 트리거 · LLM 삽입</td><td><div class="cur-detail"><div class="cur-block"><ul>
+                            <li>n8n/PA/RPA 자동화 구성 경험</li>
+                            <li>Webhook·스케줄·이벤트 트리거 실행</li>
+                            <li>수집→처리→게시 흐름·LLM 삽입 자동화</li>
+                        </ul></div></div></td></tr>
+                        <tr><td>AI 에이전트 관점</td><td class="cur-main">업무→에이전트 전환, MVP 구조 설계</td><td><div class="cur-detail"><div class="cur-block"><ul>
+                            <li>업무→에이전트 대체 시나리오·역할·입출력 정의</li>
+                            <li>LLM+API+DB 결합 구조 구성</li>
+                            <li>작동하는 MVP 수준 구현</li>
+                        </ul></div></div></td></tr>
                     </tbody>
-                </table></div>`,
-                scroll: true
+                </table></div>`
             }),
 
             ...WEEKLY.map(w => weekSlide(w))
