@@ -34,6 +34,23 @@
         .tbl tbody td:first-child { color: #33271F; font-weight: 600; }
         .tbl.nowrap-first tbody td:first-child { white-space: nowrap; }
         .col-2026 { color: #33271F !important; font-weight: 600 !important; }
+        .pain-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.75rem; }
+        .pain-card { background: #fff; border: 1px solid #F0EAE0; border-left: 4px solid #F5B041; border-radius: 8px; padding: 1rem 1.1rem; }
+        .pain-card__tag { display: inline-block; font-size: 0.62rem; font-weight: 800; letter-spacing: 0.08em; color: #33271F; background: #F5B041; padding: 0.15rem 0.45rem; border-radius: 4px; margin-bottom: 0.5rem; }
+        .pain-card__text { font-size: 1rem; font-weight: 700; color: #33271F; line-height: 1.45; margin: 0 0 0.55rem; }
+        .pain-card__activity { font-size: 0.72rem; color: #8A7B6E; margin: 0; }
+        .pain-card__activity strong { color: #4A3C33; font-weight: 600; }
+        @media (max-width: 768px) { .pain-grid { grid-template-columns: 1fr; } }
+        .week-photo-layout { display: grid; grid-template-columns: 1.55fr 1fr; gap: 0.75rem; height: min(420px, calc(100vh - 300px)); max-height: 420px; margin-top: 0.75rem; }
+        .week-photo-layout--equal { grid-template-columns: 1fr 1fr; }
+        .week-photo-layout--tall { height: min(540px, calc(100vh - 220px)); max-height: 560px; }
+        .week-photo-main { border-radius: 8px; overflow: hidden; background: #fff; border: 1px solid #F0EAE0; line-height: 0; display: flex; flex-direction: column; min-height: 0; }
+        .week-photo-main img { width: 100%; flex: 1; min-height: 0; object-fit: contain; display: block; background: #fff; padding: 6px; }
+        .week-photo-main figcaption { flex-shrink: 0; font-size: 9.5px; font-weight: 700; text-align: center; padding: 4px 6px 6px; color: #33271F; background: #FBF8F3; line-height: 1.3; }
+        .week-photo-subs { display: flex; flex-direction: column; gap: 0.5rem; min-height: 0; }
+        .week-photo-sub { flex: 1; min-height: 0; border-radius: 8px; overflow: hidden; background: #fff; border: 1px solid #F0EAE0; display: flex; flex-direction: column; }
+        .week-photo-sub img { width: 100%; flex: 1; min-height: 0; object-fit: contain; display: block; background: #fff; padding: 6px; }
+        .week-photo-sub figcaption { flex-shrink: 0; font-size: 9.5px; font-weight: 700; text-align: center; padding: 4px 6px 6px; color: #33271F; background: #FBF8F3; line-height: 1.3; }
         ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-track { background: #F0EAE0; }
         ::-webkit-scrollbar-thumb { background: #CBBBA8; border-radius: 4px; }
@@ -44,7 +61,7 @@
         .photo-banner-grid--in-layout { max-width: none; }
         .photo-banner-item { border-radius: 8px; overflow: hidden; line-height: 0; box-shadow: 0 1px 3px rgba(51,39,31,.08); }
         .slide-photo-banner { width: 100%; height: auto; display: block; }
-        .lecture-layout { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr); gap: 0.75rem; align-items: stretch; width: 100%; min-height: 0; max-height: calc(100vh - 220px); overflow: hidden; }
+        .lecture-layout { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr); gap: 0.75rem; align-items: stretch; width: 100%; min-height: 0; height: min(520px, calc(100vh - 280px)); max-height: min(520px, calc(100vh - 280px)); overflow: hidden; }
         .lecture-layout__main { min-width: 0; min-height: 0; overflow-y: auto; overflow-x: hidden; padding-right: 2px; }
         .lecture-layout__side { min-width: 0; min-height: 0; display: flex; flex-direction: column; gap: 0.5rem; overflow: hidden; }
         .lecture-side-photo { flex: 1; min-height: 0; min-width: 0; background: #fff; border-radius: 8px; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 1px 3px rgba(51,39,31,.08); border: 1px solid #F0EAE0; }
@@ -112,7 +129,7 @@
         .tech-stack-main .teams-channel { flex: 1; width: 100%; }
         .tech-stack-side { display: flex; }
         .tech-stack-side .stack-panel { flex: 1; width: 100%; }
-        .design-consult-layout { height: calc(100vh - 220px); min-height: 440px; max-height: 640px; }
+        .design-consult-layout { height: min(640px, calc(100vh - 280px)); max-height: min(640px, calc(100vh - 280px)); width: 100%; }
         .design-guide-wrap { min-height: 0; height: 100%; overflow: hidden; }
         .design-guide-scaler { width: 100%; height: 100%; overflow: hidden; }
         .design-guide-iframe { width: 100%; height: 100%; border: 0; display: block; background: #fff; zoom: 0.72; }
@@ -163,7 +180,7 @@
 
         function contentSlide({ label, title, message, body, scroll = false, wide = false, alignTop = false, compact = false }) {
             const scrollCls = scroll ? ' py-12 overflow-y-auto' : '';
-            const alignCls = alignTop ? ' justify-start pt-6 pb-16 overflow-hidden' : ' justify-center';
+            const alignCls = alignTop ? ' justify-start pt-6 pb-16 overflow-hidden' : ' justify-center pb-14';
             const maxW = wide ? 'max-w-6xl' : 'max-w-5xl';
             const titleCls = compact ? 'text-3xl font-extrabold mb-2 leading-tight' : 'text-4xl font-extrabold mb-3';
             const msgMb = compact ? 'mb-4' : 'mb-7';
@@ -186,12 +203,30 @@
             });
         }
 
-        function weekSlide({ week, title, topics }) {
+        function weekSlide({ week, title, topics, mainImage, subImages, photoLayout, photoTall }) {
             const chips = topics.map(t => `<span class="inline-block bg-beige text-ink text-xs font-medium px-3 py-1.5 rounded-lg mr-2 mb-2">${t}</span>`).join('');
+            let photos = '';
+            if (mainImage) {
+                const layoutCls = ['week-photo-layout', photoLayout === 'equal' && 'week-photo-layout--equal', photoTall && 'week-photo-layout--tall'].filter(Boolean).join(' ');
+                const subs = (subImages || []).map(p =>
+                    `<figure class="week-photo-sub">
+                        <img src="${p.src}" alt="${p.caption || ''}" loading="lazy">
+                        ${p.caption ? `<figcaption>${p.caption}</figcaption>` : ''}
+                    </figure>`
+                ).join('');
+                photos = `<div class="${layoutCls}">
+                    <figure class="week-photo-main">
+                        <img src="${mainImage.src}" alt="${mainImage.caption || title}" loading="lazy">
+                        ${mainImage.caption ? `<figcaption>${mainImage.caption}</figcaption>` : ''}
+                    </figure>
+                    <div class="week-photo-subs">${subs}</div>
+                </div>`;
+            }
             return contentSlide({
                 label: `Education · ${week}`,
                 title,
-                body: `<div class="bg-card rounded-lg p-8"><div class="flex flex-wrap gap-1">${chips}</div></div>`
+                compact: !!mainImage,
+                body: `<div class="bg-card rounded-lg p-4"><div class="flex flex-wrap gap-1">${chips}</div></div>${photos}`
             });
         }
 
@@ -268,17 +303,34 @@
                 label: '2025 Review · 회고',
                 title: '2025년 활동 문제점 & 운영 이슈 회고',
                 message: '2025년 PUG는 AI 학습과 공유 문화를 만드는 데 의미가 있었지만, 활동이 <strong class="text-ink">현업 성과로 연결되기에는 몇 가지 한계</strong>가 있었습니다.',
-                body: `<div class="bg-card rounded-lg p-6"><table class="tbl">
-                    <thead><tr><th>2025년 활동</th><th>드러난 Pain Point</th></tr></thead>
-                    <tbody>
-                        <tr><td>AI 도구 사용법 학습</td><td>도구를 배워도 실제 업무 적용 주제가 명확하지 않음</td></tr>
-                        <tr><td>활용 사례 공유</td><td>사례는 쌓였지만 개인별 업무 문제와 연결이 약함</td></tr>
-                        <tr><td>실습 중심 모임</td><td>실습 결과가 지속적인 결과물로 남기 어려움</td></tr>
-                        <tr><td>자발적 참여</td><td>참여 열정은 있었지만 과제 추진 구조가 부족함</td></tr>
-                        <tr><td>월 1회 모임</td><td>활동 사이클이 느리고 실행 관리가 어려움</td></tr>
-                    </tbody>
-                </table></div>
-                <div class="bg-beige rounded-lg p-4 mt-5 text-sm">핵심 한계 — 학습은 있었지만 <strong class="bg-pug px-1 rounded">문제 정의와 실행 구조</strong>가 부족했습니다.</div>`
+                body: `<div class="pain-grid">
+                    <article class="pain-card">
+                        <span class="pain-card__tag">PAIN POINT</span>
+                        <p class="pain-card__text">도구를 배워도 실제 업무 적용 주제가 명확하지 않음</p>
+                        <p class="pain-card__activity"><strong>2025 활동</strong> · AI 도구 사용법 학습</p>
+                    </article>
+                    <article class="pain-card">
+                        <span class="pain-card__tag">PAIN POINT</span>
+                        <p class="pain-card__text">사례는 쌓였지만 개인별 업무 문제와 연결이 약함</p>
+                        <p class="pain-card__activity"><strong>2025 활동</strong> · 활용 사례 공유</p>
+                    </article>
+                    <article class="pain-card">
+                        <span class="pain-card__tag">PAIN POINT</span>
+                        <p class="pain-card__text">실습 결과가 지속적인 결과물로 남기 어려움</p>
+                        <p class="pain-card__activity"><strong>2025 활동</strong> · 실습 중심 모임</p>
+                    </article>
+                    <article class="pain-card">
+                        <span class="pain-card__tag">PAIN POINT</span>
+                        <p class="pain-card__text">참여 열정은 있었지만 과제 추진 구조가 부족함</p>
+                        <p class="pain-card__activity"><strong>2025 활동</strong> · 자발적 참여</p>
+                    </article>
+                    <article class="pain-card md:col-span-2">
+                        <span class="pain-card__tag">PAIN POINT</span>
+                        <p class="pain-card__text">활동 사이클이 느리고 실행 관리가 어려움</p>
+                        <p class="pain-card__activity"><strong>2025 활동</strong> · 월 1회 모임</p>
+                    </article>
+                </div>
+                <div class="bg-ink text-card rounded-lg p-4 mt-5 text-sm font-medium leading-relaxed">핵심 한계 — 학습은 있었지만 <strong class="text-pug">문제 정의와 실행 구조</strong>가 부족했습니다.</div>`
             }),
 
             contentSlide({
@@ -301,8 +353,22 @@
         const WEEKLY = [
             { week: '3월 1주차', title: '웹·시스템 구조 이해와 바이브 코딩(Vibe Coding) 기초 개념', topics: ['FE/BE 역할 구분', 'REST API 흐름', 'AI 협업 코딩 방식', '요구사항 정의·단계적 확장'] },
             { week: '3월 2주차', title: 'Flask 웹 프레임워크와 Database(SQL) — 웹 서버 기본 구조와 CRUD 실습', topics: ['Flask 기초', 'SQL 개념', '테이블/행/컬럼', '데이터 CRUD 실습'] },
-            { week: '3월 3주차', title: 'LLM의 이해, 컨텍스트 설계, LLM API 활용, RAG 구현', topics: ['LLM 강점/한계', 'Temperature·프롬프트', 'LLM API 호출', 'RAG 기초'] },
-            { week: '3월 4주차', title: 'RAG 기반 챗봇 만들기 개인 발표, n8n 개념 학습 및 실습', topics: ['RAG 챗봇 구현', '개인 발표', 'n8n 자동화 개념', '트리거 기반 실습'] },
+            { week: '3월 3주차', title: 'LLM의 이해, 컨텍스트 설계, LLM API 활용, RAG 구현', topics: ['LLM 강점/한계', 'Temperature·프롬프트', 'LLM API 호출', 'RAG 기초'],
+                mainImage: { src: 'assets/14-llm-rag/main-llm-session.png', caption: 'LLM·RAG 교육 세션' },
+                subImages: [
+                    { src: 'assets/14-llm-rag/sub-rag-diagram.png', caption: 'RAG 개념 설명' },
+                    { src: 'assets/14-llm-rag/sub-rag-chatbot.png', caption: 'RAG 챗봇 예시' }
+                ],
+                photoTall: true
+            },
+            { week: '3월 4주차', title: 'RAG 기반 챗봇 만들기 개인 발표, n8n 개념 학습 및 실습', topics: ['RAG 챗봇 구현', '개인 발표', 'n8n 자동화 개념', '트리거 기반 실습'],
+                mainImage: { src: 'assets/15-rag-chatbot/main-tax-rag-chatbot.png', caption: '세법 RAG 업무 비서' },
+                subImages: [
+                    { src: 'assets/15-rag-chatbot/sub-pug-rag-chatbot.png', caption: 'PUG 프로그램 RAG 챗봇' }
+                ],
+                photoLayout: 'equal',
+                photoTall: true
+            },
             { week: '4월 1주차', title: 'AI 활용 솔루션 PoC 아이디어 발굴 & 프로젝트 기획', topics: ['업무 Pain Point 도출', 'AS-IS 정리', 'PoC 목표·범위 설정', '기술 스택 선정'] },
             { week: '4월 3주차', title: 'FastAPI 기반 API 개발 심화, On-premise LLM 연동, Git & GitHub 실습', topics: ['FastAPI 개발', 'On-premise LLM', 'Git 저장소·Commit/Push', 'GitHub 협업'] },
             { week: '4월 4주차', title: 'Webhook 기반 API 이해, 배포 개념 학습, UI/UX 기초 개념', topics: ['Webhook API', '빌드→배포→실행', '환경변수·DNS', 'UI/UX 기초'] },
@@ -630,7 +696,6 @@
                     label: 'Support · 디전센 × PUG',
                     title: s.title,
                     wide: true,
-                    alignTop: true,
                     body: buildDesignConsultLayout(s)
                 });
             }
@@ -648,7 +713,6 @@
                     label: 'Support · 디전센 × PUG',
                     title: s.title,
                     wide: true,
-                    alignTop: true,
                     compact: true,
                     body: `${intro}${buildLectureBannerLayout(s)}`
                 });
@@ -670,7 +734,6 @@
                     label: 'Support · 디전센 × PUG',
                     title: s.title,
                     scroll: s.photoBanner ? false : true,
-                    alignTop: !!s.photoBanner,
                     body: `${intro}<div class="${gridCls}">${photoGrid}</div>`
                 });
             }
