@@ -134,7 +134,7 @@
         #growth-detail-list { gap: 0.2rem; min-height: 0; display: flex; flex-direction: column; justify-content: space-between; flex: 1; }
         .growth-dim-row { padding: 0.3rem 0.45rem; }
         .growth-dim-row.active { background: #F0EAE0; box-shadow: inset 0 0 0 2px #F5B041; }
-        .member-radar-wrap { width: 100%; max-height: min(560px, calc(100vh - 210px)); min-height: 0; display: flex; flex-direction: column; }
+        .member-radar-wrap { width: 100%; height: min(520px, calc(100vh - 250px)); max-height: min(520px, calc(100vh - 250px)); min-height: 0; display: flex; flex-direction: column; }
         .member-radar-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-template-rows: repeat(2, minmax(0, 1fr)); gap: 0.45rem; flex: 1; min-height: 0; }
         .member-radar-cell { background: #fff; border: 1px solid #F0EAE0; border-radius: 8px; padding: 0.3rem 0.35rem 0.2rem; display: flex; flex-direction: column; min-height: 0; min-width: 0; }
         .member-radar-name { font-size: 0.7rem; font-weight: 800; text-align: center; color: #33271F; margin: 0 0 0.1rem; flex-shrink: 0; }
@@ -1033,7 +1033,6 @@
                 label: 'Effect · 역량 강화',
                 title: '체크리스트 Before / After — 멤버별 성장 차트',
                 message: '동일 체크리스트 40문항 기준, <strong class="text-ink">멤버별 7개 역량 영역</strong> Before / After 비교입니다.',
-                alignTop: true,
                 compact: true,
                 wide: true,
                 body: `<div class="member-radar-wrap">
@@ -1270,6 +1269,9 @@
         }
         let growthRadarInstance = null;
         let memberRadarInstances = [];
+        let memberRadarAutoTimer = null;
+        let memberRadarAnimFrame = null;
+        let memberRadarAnimating = false;
         let radarMode = 'before';
         let radarAnimFrame = null;
         let radarAnimating = false;
@@ -1507,8 +1509,93 @@
         }
 
         function destroyMemberRadars() {
+            stopMemberRadarSlide();
             memberRadarInstances.forEach(c => c.destroy());
             memberRadarInstances = [];
+        }
+
+        function resetMemberRadarsToBefore() {
+            memberRadarInstances.forEach((chart, i) => {
+                chart.data.datasets[0].hidden = false;
+                chart.data.datasets[1].hidden = true;
+                chart.data.datasets[1].data = [...MEMBER_GROWTH[i].before];
+                chart.update();
+            });
+        }
+
+        function stopMemberRadarAnimation() {
+            if (memberRadarAnimFrame) {
+                cancelAnimationFrame(memberRadarAnimFrame);
+                memberRadarAnimFrame = null;
+            }
+            memberRadarAnimating = false;
+        }
+
+        function stopMemberRadarAutoLoop() {
+            if (memberRadarAutoTimer) {
+                clearTimeout(memberRadarAutoTimer);
+                memberRadarAutoTimer = null;
+            }
+        }
+
+        function stopMemberRadarSlide() {
+            stopMemberRadarAutoLoop();
+            stopMemberRadarAnimation();
+        }
+
+        function playMemberRadarAnimation(onComplete) {
+            if (!memberRadarInstances.length || memberRadarAnimating) return;
+            stopMemberRadarAnimation();
+
+            memberRadarInstances.forEach((chart, i) => {
+                chart.data.datasets[0].hidden = false;
+                chart.data.datasets[1].hidden = false;
+                chart.data.datasets[1].data = [...MEMBER_GROWTH[i].before];
+                chart.update('none');
+            });
+
+            const start = performance.now();
+            memberRadarAnimating = true;
+
+            function frame(now) {
+                const t = Math.min(1, (now - start) / RADAR_GROWTH_DURATION);
+                const eased = 1 - Math.pow(1 - t, 3);
+                memberRadarInstances.forEach((chart, i) => {
+                    const before = MEMBER_GROWTH[i].before;
+                    const after = MEMBER_GROWTH[i].after;
+                    chart.data.datasets[1].data = before.map((b, j) => Math.round(b + (after[j] - b) * eased));
+                    chart.update('none');
+                });
+                if (t < 1) {
+                    memberRadarAnimFrame = requestAnimationFrame(frame);
+                } else {
+                    memberRadarInstances.forEach((chart, i) => {
+                        chart.data.datasets[1].data = [...MEMBER_GROWTH[i].after];
+                        chart.update();
+                    });
+                    memberRadarAnimating = false;
+                    onComplete?.();
+                }
+            }
+            memberRadarAnimFrame = requestAnimationFrame(frame);
+        }
+
+        function startMemberRadarAutoLoop() {
+            stopMemberRadarAutoLoop();
+            resetMemberRadarsToBefore();
+
+            function showAfter() {
+                playMemberRadarAnimation(() => {
+                    memberRadarAutoTimer = setTimeout(showBefore, RADAR_HOLD_AFTER);
+                });
+            }
+
+            function showBefore() {
+                resetMemberRadarsToBefore();
+                memberRadarAutoTimer = setTimeout(showAfter, RADAR_HOLD_BEFORE);
+            }
+
+            memberRadarAutoTimer = setTimeout(showAfter, RADAR_HOLD_BEFORE);
         }
 
         function renderMemberRadars() {
@@ -1517,6 +1604,7 @@
 
             if (memberRadarInstances.length === MEMBER_GROWTH.length) {
                 memberRadarInstances.forEach(c => c.resize());
+                resetMemberRadarsToBefore();
                 return;
             }
 
@@ -1563,7 +1651,7 @@
                         labels: MEMBER_RADAR_LABELS,
                         datasets: [
                             { label: 'Before', data: m.before, fill: true, backgroundColor: 'rgba(51,39,31,0.08)', borderColor: 'rgba(51,39,31,0.80)', pointBackgroundColor: 'rgba(51,39,31,1)', pointBorderColor: '#FFF', borderWidth: 1.5, pointRadius: 2, pointHoverRadius: 4 },
-                            { label: 'After', data: m.after, fill: true, backgroundColor: 'rgba(245,176,65,0.35)', borderColor: 'rgba(245,176,65,1)', pointBackgroundColor: 'rgba(245,176,65,1)', pointBorderColor: '#33271F', borderWidth: 2, pointRadius: 2, pointHoverRadius: 4 }
+                            { label: 'After', data: [...m.before], hidden: true, fill: true, backgroundColor: 'rgba(245,176,65,0.35)', borderColor: 'rgba(245,176,65,1)', pointBackgroundColor: 'rgba(245,176,65,1)', pointBorderColor: '#33271F', borderWidth: 2, pointRadius: 2, pointHoverRadius: 4 }
                         ]
                     },
                     options: radarOpts
@@ -1647,7 +1735,7 @@
             if (!slides[current]?.querySelector('#growthRadar')) stopRadarSlide();
             if (!slides[current]?.querySelector('#tech-stack-panel')) stopStackAutoLoop();
             if (!slides[current]?.querySelector('#pain-review-grid')) resetPainReveal();
-            if (!slides[current]?.querySelector('#member-radar-grid')) destroyMemberRadars();
+            if (!slides[current]?.querySelector('#member-radar-grid')) stopMemberRadarSlide();
             document.getElementById('cur').innerText = current + 1;
             document.getElementById('progress-bar').style.width = ((current + 1) / slides.length * 100) + '%';
             lucide.createIcons();
@@ -1664,6 +1752,7 @@
                 initPainReveal();
             } else if (slides[current]?.querySelector('#member-radar-grid')) {
                 renderMemberRadars();
+                startMemberRadarAutoLoop();
             }
         }
         function changeSlide(dir) {
