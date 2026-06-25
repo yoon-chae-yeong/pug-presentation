@@ -249,14 +249,22 @@ AI 에이전트 관점 | 업무→에이전트, MVP | 시나리오·역할 정�
 - GitHub 협업
 
 
-18페이지 (4월 4주차)
+18페이지 (4월 4주차 — Webhook)
 -------------------
 [주차교육]
-4월 4주차 | Webhook 기반 API 이해, 배포 개념 학습, UI/UX 기초 개념
-- Webhook API
-- 빌드→배포→실행
-- 환경변수·DNS
-- UI/UX 기초
+4월 4주차 | Webhook 기반 API 이해, 배포 개념 학습
+- Webhook API · FastAPI · POST 요청 처리 · n8n·Teams 연동 · 빌드→배포→실행
+
+핵심 메시지: FastAPI 웹훅 서버 구현 및 POST 요청 처리. 프론트엔드 → 서버 → 메시지 전송 전체 흐름 실습.
+
+[이미지] assets/18-webhook-api/ — main: 실습 세션, sub: Webhook→Teams 흐름 · FastAPI POST 연동 (오른쪽 위·아래)
+
+
+18페이지-B (4월 4주차 — UI/UX)
+-------------------
+[주차교육]
+4월 4주차 | UI/UX 기초 개념
+- Design vs UX · UI 컴포넌트 · 디자인 시스템 · AI 디자인 도구
 
 
 19페이지 (4월 5주차)
@@ -309,8 +317,8 @@ PART 3 | 디전센 × PUG
 소제목(라벨): Support · 디전센 × PUG
 제목: 전문가 연결 — 웹 디자인 컨설팅
 레이아웃: 왼쪽 2/3 — 바이브코딩 디자인 가이드 HTML (스크롤), 오른쪽 1/3 — 컨설팅 사진
-[임베드] assets/24-design-consulting/vibe-coding-design-guide.html
-[이미지] assets/24-design-consulting/consulting-1.png, consulting-2.png
+[임베드] assets/27-design-consulting/vibe-coding-design-guide.html
+[이미지] assets/27-design-consulting/consulting-1.png, consulting-2.png
 
 
 25페이지 (디지털전략센터 직책자 간담회)
@@ -346,7 +354,7 @@ PART 3 | 디전센 × PUG
 소제목(라벨): Support · 개발 환경
 제목: AI/Dev 관련 온라인 강의 선별 및 실습 지원
 내용: PoC 수행에 필요한 AI·개발 역량 강화를 위해 인프런 등 온라인 강의를 선별·추천
-[이미지] assets/29-online-lectures/ — 강의 배너 3장 + 우측 LLM 예측 다이어그램, n8n 워크플로우
+[이미지] assets/32-online-lectures/ — 강의 배너 3장 + 우측 LLM 예측 다이어그램, n8n 워크플로우
 
 
 30페이지 (활동 촉진 — 구글 AI 구독)
@@ -362,7 +370,7 @@ PART 3 | 디전센 × PUG
 제목: GitHub Organization 개설 및 관리
 
 [영상]
-assets/31-github-org/github-org.mp4
+assets/34-github-org/github-org.mp4
 
 
 32페이지 (활동 촉진 — 표준 기술스택 가이드)
@@ -384,7 +392,7 @@ assets/31-github-org/github-org.mp4
 -------------------
 소제목(라벨): Support · 디전센 × PUG
 제목: 활동 촉진 — AI Playground 활용 방법 안내
-영상: assets/34-ai-playground/ai-playground.mp4
+영상: assets/37-ai-playground/ai-playground.mp4
 
 
 35페이지 (활동 촉진 — API 개발)

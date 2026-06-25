@@ -80,6 +80,7 @@
         .week-photo-layout { display: grid; grid-template-columns: 1.55fr 1fr; gap: 0.75rem; height: min(420px, calc(100vh - 300px)); max-height: 420px; margin-top: 0.75rem; }
         .week-photo-layout--equal { grid-template-columns: 1fr 1fr; }
         .week-photo-layout--tall { height: min(540px, calc(100vh - 220px)); max-height: 560px; }
+        .week-photo-layout--tall-meta { height: min(480px, calc(100vh - 260px)); max-height: 500px; }
         .week-photo-layout--compact { height: min(340px, calc(100vh - 380px)); max-height: 360px; }
         .week-photo-main { border-radius: 8px; overflow: hidden; background: #fff; border: 1px solid #F0EAE0; line-height: 0; display: flex; flex-direction: column; min-height: 0; }
         .week-photo-main img { width: 100%; flex: 1; min-height: 0; object-fit: contain; display: block; background: #fff; padding: 6px; }
@@ -338,7 +339,7 @@
                 </div>`;
             } else if (mainImage) {
                 const hasMeta = !!(message || (goals && goals.length));
-                const layoutCls = ['week-photo-layout', photoLayout === 'equal' && 'week-photo-layout--equal', photoTall && !hasMeta && 'week-photo-layout--tall', hasMeta && 'week-photo-layout--compact'].filter(Boolean).join(' ');
+                const layoutCls = ['week-photo-layout', photoLayout === 'equal' && 'week-photo-layout--equal', photoTall && hasMeta && 'week-photo-layout--tall-meta', photoTall && !hasMeta && 'week-photo-layout--tall', hasMeta && !photoTall && 'week-photo-layout--compact'].filter(Boolean).join(' ');
                 const guideEmbed = embedGuide
                     ? `<div class="week-guide-embed"><div class="week-guide-embed__scaler"><iframe src="${embedGuide}" title="학습 가이드" class="week-guide-iframe" loading="lazy"></iframe></div></div>`
                     : '';
@@ -600,35 +601,37 @@
             },
             { week: '4월 4주차', title: 'Webhook 기반 API 이해, 배포 개념 학습', topics: ['Webhook API', 'FastAPI', 'POST 요청 처리', 'n8n·Teams 연동', '빌드→배포→실행'],
                 message: 'FastAPI로 웹훅 서버 구현 및 POST 요청 처리 경험. 프론트엔드 → 서버 → 메시지 전송까지 전체 흐름 실습.',
-                mainImage: { src: 'assets/21-webhook-api/main-n8n-flow.png', caption: 'Webhook → Teams 메시지 전송 흐름' },
+                mainImage: { src: 'assets/18-webhook-api/main-activity.png', caption: 'Webhook·배포 실습 세션' },
                 subImages: [
-                    { src: 'assets/21-webhook-api/sub-fastapi-webhook.png', caption: 'FastAPI 웹훅 서버 · 프론트엔드 POST 연동' }
-                ]
+                    { src: 'assets/18-webhook-api/main-n8n-flow.png', caption: 'Webhook → Teams 메시지 전송 흐름' },
+                    { src: 'assets/18-webhook-api/sub-fastapi-webhook.png', caption: 'FastAPI 웹훅 서버 · 프론트엔드 POST 연동' }
+                ],
+                photoTall: true
             },
             { week: '4월 4주차', title: 'UI/UX 기초 개념', topics: ['Design vs UX', 'UI 컴포넌트', '디자인 시스템', 'AI 디자인 도구'],
-                mainImage: { src: 'assets/22-uiux-basics/uiux-design-vs-ux.png', caption: 'Design vs User Experience' },
+                mainImage: { src: 'assets/19-uiux-basics/uiux-design-vs-ux.png', caption: 'Design vs User Experience' },
                 subImages: [
-                    { src: 'assets/22-uiux-basics/uiux-components.png', caption: 'UI/UX 핵심 컴포넌트 42가지' },
-                    { src: 'assets/22-uiux-basics/uiux-v0-design.png', caption: 'v0 AI 디자인 — Pastel Modernism 적용' }
+                    { src: 'assets/19-uiux-basics/uiux-components.png', caption: 'UI/UX 핵심 컴포넌트 42가지' },
+                    { src: 'assets/19-uiux-basics/uiux-v0-design.png', caption: 'v0 AI 디자인 — Pastel Modernism 적용' }
                 ],
                 photoTall: true
             },
             { week: '4월 5주차', title: 'AI 에이전트 핵심 메커니즘, LLM vs 에이전트, Multi-Agent 설계', topics: ['에이전트 역할·입출력', 'LLM과 에이전트 차이', 'Multi-Agent 패턴', 'MVP 구조 설계'] },
             { week: '5월 1주차', title: 'PUG Quiz Race — 비전공자를 위한 IT 지식', topics: ['Quiz Race', 'IT 기초 지식', '비전공자 대상', '경쟁형 학습'],
-                mainImage: { src: 'assets/18-quiz-race/main-leaderboard.png', caption: 'PUG Quiz Race 최종 순위' },
+                mainImage: { src: 'assets/21-quiz-race/main-leaderboard.png', caption: 'PUG Quiz Race 최종 순위' },
                 subImages: [
-                    { src: 'assets/18-quiz-race/sub-winner.png', caption: 'Quiz Race 우승자 시상' }
+                    { src: 'assets/21-quiz-race/sub-winner.png', caption: 'Quiz Race 우승자 시상' }
                 ],
                 photoTall: true
             },
             { week: '5월 4주차', title: 'AI PUG 개발 컨벤션 가이드 교육', topics: ['코딩 컨벤션', '개발 가이드', '협업 규칙', 'PoC 품질'],
-                mainImage: { src: 'assets/19-dev-convention/main-session.png', caption: '개발 컨벤션 가이드 교육 세션' },
+                mainImage: { src: 'assets/22-dev-convention/main-session.png', caption: '개발 컨벤션 가이드 교육 세션' },
                 photoTall: true
             },
             { week: '6월 2주차', title: 'Outlook·Teams API 서비스 소개, Full-Stack Live Coding', topics: ['Outlook API', 'Teams API', 'Full-Stack Live Coding', '실무 연동'],
-                mainImage: { src: 'assets/20-outlook-teams-api/main-session.png', caption: 'Full-Stack Live Coding 세션' },
+                mainImage: { src: 'assets/23-outlook-teams-api/main-session.png', caption: 'Full-Stack Live Coding 세션' },
                 subImages: [
-                    { src: 'assets/20-outlook-teams-api/sub-api-playground.png', caption: 'pug-api-playground — Outlook·Teams API 연동' }
+                    { src: 'assets/23-outlook-teams-api/sub-api-playground.png', caption: 'pug-api-playground — Outlook·Teams API 연동' }
                 ],
                 photoTall: true
             },
@@ -762,37 +765,37 @@
         // ── PART 3: 디전센 X PUG ──
         const SUPPORT = [
             { icon: 'presentation', title: '전문가 연결 — 현업 실무자 강의', desc: '도메인 특성을 이해한 실무형 강의 및 코칭' },
-            { icon: 'palette', title: '전문가 연결 — 웹 디자인 컨설팅', embedGuide: 'assets/24-design-consulting/vibe-coding-design-guide.html', photos: [
-                { src: 'assets/24-design-consulting/consulting-1.png', caption: 'PoC UI/UX 컨설팅 세션' },
-                { src: 'assets/24-design-consulting/consulting-2.png', caption: '1:1 디자인 피드백' }
+            { icon: 'palette', title: '전문가 연결 — 웹 디자인 컨설팅', embedGuide: 'assets/27-design-consulting/vibe-coding-design-guide.html', photos: [
+                { src: 'assets/27-design-consulting/consulting-1.png', caption: 'PoC UI/UX 컨설팅 세션' },
+                { src: 'assets/27-design-consulting/consulting-2.png', caption: '1:1 디자인 피드백' }
             ]},
             { icon: 'users', title: "디지털전략센터 Laeder's Talk", meetingReveal: true, photos: [
-                { src: 'assets/25-meeting/meeting-reflection.png', caption: 'AI 시대에 대한 고찰 (정민석님)' },
-                { src: 'assets/25-meeting/meeting-playground.png', caption: 'AI Playground 소개 (신민규님)' }
-            ], overlayPhoto: { src: 'assets/25-meeting/meeting-dinner.png', caption: '간담회 식사' }},
-            { icon: 'message-square', title: '운영진 활동 — 주차별 활동 요약 (팀즈 채널)', video: 'assets/26-teams-channel/teams-channel.mp4' },
+                { src: 'assets/28-meeting/meeting-reflection.png', caption: 'AI 시대에 대한 고찰 (정민석님)' },
+                { src: 'assets/28-meeting/meeting-playground.png', caption: 'AI Playground 소개 (신민규님)' }
+            ], overlayPhoto: { src: 'assets/28-meeting/meeting-dinner.png', caption: '간담회 식사' }},
+            { icon: 'message-square', title: '운영진 활동 — 주차별 활동 요약 (팀즈 채널)', video: 'assets/29-teams-channel/teams-channel.mp4' },
             { icon: 'folder-open', title: '운영진 활동 — 주차별 실습자료 공유', desc: '교육 자료·실습 가이드 지속 공유' },
-            { icon: 'archive', title: '운영진 활동 — 주차별 미팅노트 아카이빙 & 회고', desc: '미팅노트 축적 및 회고 문화 정착', notionEmbed: 'assets/27-meeting-notes/pug-meeting-notes.html' },
+            { icon: 'archive', title: '운영진 활동 — 주차별 미팅노트 아카이빙 & 회고', desc: '미팅노트 축적 및 회고 문화 정착', notionEmbed: 'assets/31-meeting-notes/pug-meeting-notes.html' },
             { icon: 'graduation-cap', title: '개발 환경 지원 — AI/Dev 온라인 강의 선별', desc: 'PoC 수행에 필요한 AI·개발 역량 강화를 위해 인프런 등 온라인 강의를 선별·추천했습니다.', photoBanner: true, photos: [
-                { src: 'assets/29-online-lectures/lecture-llm.png', caption: 'LLM 핵심 이론, 구조로 이해하기' },
-                { src: 'assets/29-online-lectures/lecture-github.png', caption: '우주에서 가장 쉬운 GitHub 베이스캠프' },
-                { src: 'assets/29-online-lectures/lecture-n8n.png', caption: 'n8n 업무자동화 (왕초보편)' }
+                { src: 'assets/32-online-lectures/lecture-llm.png', caption: 'LLM 핵심 이론, 구조로 이해하기' },
+                { src: 'assets/32-online-lectures/lecture-github.png', caption: '우주에서 가장 쉬운 GitHub 베이스캠프' },
+                { src: 'assets/32-online-lectures/lecture-n8n.png', caption: 'n8n 업무자동화 (왕초보편)' }
             ], sidePhotos: [
-                { src: 'assets/29-online-lectures/lecture-llm-diagram.png', caption: 'LLM — 다음 단어 예측 확률' },
-                { src: 'assets/29-online-lectures/lecture-n8n-workflow.png', caption: 'n8n — 워크플로우 실습 화면' }
+                { src: 'assets/32-online-lectures/lecture-llm-diagram.png', caption: 'LLM — 다음 단어 예측 확률' },
+                { src: 'assets/32-online-lectures/lecture-n8n-workflow.png', caption: 'n8n — 워크플로우 실습 화면' }
             ]},
             { icon: 'sparkles', title: '개발 환경 지원 — AI 도구 활용을 위한 구독 지원', desc: 'AI 도구 활용을 위한 구독 지원' },
-            { icon: 'github', title: '개발 환경 지원 — GitHub Organization 개설 및 관리', video: 'assets/31-github-org/github-org.mp4' },
+            { icon: 'github', title: '개발 환경 지원 — GitHub Organization 개설 및 관리', video: 'assets/34-github-org/github-org.mp4' },
             { icon: 'book-open', title: '개발 환경 지원 — 표준 기술스택 가이드 제공', teamsPost: true },
             { icon: 'book', title: '개발 환경 지원 — IT 기초 역량 강화를 위한 서적 배부', desc: '「<strong>비전공자를 위한 이해할 수 있는 IT 지식</strong>」 —  프로그래밍 언어, 운영체제, 네트워크, API, JSON, 데이터베이스, 깃(Git)', photos: [
-                { src: 'assets/33-book/book-distribution.png', caption: '서적 배부 준비' },
-                { src: 'assets/33-book/book-group.png', caption: 'PUG 멤버 전원 수령' },
-                { src: 'assets/33-book/book-members-1.png', caption: '박다솜님 & 윤성수님' },
-                { src: 'assets/33-book/book-members-2.png', caption: '강주혁님 & 김진용님' },
-                { src: 'assets/33-book/book-members-3.png', caption: '현재호님 & 김보근님' },
-                { src: 'assets/33-book/book-members-4.png', caption: '강응준님 & 박지훈님' }
+                { src: 'assets/36-book/book-distribution.png', caption: '서적 배부 준비' },
+                { src: 'assets/36-book/book-group.png', caption: 'PUG 멤버 전원 수령' },
+                { src: 'assets/36-book/book-members-1.png', caption: '박다솜님 & 윤성수님' },
+                { src: 'assets/36-book/book-members-2.png', caption: '강주혁님 & 김진용님' },
+                { src: 'assets/36-book/book-members-3.png', caption: '현재호님 & 김보근님' },
+                { src: 'assets/36-book/book-members-4.png', caption: '강응준님 & 박지훈님' }
             ]},
-            { icon: 'flask-conical', title: '활동 촉진 — AI Playground 활용 방법 안내', video: 'assets/34-ai-playground/ai-playground.mp4' },
+            { icon: 'flask-conical', title: '활동 촉진 — AI Playground 활용 방법 안내', video: 'assets/37-ai-playground/ai-playground.mp4' },
             { icon: 'code-2', title: '활동 촉진 — API 개발 지원', desc: 'PoC 구현 과정의 API 개발 기술 지원' }
         ];
 
@@ -947,7 +950,7 @@
                 <article class="teams-post">
                     <header class="teams-post__header">
                         <div class="teams-avatar">
-                            <img src="assets/32-tech-stack/song-youngbok.png" alt="송영복">
+                            <img src="assets/35-tech-stack/song-youngbok.png" alt="송영복">
                         </div>
                         <div>
                             <div class="teams-post__author">
