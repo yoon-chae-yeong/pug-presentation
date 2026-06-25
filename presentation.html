@@ -134,6 +134,15 @@
         #growth-detail-list { gap: 0.2rem; min-height: 0; display: flex; flex-direction: column; justify-content: space-between; flex: 1; }
         .growth-dim-row { padding: 0.3rem 0.45rem; }
         .growth-dim-row.active { background: #F0EAE0; box-shadow: inset 0 0 0 2px #F5B041; }
+        .member-radar-wrap { width: 100%; max-height: min(560px, calc(100vh - 210px)); min-height: 0; display: flex; flex-direction: column; }
+        .member-radar-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-template-rows: repeat(2, minmax(0, 1fr)); gap: 0.45rem; flex: 1; min-height: 0; }
+        .member-radar-cell { background: #fff; border: 1px solid #F0EAE0; border-radius: 8px; padding: 0.3rem 0.35rem 0.2rem; display: flex; flex-direction: column; min-height: 0; min-width: 0; }
+        .member-radar-name { font-size: 0.7rem; font-weight: 800; text-align: center; color: #33271F; margin: 0 0 0.1rem; flex-shrink: 0; }
+        .member-radar-canvas-wrap { flex: 1; min-height: 0; position: relative; height: 100%; }
+        .member-radar-canvas-wrap canvas { max-height: 100%; }
+        @media (max-width: 1024px) {
+            .member-radar-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: repeat(4, minmax(0, 1fr)); }
+        }
         .teams-channel { background: #F5F5F5; border: 1px solid #E1DFDD; border-radius: 4px; padding: 10px; font-family: 'Segoe UI', 'Noto Sans KR', sans-serif; color: #242424; }
         .teams-post { background: #FFFFFF; border: 1px solid #EDEBE9; border-radius: 2px; padding: 10px 12px 8px; }
         .teams-post__header { display: flex; gap: 8px; align-items: flex-start; margin-bottom: 8px; }
@@ -835,7 +844,7 @@
             stackAutoTimer = setInterval(() => {
                 idx = (idx + 1) % STACK_CAT_ORDER.length;
                 selectStackCategory(STACK_CAT_ORDER[idx], { fromAuto: true });
-            }, 3500);
+            }, 1750);
         }
 
         function initTechStackInteractive() {
@@ -1001,6 +1010,42 @@
         ];
 
         // ── PART 4: 활동 효과 ──
+        const MEMBER_RADAR_LABELS = ['코딩\n기초', '바이브\n코딩', 'LLM\n활용', '자동화', 'Git\n협업', '배포\n운영', 'AI\n에이전트'];
+        const MEMBER_GROWTH = [
+            { name: '강주혁', before: [0, 0, 11, 0, 0, 0, 0], after: [75, 71, 78, 75, 100, 60, 100] },
+            { name: '강응준', before: [75, 29, 56, 25, 0, 20, 50], after: [75, 71, 89, 100, 100, 100, 100] },
+            { name: '김보근', before: [38, 0, 0, 0, 0, 0, 0], after: [100, 71, 78, 100, 100, 100, 100] },
+            { name: '김진용', before: [25, 57, 22, 0, 100, 0, 50], after: [100, 86, 89, 75, 100, 40, 75] },
+            { name: '박다솜', before: [0, 0, 11, 0, 33, 0, 0], after: [100, 86, 100, 100, 100, 40, 50] },
+            { name: '박지훈', before: [50, 29, 0, 0, 100, 40, 25], after: [100, 71, 67, 50, 100, 60, 50] },
+            { name: '윤성수', before: [50, 29, 22, 25, 0, 0, 0], after: [100, 100, 100, 100, 100, 100, 100] },
+            { name: '현재호', before: [63, 86, 78, 75, 100, 60, 100], after: [100, 100, 100, 100, 100, 100, 100] }
+        ];
+
+        function buildMemberRadarSlide() {
+            const cells = MEMBER_GROWTH.map((m, i) =>
+                `<div class="member-radar-cell">
+                    <p class="member-radar-name">${m.name}</p>
+                    <div class="member-radar-canvas-wrap"><canvas id="memberRadar${i}"></canvas></div>
+                </div>`
+            ).join('');
+            return contentSlide({
+                label: 'Effect · 역량 강화',
+                title: '체크리스트 Before / After — 멤버별 성장 차트',
+                message: '동일 체크리스트 40문항 기준, <strong class="text-ink">멤버별 7개 역량 영역</strong> Before / After 비교입니다.',
+                alignTop: true,
+                compact: true,
+                wide: true,
+                body: `<div class="member-radar-wrap">
+                    <div class="flex items-center justify-center gap-5 mb-2 text-xs font-semibold shrink-0">
+                        <span class="flex items-center gap-1.5 text-taupe"><span class="w-3 h-3 rounded-sm bg-ink"></span> Before</span>
+                        <span class="flex items-center gap-1.5 text-ink"><span class="w-3 h-3 rounded-sm bg-pug"></span> After</span>
+                    </div>
+                    <div id="member-radar-grid" class="member-radar-grid">${cells}</div>
+                </div>`
+            });
+        }
+
         const part4 = [
             sectionDivider('PART 4', '활동 효과', '서로 얻어가는 성장과 조직에 남긴 변화'),
 
@@ -1056,6 +1101,8 @@
                     </div>
                 </div>`
             }),
+
+            buildMemberRadarSlide(),
 
             contentSlide({
                 label: 'Effect · 체크리스트',
@@ -1222,6 +1269,7 @@
             }).join('');
         }
         let growthRadarInstance = null;
+        let memberRadarInstances = [];
         let radarMode = 'before';
         let radarAnimFrame = null;
         let radarAnimating = false;
@@ -1458,6 +1506,71 @@
             resetToBefore();
         }
 
+        function destroyMemberRadars() {
+            memberRadarInstances.forEach(c => c.destroy());
+            memberRadarInstances = [];
+        }
+
+        function renderMemberRadars() {
+            const grid = document.getElementById('member-radar-grid');
+            if (!grid || typeof Chart === 'undefined') return;
+
+            if (memberRadarInstances.length === MEMBER_GROWTH.length) {
+                memberRadarInstances.forEach(c => c.resize());
+                return;
+            }
+
+            destroyMemberRadars();
+
+            const radarOpts = {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        backgroundColor: '#33271F',
+                        titleColor: '#FFFFFF',
+                        bodyColor: '#F0EAE0',
+                        padding: 10,
+                        callbacks: {
+                            label(ctx) { return `${ctx.dataset.label}: ${ctx.raw}%`; },
+                            afterBody(items) {
+                                const before = items.find(i => i.dataset.label === 'Before');
+                                const after = items.find(i => i.dataset.label === 'After');
+                                if (before && after) return [`변화: ${after.raw - before.raw >= 0 ? '+' : ''}${after.raw - before.raw}%`];
+                                return [];
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    r: {
+                        min: 0, max: 100,
+                        ticks: { display: false, stepSize: 25 },
+                        angleLines: { color: 'rgba(51,39,31,0.10)' },
+                        grid: { color: 'rgba(51,39,31,0.10)' },
+                        pointLabels: { color: '#8A7B6E', font: { family: 'Noto Sans KR', size: 7, weight: '600' } }
+                    }
+                }
+            };
+
+            MEMBER_GROWTH.forEach((m, i) => {
+                const canvas = document.getElementById(`memberRadar${i}`);
+                if (!canvas) return;
+                memberRadarInstances.push(new Chart(canvas.getContext('2d'), {
+                    type: 'radar',
+                    data: {
+                        labels: MEMBER_RADAR_LABELS,
+                        datasets: [
+                            { label: 'Before', data: m.before, fill: true, backgroundColor: 'rgba(51,39,31,0.08)', borderColor: 'rgba(51,39,31,0.80)', pointBackgroundColor: 'rgba(51,39,31,1)', pointBorderColor: '#FFF', borderWidth: 1.5, pointRadius: 2, pointHoverRadius: 4 },
+                            { label: 'After', data: m.after, fill: true, backgroundColor: 'rgba(245,176,65,0.35)', borderColor: 'rgba(245,176,65,1)', pointBackgroundColor: 'rgba(245,176,65,1)', pointBorderColor: '#33271F', borderWidth: 2, pointRadius: 2, pointHoverRadius: 4 }
+                        ]
+                    },
+                    options: radarOpts
+                }));
+            });
+        }
+
         function initPainReveal() {
             const grid = document.getElementById('pain-review-grid');
             const btn = document.getElementById('pain-reveal-btn');
@@ -1534,6 +1647,7 @@
             if (!slides[current]?.querySelector('#growthRadar')) stopRadarSlide();
             if (!slides[current]?.querySelector('#tech-stack-panel')) stopStackAutoLoop();
             if (!slides[current]?.querySelector('#pain-review-grid')) resetPainReveal();
+            if (!slides[current]?.querySelector('#member-radar-grid')) destroyMemberRadars();
             document.getElementById('cur').innerText = current + 1;
             document.getElementById('progress-bar').style.width = ((current + 1) / slides.length * 100) + '%';
             lucide.createIcons();
@@ -1548,6 +1662,8 @@
                 initTechStackInteractive();
             } else if (slides[current]?.querySelector('#pain-review-grid')) {
                 initPainReveal();
+            } else if (slides[current]?.querySelector('#member-radar-grid')) {
+                renderMemberRadars();
             }
         }
         function changeSlide(dir) {
