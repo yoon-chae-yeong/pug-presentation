@@ -39,6 +39,7 @@
         ::-webkit-scrollbar-thumb { background: #CBBBA8; border-radius: 4px; }
         .slide-media { width: 100%; max-height: 420px; display: block; background: #F0EAE0; object-fit: contain; }
         .slide-media-tall { width: 100%; max-height: calc(100vh - 140px); min-height: 560px; display: block; background: #F0EAE0; object-fit: contain; }
+        .slide-photo { width: 100%; height: 220px; display: block; object-fit: cover; background: #F0EAE0; }
         .radar-mode-btn { padding: 0.45rem 0.9rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 700; color: #8A7B6E; background: #F0EAE0; transition: all 0.2s; }
         .radar-mode-btn:hover { color: #33271F; }
         .radar-mode-btn.active { background: #33271F; color: #FFFFFF; }
@@ -297,7 +298,11 @@
         const SUPPORT = [
             { icon: 'presentation', title: '전문가 연결 — 현업 실무자 강의', desc: '도메인 특성을 이해한 실무형 강의 및 코칭' },
             { icon: 'palette', title: '전문가 연결 — 웹 디자인 컨설팅', desc: 'PoC UI/UX 개선을 위한 디자인 컨설팅' },
-            { icon: 'users', title: '디지털전략센터 직책자 간담회', desc: 'AI 시대에 대한 고찰, AI Playground 소개 & 식사' },
+            { icon: 'users', title: '디지털전략센터 직책자 간담회', photos: [
+                { src: 'assets/meeting-reflection.png', caption: 'AI 시대에 대한 고찰 (정민석님)' },
+                { src: 'assets/meeting-playground.png', caption: 'AI Playground 소개 (신민규님)' },
+                { src: 'assets/meeting-dinner.png', caption: '간담회 식사' }
+            ]},
             { icon: 'message-square', title: '운영 활성화 — 주차별 활동 요약 (팀즈 채널)', desc: '다시 볼 수 있게 주차별 활동 요약 공유' },
             { icon: 'folder-open', title: '운영 활성화 — 주차별 실습자료 공유', desc: '교육 자료·실습 가이드 지속 공유' },
             { icon: 'archive', title: '운영 활성화 — 주차별 미팅노트 아카이빙 & 회고', desc: '미팅노트 축적 및 회고 문화 정착' },
@@ -311,6 +316,18 @@
         ];
 
         function supportSlide(s) {
+            if (s.photos) {
+                const photoGrid = s.photos.map(p => `<figure class="bg-card rounded-lg overflow-hidden">
+                        <img src="${p.src}" alt="${p.caption}" class="slide-photo">
+                        <figcaption class="px-3 py-3 text-xs font-bold text-ink text-center leading-snug">${p.caption}</figcaption>
+                    </figure>`).join('');
+                return contentSlide({
+                    label: 'Support · 디전센 × PUG',
+                    title: s.title,
+                    scroll: true,
+                    body: `<div class="grid md:grid-cols-3 gap-4">${photoGrid}</div>`
+                });
+            }
             const videoOnly = s.video && !s.desc;
             const videoBlock = s.video ? `<div class="bg-card rounded-lg overflow-hidden${videoOnly ? '' : ' mt-5'}">
                     <video src="${s.video}" controls playsinline preload="metadata" class="${videoOnly ? 'slide-media-tall' : 'slide-media'}"></video>
@@ -366,7 +383,7 @@
             contentSlide({
                 label: 'Effect · 역량 강화',
                 title: '체크리스트 Before / After — PUG 역량 성장',
-                message: 'PUG 시작 전/후, <strong class="text-ink">동일 체크리스트 기반 자기 점검</strong>으로 역량 변화를 확인했습니다.',
+                message: '동일 체크리스트 40문항 기준, <strong class="text-ink">전체 멤버 평균 달성률 Before 28% → After 87%</strong>(+59%). 7개 역량 영역별 변화입니다.',
                 scroll: true,
                 body: `<div class="grid lg:grid-cols-3 gap-6 items-stretch">
                     <div class="lg:col-span-2 bg-card rounded-lg p-6 flex flex-col">
@@ -387,6 +404,30 @@
                         </div>
                         <div id="growth-detail-list" class="flex-1 flex flex-col justify-between"></div>
                     </div>
+                </div>`
+            }),
+
+            contentSlide({
+                label: 'Effect · 체크리스트',
+                title: '역량 측정 체크리스트 — 40문항',
+                message: 'PUG 활동 전후, 아래 <strong class="text-ink">동일 40문항</strong>을 멤버별 자기 점검하여 Before / After를 비교했습니다.',
+                scroll: true,
+                body: `<div class="space-y-5">
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div class="bg-card rounded-lg p-5">
+                            <h3 class="text-sm font-bold mb-3">결과 분석 요약</h3>
+                            <p class="text-sm text-ink/85 leading-relaxed mb-4">전체 멤버 역량은 Before 평균 <strong class="text-ink">28%</strong>에서 After 평균 <strong class="text-pug">87%</strong>로 향상되었습니다. 체크 항목 수는 평균 <strong class="text-ink">11.0개</strong>에서 <strong class="text-pug">34.8개</strong>로 증가했습니다.</p>
+                            <table class="tbl nowrap-first"><thead><tr><th>구분</th><th>Before</th><th>After</th><th>변화</th></tr></thead><tbody>
+                                <tr><td>평균 체크 항목 수</td><td>11.0개</td><td>34.8개</td><td class="text-pug font-bold">+23.8개</td></tr>
+                                <tr><td>평균 달성률</td><td>28%</td><td>87%</td><td class="text-pug font-bold">+59%</td></tr>
+                            </tbody></table>
+                        </div>
+                        <div class="bg-ink text-card rounded-lg p-5 flex flex-col justify-center">
+                            <p class="text-xs font-bold uppercase tracking-wider text-taupe mb-2">발표용 한 줄</p>
+                            <p class="text-base font-bold leading-relaxed">AI PUG 활동을 통해 멤버들은 Before 단계의 <span class="text-taupe">기초 이해 중심 역량</span>에서 After 단계의 <span class="text-pug">AI 기반 PoC 구현·자동화·에이전트 설계 역량</span>으로 성장했습니다.</p>
+                        </div>
+                    </div>
+                    <div id="checklist-body"></div>
                 </div>`
             }),
 
@@ -417,12 +458,119 @@
 
         // ── Radar chart ──
         const GROWTH = [
-            { area: '코딩 기초 이해', m3: 45, m5: 78 },
-            { area: '데이터 이해', m3: 40, m5: 72 },
-            { area: 'AI 활용', m3: 52, m5: 88 },
-            { area: '자동화', m3: 35, m5: 70 },
-            { area: 'PoC 수행', m3: 28, m5: 76 }
+            { area: '코딩 기초 이해', chart: '코딩\n기초', m3: 38, m5: 94 },
+            { area: '바이브 코딩 역량', chart: '바이브\n코딩', m3: 29, m5: 82 },
+            { area: 'LLM 기본 원리 및 활용', chart: 'LLM\n활용', m3: 25, m5: 88 },
+            { area: '오케스트레이션 & 자동화', chart: '자동화', m3: 16, m5: 84 },
+            { area: 'Git & 협업 기초', chart: 'Git\n협업', m3: 8, m5: 67 },
+            { area: '배포와 운영', chart: '배포\n운영', m3: 35, m5: 95 },
+            { area: 'AI 에이전트 역량', chart: 'AI\n에이전트', m3: 28, m5: 78 }
         ];
+        const CHECKLIST = [
+            { title: '1. 코딩 기초 이해', subs: [
+                { sub: '1-1. 기본 개념 및 언어', items: [
+                    '변수/자료형/함수 개념을 이해하고 간단한 함수 작성이 가능하다',
+                    'JavaScript 또는 Python 중 1개로 기본 문법을 활용할 수 있다',
+                    '간단한 스크립트로 업무 자동화를 해본 경험이 있다'
+                ]},
+                { sub: '1-2. DB 기초 개념', items: [
+                    '테이블/행/컬럼 개념을 이해한다',
+                    '관계형 DB Key(PK/FK) 개념을 이해하고 테이블 관계를 설명할 수 있다'
+                ]},
+                { sub: '1-3. FE / BE 분리 이해', items: [
+                    'FE에서 처리해야 할 일과 BE에서 처리해야 할 일을 구분할 수 있다',
+                    'FE/BE 역할을 구분하고, 사용자 입력 → 서버 요청 → 응답 표시 흐름을 이해한다',
+                    '로컬에서 서버를 실행해보고 REST API(GET/POST) 개념을 이해한다'
+                ]}
+            ]},
+            { title: '2. 바이브 코딩 역량', subs: [
+                { sub: '2-1. AI와 협업하는 코딩 방식', items: [
+                    '요구사항을 자연어로 명확히 정의하고, 단계적으로 기능을 확장할 수 있다',
+                    '에러 로그 기반으로 AI에게 재질문하며 문제를 해결할 수 있다'
+                ]},
+                { sub: '2-2. 개발환경 & 서버 실행', items: [
+                    '(직접 또는 AI툴 활용) 로컬 개발환경 구성 및 서버 실행이 가능하다',
+                    'port / .env 설정을 만져보고 FE–BE 연동 테스트를 진행해본 경험이 있다'
+                ]},
+                { sub: '2-3. API 구현 및 활용', items: [
+                    'API 명세를 보고 요청(Request)과 응답(Response) 구조를 파악할 수 있다',
+                    'API 명세를 보고 필수/선택 파라미터를 구분할 수 있다',
+                    '필요한 경우 AI툴에 API 설계나 구현을 요청할 수 있다'
+                ]}
+            ]},
+            { title: '3. LLM 기본 원리 및 활용', subs: [
+                { sub: '3-1. LLM 이해', items: [
+                    'LLM의 강점과 한계를 설명할 수 있다',
+                    '시스템 프롬프트와 유저 프롬프트를 구분할 수 있다',
+                    'Temperature 개념을 이해하고 값을 바꿔가며 응답 차이를 체감해보았다'
+                ]},
+                { sub: '3-2. 컨텍스트 설계 기초', items: [
+                    '컨텍스트 재전송이 필요한 상황을 직접 겪어본다',
+                    '고정 컨텍스트와 동적 컨텍스트를 나눠 설계해보고 길이 제한을 고려해본다'
+                ]},
+                { sub: '3-3. LLM API 활용', items: [
+                    'LLM API 호출 흐름을 따라 구현해보고 응답을 받아보았다',
+                    'On-premise LLM API를 실제로 호출해 사용해보았다'
+                ]},
+                { sub: '3-4. RAG 기초 이해', items: [
+                    'RAG 적용 전/후 차이를 비교해보고 할루시네이션 완화 효과를 체감해보았다',
+                    'Chunking과 Top-K 검색을 설정해 검색 결과 차이를 확인해보았다'
+                ]}
+            ]},
+            { title: '4. 오케스트레이션 & 업무 자동화', subs: [
+                { sub: '4. 자동화 구축 및 연동', items: [
+                    'n8n / Power Automate / RPA 중 하나 이상으로 자동화를 직접 구성해본 경험이 있다',
+                    'Webhook·스케줄·이벤트 기반 트리거를 설정해 실행해보았다',
+                    '"수집 → 처리 → 게시" 흐름을 자동화 툴로 구현해보았다',
+                    '중간 단계에 LLM을 삽입해 트리거/스케줄 기반으로 실행해보았다'
+                ]}
+            ]},
+            { title: '5. Git & 협업 기초', subs: [
+                { sub: '5. 버전 관리 및 형상 관리', items: [
+                    'Git의 역할을 이해한다',
+                    'Git 저장소(Repository)를 생성할 수 있다',
+                    'GitHub을 통해 코드 변경·관리 흐름을 경험해보았다'
+                ]}
+            ]},
+            { title: '6. 배포와 운영', subs: [
+                { sub: '6. 인프라 및 환경 설정', items: [
+                    '로컬 환경에서의 서비스 실행을 이해한다',
+                    '조직 내에서의 배포 방식(on-premise, Azure Cloud)에 대해 이해한다',
+                    '호스팅과 DNS의 개념에 대해 이해하고 실무 적용 방식에 대해 이해한다',
+                    '배포와 운영에 필요한 환경변수 설정을 이해한다',
+                    '자동화된 배포 흐름(빌드→배포→실행)의 필요성에 대해 공감한다'
+                ]}
+            ]},
+            { title: '7. AI 에이전트 관점 종합 역량', subs: [
+                { sub: '7. 에이전트 설계 및 구현', items: [
+                    '특정 업무를 AI 에이전트로 대체하는 시나리오를 직접 설계해보았다',
+                    '에이전트의 역할·입력·출력을 정의해보았다',
+                    'LLM + API + DB를 결합한 구조를 실제로 구성해보았다',
+                    '에이전트를 "작동하는 MVP" 수준까지 구현해보았다'
+                ]}
+            ]}
+        ];
+
+        function renderChecklistBody() {
+            const el = document.getElementById('checklist-body');
+            if (!el) return;
+            el.innerHTML = CHECKLIST.map(cat => {
+                const subs = cat.subs.map(s => `
+                    <div class="mb-3 last:mb-0">
+                        <p class="text-xs font-bold text-taupe mb-1.5">${s.sub}</p>
+                        <ul class="space-y-1">${s.items.map(item => `
+                            <li class="flex items-start gap-2 text-xs text-ink/85 leading-relaxed">
+                                <span class="mt-0.5 shrink-0 w-3.5 h-3.5 border border-taupe/50 rounded-sm bg-beige"></span>
+                                <span>${item}</span>
+                            </li>`).join('')}
+                        </ul>
+                    </div>`).join('');
+                return `<div class="bg-card rounded-lg p-5">
+                    <h3 class="text-sm font-bold mb-3 pb-2 border-b border-beige">${cat.title}</h3>
+                    ${subs}
+                </div>`;
+            }).join('');
+        }
         let growthRadarInstance = null;
         let radarMode = 'before';
         let radarAnimFrame = null;
@@ -610,7 +758,7 @@
             growthRadarInstance = new Chart(canvas.getContext('2d'), {
                 type: 'radar',
                 data: {
-                    labels: GROWTH.map(g => g.area),
+                    labels: GROWTH.map(g => g.chart || g.area),
                     datasets: [
                         { label: 'Before', data: getGrowthBefore(), fill: true, backgroundColor: 'rgba(51,39,31,0.08)', borderColor: 'rgba(51,39,31,0.80)', pointBackgroundColor: 'rgba(51,39,31,1)', pointBorderColor: '#FFF', borderWidth: 2, pointRadius: 4, pointHoverRadius: 6 },
                         { label: 'After', data: getGrowthAfter(), hidden: true, fill: true, backgroundColor: 'rgba(245,176,65,0.35)', borderColor: 'rgba(245,176,65,1)', pointBackgroundColor: 'rgba(245,176,65,1)', pointBorderColor: '#33271F', borderWidth: 3, pointRadius: 4, pointHoverRadius: 6 }
@@ -644,7 +792,7 @@
                             min: 0, max: 100,
                             angleLines: { color: 'rgba(51,39,31,0.12)' },
                             grid: { color: 'rgba(51,39,31,0.12)' },
-                            pointLabels: { color: '#33271F', font: { family: 'Noto Sans KR', size: 12, weight: 'bold' } },
+                            pointLabels: { color: '#33271F', font: { family: 'Noto Sans KR', size: 10, weight: 'bold' } },
                             ticks: { backdropColor: 'transparent', color: '#8A7B6E', font: { size: 10 }, stepSize: 20 }
                         }
                     },
@@ -708,6 +856,8 @@
                 initGrowthInteractive();
                 growthRadarInstance?.resize();
                 startRadarAutoLoop();
+            } else if (slides[current]?.querySelector('#checklist-body')) {
+                renderChecklistBody();
             }
         }
         function changeSlide(dir) {
