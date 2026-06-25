@@ -40,11 +40,30 @@
         .slide-media { width: 100%; max-height: 420px; display: block; background: #F0EAE0; object-fit: contain; }
         .slide-media-tall { width: 100%; max-height: calc(100vh - 140px); min-height: 560px; display: block; background: #F0EAE0; object-fit: contain; }
         .slide-photo { width: 100%; height: 220px; display: block; object-fit: cover; background: #F0EAE0; }
+        .photo-banner-grid { display: flex; flex-direction: column; gap: 0.5rem; max-width: 38rem; width: 100%; }
+        .photo-banner-grid--in-layout { max-width: none; }
+        .photo-banner-item { border-radius: 8px; overflow: hidden; line-height: 0; box-shadow: 0 1px 3px rgba(51,39,31,.08); }
+        .slide-photo-banner { width: 100%; height: auto; display: block; }
+        .lecture-layout { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr); gap: 0.75rem; align-items: stretch; width: 100%; min-height: 0; max-height: calc(100vh - 220px); overflow: hidden; }
+        .lecture-layout__main { min-width: 0; min-height: 0; overflow-y: auto; overflow-x: hidden; padding-right: 2px; }
+        .lecture-layout__side { min-width: 0; min-height: 0; display: flex; flex-direction: column; gap: 0.5rem; overflow: hidden; }
+        .lecture-side-photo { flex: 1; min-height: 0; min-width: 0; background: #fff; border-radius: 8px; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 1px 3px rgba(51,39,31,.08); border: 1px solid #F0EAE0; }
+        .lecture-side-photo img { width: 100%; flex: 1; min-height: 0; object-fit: contain; background: #fff; padding: 8px; display: block; }
+        .lecture-side-photo figcaption { flex-shrink: 0; font-size: 9.5px; font-weight: 700; text-align: center; padding: 5px 6px 7px; color: #33271F; line-height: 1.3; background: #FBF8F3; }
+        .photo-banner-grid--in-layout { max-width: none; gap: 0.4rem; }
+        .photo-banner-grid--in-layout .slide-photo-banner { width: 100%; max-width: 100%; height: auto; }
         .photo-grid--dense .slide-photo { height: 168px; }
         .photo-grid--dense figcaption { padding-top: 0.4rem; padding-bottom: 0.55rem; }
         .radar-mode-btn { padding: 0.45rem 0.9rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 700; color: #8A7B6E; background: #F0EAE0; transition: all 0.2s; }
         .radar-mode-btn:hover { color: #33271F; }
         .radar-mode-btn.active { background: #33271F; color: #FFFFFF; }
+        .growth-radar-layout { width: 100%; max-height: min(520px, calc(100vh - 250px)); min-height: 0; }
+        .growth-radar-panel { min-height: 0; display: flex; flex-direction: column; padding: 1rem !important; }
+        .growth-radar-canvas-wrap { flex: 1; min-height: 0; height: 320px; max-height: 320px; width: 100%; position: relative; }
+        .growth-radar-canvas-wrap canvas { max-height: 100%; }
+        .growth-radar-side { min-height: 0; display: flex; flex-direction: column; padding: 1rem !important; }
+        #growth-detail-list { gap: 0.2rem; min-height: 0; display: flex; flex-direction: column; justify-content: space-between; flex: 1; }
+        .growth-dim-row { padding: 0.3rem 0.45rem; }
         .growth-dim-row.active { background: #F0EAE0; box-shadow: inset 0 0 0 2px #F5B041; }
         .teams-channel { background: #F5F5F5; border: 1px solid #E1DFDD; border-radius: 4px; padding: 10px; font-family: 'Segoe UI', 'Noto Sans KR', sans-serif; color: #242424; }
         .teams-post { background: #FFFFFF; border: 1px solid #EDEBE9; border-radius: 2px; padding: 10px 12px 8px; }
@@ -93,6 +112,14 @@
         .tech-stack-main .teams-channel { flex: 1; width: 100%; }
         .tech-stack-side { display: flex; }
         .tech-stack-side .stack-panel { flex: 1; width: 100%; }
+        .design-consult-layout { height: calc(100vh - 220px); min-height: 440px; max-height: 640px; }
+        .design-guide-wrap { min-height: 0; height: 100%; overflow: hidden; }
+        .design-guide-scaler { width: 100%; height: 100%; overflow: hidden; }
+        .design-guide-iframe { width: 100%; height: 100%; border: 0; display: block; background: #fff; zoom: 0.72; }
+        .design-consult-photos { height: 100%; min-height: 0; }
+        .design-consult-photo-wrap { flex: 1; min-height: 0; display: flex; flex-direction: column; border-radius: 8px; overflow: hidden; background: #F0EAE0; }
+        .design-consult-photo { flex: 1; min-height: 0; width: 100%; object-fit: cover; display: block; }
+        .design-consult-photo-cap { padding: 8px 10px; font-size: 11px; font-weight: 700; text-align: center; background: #fff; color: #33271F; line-height: 1.35; }
     </style>
 </head>
 <body class="bg-paper text-ink antialiased overflow-hidden">
@@ -134,15 +161,18 @@
             </section>`;
         }
 
-        function contentSlide({ label, title, message, body, scroll = false, wide = false }) {
+        function contentSlide({ label, title, message, body, scroll = false, wide = false, alignTop = false, compact = false }) {
             const scrollCls = scroll ? ' py-12 overflow-y-auto' : '';
+            const alignCls = alignTop ? ' justify-start pt-6 pb-16 overflow-hidden' : ' justify-center';
             const maxW = wide ? 'max-w-6xl' : 'max-w-5xl';
-            return `<section class="slide w-full h-screen flex-col justify-center px-8 lg:px-24${scrollCls}">
-                <div class="${maxW} w-full mx-auto">
-                    <p class="text-sm font-bold text-pug mb-2 uppercase tracking-wider">${label}</p>
-                    <h2 class="text-4xl font-extrabold mb-3">${title}</h2>
-                    ${message ? `<p class="text-sm text-ink/80 leading-relaxed mb-7 max-w-3xl">${message}</p>` : ''}
-                    ${body}
+            const titleCls = compact ? 'text-3xl font-extrabold mb-2 leading-tight' : 'text-4xl font-extrabold mb-3';
+            const msgMb = compact ? 'mb-4' : 'mb-7';
+            return `<section class="slide w-full h-screen flex-col${alignCls} px-8 lg:px-24${scrollCls}">
+                <div class="${maxW} w-full mx-auto min-h-0${alignTop ? ' flex flex-col flex-1 overflow-hidden' : ''}">
+                    <p class="text-sm font-bold text-pug mb-2 uppercase tracking-wider shrink-0">${label}</p>
+                    <h2 class="${titleCls} shrink-0">${title}</h2>
+                    ${message ? `<p class="text-sm text-ink/80 leading-relaxed ${msgMb} max-w-3xl shrink-0">${message}</p>` : ''}
+                    <div class="${alignTop ? 'min-h-0 flex-1 overflow-hidden' : ''}">${body}</div>
                 </div>
             </section>`;
         }
@@ -204,7 +234,7 @@
                     <p class="text-base font-bold">AI를 '도입'하는 조직이 아니라, '활용하는 조직'으로 전환하기 위한 실험실</p>
                 </div>
                 <div class="bg-card rounded-lg p-5 mb-5 flex justify-center">
-                    <img src="assets/pug-roles.png" alt="PUG 5가지 역할" class="w-full max-w-3xl h-auto">
+                    <img src="assets/04-pug-roles/pug-roles.png" alt="PUG 5가지 역할" class="w-full max-w-3xl h-auto">
                 </div>
                 <div class="grid md:grid-cols-3 gap-3 mb-5">
                     <div class="bg-card rounded-lg px-4 py-3 text-xs font-medium">실습 중심 학습 <span class="text-taupe">(바이브 코딩, LLM API)</span></div>
@@ -303,7 +333,7 @@
                 title: '멤버 분석 + 하고 싶은 PoC 소개',
                 message: '추상적인 AI 학습에서 벗어나, 각 부서와 업무의 <strong class="text-ink">실제 문제</strong>로 활동 범위가 확장되었습니다.',
                 body: `<div class="bg-card rounded-lg p-5 mb-5 flex justify-center">
-                    <img src="assets/poc-fields.png" alt="분야별 PoC" class="w-full max-w-4xl h-auto">
+                    <img src="assets/10-poc-fields/poc-fields.png" alt="분야별 PoC" class="w-full max-w-4xl h-auto">
                 </div>
                 <div class="bg-card rounded-lg p-6"><table class="tbl nowrap-first">
                     <thead><tr><th>분야</th><th>PoC 방향</th><th>개선 포인트</th></tr></thead>
@@ -321,7 +351,7 @@
 
             contentSlide({
                 label: 'Curriculum · 커리큘럼',
-                title: '맞춤형 커리큘럼 제작 & 교육 자료 셀렉',
+                title: 'AI PUG 맞춤형 커리큘럼 제작',
                 message: '인터뷰 결과를 반영해 PoC 수행에 필요한 역량을 단계적으로 쌓는 <strong class="text-ink">체크리스트 기반 커리큘럼</strong>을 제작하고, 교육 자료를 선별했습니다.',
                 body: `<div class="bg-card rounded-lg p-6"><table class="tbl nowrap-first">
                     <thead><tr><th>학습 주제</th><th>주요 내용</th><th>체크리스트</th></tr></thead>
@@ -347,28 +377,38 @@
         // ── PART 3: 디전센 X PUG ──
         const SUPPORT = [
             { icon: 'presentation', title: '전문가 연결 — 현업 실무자 강의', desc: '도메인 특성을 이해한 실무형 강의 및 코칭' },
-            { icon: 'palette', title: '전문가 연결 — 웹 디자인 컨설팅', desc: 'PoC UI/UX 개선을 위한 디자인 컨설팅' },
-            { icon: 'users', title: '디지털전략센터 직책자 간담회', photos: [
-                { src: 'assets/meeting-reflection.png', caption: 'AI 시대에 대한 고찰 (정민석님)' },
-                { src: 'assets/meeting-playground.png', caption: 'AI Playground 소개 (신민규님)' },
-                { src: 'assets/meeting-dinner.png', caption: '간담회 식사' }
+            { icon: 'palette', title: '전문가 연결 — 웹 디자인 컨설팅', embedGuide: 'assets/24-design-consulting/vibe-coding-design-guide.html', photos: [
+                { src: 'assets/24-design-consulting/consulting-1.png', caption: 'PoC UI/UX 컨설팅 세션' },
+                { src: 'assets/24-design-consulting/consulting-2.png', caption: '1:1 디자인 피드백' }
             ]},
-            { icon: 'message-square', title: '운영 활성화 — 주차별 활동 요약 (팀즈 채널)', video: 'assets/teams-channel.mp4' },
-            { icon: 'folder-open', title: '운영 활성화 — 주차별 실습자료 공유', desc: '교육 자료·실습 가이드 지속 공유' },
-            { icon: 'archive', title: '운영 활성화 — 주차별 미팅노트 아카이빙 & 회고', desc: '미팅노트 축적 및 회고 문화 정착' },
-            { icon: 'graduation-cap', title: '개발 환경 지원 — AI/Dev 온라인 강의 선별', desc: '온라인 강의 선별 및 실습 지원' },
-            { icon: 'sparkles', title: '활동 촉진 — 구글 AI 서비스 구독 지원', desc: 'AI 도구 활용을 위한 구독 지원' },
-            { icon: 'github', title: '활동 촉진 — GitHub Organization 개설 및 관리', video: 'assets/github-org.mp4' },
-            { icon: 'book-open', title: '활동 촉진 — 표준 기술스택 가이드 제공', teamsPost: true },
-            { icon: 'book', title: '활동 촉진 — 관련 책 배부', desc: '「<strong>비전공자를 위한 이해할 수 있는 IT 지식</strong>」 — IT 기초 역량 강화를 위한 서적을 PUG 멤버에게 배부했습니다.', photos: [
-                { src: 'assets/book-distribution.png', caption: '서적 배부 준비' },
-                { src: 'assets/book-group.png', caption: 'PUG 멤버 전원 수령' },
-                { src: 'assets/book-members-1.png', caption: '박다솜님 & 윤성수님' },
-                { src: 'assets/book-members-2.png', caption: '강주혁님 & 김진용님' },
-                { src: 'assets/book-members-3.png', caption: '현재호님 & 김보근님' },
-                { src: 'assets/book-members-4.png', caption: '강응준님 & 박지훈님' }
+            { icon: 'users', title: "디지털전략센터 Laeder's Talk", photos: [
+                { src: 'assets/25-meeting/meeting-reflection.png', caption: 'AI 시대에 대한 고찰 (정민석님)' },
+                { src: 'assets/25-meeting/meeting-playground.png', caption: 'AI Playground 소개 (신민규님)' },
+                { src: 'assets/25-meeting/meeting-dinner.png', caption: '간담회 식사' }
             ]},
-            { icon: 'flask-conical', title: '활동 촉진 — AI Playground 활용 방법 안내', desc: '안전한 실험 환경 활용 가이드' },
+            { icon: 'message-square', title: '운영진 활동 — 주차별 활동 요약 (팀즈 채널)', video: 'assets/26-teams-channel/teams-channel.mp4' },
+            { icon: 'folder-open', title: '운영진 활동 — 주차별 실습자료 공유', desc: '교육 자료·실습 가이드 지속 공유' },
+            { icon: 'archive', title: '운영진 활동 — 주차별 미팅노트 아카이빙 & 회고', desc: '미팅노트 축적 및 회고 문화 정착' },
+            { icon: 'graduation-cap', title: '개발 환경 지원 — AI/Dev 온라인 강의 선별', desc: 'PoC 수행에 필요한 AI·개발 역량 강화를 위해 인프런 등 온라인 강의를 선별·추천했습니다.', photoBanner: true, photos: [
+                { src: 'assets/29-online-lectures/lecture-llm.png', caption: 'LLM 핵심 이론, 구조로 이해하기' },
+                { src: 'assets/29-online-lectures/lecture-github.png', caption: '우주에서 가장 쉬운 GitHub 베이스캠프' },
+                { src: 'assets/29-online-lectures/lecture-n8n.png', caption: 'n8n 업무자동화 (왕초보편)' }
+            ], sidePhotos: [
+                { src: 'assets/29-online-lectures/lecture-llm-diagram.png', caption: 'LLM — 다음 단어 예측 확률' },
+                { src: 'assets/29-online-lectures/lecture-n8n-workflow.png', caption: 'n8n — 워크플로우 실습 화면' }
+            ]},
+            { icon: 'sparkles', title: '개발 환경 지원 — AI 도구 활용을 위한 구독 지원', desc: 'AI 도구 활용을 위한 구독 지원' },
+            { icon: 'github', title: '개발 환경 지원 — GitHub Organization 개설 및 관리', video: 'assets/31-github-org/github-org.mp4' },
+            { icon: 'book-open', title: '개발 환경 지원 — 표준 기술스택 가이드 제공', teamsPost: true },
+            { icon: 'book', title: '개발 환경 지원 — 관련 책 배부', desc: '「<strong>비전공자를 위한 이해할 수 있는 IT 지식</strong>」 — IT 기초 역량 강화를 위한 서적을 PUG 멤버에게 배부했습니다.', photos: [
+                { src: 'assets/33-book/book-distribution.png', caption: '서적 배부 준비' },
+                { src: 'assets/33-book/book-group.png', caption: 'PUG 멤버 전원 수령' },
+                { src: 'assets/33-book/book-members-1.png', caption: '박다솜님 & 윤성수님' },
+                { src: 'assets/33-book/book-members-2.png', caption: '강주혁님 & 김진용님' },
+                { src: 'assets/33-book/book-members-3.png', caption: '현재호님 & 김보근님' },
+                { src: 'assets/33-book/book-members-4.png', caption: '강응준님 & 박지훈님' }
+            ]},
+            { icon: 'flask-conical', title: '활동 촉진 — AI Playground 활용 방법 안내', video: 'assets/34-ai-playground/ai-playground.mp4' },
             { icon: 'code-2', title: '활동 촉진 — API 개발 지원', desc: 'PoC 구현 과정의 API 개발 기술 지원' }
         ];
 
@@ -523,7 +563,7 @@
                 <article class="teams-post">
                     <header class="teams-post__header">
                         <div class="teams-avatar">
-                            <img src="assets/song-youngbok.png" alt="송영복">
+                            <img src="assets/32-tech-stack/song-youngbok.png" alt="송영복">
                         </div>
                         <div>
                             <div class="teams-post__author">
@@ -553,7 +593,47 @@
             </div>`;
         }
 
+        function buildDesignConsultLayout({ embedGuide, photos }) {
+            const photoHtml = photos.map(p => {
+                const cap = p.caption ? `<figcaption class="design-consult-photo-cap">${p.caption}</figcaption>` : '';
+                return `<figure class="design-consult-photo-wrap"><img src="${p.src}" alt="${p.caption || '디자인 컨설팅'}" class="design-consult-photo">${cap}</figure>`;
+            }).join('');
+            return `<div class="design-consult-layout grid lg:grid-cols-3 gap-4 items-stretch">
+                <div class="lg:col-span-2 design-guide-wrap bg-card rounded-lg border border-beige">
+                    <div class="design-guide-scaler">
+                        <iframe src="${embedGuide}" title="바이브코딩 디자인 가이드" class="design-guide-iframe" loading="lazy"></iframe>
+                    </div>
+                </div>
+                <div class="design-consult-photos flex flex-col gap-3">${photoHtml}</div>
+            </div>`;
+        }
+
+        function buildLectureBannerLayout({ photos, sidePhotos }) {
+            const banners = photos.map(p =>
+                `<figure class="photo-banner-item"><img src="${p.src}" alt="${p.caption || ''}" class="slide-photo-banner" loading="lazy"></figure>`
+            ).join('');
+            const side = sidePhotos.map(p =>
+                `<figure class="lecture-side-photo">
+                    <img src="${p.src}" alt="${p.caption || ''}" loading="lazy">
+                    ${p.caption ? `<figcaption>${p.caption}</figcaption>` : ''}
+                </figure>`
+            ).join('');
+            return `<div class="lecture-layout">
+                <div class="lecture-layout__main"><div class="photo-banner-grid photo-banner-grid--in-layout">${banners}</div></div>
+                <div class="lecture-layout__side">${side}</div>
+            </div>`;
+        }
+
         function supportSlide(s) {
+            if (s.embedGuide) {
+                return contentSlide({
+                    label: 'Support · 디전센 × PUG',
+                    title: s.title,
+                    wide: true,
+                    alignTop: true,
+                    body: buildDesignConsultLayout(s)
+                });
+            }
             if (s.teamsPost) {
                 return contentSlide({
                     label: 'Support · 디전센 × PUG',
@@ -562,21 +642,36 @@
                     body: buildTechStackTeamsPost()
                 });
             }
+            if (s.photoBanner && s.sidePhotos) {
+                const intro = s.desc ? `<p class="text-sm text-ink/80 mb-3 leading-relaxed shrink-0">${s.desc}</p>` : '';
+                return contentSlide({
+                    label: 'Support · 디전센 × PUG',
+                    title: s.title,
+                    wide: true,
+                    alignTop: true,
+                    compact: true,
+                    body: `${intro}${buildLectureBannerLayout(s)}`
+                });
+            }
             if (s.photos) {
                 const intro = s.desc ? `<p class="text-base text-ink/85 mb-4 leading-relaxed">${s.desc}</p>` : '';
-                const dense = s.photos.length > 3 ? ' photo-grid--dense' : '';
+                const dense = !s.photoBanner && s.photos.length > 3 ? ' photo-grid--dense' : '';
+                const gridCls = s.photoBanner ? 'photo-banner-grid' : `grid md:grid-cols-3 gap-3${dense}`;
+                const photoCls = s.photoBanner ? 'slide-photo-banner' : 'slide-photo';
                 const photoGrid = s.photos.map(p => {
-                    const cap = p.caption ? `<figcaption class="px-3 py-3 text-xs font-bold text-ink text-center leading-snug">${p.caption}</figcaption>` : '';
-                    return `<figure class="bg-card rounded-lg overflow-hidden">
-                        <img src="${p.src}" alt="${p.caption || s.title}" class="slide-photo">
+                    const cap = (!s.photoBanner && p.caption) ? `<figcaption class="px-3 py-3 text-xs font-bold text-ink text-center leading-snug">${p.caption}</figcaption>` : '';
+                    const figCls = s.photoBanner ? 'photo-banner-item' : 'bg-card rounded-lg overflow-hidden';
+                    return `<figure class="${figCls}">
+                        <img src="${p.src}" alt="${p.caption || s.title}" class="${photoCls}"${s.photoBanner ? ' loading="lazy"' : ''}>
                         ${cap}
                     </figure>`;
                 }).join('');
                 return contentSlide({
                     label: 'Support · 디전센 × PUG',
                     title: s.title,
-                    scroll: true,
-                    body: `${intro}<div class="grid md:grid-cols-3 gap-3${dense}">${photoGrid}</div>`
+                    scroll: s.photoBanner ? false : true,
+                    alignTop: !!s.photoBanner,
+                    body: `${intro}<div class="${gridCls}">${photoGrid}</div>`
                 });
             }
             if (s.image) {
@@ -645,25 +740,24 @@
                 label: 'Effect · 역량 강화',
                 title: '체크리스트 Before / After — PUG 역량 성장',
                 message: '동일 체크리스트 40문항 기준, <strong class="text-ink">전체 멤버 평균 달성률 Before 28% → After 87%</strong>(+59%). 7개 역량 영역별 변화입니다.',
-                scroll: true,
-                body: `<div class="grid lg:grid-cols-3 gap-6 items-stretch">
-                    <div class="lg:col-span-2 bg-card rounded-lg p-6 flex flex-col">
-                        <div class="flex flex-wrap items-center justify-center gap-2 mb-4">
+                body: `<div class="growth-radar-layout grid lg:grid-cols-3 gap-4 items-stretch">
+                    <div class="lg:col-span-2 bg-card rounded-lg growth-radar-panel">
+                        <div class="flex flex-wrap items-center justify-center gap-2 mb-2 shrink-0">
                             <button type="button" class="radar-mode-btn active" data-radar-mode="before">Before</button>
                             <button type="button" class="radar-mode-btn" data-radar-mode="after">After</button>
                         </div>
-                        <div class="flex items-center justify-center gap-5 mb-2 text-xs font-semibold">
+                        <div class="flex items-center justify-center gap-5 mb-1 text-xs font-semibold shrink-0">
                             <span class="flex items-center gap-1.5 text-taupe"><span class="w-3 h-3 rounded-sm bg-ink"></span> Before</span>
                             <span class="flex items-center gap-1.5 text-ink"><span class="w-3 h-3 rounded-sm bg-pug"></span> After</span>
                         </div>
-                        <div class="flex-1 min-h-[340px] w-full flex items-center justify-center"><canvas id="growthRadar"></canvas></div>
+                        <div class="growth-radar-canvas-wrap"><canvas id="growthRadar"></canvas></div>
                     </div>
-                    <div class="bg-card rounded-lg p-6 flex flex-col">
-                        <div class="flex items-center justify-between mb-4">
+                    <div class="bg-card rounded-lg growth-radar-side">
+                        <div class="flex items-center justify-between mb-2 shrink-0">
                             <h3 class="text-sm font-bold">항목별 변화</h3>
                             <span id="growth-avg-delta" class="text-xs font-bold text-pug"></span>
                         </div>
-                        <div id="growth-detail-list" class="flex-1 flex flex-col justify-between"></div>
+                        <div id="growth-detail-list" class="flex-1 flex flex-col"></div>
                     </div>
                 </div>`
             }),
@@ -873,20 +967,17 @@
                 const delta = g.m5 - g.m3;
                 const active = i === activeIdx ? ' active' : '';
                 const currentDelta = Math.max(0, val - g.m3);
-                return `<button type="button" class="growth-dim-row w-full text-left p-3 rounded-lg hover:bg-beige transition${active}" data-dim-idx="${i}">
-                    <div class="flex justify-between items-center text-xs font-bold mb-1.5">
-                        <span>${g.area}</span>
-                        <span class="text-pug min-w-[3rem] text-right">${isBefore ? '' : `+${growthListMode === 'after' ? delta : currentDelta}%`}</span>
+                return `<button type="button" class="growth-dim-row w-full text-left rounded-lg hover:bg-beige transition${active}" data-dim-idx="${i}">
+                    <div class="flex justify-between items-center gap-1 text-[11px] font-bold mb-0.5 leading-tight">
+                        <span class="truncate">${g.area}</span>
+                        <span class="text-pug shrink-0 tabular-nums">${isBefore ? '' : `+${growthListMode === 'after' ? delta : currentDelta}%`}</span>
                     </div>
-                    <div class="grid grid-cols-[1fr_auto] items-center gap-2 text-[11px]">
-                        <div class="h-2 bg-beige rounded-full overflow-hidden relative">
+                    <div class="grid grid-cols-[1fr_auto] items-center gap-1.5 text-[10px]">
+                        <div class="h-1.5 bg-beige rounded-full overflow-hidden relative">
                             <div class="absolute inset-y-0 left-0 bg-ink/30 rounded-full" style="width:${g.m3}%"></div>
                             <div class="absolute inset-y-0 left-0 bg-pug rounded-full" style="width:${val}%"></div>
                         </div>
-                        <span class="text-ink font-bold w-12 text-right tabular-nums">${val}%</span>
-                    </div>
-                    <div class="flex justify-between text-[10px] text-taupe mt-1 px-0.5">
-                        <span>0%</span><span>100%</span>
+                        <span class="text-ink font-bold w-10 text-right tabular-nums shrink-0">${val}%</span>
                     </div>
                 </button>`;
             }).join('');

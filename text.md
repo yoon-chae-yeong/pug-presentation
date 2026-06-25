@@ -49,7 +49,7 @@ AI PUG는 이런 고민을 함께 풀어가기 위해 시작된 자발적 학습
 💡 AI를 '도입'하는 조직이 아니라, '활용하는 조직'으로 전환하기 위한 실험실
 
 [이미지]
-assets/pug-roles.png
+assets/04-pug-roles/pug-roles.png
 
 [목록]
 - 실습 중심 학습 (바이브 코딩, LLM API 등)
@@ -152,7 +152,7 @@ PoC 수행 가능성과 필요한 지원 사항을 확인하기 위한 과정이
 추상적인 AI 학습에서 벗어나, 각 부서와 업무의 실제 문제로 활동 범위가 확장되었습니다.
 
 [이미지]
-assets/poc-fields.png
+assets/10-poc-fields/poc-fields.png
 
 [표 - 3열: 분야 / PoC 방향 / 개선 포인트]
 교육·역량 | 직무·경력 기반 교육 추천 | 개인화 교육 추천 검토
@@ -301,9 +301,11 @@ PART 3 | 디전센 × PUG
 
 24페이지 (전문가 연결 — 웹 디자인 컨설팅)
 -------------------
-소제목(라벨): Support · 디전센
+소제목(라벨): Support · 디전센 × PUG
 제목: 전문가 연결 — 웹 디자인 컨설팅
-내용: PoC UI/UX 개선을 위한 디자인 컨설팅
+레이아웃: 왼쪽 2/3 — 바이브코딩 디자인 가이드 HTML (스크롤), 오른쪽 1/3 — 컨설팅 사진
+[임베드] assets/24-design-consulting/vibe-coding-design-guide.html
+[이미지] assets/24-design-consulting/consulting-1.png, consulting-2.png
 
 
 25페이지 (디지털전략센터 직책자 간담회)
@@ -338,7 +340,8 @@ PART 3 | 디전센 × PUG
 -------------------
 소제목(라벨): Support · 개발 환경
 제목: AI/Dev 관련 온라인 강의 선별 및 실습 지원
-내용: 온라인 강의 선별 및 실습 지원
+내용: PoC 수행에 필요한 AI·개발 역량 강화를 위해 인프런 등 온라인 강의를 선별·추천
+[이미지] assets/29-online-lectures/ — 강의 배너 3장 + 우측 LLM 예측 다이어그램, n8n 워크플로우
 
 
 30페이지 (활동 촉진 — 구글 AI 구독)
@@ -354,7 +357,7 @@ PART 3 | 디전센 × PUG
 제목: GitHub Organization 개설 및 관리
 
 [영상]
-assets/github-org.mp4
+assets/31-github-org/github-org.mp4
 
 
 32페이지 (활동 촉진 — 표준 기술스택 가이드)
@@ -369,14 +372,14 @@ assets/github-org.mp4
 소제목(라벨): Support · 디전센 × PUG
 제목: 활동 촉진 — 관련 책 배부
 내용: 「비전공자를 위한 이해할 수 있는 IT 지식」 — IT 기초 역량 강화를 위한 서적을 PUG 멤버에게 배부
-사진: book-distribution.png, book-group.png, book-members-1~4.png (6장 그리드)
+사진: book/ 폴더 (book-distribution.png, book-group.png, book-members-1~4.png)
 
 
 34페이지 (활동 촉진 — AI Playground)
 -------------------
-소제목(라벨): Support · 활동 촉진
-제목: AI Playground 활용 방법 안내
-내용: 안전한 실험 환경 활용 가이드
+소제목(라벨): Support · 디전센 × PUG
+제목: 활동 촉진 — AI Playground 활용 방법 안내
+영상: assets/34-ai-playground/ai-playground.mp4
 
 
 35페이지 (활동 촉진 — API 개발)
