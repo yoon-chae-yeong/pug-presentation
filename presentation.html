@@ -39,6 +39,10 @@
         ::-webkit-scrollbar-thumb { background: #CBBBA8; border-radius: 4px; }
         .slide-media { width: 100%; max-height: 420px; display: block; background: #F0EAE0; object-fit: contain; }
         .slide-media-tall { width: 100%; max-height: calc(100vh - 140px); min-height: 560px; display: block; background: #F0EAE0; object-fit: contain; }
+        .radar-mode-btn { padding: 0.45rem 0.9rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 700; color: #8A7B6E; background: #F0EAE0; transition: all 0.2s; }
+        .radar-mode-btn:hover { color: #33271F; }
+        .radar-mode-btn.active { background: #33271F; color: #FFFFFF; }
+        .growth-dim-row.active { background: #F0EAE0; box-shadow: inset 0 0 0 2px #F5B041; }
     </style>
 </head>
 <body class="bg-paper text-ink antialiased overflow-hidden">
@@ -363,21 +367,25 @@
                 label: 'Effect · 역량 강화',
                 title: '체크리스트 Before / After — PUG 역량 성장',
                 message: 'PUG 시작 전/후, <strong class="text-ink">동일 체크리스트 기반 자기 점검</strong>으로 역량 변화를 확인했습니다.',
-                body: `<div class="grid lg:grid-cols-3 gap-6 items-start">
-                    <div class="lg:col-span-2 bg-card rounded-lg p-6">
+                scroll: true,
+                body: `<div class="grid lg:grid-cols-3 gap-6 items-stretch">
+                    <div class="lg:col-span-2 bg-card rounded-lg p-6 flex flex-col">
+                        <div class="flex flex-wrap items-center justify-center gap-2 mb-4">
+                            <button type="button" class="radar-mode-btn active" data-radar-mode="before">Before</button>
+                            <button type="button" class="radar-mode-btn" data-radar-mode="after">After</button>
+                        </div>
                         <div class="flex items-center justify-center gap-5 mb-2 text-xs font-semibold">
                             <span class="flex items-center gap-1.5 text-taupe"><span class="w-3 h-3 rounded-sm bg-ink"></span> Before</span>
                             <span class="flex items-center gap-1.5 text-ink"><span class="w-3 h-3 rounded-sm bg-pug"></span> After</span>
                         </div>
-                        <div class="w-full h-[380px] flex items-center justify-center"><canvas id="growthRadar"></canvas></div>
+                        <div class="flex-1 min-h-[340px] w-full flex items-center justify-center"><canvas id="growthRadar"></canvas></div>
                     </div>
-                    <div class="bg-card rounded-lg p-6">
-                        <h3 class="text-sm font-bold mb-4">조사 개요</h3>
-                        <table class="tbl nowrap-first"><tbody>
-                            <tr><td>조사 시점</td><td>PUG 시작 전 / 후</td></tr>
-                            <tr><td>조사 방식</td><td>동일 체크리스트 자기 점검</td></tr>
-                            <tr><td>확인 포인트</td><td>항목별 체크 증가, 역량 확장, 평균 향상</td></tr>
-                        </tbody></table>
+                    <div class="bg-card rounded-lg p-6 flex flex-col">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-sm font-bold">항목별 변화</h3>
+                            <span id="growth-avg-delta" class="text-xs font-bold text-pug"></span>
+                        </div>
+                        <div id="growth-detail-list" class="flex-1 flex flex-col justify-between"></div>
                     </div>
                 </div>`
             }),
@@ -416,26 +424,267 @@
             { area: 'PoC 수행', m3: 28, m5: 76 }
         ];
         let growthRadarInstance = null;
+        let radarMode = 'before';
+        let radarAnimFrame = null;
+        let radarAnimating = false;
+        let growthInteractiveReady = false;
+        let activeGrowthIdx = -1;
+        let growthCurrentValues = GROWTH.map(g => g.m3);
+        let growthListMode = 'before';
+        let radarAutoTimer = null;
+        const RADAR_HOLD_BEFORE = 1200;
+        const RADAR_HOLD_AFTER = 1800;
+        const RADAR_GROWTH_DURATION = 1800;
+
+        function getGrowthBefore() { return GROWTH.map(g => g.m3); }
+        function getGrowthAfter() { return GROWTH.map(g => g.m5); }
+        function getAvgDelta(values = growthCurrentValues) {
+            return Math.round(GROWTH.reduce((sum, g, i) => sum + (values[i] - g.m3), 0) / GROWTH.length);
+        }
+        function getFinalAvgDelta() {
+            return Math.round(GROWTH.reduce((sum, g) => sum + (g.m5 - g.m3), 0) / GROWTH.length);
+        }
+
+        function setRadarModeButtons(mode) {
+            document.querySelectorAll('.radar-mode-btn[data-radar-mode]').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.radarMode === mode);
+            });
+        }
+
+        function updateGrowthDetailList(activeIdx = activeGrowthIdx) {
+            const list = document.getElementById('growth-detail-list');
+            const avgEl = document.getElementById('growth-avg-delta');
+            if (!list) return;
+
+            const isBefore = growthListMode === 'before';
+            if (avgEl) avgEl.textContent = isBefore ? '' : `평균 +${growthListMode === 'after' ? getFinalAvgDelta() : getAvgDelta()}%`;
+
+            list.innerHTML = GROWTH.map((g, i) => {
+                const val = Math.round(growthCurrentValues[i]);
+                const delta = g.m5 - g.m3;
+                const active = i === activeIdx ? ' active' : '';
+                const currentDelta = Math.max(0, val - g.m3);
+                return `<button type="button" class="growth-dim-row w-full text-left p-3 rounded-lg hover:bg-beige transition${active}" data-dim-idx="${i}">
+                    <div class="flex justify-between items-center text-xs font-bold mb-1.5">
+                        <span>${g.area}</span>
+                        <span class="text-pug min-w-[3rem] text-right">${isBefore ? '' : `+${growthListMode === 'after' ? delta : currentDelta}%`}</span>
+                    </div>
+                    <div class="grid grid-cols-[1fr_auto] items-center gap-2 text-[11px]">
+                        <div class="h-2 bg-beige rounded-full overflow-hidden relative">
+                            <div class="absolute inset-y-0 left-0 bg-ink/30 rounded-full" style="width:${g.m3}%"></div>
+                            <div class="absolute inset-y-0 left-0 bg-pug rounded-full" style="width:${val}%"></div>
+                        </div>
+                        <span class="text-ink font-bold w-12 text-right tabular-nums">${val}%</span>
+                    </div>
+                    <div class="flex justify-between text-[10px] text-taupe mt-1 px-0.5">
+                        <span>0%</span><span>100%</span>
+                    </div>
+                </button>`;
+            }).join('');
+        }
+
+        function highlightGrowthDimension(idx, { listOnly = false } = {}) {
+            activeGrowthIdx = idx;
+            updateGrowthDetailList(idx);
+            if (!growthRadarInstance || listOnly) return;
+
+            const activeEls = radarMode === 'after'
+                ? [{ datasetIndex: 0, index: idx }, { datasetIndex: 1, index: idx }]
+                : [{ datasetIndex: 0, index: idx }];
+            growthRadarInstance.setActiveElements(activeEls);
+            growthRadarInstance.tooltip.setActiveElements(activeEls, { x: 0, y: 0 });
+            growthRadarInstance.update('none');
+        }
+
+        function resetToBefore() {
+            growthListMode = 'before';
+            growthCurrentValues = GROWTH.map(g => g.m3);
+            activeGrowthIdx = -1;
+            radarMode = 'before';
+            if (growthRadarInstance) {
+                growthRadarInstance.data.datasets[0].hidden = false;
+                growthRadarInstance.data.datasets[1].hidden = true;
+                growthRadarInstance.data.datasets[1].data = getGrowthAfter();
+                growthRadarInstance.update();
+            }
+            setRadarModeButtons('before');
+            updateGrowthDetailList(-1);
+        }
+
+        function stopRadarAutoLoop() {
+            if (radarAutoTimer) {
+                clearTimeout(radarAutoTimer);
+                radarAutoTimer = null;
+            }
+        }
+
+        function stopRadarSlide() {
+            stopRadarAutoLoop();
+            stopGrowthAnimation();
+        }
+
+        function startRadarAutoLoop() {
+            stopRadarAutoLoop();
+            resetToBefore();
+
+            function showAfter() {
+                playGrowthAnimation(() => {
+                    radarAutoTimer = setTimeout(showBefore, RADAR_HOLD_AFTER);
+                });
+            }
+
+            function showBefore() {
+                resetToBefore();
+                radarAutoTimer = setTimeout(showAfter, RADAR_HOLD_BEFORE);
+            }
+
+            radarAutoTimer = setTimeout(showAfter, RADAR_HOLD_BEFORE);
+        }
+
+        function stopGrowthAnimation() {
+            if (radarAnimFrame) {
+                cancelAnimationFrame(radarAnimFrame);
+                radarAnimFrame = null;
+            }
+            radarAnimating = false;
+        }
+
+        function playGrowthAnimation(onComplete) {
+            if (!growthRadarInstance || radarAnimating) return;
+            stopGrowthAnimation();
+
+            growthListMode = 'animating';
+            growthCurrentValues = GROWTH.map(g => g.m3);
+            activeGrowthIdx = -1;
+            radarMode = 'after';
+            setRadarModeButtons('after');
+
+            growthRadarInstance.data.datasets[0].hidden = false;
+            growthRadarInstance.data.datasets[1].hidden = false;
+            growthRadarInstance.data.datasets[1].data = [...getGrowthBefore()];
+            growthRadarInstance.update('none');
+            updateGrowthDetailList(-1);
+
+            const before = getGrowthBefore();
+            const after = getGrowthAfter();
+            const duration = RADAR_GROWTH_DURATION;
+            const start = performance.now();
+            radarAnimating = true;
+
+            function frame(now) {
+                const t = Math.min(1, (now - start) / duration);
+                const eased = 1 - Math.pow(1 - t, 3);
+                growthCurrentValues = before.map((b, i) => Math.round(b + (after[i] - b) * eased));
+                growthRadarInstance.data.datasets[1].data = [...growthCurrentValues];
+                growthRadarInstance.update('none');
+                updateGrowthDetailList(-1);
+
+                if (t < 1) {
+                    radarAnimFrame = requestAnimationFrame(frame);
+                } else {
+                    growthListMode = 'after';
+                    growthCurrentValues = [...after];
+                    growthRadarInstance.data.datasets[1].data = [...after];
+                    growthRadarInstance.update();
+                    radarAnimating = false;
+                    radarAnimFrame = null;
+                    activeGrowthIdx = -1;
+                    updateGrowthDetailList(-1);
+                    if (onComplete) onComplete();
+                }
+            }
+
+            radarAnimFrame = requestAnimationFrame(frame);
+        }
+
         function renderGrowthRadar() {
             const canvas = document.getElementById('growthRadar');
-            if (!canvas || typeof Chart === 'undefined' || growthRadarInstance) return;
+            if (!canvas || typeof Chart === 'undefined') return;
+
+            if (growthRadarInstance) {
+                growthRadarInstance.resize();
+                updateGrowthDetailList();
+                return;
+            }
+
             growthRadarInstance = new Chart(canvas.getContext('2d'), {
                 type: 'radar',
                 data: {
                     labels: GROWTH.map(g => g.area),
                     datasets: [
-                        { label: 'Before', data: GROWTH.map(g => g.m3), fill: true, backgroundColor: 'rgba(51,39,31,0.08)', borderColor: 'rgba(51,39,31,0.80)', pointBackgroundColor: 'rgba(51,39,31,1)', pointBorderColor: '#FFF', borderWidth: 2 },
-                        { label: 'After', data: GROWTH.map(g => g.m5), fill: true, backgroundColor: 'rgba(245,176,65,0.35)', borderColor: 'rgba(245,176,65,1)', pointBackgroundColor: 'rgba(245,176,65,1)', pointBorderColor: '#33271F', borderWidth: 3 }
+                        { label: 'Before', data: getGrowthBefore(), fill: true, backgroundColor: 'rgba(51,39,31,0.08)', borderColor: 'rgba(51,39,31,0.80)', pointBackgroundColor: 'rgba(51,39,31,1)', pointBorderColor: '#FFF', borderWidth: 2, pointRadius: 4, pointHoverRadius: 6 },
+                        { label: 'After', data: getGrowthAfter(), hidden: true, fill: true, backgroundColor: 'rgba(245,176,65,0.35)', borderColor: 'rgba(245,176,65,1)', pointBackgroundColor: 'rgba(245,176,65,1)', pointBorderColor: '#33271F', borderWidth: 3, pointRadius: 4, pointHoverRadius: 6 }
                     ]
                 },
                 options: {
-                    responsive: true, maintainAspectRatio: false,
-                    plugins: { legend: { display: false } },
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: '#33271F',
+                            titleColor: '#FFFFFF',
+                            bodyColor: '#F0EAE0',
+                            padding: 12,
+                            callbacks: {
+                                label(ctx) {
+                                    return `${ctx.dataset.label}: ${ctx.raw}%`;
+                                },
+                                afterBody(items) {
+                                    const before = items.find(i => i.dataset.label === 'Before');
+                                    const after = items.find(i => i.dataset.label === 'After');
+                                    if (before && after) return [`변화: +${after.raw - before.raw}%`];
+                                    return [];
+                                }
+                            }
+                        }
+                    },
                     scales: {
-                        r: { min: 0, max: 100, angleLines: { color: 'rgba(51,39,31,0.12)' }, grid: { color: 'rgba(51,39,31,0.12)' },
+                        r: {
+                            min: 0, max: 100,
+                            angleLines: { color: 'rgba(51,39,31,0.12)' },
+                            grid: { color: 'rgba(51,39,31,0.12)' },
                             pointLabels: { color: '#33271F', font: { family: 'Noto Sans KR', size: 12, weight: 'bold' } },
-                            ticks: { backdropColor: 'transparent', color: '#8A7B6E', font: { size: 10 }, stepSize: 20 } }
+                            ticks: { backdropColor: 'transparent', color: '#8A7B6E', font: { size: 10 }, stepSize: 20 }
+                        }
+                    },
+                    onHover(_evt, elements) {
+                        if (elements.length && elements[0].index !== activeGrowthIdx) {
+                            highlightGrowthDimension(elements[0].index);
+                        }
+                    },
+                    onClick(_evt, elements) {
+                        if (elements.length) highlightGrowthDimension(elements[0].index);
                     }
+                }
+            });
+
+            updateGrowthDetailList();
+            resetToBefore();
+        }
+
+        function initGrowthInteractive() {
+            if (growthInteractiveReady) return;
+            growthInteractiveReady = true;
+
+            document.addEventListener('click', e => {
+                const modeBtn = e.target.closest('.radar-mode-btn[data-radar-mode]');
+                if (modeBtn) {
+                    e.stopPropagation();
+                    stopRadarAutoLoop();
+                    if (modeBtn.dataset.radarMode === 'after') {
+                        playGrowthAnimation();
+                    } else {
+                        stopGrowthAnimation();
+                        resetToBefore();
+                    }
+                    return;
+                }
+
+                const dimRow = e.target.closest('.growth-dim-row');
+                if (dimRow) {
+                    e.stopPropagation();
+                    highlightGrowthDimension(+dimRow.dataset.dimIdx);
                 }
             });
         }
@@ -450,10 +699,16 @@
                 s.classList.toggle('active', i === current);
                 if (i !== current) s.querySelectorAll('video').forEach(v => v.pause());
             });
+            if (!slides[current]?.querySelector('#growthRadar')) stopRadarSlide();
             document.getElementById('cur').innerText = current + 1;
             document.getElementById('progress-bar').style.width = ((current + 1) / slides.length * 100) + '%';
             lucide.createIcons();
-            if (slides[current]?.querySelector('#growthRadar')) { renderGrowthRadar(); growthRadarInstance?.resize(); }
+            if (slides[current]?.querySelector('#growthRadar')) {
+                renderGrowthRadar();
+                initGrowthInteractive();
+                growthRadarInstance?.resize();
+                startRadarAutoLoop();
+            }
         }
         function changeSlide(dir) {
             const next = current + dir;
