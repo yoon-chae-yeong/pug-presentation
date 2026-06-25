@@ -44,12 +44,39 @@
         .tbl-curriculum .cur-block li:last-child { margin-bottom: 0; }
         .col-2026 { color: #33271F !important; font-weight: 600 !important; }
         .pain-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.75rem; }
-        .pain-card { background: #fff; border: 1px solid #F0EAE0; border-left: 4px solid #F5B041; border-radius: 8px; padding: 1rem 1.1rem; }
-        .pain-card__tag { display: inline-block; font-size: 0.62rem; font-weight: 800; letter-spacing: 0.08em; color: #33271F; background: #F5B041; padding: 0.15rem 0.45rem; border-radius: 4px; margin-bottom: 0.5rem; }
-        .pain-card__text { font-size: 1rem; font-weight: 700; color: #33271F; line-height: 1.45; margin: 0 0 0.55rem; }
-        .pain-card__activity { font-size: 0.72rem; color: #8A7B6E; margin: 0; }
-        .pain-card__activity strong { color: #4A3C33; font-weight: 600; }
-        @media (max-width: 768px) { .pain-grid { grid-template-columns: 1fr; } }
+        .pain-card { background: #fff; border: 1px solid #F0EAE0; border-left: 4px solid #F5B041; border-radius: 8px; padding: 0.85rem 1rem; }
+        .pain-card__inner { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); gap: 0.75rem; align-items: stretch; }
+        .pain-card__side { min-width: 0; }
+        .pain-card__divider { width: 1px; background: #F0EAE0; align-self: stretch; position: relative; }
+        .pain-card__divider::after { content: '→'; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 0.65rem; color: #CBBBA8; background: #fff; padding: 0.15rem 0; line-height: 1; }
+        .pain-card__year { display: inline-block; font-size: 0.62rem; font-weight: 800; letter-spacing: 0.06em; color: #33271F; background: #F0EAE0; padding: 0.12rem 0.4rem; border-radius: 4px; margin-bottom: 0.4rem; }
+        .pain-card__year--2026 { color: #fff; background: #33271F; }
+        .pain-card__text { font-size: 0.88rem; font-weight: 700; color: #33271F; line-height: 1.4; margin: 0; }
+        .pain-card__solution-text { font-size: 0.85rem; font-weight: 600; color: #33271F; line-height: 1.45; margin: 0; }
+        .pain-card__keywords { font-size: 0.62rem; color: #8A7B6E; margin: 0.3rem 0 0; line-height: 1.35; }
+        .pain-grid:not(.is-revealed) .pain-card__inner { grid-template-columns: 1fr; }
+        .pain-grid:not(.is-revealed) .pain-card__divider,
+        .pain-grid:not(.is-revealed) .pain-card__side--2026 { display: none; }
+        .pain-grid.is-revealed .pain-card__side--2026 { animation: painReveal 0.35s ease both; }
+        .pain-grid.is-revealed .pain-card:nth-child(1) .pain-card__side--2026 { animation-delay: 0s; }
+        .pain-grid.is-revealed .pain-card:nth-child(2) .pain-card__side--2026 { animation-delay: 0.05s; }
+        .pain-grid.is-revealed .pain-card:nth-child(3) .pain-card__side--2026 { animation-delay: 0.1s; }
+        .pain-grid.is-revealed .pain-card:nth-child(4) .pain-card__side--2026 { animation-delay: 0.15s; }
+        .pain-grid.is-revealed .pain-card:nth-child(5) .pain-card__side--2026 { animation-delay: 0.2s; }
+        .pain-grid.is-revealed .pain-card:nth-child(6) .pain-card__side--2026 { animation-delay: 0.25s; }
+        @keyframes painReveal { from { opacity: 0; transform: translateX(8px); } to { opacity: 1; transform: translateX(0); } }
+        .pain-reveal-bar { display: flex; justify-content: center; margin: 0.85rem 0 0.25rem; }
+        .pain-reveal-btn { display: inline-flex; align-items: center; gap: 0.35rem; padding: 0.55rem 1.35rem; border-radius: 9999px; font-size: 0.8rem; font-weight: 700; color: #33271F; background: #F5B041; border: none; cursor: pointer; transition: background 0.2s, opacity 0.2s; font-family: inherit; }
+        .pain-reveal-btn:hover { background: #E5A030; }
+        .pain-reveal-btn.is-hidden { display: none; }
+        .pain-reveal-btn i { width: 14px; height: 14px; }
+        .pain-card__keywords strong { color: #4A3C33; font-weight: 600; }
+        @media (max-width: 768px) {
+            .pain-grid { grid-template-columns: 1fr; }
+            .pain-grid.is-revealed .pain-card__inner { grid-template-columns: 1fr; gap: 0.55rem; }
+            .pain-card__divider { width: 100%; height: 1px; }
+            .pain-card__divider::after { top: 50%; }
+        }
         .week-photo-layout { display: grid; grid-template-columns: 1.55fr 1fr; gap: 0.75rem; height: min(420px, calc(100vh - 300px)); max-height: 420px; margin-top: 0.75rem; }
         .week-photo-layout--equal { grid-template-columns: 1fr 1fr; }
         .week-photo-layout--tall { height: min(540px, calc(100vh - 220px)); max-height: 560px; }
@@ -58,6 +85,9 @@
         .week-photo-main img { width: 100%; flex: 1; min-height: 0; object-fit: contain; display: block; background: #fff; padding: 6px; }
         .week-photo-main figcaption { flex-shrink: 0; font-size: 9.5px; font-weight: 700; text-align: center; padding: 4px 6px 6px; color: #33271F; background: #FBF8F3; line-height: 1.3; }
         .week-photo-subs { display: flex; flex-direction: column; gap: 0.5rem; min-height: 0; }
+        .week-guide-embed { flex: 1; min-height: 0; border-radius: 8px; overflow: hidden; background: #fff; border: 1px solid #F0EAE0; display: flex; flex-direction: column; }
+        .week-guide-embed__scaler { flex: 1; min-height: 0; overflow: hidden; }
+        .week-guide-iframe { width: 100%; height: 100%; border: 0; display: block; background: #fff; zoom: 0.58; }
         .week-photo-sub { flex: 1; min-height: 0; border-radius: 8px; overflow: hidden; background: #fff; border: 1px solid #F0EAE0; display: flex; flex-direction: column; }
         .week-photo-sub img { width: 100%; flex: 1; min-height: 0; object-fit: contain; display: block; background: #fff; padding: 6px; }
         .week-photo-sub figcaption { flex-shrink: 0; font-size: 9.5px; font-weight: 700; text-align: center; padding: 4px 6px 6px; color: #33271F; background: #FBF8F3; line-height: 1.3; }
@@ -225,7 +255,7 @@
             });
         }
 
-        function weekSlide({ week, title, topics, message, goals, mainImage, subImages, photoLayout, photoTall, photoGrid, goalsLeft }) {
+        function weekSlide({ week, title, topics, message, goals, mainImage, subImages, photoLayout, photoTall, photoGrid, goalsLeft, embedGuide }) {
             const chips = topics.map(t => `<span class="inline-block bg-beige text-ink text-xs font-medium px-3 py-1.5 rounded-lg mr-2 mb-2">${t}</span>`).join('');
             const goalsList = goals && goals.length
                 ? `<p class="week-goals-title">🎯 목표</p><ul>${goals.map(g => `<li class="flex items-start gap-2 text-ink/85"><span class="text-pug shrink-0 mt-0.5">•</span><span>${g}</span></li>`).join('')}</ul>`
@@ -253,12 +283,17 @@
             } else if (mainImage) {
                 const hasMeta = !!(message || (goals && goals.length));
                 const layoutCls = ['week-photo-layout', photoLayout === 'equal' && 'week-photo-layout--equal', photoTall && !hasMeta && 'week-photo-layout--tall', hasMeta && 'week-photo-layout--compact'].filter(Boolean).join(' ');
-                const subs = (subImages || []).map(p =>
-                    `<figure class="week-photo-sub">
-                        <img src="${p.src}" alt="${p.caption || ''}" loading="lazy">
-                        ${p.caption ? `<figcaption>${p.caption}</figcaption>` : ''}
-                    </figure>`
-                ).join('');
+                const guideEmbed = embedGuide
+                    ? `<div class="week-guide-embed"><div class="week-guide-embed__scaler"><iframe src="${embedGuide}" title="학습 가이드" class="week-guide-iframe" loading="lazy"></iframe></div></div>`
+                    : '';
+                const subs = embedGuide
+                    ? guideEmbed
+                    : (subImages || []).map(p =>
+                        `<figure class="week-photo-sub">
+                            <img src="${p.src}" alt="${p.caption || ''}" loading="lazy">
+                            ${p.caption ? `<figcaption>${p.caption}</figcaption>` : ''}
+                        </figure>`
+                    ).join('');
                 photos = `<div class="${layoutCls}">
                     <figure class="week-photo-main">
                         <img src="${mainImage.src}" alt="${mainImage.caption || title}" loading="lazy">
@@ -274,8 +309,8 @@
                 label: `Education · ${week}`,
                 title,
                 message,
-                compact: !!(mainImage || photoGrid || message || goalsLeft),
-                wide: !!(photoGrid || mainImage || goalsLeft),
+                compact: !!(mainImage || photoGrid || message || goalsLeft || embedGuide),
+                wide: !!(photoGrid || mainImage || goalsLeft || embedGuide),
                 body: `<div class="bg-card rounded-lg p-4 mb-3"><div class="flex flex-wrap gap-1">${chips}</div></div>${goalsBlock}${photos}`
             });
         }
@@ -350,37 +385,99 @@
             }),
 
             contentSlide({
-                label: '2025 Review · 회고',
+                label: '2025 Review · 회고 → 2026 개선',
                 title: '2025년 활동 문제점 & 운영 이슈 회고',
                 message: '2025년 PUG는 AI 학습과 공유 문화를 만드는 데 의미가 있었지만, 활동이 <strong class="text-ink">현업 성과로 연결되기에는 몇 가지 한계</strong>가 있었습니다.',
-                body: `<div class="pain-grid">
+                body: `<div class="pain-grid" id="pain-review-grid">
                     <article class="pain-card">
-                        <span class="pain-card__tag">PAIN POINT</span>
-                        <p class="pain-card__text">도구를 배워도 실제 업무 적용 주제가 명확하지 않음</p>
-                        <p class="pain-card__activity"><strong>2025 활동</strong> · AI 도구 사용법 학습</p>
+                        <div class="pain-card__inner">
+                            <div class="pain-card__side pain-card__side--2025">
+                                <span class="pain-card__year">2025</span>
+                                <p class="pain-card__text">개인별 관심·요구·성장 방향 파악 어려움</p>
+                            </div>
+                            <div class="pain-card__divider" aria-hidden="true"></div>
+                            <div class="pain-card__side pain-card__side--2026">
+                                <span class="pain-card__year pain-card__year--2026">2026</span>
+                                <p class="pain-card__solution-text">사전 인터뷰로 성장 방향·업무 과제 정리</p>
+                                <p class="pain-card__keywords"><strong>키워드</strong> · 사전 인터뷰, 맞춤 커리큘럼</p>
+                            </div>
+                        </div>
                     </article>
                     <article class="pain-card">
-                        <span class="pain-card__tag">PAIN POINT</span>
-                        <p class="pain-card__text">사례는 쌓였지만 개인별 업무 문제와 연결이 약함</p>
-                        <p class="pain-card__activity"><strong>2025 활동</strong> · 활용 사례 공유</p>
+                        <div class="pain-card__inner">
+                            <div class="pain-card__side pain-card__side--2025">
+                                <span class="pain-card__year">2025</span>
+                                <p class="pain-card__text">현업 병행 시 학습·실습 시간 부족</p>
+                            </div>
+                            <div class="pain-card__divider" aria-hidden="true"></div>
+                            <div class="pain-card__side pain-card__side--2026">
+                                <span class="pain-card__year pain-card__year--2026">2026</span>
+                                <p class="pain-card__solution-text">매주 수요일 정기 모임 · 주 2회 이상</p>
+                                <p class="pain-card__keywords"><strong>키워드</strong> · 주간 모임, 실습 시간 확보</p>
+                            </div>
+                        </div>
                     </article>
                     <article class="pain-card">
-                        <span class="pain-card__tag">PAIN POINT</span>
-                        <p class="pain-card__text">실습 결과가 지속적인 결과물로 남기 어려움</p>
-                        <p class="pain-card__activity"><strong>2025 활동</strong> · 실습 중심 모임</p>
+                        <div class="pain-card__inner">
+                            <div class="pain-card__side pain-card__side--2025">
+                                <span class="pain-card__year">2025</span>
+                                <p class="pain-card__text">도구 학습 후 실무 적용 주제 불명확</p>
+                            </div>
+                            <div class="pain-card__divider" aria-hidden="true"></div>
+                            <div class="pain-card__side pain-card__side--2026">
+                                <span class="pain-card__year pain-card__year--2026">2026</span>
+                                <p class="pain-card__solution-text">실무 연계 실습 자료·과제 설계</p>
+                                <p class="pain-card__keywords"><strong>키워드</strong> · 실무 연계, PoC 주제</p>
+                            </div>
+                        </div>
                     </article>
                     <article class="pain-card">
-                        <span class="pain-card__tag">PAIN POINT</span>
-                        <p class="pain-card__text">참여 열정은 있었지만 과제 추진 구조가 부족함</p>
-                        <p class="pain-card__activity"><strong>2025 활동</strong> · 자발적 참여</p>
+                        <div class="pain-card__inner">
+                            <div class="pain-card__side pain-card__side--2025">
+                                <span class="pain-card__year">2025</span>
+                                <p class="pain-card__text">학습 우선순위·진입 경로 불명확</p>
+                            </div>
+                            <div class="pain-card__divider" aria-hidden="true"></div>
+                            <div class="pain-card__side pain-card__side--2026">
+                                <span class="pain-card__year pain-card__year--2026">2026</span>
+                                <p class="pain-card__solution-text">단계별 학습 커리큘럼 설계·운영</p>
+                                <p class="pain-card__keywords"><strong>키워드</strong> · 학습 로드맵, 시민개발자</p>
+                            </div>
+                        </div>
                     </article>
-                    <article class="pain-card md:col-span-2">
-                        <span class="pain-card__tag">PAIN POINT</span>
-                        <p class="pain-card__text">활동 사이클이 느리고 실행 관리가 어려움</p>
-                        <p class="pain-card__activity"><strong>2025 활동</strong> · 월 1회 모임</p>
+                    <article class="pain-card">
+                        <div class="pain-card__inner">
+                            <div class="pain-card__side pain-card__side--2025">
+                                <span class="pain-card__year">2025</span>
+                                <p class="pain-card__text">체계 없이 진행되어 산출물 완성도 낮음</p>
+                            </div>
+                            <div class="pain-card__divider" aria-hidden="true"></div>
+                            <div class="pain-card__side pain-card__side--2026">
+                                <span class="pain-card__year pain-card__year--2026">2026</span>
+                                <p class="pain-card__solution-text">커리큘럼 구축 · 전문가 컨설팅</p>
+                                <p class="pain-card__keywords"><strong>키워드</strong> · 시민개발자, 전문가 지원</p>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="pain-card">
+                        <div class="pain-card__inner">
+                            <div class="pain-card__side pain-card__side--2025">
+                                <span class="pain-card__year">2025</span>
+                                <p class="pain-card__text">결과물 축적·공유 어려움</p>
+                            </div>
+                            <div class="pain-card__divider" aria-hidden="true"></div>
+                            <div class="pain-card__side pain-card__side--2026">
+                                <span class="pain-card__year pain-card__year--2026">2026</span>
+                                <p class="pain-card__solution-text">GitHub 개설 · PoC·실습 결과 아카이빙</p>
+                                <p class="pain-card__keywords"><strong>키워드</strong> · GitHub, 버전 관리</p>
+                            </div>
+                        </div>
                     </article>
                 </div>
-                <div class="bg-ink text-card rounded-lg p-4 mt-5 text-sm font-medium leading-relaxed">핵심 한계 — 학습은 있었지만 <strong class="text-pug">문제 정의와 실행 구조</strong>가 부족했습니다.</div>`
+                <div class="pain-reveal-bar">
+                    <button type="button" id="pain-reveal-btn" class="pain-reveal-btn"><i data-lucide="sparkles"></i> 2026 개선 방안 보기</button>
+                </div>
+                <div class="bg-ink text-card rounded-lg p-4 mt-5 text-sm font-medium leading-relaxed">핵심 전환 — 2025년 한계를 인식하고, 2026년에는 <strong class="text-pug">문제 정의·실행 구조·결과물 축적</strong>으로 개선합니다.</div>`
             }),
 
             contentSlide({
@@ -402,7 +499,11 @@
         // ── PART 2: 인터뷰 → 커리큘럼 → 교육 ──
         const WEEKLY = [
             { week: '3월 1주차', title: '웹·시스템 구조 이해와 바이브 코딩(Vibe Coding) 기초 개념', topics: ['FE/BE 역할 구분', 'REST API 흐름', 'AI 협업 코딩 방식', '요구사항 정의·단계적 확장'] },
-            { week: '3월 2주차', title: 'Flask 웹 프레임워크와 Database(SQL) — 웹 서버 기본 구조와 CRUD 실습', topics: ['Flask 기초', 'SQL 개념', '테이블/행/컬럼', '데이터 CRUD 실습'] },
+            { week: '3월 2주차', title: 'Flask 웹 프레임워크와 Database(SQL) — 웹 서버 기본 구조와 CRUD 실습', topics: ['Flask 기초', 'SQL 개념', '테이블/행/컬럼', '데이터 CRUD 실습'],
+                mainImage: { src: 'assets/13-flask-sql/main-session.png', caption: 'Flask·SQL CRUD 실습 세션' },
+                embedGuide: 'assets/13-flask-sql/rdb-guide.html',
+                photoTall: true
+            },
             { week: '3월 3주차', title: 'LLM의 이해, 컨텍스트 설계, LLM API 활용, RAG 구현', topics: ['LLM 강점/한계', 'Temperature·프롬프트', 'LLM API 호출', 'RAG 기초'],
                 mainImage: { src: 'assets/14-llm-rag/main-llm-session.png', caption: 'LLM·RAG 교육 세션' },
                 subImages: [
@@ -434,7 +535,13 @@
                     { src: 'assets/16-poc-idea/sub-workshop-2.png', caption: 'PoC 설계 협업' }
                 ]
             },
-            { week: '4월 3주차', title: 'FastAPI 기반 API 개발 심화, On-premise LLM 연동, Git & GitHub 실습', topics: ['FastAPI 개발', 'On-premise LLM', 'Git 저장소·Commit/Push', 'GitHub 협업'] },
+            { week: '4월 3주차', title: 'FastAPI 기반 API 개발 심화, On-premise LLM 연동, Git & GitHub 실습', topics: ['FastAPI 개발', 'On-premise LLM', 'Git 저장소·Commit/Push', 'GitHub 협업'],
+                mainImage: { src: 'assets/17-fastapi-git/main-session.png', caption: 'FastAPI·Git & GitHub 실습 세션' },
+                subImages: [
+                    { src: 'assets/17-fastapi-git/sub-fastapi-guide.png', caption: 'FastAPI 코드 구조 · Swagger UI' }
+                ],
+                photoTall: true
+            },
             { week: '4월 4주차', title: 'Webhook 기반 API 이해, 배포 개념 학습, UI/UX 기초 개념', topics: ['Webhook API', '빌드→배포→실행', '환경변수·DNS', 'UI/UX 기초'] },
             { week: '4월 5주차', title: 'AI 에이전트 핵심 메커니즘, LLM vs 에이전트, Multi-Agent 설계', topics: ['에이전트 역할·입출력', 'LLM과 에이전트 차이', 'Multi-Agent 패턴', 'MVP 구조 설계'] },
             { week: '6월 2주차', title: 'Outlook·Teams API 서비스 소개, Full-Stack Live Coding', topics: ['Outlook API', 'Teams API', 'Full-Stack Live Coding', '실무 연동'] },
@@ -446,7 +553,7 @@
 
             listSlide({
                 label: 'Interview · 사전 인터뷰',
-                title: '2026년 PUG 선정 멤버 사전 인터뷰',
+                title: '2026년 PUG 멤버 사전 인터뷰',
                 message: 'PoC 수행 가능성과 필요한 지원 사항을 확인하기 위한 과정이었습니다.',
                 items: [
                     '각 구성원의 AI 적용 니즈 파악',
@@ -874,7 +981,7 @@
             }
             const videoOnly = s.video && !s.desc;
             const videoBlock = s.video ? `<div class="bg-card rounded-lg overflow-hidden${videoOnly ? '' : ' mt-5'}">
-                    <video src="${s.video}" controls playsinline preload="metadata" class="${videoOnly ? 'slide-media-tall' : 'slide-media'}"></video>
+                    <video src="${s.video}" controls playsinline muted loop preload="auto" class="${videoOnly ? 'slide-media-tall' : 'slide-media'}"></video>
                 </div>` : '';
             const descBlock = s.desc ? `<div class="bg-card rounded-lg p-8 flex items-start gap-5">
                     <div class="p-4 bg-pug text-ink rounded-lg shrink-0"><i data-lucide="${s.icon}" class="w-8 h-8"></i></div>
@@ -1351,6 +1458,27 @@
             resetToBefore();
         }
 
+        function initPainReveal() {
+            const grid = document.getElementById('pain-review-grid');
+            const btn = document.getElementById('pain-reveal-btn');
+            if (!grid || !btn || btn.dataset.bound) return;
+            btn.dataset.bound = '1';
+            btn.addEventListener('click', () => {
+                grid.classList.add('is-revealed');
+                btn.classList.add('is-hidden');
+                lucide.createIcons();
+            });
+        }
+
+        function resetPainReveal() {
+            document.getElementById('pain-review-grid')?.classList.remove('is-revealed');
+            const btn = document.getElementById('pain-reveal-btn');
+            if (btn) {
+                btn.classList.remove('is-hidden');
+                delete btn.dataset.bound;
+            }
+        }
+
         function initGrowthInteractive() {
             if (growthInteractiveReady) return;
             growthInteractiveReady = true;
@@ -1382,13 +1510,30 @@
         let current = 0;
         document.getElementById('total').innerText = slides.length;
 
+        function manageSlideVideos() {
+            slides.forEach((s, i) => {
+                s.querySelectorAll('video').forEach(v => {
+                    if (i !== current) {
+                        v.pause();
+                        v.currentTime = 0;
+                    }
+                });
+            });
+            slides[current]?.querySelectorAll('video').forEach(v => {
+                v.muted = true;
+                const p = v.play();
+                if (p?.catch) p.catch(() => {});
+            });
+        }
+
         function render() {
             slides.forEach((s, i) => {
                 s.classList.toggle('active', i === current);
-                if (i !== current) s.querySelectorAll('video').forEach(v => v.pause());
             });
+            manageSlideVideos();
             if (!slides[current]?.querySelector('#growthRadar')) stopRadarSlide();
             if (!slides[current]?.querySelector('#tech-stack-panel')) stopStackAutoLoop();
+            if (!slides[current]?.querySelector('#pain-review-grid')) resetPainReveal();
             document.getElementById('cur').innerText = current + 1;
             document.getElementById('progress-bar').style.width = ((current + 1) / slides.length * 100) + '%';
             lucide.createIcons();
@@ -1401,6 +1546,8 @@
                 renderChecklistBody();
             } else if (slides[current]?.querySelector('#tech-stack-panel')) {
                 initTechStackInteractive();
+            } else if (slides[current]?.querySelector('#pain-review-grid')) {
+                initPainReveal();
             }
         }
         function changeSlide(dir) {

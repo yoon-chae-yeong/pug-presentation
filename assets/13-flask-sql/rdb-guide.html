@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSONPlaceholder로 배우는 RDB 관계 가이드</title>
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #3b82f6;
+            --bg-color: #f8fafc;
+            --text-color: #1e293b;
+            --card-bg: #ffffff;
+            --accent-color: #ef4444;
+        }
+
+        body {
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            color: #64748b;
+        }
+
+        .section {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+        }
+
+        h2 {
+            border-left: 5px solid var(--primary-color);
+            padding-left: 15px;
+            margin-bottom: 25px;
+            color: var(--primary-color);
+        }
+
+        /* ERD Visualization */
+        .erd-view {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            background: #f1f5f9;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .table-node {
+            background: #fff;
+            border: 2px solid var(--primary-color);
+            border-radius: 6px;
+            padding: 10px 20px;
+            font-weight: bold;
+            text-align: center;
+            min-width: 100px;
+        }
+
+        .relation-line {
+            height: 2px;
+            background: #94a3b8;
+            flex-grow: 1;
+            position: relative;
+            max-width: 50px;
+        }
+
+        .relation-line::after {
+            content: '1:N';
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.8rem;
+            color: #64748b;
+        }
+
+        /* Relationship Cards */
+        .relation-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .relation-card {
+            border: 1px solid #e2e8f0;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .relation-card h3 {
+            margin-top: 0;
+            color: var(--secondary-color);
+        }
+
+        .tag {
+            display: inline-block;
+            background: #dbeafe;
+            color: #1e40af;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            margin-bottom: 10px;
+        }
+
+        /* Code Block */
+        pre {
+            background: #1e293b;
+            color: #f8fafc;
+            padding: 15px;
+            border-radius: 6px;
+            overflow-x: auto;
+            font-size: 0.9rem;
+        }
+
+        code {
+            font-family: 'Fira Code', monospace;
+        }
+
+        .comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .comparison {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px;
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>📊 RDB 관계 가이드</h1>
+        <p>JSONPlaceholder 리소스를 활용한 관계형 데이터베이스 입문</p>
+    </header>
+
+    <!-- 1. 관계도 -->
+    <section class="section">
+        <h2>1. 전체 관계도 (ERD 개념)</h2>
+        <p>시스템의 중심인 <code>Users</code>를 기준으로 모든 데이터가 연결됩니다.</p>
+        <div class="erd-view">
+            <div class="table-node">Users (1)</div>
+            <div class="relation-line"></div>
+            <div class="table-node">Posts (N)</div>
+            <div class="relation-line"></div>
+            <div class="table-node">Comments (N)</div>
+        </div>
+        <div style="margin-top:20px;" class="erd-view">
+            <div class="table-node">Users (1)</div>
+            <div class="relation-line"></div>
+            <div class="table-node">Albums (N)</div>
+            <div class="relation-line"></div>
+            <div class="table-node">Photos (N)</div>
+        </div>
+    </section>
+
+    <!-- 2. 주요 관계 -->
+    <section class="section">
+        <h2>2. 1:N (One-to-Many) 관계 설명</h2>
+        <div class="relation-grid">
+            <div class="relation-card">
+                <span class="tag">Case A</span>
+                <h3>Users ↔ Posts</h3>
+                <p>한 명의 사용자는 여러 개의 게시글을 작성할 수 있습니다.</p>
+                <small>연결 고리: <code>Posts.userId</code></small>
+            </div>
+            <div class="relation-card">
+                <span class="tag">Case B</span>
+                <h3>Posts ↔ Comments</h3>
+                <p>하나의 게시물에는 여러 개의 댓글이 달릴 수 있습니다.</p>
+                <small>연결 고리: <code>Comments.postId</code></small>
+            </div>
+            <div class="relation-card">
+                <span class="tag">Case C</span>
+                <h3>Albums ↔ Photos</h3>
+                <p>하나의 앨범 안에는 여러 장의 사진이 포함됩니다.</p>
+                <small>연결 고리: <code>Photos.albumId</code></small>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. 핵심 용어 -->
+    <section class="section">
+        <h2>3. 핵심 용어 정리</h2>
+        <ul>
+            <li><strong>PK (Primary Key, 기본 키):</strong> 각 데이터를 유일하게 식별하는 신분증 (예: <code>user.id</code>)</li>
+            <li><strong>FK (Foreign Key, 외래 키):</strong> 다른 테이블과 관계를 맺기 위해 가져온 상대방의 PK (예: <code>post.userId</code>)</li>
+        </ul>
+    </section>
+
+    <!-- 4. SQL vs API -->
+    <section class="section">
+        <h2>4. 데이터 조회 방식 비교</h2>
+        <p>특정 게시물(ID: 1)의 모든 댓글을 가져오는 방법</p>
+        <div class="comparison">
+            <div>
+                <h4>SQL (RDB)</h4>
+                <pre><code>SELECT * FROM comments 
+WHERE postId = 1;</code></pre>
+            </div>
+            <div>
+                <h4>REST API</h4>
+                <pre><code>fetch('.../posts/1/comments')
+  .then(res => res.json())
+  .then(console.log);</code></pre>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. 설계 팁 -->
+    <section class="section">
+        <h2>5. 왜 데이터를 쪼개나요? (정규화)</h2>
+        <p><strong>1. 용량 최적화:</strong> 중복 데이터를 방지하여 저장 공간을 아낍니다.</p>
+        <p><strong>2. 데이터 무결성:</strong> 사용자 정보 수정 시 한 곳만 고치면 연결된 모든 데이터에 반영됩니다.</p>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 JSONPlaceholder RDB Study Guide. 기반 문서: @RDB_for_JSONPlaceholder.md</p>
+    </footer>
+</div>
+
+</body>
+</html>
