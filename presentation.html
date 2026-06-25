@@ -44,6 +44,24 @@
         .radar-mode-btn:hover { color: #33271F; }
         .radar-mode-btn.active { background: #33271F; color: #FFFFFF; }
         .growth-dim-row.active { background: #F0EAE0; box-shadow: inset 0 0 0 2px #F5B041; }
+        .teams-channel { background: #F5F5F5; border: 1px solid #E1DFDD; border-radius: 4px; padding: 10px; font-family: 'Segoe UI', 'Noto Sans KR', sans-serif; color: #242424; }
+        .teams-post { background: #FFFFFF; border: 1px solid #EDEBE9; border-radius: 2px; padding: 10px 12px 8px; }
+        .teams-post__header { display: flex; gap: 8px; align-items: flex-start; margin-bottom: 8px; }
+        .teams-avatar { width: 28px; height: 28px; border-radius: 50%; overflow: hidden; flex-shrink: 0; background: #C8C6C4; }
+        .teams-avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .teams-post__author { display: flex; align-items: center; gap: 5px; font-size: 13px; font-weight: 600; line-height: 1.15; }
+        .teams-presence { display: inline-flex; align-items: center; justify-content: center; width: 12px; height: 12px; border-radius: 50%; background: #6BB700; color: #fff; font-size: 8px; font-weight: 700; }
+        .teams-post__meta { margin-top: 1px; font-size: 11px; color: #616161; }
+        .teams-post__title { font-size: 13px; font-weight: 700; margin: 0 0 4px; line-height: 1.35; }
+        .teams-post__intro { font-size: 11.5px; line-height: 1.4; margin: 0 0 8px; color: #242424; }
+        .teams-post__divider { border: none; border-top: 1px solid #EDEBE9; margin: 0 0 8px; }
+        .teams-table-title { font-size: 11.5px; font-weight: 700; margin: 0 0 5px; }
+        .teams-table { width: 100%; border-collapse: collapse; font-size: 10.5px; line-height: 1.32; }
+        .teams-table th, .teams-table td { border: 1px solid #EDEBE9; padding: 3px 6px; vertical-align: top; text-align: left; }
+        .teams-table th { background: #F3F2F1; font-weight: 700; color: #242424; }
+        .teams-table td:first-child { font-weight: 700; white-space: nowrap; width: 96px; }
+        .teams-table td:nth-child(2) { width: 132px; }
+        .teams-table code { background: #F3F2F1; padding: 0 4px; border-radius: 2px; font-family: Consolas, 'Courier New', monospace; font-size: 10px; }
     </style>
 </head>
 <body class="bg-paper text-ink antialiased overflow-hidden">
@@ -303,19 +321,71 @@
                 { src: 'assets/meeting-playground.png', caption: 'AI Playground 소개 (신민규님)' },
                 { src: 'assets/meeting-dinner.png', caption: '간담회 식사' }
             ]},
-            { icon: 'message-square', title: '운영 활성화 — 주차별 활동 요약 (팀즈 채널)', desc: '다시 볼 수 있게 주차별 활동 요약 공유' },
+            { icon: 'message-square', title: '운영 활성화 — 주차별 활동 요약 (팀즈 채널)', video: 'assets/teams-channel.mp4' },
             { icon: 'folder-open', title: '운영 활성화 — 주차별 실습자료 공유', desc: '교육 자료·실습 가이드 지속 공유' },
             { icon: 'archive', title: '운영 활성화 — 주차별 미팅노트 아카이빙 & 회고', desc: '미팅노트 축적 및 회고 문화 정착' },
             { icon: 'graduation-cap', title: '개발 환경 지원 — AI/Dev 온라인 강의 선별', desc: '온라인 강의 선별 및 실습 지원' },
             { icon: 'sparkles', title: '활동 촉진 — 구글 AI 서비스 구독 지원', desc: 'AI 도구 활용을 위한 구독 지원' },
             { icon: 'github', title: '활동 촉진 — GitHub Organization 개설 및 관리', video: 'assets/github-org.mp4' },
-            { icon: 'book-open', title: '활동 촉진 — 표준 기술스택 가이드 제공', desc: 'PoC 개발 시 참고할 표준 스택 가이드' },
+            { icon: 'book-open', title: '활동 촉진 — 표준 기술스택 가이드 제공', teamsPost: true },
             { icon: 'book', title: '활동 촉진 — 관련 책 배부', desc: '비전공자를 위한 IT 지식 서적 제공' },
             { icon: 'flask-conical', title: '활동 촉진 — AI Playground 활용 방법 안내', desc: '안전한 실험 환경 활용 가이드' },
             { icon: 'code-2', title: '활동 촉진 — API 개발 지원', desc: 'PoC 구현 과정의 API 개발 기술 지원' }
         ];
 
+        const TECH_STACK_ROWS = [
+            ['기본 언어', 'HTML, CSS, JS, TS', '신규 프로젝트 시 <strong>TypeScript</strong> 사용 강력 권장'],
+            ['프론트엔드 FW', 'React, Next.js, Streamlit', '일반 웹은 React/Next.js, 간단한 구조는 Streamlit(Python All-in-One)도 가능'],
+            ['프론트엔드 빌드', 'Vite (비트)', '표준 빌드 도구'],
+            ['CSS FW', 'Tailwind CSS', '일관된 디자인 시스템 및 빠른 퍼블리싱용'],
+            ['백엔드 FW', 'FastAPI, Django', '생산성 중심의 파이썬 계열'],
+            ['백엔드 빌드', '<strong>Poetry</strong>', '<code>pyproject.toml</code> 기반의 의존성 관리 표준화'],
+            ['데이터베이스', '<strong>PostgreSQL</strong>, Chroma', '메인은 Postgres(RDB, NoSQL, Vector), 빠른 AI 검증은 Chroma'],
+            ['AI / ML', 'Python Libraries', '파이썬 생태계 내 라이브러리 활용 (추가 확장 가능)'],
+            ['데이터 시각화', 'Recharts, Chart.js', 'React 최적화는 Recharts, 범용 환경은 Chart.js'],
+            ['기타 (Only 학습용)', 'Flask', '실제 서비스보다는 개인 학습 및 프로토타입용'],
+            ['자동화', 'n8n, Power Automate', '자동화 구현, 백엔드 대체 가능'],
+            ['모바일', 'Flutter', '웹, 모바일, 데스크톱 앱을 아우르는 단일 코드 베이스 크로스 플랫폼']
+        ];
+
+        function buildTechStackTeamsPost() {
+            const rows = TECH_STACK_ROWS.map(r => `<tr><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td></tr>`).join('');
+            return `<div class="teams-channel">
+                <article class="teams-post">
+                    <header class="teams-post__header">
+                        <div class="teams-avatar">
+                            <img src="assets/song-youngbok.png" alt="송영복">
+                        </div>
+                        <div>
+                            <div class="teams-post__author">
+                                <span>송영복</span>
+                                <span class="teams-presence" title="Available">✓</span>
+                            </div>
+                            <div class="teams-post__meta">04-22 오후 12:38 · 편집됨</div>
+                        </div>
+                    </header>
+                    <div class="teams-post__body">
+                        <h3 class="teams-post__title">PUG 표준 기술 스택(Tech Stack) 가이드 안내</h3>
+                        <p class="teams-post__intro">PUG 멤버들이 한눈에 파악하기 좋도록 기술 스택 가이드를 카테고리별 표 형식으로 정리했습니다.</p>
+                        <hr class="teams-post__divider">
+                        <p class="teams-table-title">🛠️ 사내 표준 기술 스택 요약표</p>
+                        <table class="teams-table">
+                            <thead><tr><th>구분</th><th>기술 스택</th><th>권장 사항 및 용도</th></tr></thead>
+                            <tbody>${rows}</tbody>
+                        </table>
+                    </div>
+                </article>
+            </div>`;
+        }
+
         function supportSlide(s) {
+            if (s.teamsPost) {
+                return contentSlide({
+                    label: 'Support · 디전센 × PUG',
+                    title: s.title,
+                    body: buildTechStackTeamsPost()
+                });
+            }
             if (s.photos) {
                 const photoGrid = s.photos.map(p => `<figure class="bg-card rounded-lg overflow-hidden">
                         <img src="${p.src}" alt="${p.caption}" class="slide-photo">
@@ -326,6 +396,16 @@
                     title: s.title,
                     scroll: true,
                     body: `<div class="grid md:grid-cols-3 gap-4">${photoGrid}</div>`
+                });
+            }
+            if (s.image) {
+                return contentSlide({
+                    label: 'Support · 디전센 × PUG',
+                    title: s.title,
+                    scroll: true,
+                    body: `<div class="bg-card rounded-lg overflow-hidden">
+                        <img src="${s.image}" alt="${s.title}" class="slide-media-tall">
+                    </div>`
                 });
             }
             const videoOnly = s.video && !s.desc;
