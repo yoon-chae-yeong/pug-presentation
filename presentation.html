@@ -95,8 +95,10 @@
         .week-photo-main figcaption { flex-shrink: 0; font-size: 9.5px; font-weight: 700; text-align: center; padding: 4px 6px 6px; color: #33271F; background: #FBF8F3; line-height: 1.3; }
         .week-photo-subs { display: flex; flex-direction: column; gap: 0.5rem; min-height: 0; }
         .week-guide-embed { flex: 1; min-height: 0; border-radius: 8px; overflow: hidden; background: #fff; border: 1px solid #F0EAE0; display: flex; flex-direction: column; }
-        .week-guide-embed__scaler { flex: 1; min-height: 0; overflow: hidden; position: relative; }
+        .week-guide-embed__scaler { flex: 1; min-height: 0; overflow-x: hidden; overflow-y: auto; position: relative; scrollbar-width: none; }
+        .week-guide-embed__scaler::-webkit-scrollbar { display: none; }
         .week-guide-embed--agent .week-guide-iframe { zoom: 0.54; }
+        .week-guide-embed--convention .week-guide-iframe { zoom: 0.46; }
         .week-guide-iframe { width: 100%; height: 100%; border: 0; display: block; background: #fff; zoom: 0.58; }
         .week-photo-sub { flex: 1; min-height: 0; border-radius: 8px; overflow: hidden; background: #fff; border: 1px solid #F0EAE0; display: flex; flex-direction: column; }
         .week-photo-sub img { width: 100%; flex: 1; min-height: 0; object-fit: contain; display: block; background: #fff; padding: 6px; }
@@ -305,9 +307,11 @@
         .tech-stack-side .stack-panel { flex: 1; width: 100%; }
         .design-consult-layout { height: min(640px, calc(100vh - 280px)); max-height: min(640px, calc(100vh - 280px)); width: 100%; }
         .design-guide-wrap { min-height: 0; height: 100%; overflow: hidden; }
-        .design-guide-scaler { width: 100%; height: 100%; overflow: hidden; position: relative; }
+        .design-guide-scaler { width: 100%; height: 100%; overflow-x: hidden; overflow-y: auto; position: relative; scrollbar-width: none; }
+        .design-guide-scaler::-webkit-scrollbar { display: none; }
         .design-guide-iframe { width: 100%; height: 100%; border: 0; display: block; background: #fff; zoom: 0.72; }
-        .notion-embed-wrap { height: min(520px, calc(100vh - 300px)); min-height: 400px; border-radius: 10px; overflow: hidden; border: 1px solid rgba(42,42,42,0.85); box-shadow: 0 8px 32px rgba(25,25,25,.22); }
+        .notion-embed-wrap { height: min(520px, calc(100vh - 300px)); min-height: 400px; border-radius: 10px; overflow-x: hidden; overflow-y: auto; border: 1px solid rgba(42,42,42,0.85); box-shadow: 0 8px 32px rgba(25,25,25,.22); scrollbar-width: none; }
+        .notion-embed-wrap::-webkit-scrollbar { display: none; }
         .notion-embed-iframe { width: 100%; height: 100%; border: 0; display: block; background: #191919; }
         .slide-notion-embed .slide-notion-head { margin-bottom: 0.75rem; }
         .slide-notion-embed .slide-notion-head h2 { margin-bottom: 0.25rem !important; }
@@ -438,7 +442,7 @@
             });
         }
 
-        function weekSlide({ week, title, topics, message, goals, mainImage, mainImages, subImages, photoLayout, photoTall, photoGrid, goalsLeft, embedGuide, embedGuideVariant }) {
+        function weekSlide({ week, title, topics, message, goals, mainImage, mainImages, subImages, photoLayout, photoTall, photoGrid, goalsLeft, embedGuide, embedGuideVariant, embedGuideTitle }) {
             const chips = topics.map(t => `<span class="inline-block bg-beige text-ink text-xs font-medium px-3 py-1.5 rounded-lg mr-2 mb-2">${t}</span>`).join('');
             const goalsList = goals && goals.length
                 ? `<p class="week-goals-title">🎯 목표</p><ul>${goals.map(g => `<li class="flex items-start gap-2 text-ink/85"><span class="text-pug shrink-0 mt-0.5">•</span><span>${g}</span></li>`).join('')}</ul>`
@@ -467,7 +471,7 @@
                 const hasMeta = !!(message || (goals && goals.length));
                 const layoutCls = ['week-photo-layout', photoLayout === 'equal' && 'week-photo-layout--equal', photoLayout === 'quiz-race' && 'week-photo-layout--quiz-race', photoTall && hasMeta && 'week-photo-layout--tall-meta', photoTall && !hasMeta && 'week-photo-layout--tall', hasMeta && !photoTall && 'week-photo-layout--compact'].filter(Boolean).join(' ');
                 const guideEmbed = embedGuide
-                    ? `<div class="week-guide-embed${embedGuideVariant ? ` week-guide-embed--${embedGuideVariant}` : ''}"><div class="week-guide-embed__scaler"><iframe src="${embedGuide}" title="멀티에이전트 실습 가이드" class="week-guide-iframe embed-scroll-iframe"></iframe></div></div>`
+                    ? `<div class="week-guide-embed${embedGuideVariant ? ` week-guide-embed--${embedGuideVariant}` : ''}"><div class="week-guide-embed__scaler"><iframe src="${embedGuide}" title="${embedGuideTitle || '실습 가이드'}" class="week-guide-iframe embed-scroll-iframe"></iframe></div></div>`
                     : '';
                 const subs = embedGuide
                     ? guideEmbed
@@ -770,6 +774,9 @@
             },
             { week: '5월 4주차', title: 'AI PUG 개발 컨벤션 가이드 교육', topics: ['코딩 컨벤션', '개발 가이드', '협업 규칙', 'PoC 품질'],
                 mainImage: { src: 'assets/22-dev-convention/main-session.png', caption: '개발 컨벤션 가이드 교육 세션' },
+                embedGuide: 'assets/22-dev-convention/pug.html',
+                embedGuideVariant: 'convention',
+                embedGuideTitle: 'AI PUG Dev Convention Guide',
                 photoTall: true
             },
             { week: '6월 2주차', title: 'Outlook·Teams API 서비스 소개, Full-Stack Live Coding', topics: ['Outlook API', 'Teams API', 'Full-Stack Live Coding', '실무 연동'],
@@ -2092,13 +2099,19 @@
 
         const EMBED_SCROLL_SELECTOR = '.embed-scroll-iframe';
         const EMBED_SCROLL_SPEED = 220;
-        const EMBED_SCROLL_START_PAUSE_MS = 180;
+        const EMBED_SCROLL_START_PAUSE_MS = 80;
+        const EMBED_SCROLL_SETTLE_MS = 320;
+        const EMBED_SCROLL_STEP_PX = 240;
+        const EMBED_SCROLL_STEP_PAUSE_MS = 480;
         const EMBED_SCROLL_TURN_PAUSE_MS = 650;
-        const EMBED_SCROLL_RETRY_MS = 80;
+        const EMBED_SCROLL_READY_TIMEOUT_MS = 4000;
         let embedScrollRaf = null;
         let embedScrollState = null;
-        let embedScrollRetryTimer = null;
+        let embedScrollStartTimer = null;
+        let embedScrollReadyTimer = null;
         let activeEmbedIframe = null;
+        let embedScrollMode = null;
+        let embedScrollMessageHandler = null;
 
         function getEmbedScrollContainer(iframe) {
             return iframe.closest('.week-guide-embed__scaler, .design-guide-scaler, .notion-embed-wrap') || iframe.parentElement;
@@ -2112,23 +2125,17 @@
                     action,
                     speed: EMBED_SCROLL_SPEED,
                     pause: EMBED_SCROLL_TURN_PAUSE_MS,
-                    startPause: EMBED_SCROLL_START_PAUSE_MS
+                    startPause: EMBED_SCROLL_START_PAUSE_MS,
+                    stepPx: EMBED_SCROLL_STEP_PX,
+                    stepPause: EMBED_SCROLL_STEP_PAUSE_MS
                 }, '*');
             } catch (_) {}
         }
 
-        function prepareEmbedIframe(iframe) {
+        function layoutEmbedFromReport(iframe, contentHeight) {
+            if (!contentHeight || contentHeight < 80) return null;
             try {
-                const doc = iframe.contentWindow?.document;
-                if (!doc?.body) return null;
-                const contentH = Math.max(
-                    doc.body.scrollHeight,
-                    doc.documentElement.scrollHeight,
-                    doc.body.offsetHeight,
-                    doc.documentElement.offsetHeight
-                );
-                if (contentH < 80) return null;
-                iframe.style.height = `${Math.ceil(contentH)}px`;
+                iframe.style.height = `${Math.ceil(contentHeight)}px`;
                 iframe.style.width = '100%';
                 iframe.style.display = 'block';
                 const container = getEmbedScrollContainer(iframe);
@@ -2145,9 +2152,6 @@
 
         function setEmbedScrollPosition(prep, pos) {
             prep.container.scrollTop = pos;
-            try {
-                prep.iframe.contentWindow?.scrollTo(0, pos);
-            } catch (_) {}
         }
 
         function stopParentEmbedScrollLoop() {
@@ -2156,64 +2160,108 @@
                 embedScrollRaf = null;
             }
             embedScrollState = null;
+            if (embedScrollMode === 'parent') embedScrollMode = null;
+        }
+
+        function detachEmbedScrollListener() {
+            if (embedScrollMessageHandler) {
+                window.removeEventListener('message', embedScrollMessageHandler);
+                embedScrollMessageHandler = null;
+            }
         }
 
         function stopEmbedAutoScroll() {
-            if (embedScrollRetryTimer) {
-                clearTimeout(embedScrollRetryTimer);
-                embedScrollRetryTimer = null;
+            if (embedScrollStartTimer) {
+                clearTimeout(embedScrollStartTimer);
+                embedScrollStartTimer = null;
             }
+            if (embedScrollReadyTimer) {
+                clearTimeout(embedScrollReadyTimer);
+                embedScrollReadyTimer = null;
+            }
+            detachEmbedScrollListener();
             stopParentEmbedScrollLoop();
             if (activeEmbedIframe) {
                 postEmbedScrollMessage(activeEmbedIframe, 'stop');
                 activeEmbedIframe = null;
             }
+            embedScrollMode = null;
         }
 
-        function startParentEmbedScroll(iframe) {
+        function startIframeEmbedScroll(iframe) {
+            activeEmbedIframe = iframe;
+            embedScrollMode = 'iframe';
+            postEmbedScrollMessage(iframe, 'start');
+            return true;
+        }
+
+        function nextEmbedStepTarget(pos, maxScroll, stepPx) {
+            return Math.min(maxScroll, pos + stepPx);
+        }
+
+        function runEmbedStepScrollTick(s, ts, maxScroll, applyPos) {
+            if (ts < s.pauseUntil) return;
+
+            if (s.resetPending) {
+                s.resetPending = false;
+                s.pos = 0;
+                applyPos(0);
+                s.stepTarget = Math.min(s.stepPx, maxScroll);
+                s.lastTs = ts;
+                return;
+            }
+
+            const dt = Math.min(ts - s.lastTs, 48) / 1000;
+            s.lastTs = ts;
+            s.pos += EMBED_SCROLL_SPEED * dt;
+
+            if (s.pos < s.stepTarget) {
+                applyPos(s.pos);
+                return;
+            }
+
+            s.pos = Math.min(s.pos, s.stepTarget);
+            applyPos(s.pos);
+
+            if (s.pos >= maxScroll - 0.5) {
+                s.pos = maxScroll;
+                applyPos(s.pos);
+                s.resetPending = true;
+                s.pauseUntil = ts + EMBED_SCROLL_TURN_PAUSE_MS;
+            } else {
+                s.stepTarget = nextEmbedStepTarget(s.pos, maxScroll, s.stepPx);
+                s.pauseUntil = ts + s.stepPause;
+            }
+        }
+
+        function startParentEmbedScroll(iframe, contentHeight) {
             stopParentEmbedScrollLoop();
-            const prep = prepareEmbedIframe(iframe);
+            const prep = layoutEmbedFromReport(iframe, contentHeight);
             if (!prep) return false;
 
-            setEmbedScrollPosition(prep, 0);
+            prep.container.scrollTop = 0;
             activeEmbedIframe = iframe;
+            embedScrollMode = 'parent';
+
             embedScrollState = {
                 prep,
                 pos: 0,
-                dir: 1,
+                resetPending: false,
+                stepPx: EMBED_SCROLL_STEP_PX,
+                stepPause: EMBED_SCROLL_STEP_PAUSE_MS,
+                stepTarget: Math.min(EMBED_SCROLL_STEP_PX, prep.maxScroll),
                 pauseUntil: performance.now() + EMBED_SCROLL_START_PAUSE_MS,
                 lastTs: performance.now()
             };
 
             const tick = (ts) => {
                 const s = embedScrollState;
-                if (!s || s.prep.iframe !== iframe) return;
+                if (!s || s.prep.iframe !== iframe || embedScrollMode !== 'parent') return;
 
-                const refreshed = prepareEmbedIframe(iframe);
-                if (refreshed) {
-                    s.prep = refreshed;
-                }
+                s.prep.maxScroll = Math.max(0, s.prep.container.scrollHeight - s.prep.container.clientHeight);
+                if (s.prep.maxScroll < 16) return;
 
-                if (ts < s.pauseUntil) {
-                    embedScrollRaf = requestAnimationFrame(tick);
-                    return;
-                }
-
-                const dt = Math.min(ts - s.lastTs, 48) / 1000;
-                s.lastTs = ts;
-                s.pos += s.dir * EMBED_SCROLL_SPEED * dt;
-
-                if (s.pos >= s.prep.maxScroll) {
-                    s.pos = s.prep.maxScroll;
-                    s.dir = -1;
-                    s.pauseUntil = ts + EMBED_SCROLL_TURN_PAUSE_MS;
-                } else if (s.pos <= 0) {
-                    s.pos = 0;
-                    s.dir = 1;
-                    s.pauseUntil = ts + EMBED_SCROLL_TURN_PAUSE_MS;
-                }
-
-                setEmbedScrollPosition(s.prep, s.pos);
+                runEmbedStepScrollTick(s, ts, s.prep.maxScroll, (pos) => setEmbedScrollPosition(s.prep, pos));
                 embedScrollRaf = requestAnimationFrame(tick);
             };
 
@@ -2221,33 +2269,10 @@
             return true;
         }
 
-        function scheduleEmbedAutoScroll(iframe, attempt = 0) {
-            if (!iframe || !slides[current]?.contains(iframe)) return;
-
-            if (startParentEmbedScroll(iframe)) {
-                activeEmbedIframe = iframe;
-                return;
-            }
-
-            postEmbedScrollMessage(iframe, 'start');
-
-            try {
-                if (iframe.contentWindow?.__pugEmbedScroll?.start?.(
-                    EMBED_SCROLL_SPEED,
-                    EMBED_SCROLL_TURN_PAUSE_MS,
-                    EMBED_SCROLL_START_PAUSE_MS
-                )) {
-                    activeEmbedIframe = iframe;
-                    return;
-                }
-            } catch (_) {}
-
-            if (attempt < 80) {
-                embedScrollRetryTimer = setTimeout(
-                    () => scheduleEmbedAutoScroll(iframe, attempt + 1),
-                    attempt === 0 ? 0 : EMBED_SCROLL_RETRY_MS
-                );
-            }
+        function beginEmbedAutoScroll(iframe, contentHeight) {
+            if (!slides[current]?.contains(iframe)) return false;
+            if (startParentEmbedScroll(iframe, contentHeight)) return true;
+            return startIframeEmbedScroll(iframe);
         }
 
         function initEmbedAutoScroll() {
@@ -2255,15 +2280,44 @@
             if (!iframe) return;
 
             stopEmbedAutoScroll();
-            activeEmbedIframe = iframe;
 
-            const arm = () => scheduleEmbedAutoScroll(iframe, 0);
+            let started = false;
+            const startOnce = (contentHeight) => {
+                if (started || !slides[current]?.contains(iframe)) return;
+                started = true;
+                if (embedScrollReadyTimer) {
+                    clearTimeout(embedScrollReadyTimer);
+                    embedScrollReadyTimer = null;
+                }
+                embedScrollStartTimer = setTimeout(() => {
+                    embedScrollStartTimer = null;
+                    beginEmbedAutoScroll(iframe, contentHeight);
+                }, EMBED_SCROLL_SETTLE_MS);
+            };
+
+            embedScrollMessageHandler = (e) => {
+                const d = e.data;
+                if (!d || d.type !== 'pug-embed-scroll' || d.action !== 'ready') return;
+                if (e.source !== iframe.contentWindow) return;
+                startOnce(d.contentHeight);
+            };
+            window.addEventListener('message', embedScrollMessageHandler);
+
+            const requestReady = () => postEmbedScrollMessage(iframe, 'request-ready');
 
             if (iframe.dataset.embedScrollBound !== '1') {
                 iframe.dataset.embedScrollBound = '1';
-                iframe.addEventListener('load', arm);
+                iframe.addEventListener('load', requestReady);
             }
-            arm();
+
+            requestReady();
+
+            embedScrollReadyTimer = setTimeout(() => {
+                embedScrollReadyTimer = null;
+                if (!started && slides[current]?.contains(iframe)) {
+                    startOnce(null);
+                }
+            }, EMBED_SCROLL_READY_TIMEOUT_MS);
         }
 
         function render() {

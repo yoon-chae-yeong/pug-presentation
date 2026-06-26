@@ -1,0 +1,394 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI PUG 개발 컨벤션 가이드</title>
+  <meta name="description" content="AI Power User Group (AI PUG) 구성원을 위한 쉽고 직관적인 개발 업무 컨벤션 가이드 웹 페이지입니다." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+KR:wght@300;400;500;700&family=Outfit:wght@500;700;800&display=swap" rel="stylesheet">
+  <style>
+/*! tailwindcss v4.3.0 | MIT License | https://tailwindcss.com */
+@layer properties{@supports (((-webkit-hyphens:none)) and (not (margin-trim:inline))) or ((-moz-orient:inline) and (not (color:rgb(from red r g b)))){*,:before,:after,::backdrop{--tw-rotate-x:initial;--tw-rotate-y:initial;--tw-rotate-z:initial;--tw-skew-x:initial;--tw-skew-y:initial;--tw-border-style:solid;--tw-gradient-position:initial;--tw-gradient-from:#0000;--tw-gradient-via:#0000;--tw-gradient-to:#0000;--tw-gradient-stops:initial;--tw-gradient-via-stops:initial;--tw-gradient-from-position:0%;--tw-gradient-via-position:50%;--tw-gradient-to-position:100%;--tw-leading:initial;--tw-font-weight:initial;--tw-tracking:initial;--tw-shadow:0 0 #0000;--tw-shadow-color:initial;--tw-shadow-alpha:100%;--tw-inset-shadow:0 0 #0000;--tw-inset-shadow-color:initial;--tw-inset-shadow-alpha:100%;--tw-ring-color:initial;--tw-ring-shadow:0 0 #0000;--tw-inset-ring-color:initial;--tw-inset-ring-shadow:0 0 #0000;--tw-ring-inset:initial;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-offset-shadow:0 0 #0000;--tw-backdrop-blur:initial;--tw-backdrop-brightness:initial;--tw-backdrop-contrast:initial;--tw-backdrop-grayscale:initial;--tw-backdrop-hue-rotate:initial;--tw-backdrop-invert:initial;--tw-backdrop-opacity:initial;--tw-backdrop-saturate:initial;--tw-backdrop-sepia:initial;--tw-duration:initial;--tw-ease:initial;--tw-content:"";--tw-translate-x:0;--tw-translate-y:0;--tw-translate-z:0;--tw-scale-x:1;--tw-scale-y:1;--tw-scale-z:1}}}@layer theme{:root,:host{--font-sans:ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";--font-mono:"JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;--color-teal-600:oklch(60% .118 184.704);--color-indigo-600:oklch(51.1% .262 276.966);--color-slate-200:oklch(92.9% .013 255.508);--color-slate-800:oklch(27.9% .041 260.031);--color-white:#fff;--spacing:.25rem;--text-base:1rem;--text-base--line-height:calc(1.5 / 1);--text-xl:1.25rem;--text-xl--line-height:calc(1.75 / 1.25);--font-weight-medium:500;--font-weight-semibold:600;--font-weight-bold:700;--tracking-wider:.05em;--leading-normal:1.5;--radius-md:.375rem;--radius-lg:.5rem;--radius-xl:.75rem;--radius-2xl:1rem;--ease-in-out:cubic-bezier(.4, 0, .2, 1);--blur-sm:8px;--blur-md:12px;--default-transition-duration:.15s;--default-transition-timing-function:cubic-bezier(.4, 0, .2, 1);--default-font-family:var(--font-sans);--default-mono-font-family:var(--font-mono);--color-charcoal:#1e293b;--color-orange-brand:#ea580c;--color-orange-hover:#c2410c;--color-teal-brand:#0d9488;--color-bg-primary:#f8fafc;--color-bg-glow-orange:#ffedd5;--color-bg-glow-slate:#e2e8f0;--color-text-primary:#0f172a;--color-text-secondary:#475569;--color-card-bg:#ffffffc7;--color-card-border:#e2e8f0cc;--font-heading:"Outfit", "Noto Sans KR", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;--font-body:"Inter", "Noto Sans KR", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;--animate-fade-in-down:fadeInDown .8s cubic-bezier(.16, 1, .3, 1) forwards;--animate-fade-in-up:fadeInUp .6s cubic-bezier(.16, 1, .3, 1) .1s both;--animate-fade-in-scale:fadeInScale .5s cubic-bezier(.16, 1, .3, 1) forwards}}@layer base{*,:after,:before,::backdrop{box-sizing:border-box;border:0 solid;margin:0;padding:0}::file-selector-button{box-sizing:border-box;border:0 solid;margin:0;padding:0}html,:host{-webkit-text-size-adjust:100%;tab-size:4;line-height:1.5;font-family:var(--default-font-family,ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji");font-feature-settings:var(--default-font-feature-settings,normal);font-variation-settings:var(--default-font-variation-settings,normal);-webkit-tap-highlight-color:transparent}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;-webkit-text-decoration:inherit;-webkit-text-decoration:inherit;-webkit-text-decoration:inherit;-webkit-text-decoration:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,samp,pre{font-family:var(--default-mono-font-family,ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace);font-feature-settings:var(--default-mono-font-feature-settings,normal);font-variation-settings:var(--default-mono-font-variation-settings,normal);font-size:1em}small{font-size:80%}sub,sup{vertical-align:baseline;font-size:75%;line-height:0;position:relative}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}:-moz-focusring{outline:auto}progress{vertical-align:baseline}summary{display:list-item}ol,ul,menu{list-style:none}img,svg,video,canvas,audio,iframe,embed,object{vertical-align:middle;display:block}img,video{max-width:100%;height:auto}button,input,select,optgroup,textarea{font:inherit;font-feature-settings:inherit;font-variation-settings:inherit;letter-spacing:inherit;color:inherit;opacity:1;background-color:#0000;border-radius:0}::file-selector-button{font:inherit;font-feature-settings:inherit;font-variation-settings:inherit;letter-spacing:inherit;color:inherit;opacity:1;background-color:#0000;border-radius:0}:where(select:is([multiple],[size])) optgroup{font-weight:bolder}:where(select:is([multiple],[size])) optgroup option{padding-inline-start:20px}::file-selector-button{margin-inline-end:4px}::placeholder{opacity:1}@supports (not ((-webkit-appearance:-apple-pay-button))) or (contain-intrinsic-size:1px){::placeholder{color:currentColor}@supports (color:color-mix(in lab, red, red)){::placeholder{color:color-mix(in oklab, currentcolor 50%, transparent)}}}textarea{resize:vertical}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-date-and-time-value{min-height:1lh;text-align:inherit}::-webkit-datetime-edit{display:inline-flex}::-webkit-datetime-edit-fields-wrapper{padding:0}::-webkit-datetime-edit{padding-block:0}::-webkit-datetime-edit-year-field{padding-block:0}::-webkit-datetime-edit-month-field{padding-block:0}::-webkit-datetime-edit-day-field{padding-block:0}::-webkit-datetime-edit-hour-field{padding-block:0}::-webkit-datetime-edit-minute-field{padding-block:0}::-webkit-datetime-edit-second-field{padding-block:0}::-webkit-datetime-edit-millisecond-field{padding-block:0}::-webkit-datetime-edit-meridiem-field{padding-block:0}::-webkit-calendar-picker-indicator{line-height:1}:-moz-ui-invalid{box-shadow:none}button,input:where([type=button],[type=reset],[type=submit]){appearance:button}::file-selector-button{appearance:button}::-webkit-inner-spin-button{height:auto}::-webkit-outer-spin-button{height:auto}[hidden]:where(:not([hidden=until-found])){display:none!important}}@layer components;@layer utilities{.relative{position:relative}.z-10{z-index:10}.mx-auto{margin-inline:auto}.mt-3{margin-top:calc(var(--spacing) * 3)}.mt-6{margin-top:calc(var(--spacing) * 6)}.mt-\[60px\]{margin-top:60px}.mb-2{margin-bottom:calc(var(--spacing) * 2)}.mb-3{margin-bottom:calc(var(--spacing) * 3)}.mb-4{margin-bottom:calc(var(--spacing) * 4)}.mb-6{margin-bottom:calc(var(--spacing) * 6)}.mb-7{margin-bottom:calc(var(--spacing) * 7)}.mb-8{margin-bottom:calc(var(--spacing) * 8)}.mb-12{margin-bottom:calc(var(--spacing) * 12)}.mb-\[60px\]{margin-bottom:60px}.ml-0{margin-left:calc(var(--spacing) * 0)}.ml-5{margin-left:calc(var(--spacing) * 5)}.ml-10{margin-left:calc(var(--spacing) * 10)}.ml-auto{margin-left:auto}.flex{display:flex}.grid{display:grid}.inline-block{display:inline-block}.inline-flex{display:inline-flex}.h-4{height:calc(var(--spacing) * 4)}.h-5{height:calc(var(--spacing) * 5)}.h-9{height:calc(var(--spacing) * 9)}.h-10{height:calc(var(--spacing) * 10)}.w-4{width:calc(var(--spacing) * 4)}.w-5{width:calc(var(--spacing) * 5)}.w-9{width:calc(var(--spacing) * 9)}.w-10{width:calc(var(--spacing) * 10)}.w-full{width:100%}.max-w-\[600px\]{max-width:600px}.max-w-\[800px\]{max-width:800px}.max-w-\[1200px\]{max-width:1200px}.shrink-0{flex-shrink:0}.transform{transform:var(--tw-rotate-x,) var(--tw-rotate-y,) var(--tw-rotate-z,) var(--tw-skew-x,) var(--tw-skew-y,)}.animate-fade-in-down{animation:var(--animate-fade-in-down)}.animate-fade-in-scale{animation:var(--animate-fade-in-scale)}.animate-fade-in-up{animation:var(--animate-fade-in-up)}.cursor-pointer{cursor:pointer}.grid-cols-1{grid-template-columns:repeat(1,minmax(0,1fr))}.grid-cols-\[repeat\(auto-fill\,minmax\(140px\,1fr\)\)\]{grid-template-columns:repeat(auto-fill,minmax(140px,1fr))}.grid-cols-\[repeat\(auto-fit\,minmax\(220px\,1fr\)\)\]{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}.grid-cols-\[repeat\(auto-fit\,minmax\(320px\,1fr\)\)\]{grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}.flex-col{flex-direction:column}.flex-wrap{flex-wrap:wrap}.items-center{align-items:center}.items-stretch{align-items:stretch}.justify-between{justify-content:space-between}.justify-center{justify-content:center}.gap-0\.5{gap:calc(var(--spacing) * .5)}.gap-1{gap:calc(var(--spacing) * 1)}.gap-2{gap:calc(var(--spacing) * 2)}.gap-2\.5{gap:calc(var(--spacing) * 2.5)}.gap-3{gap:calc(var(--spacing) * 3)}.gap-4{gap:calc(var(--spacing) * 4)}.gap-5{gap:calc(var(--spacing) * 5)}.gap-6{gap:calc(var(--spacing) * 6)}.gap-7{gap:calc(var(--spacing) * 7)}.self-start{align-self:flex-start}.overflow-x-auto{overflow-x:auto}.rounded{border-radius:.25rem}.rounded-2xl{border-radius:var(--radius-2xl)}.rounded-\[10px\]{border-radius:10px}.rounded-\[20px\]{border-radius:20px}.rounded-\[24px\]{border-radius:24px}.rounded-full{border-radius:3.40282e38px}.rounded-lg{border-radius:var(--radius-lg)}.rounded-md{border-radius:var(--radius-md)}.rounded-xl{border-radius:var(--radius-xl)}.border{border-style:var(--tw-border-style);border-width:1px}.border-t{border-top-style:var(--tw-border-style);border-top-width:1px}.border-b{border-bottom-style:var(--tw-border-style);border-bottom-width:1px}.border-dashed{--tw-border-style:dashed;border-style:dashed}.border-none{--tw-border-style:none;border-style:none}.border-card-border{border-color:var(--color-card-border)}.border-orange-brand{border-color:var(--color-orange-brand)}.border-orange-brand\/20{border-color:#ea580c33}@supports (color:color-mix(in lab, red, red)){.border-orange-brand\/20{border-color:color-mix(in oklab, var(--color-orange-brand) 20%, transparent)}}.border-slate-200\/60{border-color:#e2e8f099}@supports (color:color-mix(in lab, red, red)){.border-slate-200\/60{border-color:color-mix(in oklab, var(--color-slate-200) 60%, transparent)}}.border-teal-brand{border-color:var(--color-teal-brand)}.border-teal-brand\/20{border-color:#0d948833}@supports (color:color-mix(in lab, red, red)){.border-teal-brand\/20{border-color:color-mix(in oklab, var(--color-teal-brand) 20%, transparent)}}.border-white\/10{border-color:#ffffff1a}@supports (color:color-mix(in lab, red, red)){.border-white\/10{border-color:color-mix(in oklab, var(--color-white) 10%, transparent)}}.border-white\/20{border-color:#fff3}@supports (color:color-mix(in lab, red, red)){.border-white\/20{border-color:color-mix(in oklab, var(--color-white) 20%, transparent)}}.bg-\[\#0f172a\]{background-color:#0f172a}.bg-card-bg{background-color:var(--color-card-bg)}.bg-charcoal{background-color:var(--color-charcoal)}.bg-orange-brand\/5{background-color:#ea580c0d}@supports (color:color-mix(in lab, red, red)){.bg-orange-brand\/5{background-color:color-mix(in oklab, var(--color-orange-brand) 5%, transparent)}}.bg-orange-brand\/10{background-color:#ea580c1a}@supports (color:color-mix(in lab, red, red)){.bg-orange-brand\/10{background-color:color-mix(in oklab, var(--color-orange-brand) 10%, transparent)}}.bg-orange-brand\/\[0\.03\]{background-color:#ea580c08}@supports (color:color-mix(in lab, red, red)){.bg-orange-brand\/\[0\.03\]{background-color:color-mix(in oklab, var(--color-orange-brand) 3%, transparent)}}.bg-orange-brand\/\[0\.05\]{background-color:#ea580c0d}@supports (color:color-mix(in lab, red, red)){.bg-orange-brand\/\[0\.05\]{background-color:color-mix(in oklab, var(--color-orange-brand) 5%, transparent)}}.bg-slate-200\/40{background-color:#e2e8f066}@supports (color:color-mix(in lab, red, red)){.bg-slate-200\/40{background-color:color-mix(in oklab, var(--color-slate-200) 40%, transparent)}}.bg-slate-200\/60{background-color:#e2e8f099}@supports (color:color-mix(in lab, red, red)){.bg-slate-200\/60{background-color:color-mix(in oklab, var(--color-slate-200) 60%, transparent)}}.bg-slate-800\/8{background-color:#1d293d14}@supports (color:color-mix(in lab, red, red)){.bg-slate-800\/8{background-color:color-mix(in oklab, var(--color-slate-800) 8%, transparent)}}.bg-teal-brand{background-color:var(--color-teal-brand)}.bg-teal-brand\/10{background-color:#0d94881a}@supports (color:color-mix(in lab, red, red)){.bg-teal-brand\/10{background-color:color-mix(in oklab, var(--color-teal-brand) 10%, transparent)}}.bg-teal-brand\/\[0\.03\]{background-color:#0d948808}@supports (color:color-mix(in lab, red, red)){.bg-teal-brand\/\[0\.03\]{background-color:color-mix(in oklab, var(--color-teal-brand) 3%, transparent)}}.bg-transparent{background-color:#0000}.bg-white{background-color:var(--color-white)}.bg-white\/10{background-color:#ffffff1a}@supports (color:color-mix(in lab, red, red)){.bg-white\/10{background-color:color-mix(in oklab, var(--color-white) 10%, transparent)}}.bg-white\/50{background-color:#ffffff80}@supports (color:color-mix(in lab, red, red)){.bg-white\/50{background-color:color-mix(in oklab, var(--color-white) 50%, transparent)}}.bg-white\/60{background-color:#fff9}@supports (color:color-mix(in lab, red, red)){.bg-white\/60{background-color:color-mix(in oklab, var(--color-white) 60%, transparent)}}.bg-white\/80{background-color:#fffc}@supports (color:color-mix(in lab, red, red)){.bg-white\/80{background-color:color-mix(in oklab, var(--color-white) 80%, transparent)}}.bg-gradient-to-br{--tw-gradient-position:to bottom right in oklab;background-image:linear-gradient(var(--tw-gradient-stops))}.from-charcoal{--tw-gradient-from:var(--color-charcoal);--tw-gradient-stops:var(--tw-gradient-via-stops,var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-to) var(--tw-gradient-to-position))}.to-orange-brand{--tw-gradient-to:var(--color-orange-brand);--tw-gradient-stops:var(--tw-gradient-via-stops,var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-to) var(--tw-gradient-to-position))}.bg-clip-text{-webkit-background-clip:text;background-clip:text}.p-0{padding:calc(var(--spacing) * 0)}.p-1\.5{padding:calc(var(--spacing) * 1.5)}.p-3{padding:calc(var(--spacing) * 3)}.p-4{padding:calc(var(--spacing) * 4)}.p-5{padding:calc(var(--spacing) * 5)}.p-6{padding:calc(var(--spacing) * 6)}.p-7{padding:calc(var(--spacing) * 7)}.p-9{padding:calc(var(--spacing) * 9)}.p-\[18px\]{padding:18px}.px-1\.5{padding-inline:calc(var(--spacing) * 1.5)}.px-3{padding-inline:calc(var(--spacing) * 3)}.px-4{padding-inline:calc(var(--spacing) * 4)}.px-4\.5{padding-inline:calc(var(--spacing) * 4.5)}.px-6{padding-inline:calc(var(--spacing) * 6)}.py-0\.5{padding-block:calc(var(--spacing) * .5)}.py-1{padding-block:calc(var(--spacing) * 1)}.py-1\.5{padding-block:calc(var(--spacing) * 1.5)}.py-2{padding-block:calc(var(--spacing) * 2)}.py-3{padding-block:calc(var(--spacing) * 3)}.py-3\.5{padding-block:calc(var(--spacing) * 3.5)}.py-\[3px\]{padding-block:3px}.pt-10{padding-top:calc(var(--spacing) * 10)}.pr-0{padding-right:calc(var(--spacing) * 0)}.pb-3{padding-bottom:calc(var(--spacing) * 3)}.pb-20{padding-bottom:calc(var(--spacing) * 20)}.text-center{text-align:center}.text-left{text-align:left}.font-body{font-family:var(--font-body)}.font-heading{font-family:var(--font-heading)}.font-mono{font-family:var(--font-mono)}.text-base{font-size:var(--text-base);line-height:var(--tw-leading,var(--text-base--line-height))}.text-xl{font-size:var(--text-xl);line-height:var(--tw-leading,var(--text-xl--line-height))}.text-\[0\.9em\]{font-size:.9em}.text-\[0\.9rem\]{font-size:.9rem}.text-\[0\.78rem\]{font-size:.78rem}.text-\[0\.85rem\]{font-size:.85rem}.text-\[0\.95rem\]{font-size:.95rem}.text-\[1\.1rem\]{font-size:1.1rem}.text-\[1\.2rem\]{font-size:1.2rem}.text-\[1\.3rem\]{font-size:1.3rem}.text-\[1\.8rem\]{font-size:1.8rem}.text-\[1\.15rem\]{font-size:1.15rem}.text-\[2rem\]{font-size:2rem}.text-\[3\.5rem\]{font-size:3.5rem}.leading-\[1\.2\]{--tw-leading:1.2;line-height:1.2}.leading-\[1\.6\]{--tw-leading:1.6;line-height:1.6}.leading-\[1\.7\]{--tw-leading:1.7;line-height:1.7}.leading-normal{--tw-leading:var(--leading-normal);line-height:var(--leading-normal)}.font-bold{--tw-font-weight:var(--font-weight-bold);font-weight:var(--font-weight-bold)}.font-medium{--tw-font-weight:var(--font-weight-medium);font-weight:var(--font-weight-medium)}.font-semibold{--tw-font-weight:var(--font-weight-semibold);font-weight:var(--font-weight-semibold)}.tracking-\[-0\.03em\]{--tw-tracking:-.03em;letter-spacing:-.03em}.tracking-wider{--tw-tracking:var(--tracking-wider);letter-spacing:var(--tracking-wider)}.break-all{word-break:break-all}.whitespace-pre-wrap{white-space:pre-wrap}.text-\[\#4ade80\]{color:#4ade80}.text-\[\#38bdf8\]{color:#38bdf8}.text-\[\#94a3b8\]{color:#94a3b8}.text-\[\#64748b\]{color:#64748b}.text-\[\#cbd5e1\]{color:#cbd5e1}.text-\[\#f8fafc\]{color:#f8fafc}.text-\[\#f59e0b\]{color:#f59e0b}.text-charcoal{color:var(--color-charcoal)}.text-indigo-600{color:var(--color-indigo-600)}.text-orange-brand{color:var(--color-orange-brand)}.text-teal-600{color:var(--color-teal-600)}.text-teal-brand{color:var(--color-teal-brand)}.text-text-primary{color:var(--color-text-primary)}.text-text-secondary{color:var(--color-text-secondary)}.text-transparent{color:#0000}.uppercase{text-transform:uppercase}.shadow-\[0_0_0_1px_\#ea580c\]{--tw-shadow:0 0 0 1px var(--tw-shadow-color,#ea580c);box-shadow:var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow)}.shadow-\[inset_0_2px_8px_rgba\(0\,0\,0\,0\.3\)\]{--tw-shadow:inset 0 2px 8px var(--tw-shadow-color,#0000004d);box-shadow:var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow)}.shadow-md{--tw-shadow:0 10px 30px -10px var(--tw-shadow-color,#0000000a), 0 1px 3px 0 var(--tw-shadow-color,#00000005);box-shadow:var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow)}.shadow-sm{--tw-shadow:0 4px 6px -1px var(--tw-shadow-color,#0000000d), 0 2px 4px -1px var(--tw-shadow-color,#00000008);box-shadow:var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow)}.backdrop-blur-md{--tw-backdrop-blur:blur(var(--blur-md));-webkit-backdrop-filter:var(--tw-backdrop-blur,) var(--tw-backdrop-brightness,) var(--tw-backdrop-contrast,) var(--tw-backdrop-grayscale,) var(--tw-backdrop-hue-rotate,) var(--tw-backdrop-invert,) var(--tw-backdrop-opacity,) var(--tw-backdrop-saturate,) var(--tw-backdrop-sepia,);backdrop-filter:var(--tw-backdrop-blur,) var(--tw-backdrop-brightness,) var(--tw-backdrop-contrast,) var(--tw-backdrop-grayscale,) var(--tw-backdrop-hue-rotate,) var(--tw-backdrop-invert,) var(--tw-backdrop-opacity,) var(--tw-backdrop-saturate,) var(--tw-backdrop-sepia,)}.backdrop-blur-sm{--tw-backdrop-blur:blur(var(--blur-sm));-webkit-backdrop-filter:var(--tw-backdrop-blur,) var(--tw-backdrop-brightness,) var(--tw-backdrop-contrast,) var(--tw-backdrop-grayscale,) var(--tw-backdrop-hue-rotate,) var(--tw-backdrop-invert,) var(--tw-backdrop-opacity,) var(--tw-backdrop-saturate,) var(--tw-backdrop-sepia,);backdrop-filter:var(--tw-backdrop-blur,) var(--tw-backdrop-brightness,) var(--tw-backdrop-contrast,) var(--tw-backdrop-grayscale,) var(--tw-backdrop-hue-rotate,) var(--tw-backdrop-invert,) var(--tw-backdrop-opacity,) var(--tw-backdrop-saturate,) var(--tw-backdrop-sepia,)}.backdrop-filter{-webkit-backdrop-filter:var(--tw-backdrop-blur,) var(--tw-backdrop-brightness,) var(--tw-backdrop-contrast,) var(--tw-backdrop-grayscale,) var(--tw-backdrop-hue-rotate,) var(--tw-backdrop-invert,) var(--tw-backdrop-opacity,) var(--tw-backdrop-saturate,) var(--tw-backdrop-sepia,);backdrop-filter:var(--tw-backdrop-blur,) var(--tw-backdrop-brightness,) var(--tw-backdrop-contrast,) var(--tw-backdrop-grayscale,) var(--tw-backdrop-hue-rotate,) var(--tw-backdrop-invert,) var(--tw-backdrop-opacity,) var(--tw-backdrop-saturate,) var(--tw-backdrop-sepia,)}.transition{transition-property:color,background-color,border-color,outline-color,text-decoration-color,fill,stroke,--tw-gradient-from,--tw-gradient-via,--tw-gradient-to,opacity,box-shadow,transform,translate,scale,rotate,filter,-webkit-backdrop-filter,backdrop-filter,display,content-visibility,overlay,pointer-events;transition-timing-function:var(--tw-ease,var(--default-transition-timing-function));transition-duration:var(--tw-duration,var(--default-transition-duration))}.transition-all{transition-property:all;transition-timing-function:var(--tw-ease,var(--default-transition-timing-function));transition-duration:var(--tw-duration,var(--default-transition-duration))}.transition-transform{transition-property:transform,translate,scale,rotate;transition-timing-function:var(--tw-ease,var(--default-transition-timing-function));transition-duration:var(--tw-duration,var(--default-transition-duration))}.duration-200{--tw-duration:.2s;transition-duration:.2s}.duration-250{--tw-duration:.25s;transition-duration:.25s}.duration-300{--tw-duration:.3s;transition-duration:.3s}.ease-\[cubic-bezier\(0\.16\,1\,0\.3\,1\)\]{--tw-ease:cubic-bezier(.16,1,.3,1);transition-timing-function:cubic-bezier(.16,1,.3,1)}.ease-in-out{--tw-ease:var(--ease-in-out);transition-timing-function:var(--ease-in-out)}.before\:absolute:before{content:var(--tw-content);position:absolute}.before\:top-0:before{content:var(--tw-content);top:calc(var(--spacing) * 0)}.before\:bottom-\[10px\]:before{content:var(--tw-content);bottom:10px}.before\:left-\[-12px\]:before{content:var(--tw-content);left:-12px}.before\:hidden:before{content:var(--tw-content);display:none}.before\:w-\[1px\]:before{content:var(--tw-content);width:1px}.before\:border-l:before{content:var(--tw-content);border-left-style:var(--tw-border-style);border-left-width:1px}.before\:border-dashed:before{content:var(--tw-content);--tw-border-style:dashed;border-style:dashed}.before\:border-white\/20:before{content:var(--tw-content);border-color:#fff3}@supports (color:color-mix(in lab, red, red)){.before\:border-white\/20:before{border-color:color-mix(in oklab, var(--color-white) 20%, transparent)}}.after\:absolute:after{content:var(--tw-content);position:absolute}.after\:top-\[10px\]:after{content:var(--tw-content);top:10px}.after\:left-\[-12px\]:after{content:var(--tw-content);left:-12px}.after\:hidden:after{content:var(--tw-content);display:none}.after\:w-2:after{content:var(--tw-content);width:calc(var(--spacing) * 2)}.after\:border-t:after{content:var(--tw-content);border-top-style:var(--tw-border-style);border-top-width:1px}.after\:border-dashed:after{content:var(--tw-content);--tw-border-style:dashed;border-style:dashed}.after\:border-white\/20:after{content:var(--tw-content);border-color:#fff3}@supports (color:color-mix(in lab, red, red)){.after\:border-white\/20:after{border-color:color-mix(in oklab, var(--color-white) 20%, transparent)}}@media (hover:hover){.hover\:-translate-y-0\.5:hover{--tw-translate-y:calc(var(--spacing) * -.5);translate:var(--tw-translate-x) var(--tw-translate-y)}.hover\:-translate-y-1:hover{--tw-translate-y:calc(var(--spacing) * -1);translate:var(--tw-translate-x) var(--tw-translate-y)}.hover\:scale-105:hover{--tw-scale-x:105%;--tw-scale-y:105%;--tw-scale-z:105%;scale:var(--tw-scale-x) var(--tw-scale-y)}.hover\:rotate-5:hover{rotate:5deg}.hover\:border-orange-brand:hover{border-color:var(--color-orange-brand)}.hover\:border-orange-brand\/20:hover{border-color:#ea580c33}@supports (color:color-mix(in lab, red, red)){.hover\:border-orange-brand\/20:hover{border-color:color-mix(in oklab, var(--color-orange-brand) 20%, transparent)}}.hover\:bg-orange-brand\/\[0\.02\]:hover{background-color:#ea580c05}@supports (color:color-mix(in lab, red, red)){.hover\:bg-orange-brand\/\[0\.02\]:hover{background-color:color-mix(in oklab, var(--color-orange-brand) 2%, transparent)}}.hover\:bg-white\/20:hover{background-color:#fff3}@supports (color:color-mix(in lab, red, red)){.hover\:bg-white\/20:hover{background-color:color-mix(in oklab, var(--color-white) 20%, transparent)}}.hover\:bg-white\/50:hover{background-color:#ffffff80}@supports (color:color-mix(in lab, red, red)){.hover\:bg-white\/50:hover{background-color:color-mix(in oklab, var(--color-white) 50%, transparent)}}.hover\:text-text-primary:hover{color:var(--color-text-primary)}.hover\:shadow-lg:hover{--tw-shadow:0 20px 40px -15px var(--tw-shadow-color,#ea580c14);box-shadow:var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow)}}.focus\:border-orange-brand:focus{border-color:var(--color-orange-brand)}.focus\:shadow-\[0_0_0_3px_rgba\(234\,88\,12\,0\.15\)\]:focus{--tw-shadow:0 0 0 3px var(--tw-shadow-color,#ea580c26);box-shadow:var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow)}.focus\:outline-hidden:focus{--tw-outline-style:none;outline-style:none}@media (forced-colors:active){.focus\:outline-hidden:focus{outline-offset:2px;outline:2px solid #0000}}@media (width>=48rem){.md\:grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}}@media (width>=64rem){.lg\:grid-cols-\[350px_1fr\]{grid-template-columns:350px 1fr}}}body{min-height:100vh;font-family:var(--font-body);background-color:var(--color-bg-primary);color:var(--color-text-secondary);margin:0;padding:0;position:relative;overflow-x:hidden}.bg-glow-layer{z-index:-1;pointer-events:none;position:fixed;inset:0;overflow:hidden}.glow-1{background:radial-gradient(circle, var(--color-bg-glow-orange) 0%, #ffedd500 70%);filter:blur(80px);border-radius:50%;width:50vw;height:50vw;animation:25s ease-in-out infinite alternate floatGlow1;position:absolute;top:-10%;left:-10%}.glow-2{background:radial-gradient(circle, var(--color-bg-glow-slate) 0%, #e2e8f000 70%);filter:blur(100px);border-radius:50%;width:60vw;height:60vw;animation:30s ease-in-out infinite alternate floatGlow2;position:absolute;bottom:-10%;right:-10%}@keyframes floatGlow1{0%{transform:translate(0)scale(1)}to{transform:translate(10vw,8vh)scale(1.2)}}@keyframes floatGlow2{0%{transform:translate(0)scale(1.1)}to{transform:translate(-8vw,-12vh)scale(.9)}}h1,h2,h3,h4,h5,h6{font-family:var(--font-heading);color:var(--color-text-primary);margin:0;font-weight:700}a{color:var(--color-orange-brand);text-decoration:none;transition:color .2s}a:hover{color:var(--color-orange-hover)}#root{flex-direction:column;min-height:100vh;display:flex}@property --tw-rotate-x{syntax:"*";inherits:false}@property --tw-rotate-y{syntax:"*";inherits:false}@property --tw-rotate-z{syntax:"*";inherits:false}@property --tw-skew-x{syntax:"*";inherits:false}@property --tw-skew-y{syntax:"*";inherits:false}@property --tw-border-style{syntax:"*";inherits:false;initial-value:solid}@property --tw-gradient-position{syntax:"*";inherits:false}@property --tw-gradient-from{syntax:"<color>";inherits:false;initial-value:#0000}@property --tw-gradient-via{syntax:"<color>";inherits:false;initial-value:#0000}@property --tw-gradient-to{syntax:"<color>";inherits:false;initial-value:#0000}@property --tw-gradient-stops{syntax:"*";inherits:false}@property --tw-gradient-via-stops{syntax:"*";inherits:false}@property --tw-gradient-from-position{syntax:"<length-percentage>";inherits:false;initial-value:0%}@property --tw-gradient-via-position{syntax:"<length-percentage>";inherits:false;initial-value:50%}@property --tw-gradient-to-position{syntax:"<length-percentage>";inherits:false;initial-value:100%}@property --tw-leading{syntax:"*";inherits:false}@property --tw-font-weight{syntax:"*";inherits:false}@property --tw-tracking{syntax:"*";inherits:false}@property --tw-shadow{syntax:"*";inherits:false;initial-value:0 0 #0000}@property --tw-shadow-color{syntax:"*";inherits:false}@property --tw-shadow-alpha{syntax:"<percentage>";inherits:false;initial-value:100%}@property --tw-inset-shadow{syntax:"*";inherits:false;initial-value:0 0 #0000}@property --tw-inset-shadow-color{syntax:"*";inherits:false}@property --tw-inset-shadow-alpha{syntax:"<percentage>";inherits:false;initial-value:100%}@property --tw-ring-color{syntax:"*";inherits:false}@property --tw-ring-shadow{syntax:"*";inherits:false;initial-value:0 0 #0000}@property --tw-inset-ring-color{syntax:"*";inherits:false}@property --tw-inset-ring-shadow{syntax:"*";inherits:false;initial-value:0 0 #0000}@property --tw-ring-inset{syntax:"*";inherits:false}@property --tw-ring-offset-width{syntax:"<length>";inherits:false;initial-value:0}@property --tw-ring-offset-color{syntax:"*";inherits:false;initial-value:#fff}@property --tw-ring-offset-shadow{syntax:"*";inherits:false;initial-value:0 0 #0000}@property --tw-backdrop-blur{syntax:"*";inherits:false}@property --tw-backdrop-brightness{syntax:"*";inherits:false}@property --tw-backdrop-contrast{syntax:"*";inherits:false}@property --tw-backdrop-grayscale{syntax:"*";inherits:false}@property --tw-backdrop-hue-rotate{syntax:"*";inherits:false}@property --tw-backdrop-invert{syntax:"*";inherits:false}@property --tw-backdrop-opacity{syntax:"*";inherits:false}@property --tw-backdrop-saturate{syntax:"*";inherits:false}@property --tw-backdrop-sepia{syntax:"*";inherits:false}@property --tw-duration{syntax:"*";inherits:false}@property --tw-ease{syntax:"*";inherits:false}@property --tw-content{syntax:"*";inherits:false;initial-value:""}@property --tw-translate-x{syntax:"*";inherits:false;initial-value:0}@property --tw-translate-y{syntax:"*";inherits:false;initial-value:0}@property --tw-translate-z{syntax:"*";inherits:false;initial-value:0}@property --tw-scale-x{syntax:"*";inherits:false;initial-value:1}@property --tw-scale-y{syntax:"*";inherits:false;initial-value:1}@property --tw-scale-z{syntax:"*";inherits:false;initial-value:1}@keyframes fadeInDown{0%{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:translateY(0)}}@keyframes fadeInUp{0%{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}@keyframes fadeInScale{0%{opacity:0;transform:scale(.97)}to{opacity:1;transform:scale(1)}}
+
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+    .tab-btn.active { background-color: #fff; color: var(--color-orange-brand); box-shadow: var(--shadow-sm); }
+    .prefix-card.selected { border-color: var(--color-orange-brand); background-color: color-mix(in oklab, var(--color-orange-brand) 5%, transparent); box-shadow: 0 0 0 1px #ea580c; }
+    .copy-btn.copied { background-color: var(--color-teal-brand); border-color: var(--color-teal-brand); }
+    #app { min-height: 100vh; display: flex; flex-direction: column; }
+  </style>
+</head>
+<body>
+  <div class="bg-glow-layer">
+    <div class="glow-1"></div>
+    <div class="glow-2"></div>
+  </div>
+
+  <div id="app" class="max-w-[1200px] w-full mx-auto px-6 pt-10 pb-20 relative z-10">
+    <header class="text-center mb-[60px] animate-fade-in-down">
+      <div class="inline-flex items-center justify-center bg-card-bg border border-card-border p-4 rounded-[24px] shadow-sm mb-6 backdrop-blur-md transition-transform duration-300 hover:rotate-5 hover:scale-105">
+        <span style="font-size:3rem;line-height:1;display:inline-flex;align-items:center;justify-content:center">🐶</span>
+      </div>
+      <h1 class="text-[3.5rem] tracking-[-0.03em] mb-4 bg-gradient-to-br from-charcoal to-orange-brand bg-clip-text text-transparent leading-[1.2] font-bold">
+        AI PUG Dev Convention Guide
+      </h1>
+      <p class="text-xl text-text-secondary max-w-[600px] mx-auto">
+        AI Power User Group (AI PUG) 구성원을 위한 협업 컨벤션 가이드입니다.
+        더 매끄러운 공동 작업을 위해 약속된 규칙들을 한눈에 살펴보세요!
+      </p>
+    </header>
+
+    <nav class="flex justify-center gap-2 mb-12 bg-slate-200/40 p-1.5 rounded-2xl backdrop-blur-sm border border-slate-200/60 max-w-[800px] mx-auto flex-wrap animate-fade-in-up">
+      <button type="button" class="tab-btn py-3 px-6 font-heading text-base font-medium text-text-secondary cursor-pointer rounded-xl transition-all duration-250 ease-in-out flex items-center gap-2 hover:text-text-primary hover:bg-white/50 border-none bg-transparent active" data-tab="intro"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-orange-brand"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>컨벤션 소개</button>
+          <button type="button" class="tab-btn py-3 px-6 font-heading text-base font-medium text-text-secondary cursor-pointer rounded-xl transition-all duration-250 ease-in-out flex items-center gap-2 hover:text-text-primary hover:bg-white/50 border-none bg-transparent" data-tab="naming"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-orange-brand"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>네이밍 케이스</button>
+          <button type="button" class="tab-btn py-3 px-6 font-heading text-base font-medium text-text-secondary cursor-pointer rounded-xl transition-all duration-250 ease-in-out flex items-center gap-2 hover:text-text-primary hover:bg-white/50 border-none bg-transparent" data-tab="folder"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-orange-brand"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg>폴더명 컨벤션</button>
+          <button type="button" class="tab-btn py-3 px-6 font-heading text-base font-medium text-text-secondary cursor-pointer rounded-xl transition-all duration-250 ease-in-out flex items-center gap-2 hover:text-text-primary hover:bg-white/50 border-none bg-transparent" data-tab="markdown"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-orange-brand"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/></svg>마크다운 규칙</button>
+          <button type="button" class="tab-btn py-3 px-6 font-heading text-base font-medium text-text-secondary cursor-pointer rounded-xl transition-all duration-250 ease-in-out flex items-center gap-2 hover:text-text-primary hover:bg-white/50 border-none bg-transparent" data-tab="git"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-orange-brand"><circle cx="18" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 15V9a4 4 0 0 0-4-4H9"/><path d="M6 9v6"/></svg>Git 커밋 가이드</button>
+          <button type="button" class="tab-btn py-3 px-6 font-heading text-base font-medium text-text-secondary cursor-pointer rounded-xl transition-all duration-250 ease-in-out flex items-center gap-2 hover:text-text-primary hover:bg-white/50 border-none bg-transparent" data-tab="monorepo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-orange-brand"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>모노레포 구조</button>
+    </nav>
+
+    <main class="animate-fade-in-scale">
+
+      <div id="panel-intro" class="tab-panel active transition-all duration-300">
+        <div class="bg-card-bg backdrop-blur-md border border-card-border rounded-[20px] p-9 shadow-md mb-8 transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-1 hover:shadow-lg hover:border-orange-brand/20">
+          <h2 class="text-[1.8rem] mb-6 flex items-center gap-3 text-text-primary font-bold">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-orange-brand"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+            개발 업무에서 '컨벤션(Convention)'이란 무엇인가요?
+          </h2>
+          <p class="text-[1.1rem] leading-[1.7] text-text-secondary mb-7">
+            컨벤션은 직역하면 '관습', '약속'입니다. 개발 업무에서의 컨벤션은 <strong>여러 명이 함께 코드를 짤 때 코드가 한 사람이 짠 것처럼 보이도록 미리 정해둔 협업의 교통법규</strong>와 같습니다.
+          </p>
+          <div class="grid grid-cols-[repeat(auto-fit,minmax(320px,1fr))] gap-6">
+            <div class="bg-white/60 border border-card-border rounded-2xl p-7 flex flex-col gap-4 transition-all duration-250 hover:border-orange-brand hover:-translate-y-0.5">
+              <div class="w-9 h-9 text-[2rem] flex items-center justify-center text-orange-brand">🚦</div>
+              <h3 class="text-[1.3rem] font-semibold text-text-primary text-left">왜 약속이 필요할까요?</h3>
+              <p class="text-[0.95rem] text-text-secondary leading-[1.6] text-left">도로 위에 신호등이 없다면 사고가 나듯, 프로젝트에서도 각자 원하는 스타일대로 파일명을 짓고 커밋을 올리면 코드가 뒤엉키고 소통 오버헤드가 폭발하게 됩니다.</p>
+            </div>
+            <div class="bg-white/60 border border-card-border rounded-2xl p-7 flex flex-col gap-4 transition-all duration-250 hover:border-orange-brand hover:-translate-y-0.5">
+              <div class="w-9 h-9 text-[2rem] flex items-center justify-center text-orange-brand">🤝</div>
+              <h3 class="text-[1.3rem] font-semibold text-text-primary text-left">비개발자에게 왜 중요할까요?</h3>
+              <p class="text-[0.95rem] text-text-secondary leading-[1.6] text-left">마케터, 기획자, 데이터 분석가 등 협업하는 모든 주체가 같은 규칙으로 파일을 관리하고 깃을 사용해야 불필요한 인수인계 비용을 아끼고 결과물을 안정적으로 배포할 수 있습니다.</p>
+            </div>
+            <div class="bg-white/60 border border-card-border rounded-2xl p-7 flex flex-col gap-4 transition-all duration-250 hover:border-orange-brand hover:-translate-y-0.5">
+              <div class="w-9 h-9 text-[2rem] flex items-center justify-center text-orange-brand">⚡</div>
+              <h3 class="text-[1.3rem] font-semibold text-text-primary text-left">규칙이 가져다주는 결과</h3>
+              <p class="text-[0.95rem] text-text-secondary leading-[1.6] text-left">파일명만 보고도 무엇을 하는 파일인지, 오늘 올라온 커밋 메시지만 보고도 어떤 기능을 수정했는지 1초 만에 알 수 있게 되어 개발 가속도가 극대화됩니다.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="panel-naming" class="tab-panel transition-all duration-300">
+        <div class="bg-card-bg backdrop-blur-md border border-card-border rounded-[20px] p-9 shadow-md mb-8 transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-1 hover:shadow-lg hover:border-orange-brand/20">
+          <h2 class="text-[1.8rem] mb-6 flex items-center gap-3 text-text-primary font-bold">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-orange-brand"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            주요 프로그래밍 네이밍 표기법
+          </h2>
+          <p class="text-[1.1rem] leading-[1.7] text-text-secondary mb-7">코딩할 때 변수, 함수, 파일 이름 등을 지을 때 띄어쓰기를 표현하는 대표적인 4가지 케이스를 알아봅니다.</p>
+          <div class="grid grid-cols-[repeat(auto-fit,minmax(220px,1fr))] gap-5 mt-6">
+            <div class="bg-white/80 border border-card-border rounded-2xl p-5 text-left shadow-sm transition-all duration-200 ease-in-out hover:border-orange-brand hover:-translate-y-0.5">
+              <div class="text-[1.2rem] font-bold text-text-primary mb-2">케밥 케이스<br />(kebab-case)</div>
+              <div class="font-mono text-[0.95rem] bg-orange-brand/5 text-orange-brand py-1.5 px-3 rounded-lg inline-block mb-3 border border-dashed border-orange-brand/20">ai-pug-project</div>
+              <p class="text-[0.9rem] text-text-secondary leading-normal">단어와 단어 사이를 하이픈(<code class="font-mono bg-slate-200/60 py-[3px] px-1.5 rounded text-[0.9em] text-orange-brand">-</code>)으로 연결하는 방식입니다. 꼬치(케밥)에 꽂힌 고기 같다고 해서 붙여진 이름입니다. <strong>웹 URL 경로 및 프로젝트 디렉토리명에 널리 쓰입니다.</strong></p>
+            </div>
+            <div class="bg-white/80 border border-card-border rounded-2xl p-5 text-left shadow-sm transition-all duration-200 ease-in-out hover:border-orange-brand hover:-translate-y-0.5">
+              <div class="text-[1.2rem] font-bold text-text-primary mb-2">카멜 케이스<br />(camelCase)</div>
+              <div class="font-mono text-[0.95rem] bg-orange-brand/5 text-orange-brand py-1.5 px-3 rounded-lg inline-block mb-3 border border-dashed border-orange-brand/20">aiPugProject</div>
+              <p class="text-[0.9rem] text-text-secondary leading-normal">첫 단어는 소문자, 그 다음 단어의 첫 글자는 대문자로 표기하여 낙타(camel)의 등처럼 솟아오르게 하는 표기법입니다. <strong>자바스크립트 변수 및 함수명에 쓰입니다.</strong></p>
+            </div>
+            <div class="bg-white/80 border border-card-border rounded-2xl p-5 text-left shadow-sm transition-all duration-200 ease-in-out hover:border-orange-brand hover:-translate-y-0.5">
+              <div class="text-[1.2rem] font-bold text-text-primary mb-2">파스칼 케이스<br />(PascalCase)</div>
+              <div class="font-mono text-[0.95rem] bg-orange-brand/5 text-orange-brand py-1.5 px-3 rounded-lg inline-block mb-3 border border-dashed border-orange-brand/20">AiPugProject</div>
+              <p class="text-[0.9rem] text-text-secondary leading-normal">모든 단어의 첫 글자를 대문자로 표기하는 방식입니다. 카멜 케이스의 확장형입니다. <strong>주로 클래스명이나 컴포넌트(Component) 이름에 쓰입니다.</strong></p>
+            </div>
+            <div class="bg-white/80 border border-card-border rounded-2xl p-5 text-left shadow-sm transition-all duration-200 ease-in-out hover:border-orange-brand hover:-translate-y-0.5">
+              <div class="text-[1.2rem] font-bold text-text-primary mb-2">스네이크 케이스<br />(snake_case)</div>
+              <div class="font-mono text-[0.95rem] bg-orange-brand/5 text-orange-brand py-1.5 px-3 rounded-lg inline-block mb-3 border border-dashed border-orange-brand/20">ai_pug_project</div>
+              <p class="text-[0.9rem] text-text-secondary leading-normal">단어 사이를 언더바(<code class="font-mono bg-slate-200/60 py-[3px] px-1.5 rounded text-[0.9em] text-orange-brand">_</code>)로 연결하여 뱀(snake)이 기어가는 형태처럼 표현하는 기법입니다. <strong>데이터베이스 테이블이나 Python 변수명에 자주 쓰입니다.</strong></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="panel-folder" class="tab-panel transition-all duration-300">
+        <div class="bg-card-bg backdrop-blur-md border border-card-border rounded-[20px] p-9 shadow-md mb-8 transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-1 hover:shadow-lg hover:border-orange-brand/20">
+          <h2 class="text-[1.8rem] mb-6 flex items-center gap-3 text-text-primary font-bold">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-orange-brand"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg>
+            AI PUG 가이드: 프로젝트 폴더명 컨벤션
+          </h2>
+          <p class="text-[1.1rem] leading-[1.7] text-text-secondary mb-7">프로젝트 루트 디렉토리 및 저장소(Repository) 이름을 지을 때는 아래의 표준 형식을 따르세요.</p>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+            <div class="rounded-2xl p-6 border border-card-border bg-teal-brand/[0.03] border-teal-brand/20">
+              <div class="flex justify-between items-center mb-4">
+                <span class="text-[1.15rem] font-semibold text-text-primary">올바른 예시</span>
+                <span class="inline-flex items-center py-1 px-3 rounded-full text-[0.85rem] font-semibold gap-1 bg-teal-brand/10 text-teal-brand">✓ 소문자 &amp; 케밥 케이스</span>
+              </div>
+              <pre class="bg-[#0f172a] p-[18px] rounded-xl overflow-x-auto mt-3 border border-white/10"><code class="bg-transparent p-0 text-[#f8fafc] text-[0.95rem]">pug-convention-guide
+ai-power-user-app</code></pre>
+            </div>
+            <div class="rounded-2xl p-6 border border-card-border bg-orange-brand/[0.03] border-orange-brand/20">
+              <div class="flex justify-between items-center mb-4">
+                <span class="text-[1.15rem] font-semibold text-text-primary">잘못된 예시</span>
+                <span class="inline-flex items-center py-1 px-3 rounded-full text-[0.85rem] font-semibold gap-1 bg-orange-brand/10 text-orange-brand">✗ 대소문자 혼용 및 띄어쓰기</span>
+              </div>
+              <pre class="bg-[#0f172a] p-[18px] rounded-xl overflow-x-auto mt-3 border border-white/10"><code class="bg-transparent p-0 text-[#f8fafc] text-[0.95rem]">PugConventionGuide (파스칼)
+ai_power_user_app (스네이크)
+ai-pug project (띄어쓰기 금지)</code></pre>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="panel-markdown" class="tab-panel transition-all duration-300">
+        <div class="bg-card-bg backdrop-blur-md border border-card-border rounded-[20px] p-9 shadow-md mb-8 transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-1 hover:shadow-lg hover:border-orange-brand/20">
+          <h2 class="text-[1.8rem] mb-6 flex items-center gap-3 text-text-primary font-bold">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-orange-brand"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/></svg>
+            마크다운(Markdown) 문서 파일명 규칙
+          </h2>
+          <p class="text-[1.1rem] leading-[1.7] text-text-secondary mb-7">마크다운(<code class="font-mono bg-slate-200/60 py-[3px] px-1.5 rounded text-[0.9em] text-orange-brand">.md</code>) 문서는 프로젝트 구조에서 파일이 위치하는 깊이에 따라 다른 네이밍 규칙을 갖습니다.</p>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+            <div class="rounded-2xl p-6 border border-card-border bg-teal-brand/[0.03] border-teal-brand/20">
+              <div class="flex justify-between items-center mb-4">
+                <span class="text-[1.15rem] font-semibold text-text-primary">1. 루트(Root) 폴더 위치</span>
+                <span class="inline-flex items-center py-1 px-3 rounded-full text-[0.85rem] font-semibold gap-1 bg-slate-800/8 text-charcoal">대문자 스네이크/케밥</span>
+              </div>
+              <p style="margin:12px 0;font-size:0.95rem">저장소 최상위 루트 디렉토리의 핵심 기본 문서들은 <strong>모두 대문자</strong>로 네이밍합니다.</p>
+              <div class="bg-slate-200/60 p-3 rounded-lg font-mono">
+                📂 Root/<br>
+                &nbsp;&nbsp;📄 <strong class="text-indigo-600">README.md</strong><br>
+                &nbsp;&nbsp;📄 <strong class="text-indigo-600">CONTRIBUTING.md</strong><br>
+                &nbsp;&nbsp;📄 <strong class="text-indigo-600">DESIGN.md</strong>
+              </div>
+            </div>
+            <div class="rounded-2xl p-6 border border-card-border bg-teal-brand/[0.03] border-teal-brand/20">
+              <div class="flex justify-between items-center mb-4">
+                <span class="text-[1.15rem] font-semibold text-text-primary">2. docs 폴더 및 하위 위치</span>
+                <span class="inline-flex items-center py-1 px-3 rounded-full text-[0.85rem] font-semibold gap-1 bg-teal-brand/10 text-teal-brand">소문자 케밥 &amp; 띄어쓰기 금지</span>
+              </div>
+              <p style="margin:12px 0;font-size:0.95rem">설명서 등 상세 문서를 모아두는 <code class="font-mono bg-slate-200/60 py-[3px] px-1.5 rounded text-[0.9em] text-orange-brand">docs/</code> 디렉토리 하위의 파일은 <strong>전부 소문자 케밥 케이스</strong>로 통일하고 공백을 금지합니다.</p>
+              <div class="bg-slate-200/60 p-3 rounded-lg font-mono">
+                📂 docs/<br>
+                &nbsp;&nbsp;📄 <strong class="text-teal-600">user-manual.md</strong><br>
+                &nbsp;&nbsp;📄 <strong class="text-teal-600">getting-started.md</strong><br>
+                &nbsp;&nbsp;📄 <strong class="text-teal-600">api-reference.md</strong>
+              </div>
+            </div>
+          </div>
+          <div style="margin-top:28px;text-align:left;background:rgba(234,88,12,0.05);padding:20px;border-radius:12px;border:1px solid rgba(234,88,12,0.15)">
+            <h4 class="text-orange-brand mb-2 font-semibold">⚠️ 주의사항</h4>
+            <p style="font-size:0.95rem;line-height:1.6">윈도우 OS는 대소문자를 구분하지 않지만, 배포용 리눅스 서버나 Github 환경은 대소문자를 엄밀히 구분합니다. 따라서 <code class="font-mono bg-slate-200/60 py-[3px] px-1.5 rounded text-[0.9em] text-orange-brand">Docs/User Manual.md</code>처럼 대문자와 공백이 들어간 파일명은 웹상에서 경로 링크가 깨지는 원인이 되므로, docs 폴더 하위에서는 무조건 <strong>소문자와 하이픈(-)만</strong> 사용해야 합니다.</p>
+          </div>
+        </div>
+      </div>
+
+      <div id="panel-git" class="tab-panel transition-all duration-300">
+        <div class="bg-card-bg backdrop-blur-md border border-card-border rounded-[20px] p-9 shadow-md mb-8 transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-1 hover:shadow-lg hover:border-orange-brand/20">
+          <h2 class="text-[1.8rem] mb-6 flex items-center gap-3 text-text-primary font-bold">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-orange-brand"><circle cx="18" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 15V9a4 4 0 0 0-4-4H9"/><path d="M6 9v6"/></svg>
+            Git Commit Prefix 규칙
+          </h2>
+          <p class="text-[1.1rem] leading-[1.7] text-text-secondary mb-7">협업 시 변경 이력을 한눈에 파악하기 위해, 커밋 제목 앞에 작업 성격을 알리는 <strong>영어 Prefix</strong>를 꼭 붙입니다.</p>
+          <div class="grid grid-cols-1 lg:grid-cols-[350px_1fr] gap-7">
+            <div class="grid grid-cols-[repeat(auto-fill,minmax(140px,1fr))] gap-2.5 pr-0">
+              <div class="prefix-card flex flex-col items-stretch gap-2 p-3 rounded-xl border border-card-border bg-white cursor-pointer transition-all duration-200 text-left hover:border-orange-brand hover:bg-orange-brand/[0.02] selected" data-prefix="feat">
+                        <span class="font-mono text-[0.85rem] font-bold text-orange-brand bg-orange-brand/10 py-0.5 px-1.5 rounded-md text-center self-start">feat</span>
+                        <div class="flex flex-col gap-0.5">
+                          <span class="text-[0.9rem] font-semibold text-text-primary">기능 개발</span>
+                          <span class="text-[0.78rem] text-text-secondary">새로운 기능 추가</span>
+                        </div>
+                      </div>
+                    <div class="prefix-card flex flex-col items-stretch gap-2 p-3 rounded-xl border border-card-border bg-white cursor-pointer transition-all duration-200 text-left hover:border-orange-brand hover:bg-orange-brand/[0.02]" data-prefix="fix">
+                        <span class="font-mono text-[0.85rem] font-bold text-orange-brand bg-orange-brand/10 py-0.5 px-1.5 rounded-md text-center self-start">fix</span>
+                        <div class="flex flex-col gap-0.5">
+                          <span class="text-[0.9rem] font-semibold text-text-primary">버그 수정</span>
+                          <span class="text-[0.78rem] text-text-secondary">오류나 버그 현상 해결</span>
+                        </div>
+                      </div>
+                    <div class="prefix-card flex flex-col items-stretch gap-2 p-3 rounded-xl border border-card-border bg-white cursor-pointer transition-all duration-200 text-left hover:border-orange-brand hover:bg-orange-brand/[0.02]" data-prefix="docs">
+                        <span class="font-mono text-[0.85rem] font-bold text-orange-brand bg-orange-brand/10 py-0.5 px-1.5 rounded-md text-center self-start">docs</span>
+                        <div class="flex flex-col gap-0.5">
+                          <span class="text-[0.9rem] font-semibold text-text-primary">문서 작업</span>
+                          <span class="text-[0.78rem] text-text-secondary">문서 추가, 수정 및 보완</span>
+                        </div>
+                      </div>
+                    <div class="prefix-card flex flex-col items-stretch gap-2 p-3 rounded-xl border border-card-border bg-white cursor-pointer transition-all duration-200 text-left hover:border-orange-brand hover:bg-orange-brand/[0.02]" data-prefix="style">
+                        <span class="font-mono text-[0.85rem] font-bold text-orange-brand bg-orange-brand/10 py-0.5 px-1.5 rounded-md text-center self-start">style</span>
+                        <div class="flex flex-col gap-0.5">
+                          <span class="text-[0.9rem] font-semibold text-text-primary">스타일 수정</span>
+                          <span class="text-[0.78rem] text-text-secondary">코드 동작에 영향 없는 포맷팅, 세미콜론 누락 등 수정</span>
+                        </div>
+                      </div>
+                    <div class="prefix-card flex flex-col items-stretch gap-2 p-3 rounded-xl border border-card-border bg-white cursor-pointer transition-all duration-200 text-left hover:border-orange-brand hover:bg-orange-brand/[0.02]" data-prefix="refactor">
+                        <span class="font-mono text-[0.85rem] font-bold text-orange-brand bg-orange-brand/10 py-0.5 px-1.5 rounded-md text-center self-start">refactor</span>
+                        <div class="flex flex-col gap-0.5">
+                          <span class="text-[0.9rem] font-semibold text-text-primary">리팩토링</span>
+                          <span class="text-[0.78rem] text-text-secondary">기능 변경 없이 코드 구조 가독성 개선</span>
+                        </div>
+                      </div>
+                    <div class="prefix-card flex flex-col items-stretch gap-2 p-3 rounded-xl border border-card-border bg-white cursor-pointer transition-all duration-200 text-left hover:border-orange-brand hover:bg-orange-brand/[0.02]" data-prefix="test">
+                        <span class="font-mono text-[0.85rem] font-bold text-orange-brand bg-orange-brand/10 py-0.5 px-1.5 rounded-md text-center self-start">test</span>
+                        <div class="flex flex-col gap-0.5">
+                          <span class="text-[0.9rem] font-semibold text-text-primary">테스트 코드</span>
+                          <span class="text-[0.78rem] text-text-secondary">테스트 추가 및 리팩토링</span>
+                        </div>
+                      </div>
+                    <div class="prefix-card flex flex-col items-stretch gap-2 p-3 rounded-xl border border-card-border bg-white cursor-pointer transition-all duration-200 text-left hover:border-orange-brand hover:bg-orange-brand/[0.02]" data-prefix="chore">
+                        <span class="font-mono text-[0.85rem] font-bold text-orange-brand bg-orange-brand/10 py-0.5 px-1.5 rounded-md text-center self-start">chore</span>
+                        <div class="flex flex-col gap-0.5">
+                          <span class="text-[0.9rem] font-semibold text-text-primary">기타 빌드 설정</span>
+                          <span class="text-[0.78rem] text-text-secondary">빌드 환경 설정 변경, 패키지 의존성 관리 등 변경</span>
+                        </div>
+                      </div>
+            </div>
+            <div class="flex flex-col gap-5">
+              <div class="flex flex-col gap-2">
+                <label class="font-heading text-base font-semibold text-text-primary" for="commit-msg">작업 내용 요약 입력 (한글 가능)</label>
+                <input id="commit-msg" type="text" class="w-full py-3.5 px-4.5 rounded-xl border border-card-border text-base font-body transition-all duration-200 focus:outline-hidden focus:border-orange-brand focus:shadow-[0_0_0_3px_rgba(234,88,12,0.15)]" placeholder="예: 로그인 에러 해결, 메인 로고 교체 등" />
+              </div>
+              <div class="bg-[#0f172a] rounded-2xl p-6 text-[#f8fafc] flex flex-col gap-4">
+                <div class="flex justify-between items-center border-b border-white/10 pb-3">
+                  <span class="text-[0.9rem] uppercase tracking-wider text-[#94a3b8]">생성된 Git 커밋 명령어</span>
+                  <button type="button" id="copy-btn" class="copy-btn bg-white/10 border border-white/20 text-[#f8fafc] py-2 px-4 rounded-lg text-[0.85rem] cursor-pointer flex items-center gap-2 transition-all duration-200 hover:bg-white/20">
+                    <span id="copy-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg></span>
+                    <span id="copy-label">클립보드 복사</span>
+                  </button>
+                </div>
+                <div id="commit-preview" class="font-mono text-[1.1rem] whitespace-pre-wrap break-all text-[#38bdf8] leading-normal">git commit -m "feat: 작업 내용 요약"</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="bg-card-bg backdrop-blur-md border border-card-border rounded-[20px] p-9 shadow-md mb-8 transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-1 hover:shadow-lg hover:border-orange-brand/20">
+          <h2 class="text-[1.8rem] mb-6 flex items-center gap-3 text-text-primary font-bold">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-orange-brand"><circle cx="18" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 15V9a4 4 0 0 0-4-4H9"/><path d="M6 9v6"/></svg>
+            좋은 Git 커밋 습관의 중요성
+          </h2>
+          <p class="text-[1.1rem] leading-[1.7] text-text-secondary mb-7">비개발자가 현업에서 자주 놓치는 깃 커밋 단위와 중요 습관을 짚어봅니다.</p>
+          <div class="flex flex-col gap-5 mt-6">
+            <div class="flex gap-4 p-5 rounded-2xl border border-card-border bg-white/50">
+              <div class="w-10 h-10 rounded-[10px] flex items-center justify-center shrink-0 bg-teal-brand/10 text-teal-brand"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><polyline points="20 6 9 17 4 12"/></svg></div>
+              <div class="flex flex-col gap-1 text-left">
+                <span class="text-[1.1rem] font-semibold text-text-primary">작은 단위로 자주 커밋하세요 (Atomic Commit)</span>
+                <span class="text-[0.95rem] text-text-secondary leading-normal">하나의 커밋에는 <strong>딱 하나의 변경 사항</strong>만 기록하는 것이 좋습니다. 예를 들어 메인 레이아웃 수정과 로그인 버그 수정을 동시에 한 뒤, 통째로 커밋하는 것은 좋지 않습니다. 쪼개서 자주 기록해야 나중에 오류가 났을 때 원인을 쉽게 찾고 롤백할 수 있습니다.</span>
+              </div>
+            </div>
+            <div class="flex gap-4 p-5 rounded-2xl border border-card-border bg-white/50">
+              <div class="w-10 h-10 rounded-[10px] flex items-center justify-center shrink-0 bg-orange-brand/10 text-orange-brand"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div>
+              <div class="flex flex-col gap-1 text-left">
+                <span class="text-[1.1rem] font-semibold text-text-primary">모호한 커밋 메시지는 피하세요</span>
+                <span class="text-[0.95rem] text-text-secondary leading-normal">귀찮다고 <code>git commit -m "fix: update"</code> 또는 <code>git commit -m "style: 수정"</code> 같은 성의 없는 메시지는 나중에 동료가 히스토리를 파악하는 것을 가로막습니다. 구체적으로 무엇을 해결했는지 간략히 작성하는 습관이 중요합니다.</span>
+              </div>
+            </div>
+            <div class="flex gap-4 p-5 rounded-2xl border border-card-border bg-white/50">
+              <div class="w-10 h-10 rounded-[10px] flex items-center justify-center shrink-0 bg-teal-brand/10 text-teal-brand"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><polyline points="20 6 9 17 4 12"/></svg></div>
+              <div class="flex flex-col gap-1 text-left">
+                <span class="text-[1.1rem] font-semibold text-text-primary">커밋 메시지 제목은 영어 Prefix 뒤에 콜론(:)과 공백을 둡니다</span>
+                <span class="text-[0.95rem] text-text-secondary leading-normal">표준적인 컨벤션은 <code>feat: add login button</code> 와 같이 콜론 뒤에 반드시 띄어쓰기를 한 칸 주는 규칙입니다. 이러한 미세한 규칙도 자동화 분석 툴 등이 커밋을 정상 파악하기 위해 필수적입니다.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="panel-monorepo" class="tab-panel transition-all duration-300">
+        <div class="bg-card-bg backdrop-blur-md border border-card-border rounded-[20px] p-9 shadow-md mb-8 transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-1 hover:shadow-lg hover:border-orange-brand/20">
+          <h2 class="text-[1.8rem] mb-6 flex items-center gap-3 text-text-primary font-bold">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-orange-brand"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg>
+            모노레포(Monorepo) 구조와 작업 규칙
+          </h2>
+          <p class="text-[1.1rem] leading-[1.7] text-text-secondary mb-7">
+            <strong>모노레포란?</strong> 하나의 저장소(Repository) 안에서 여러 개의 독립적인 프로젝트(예: frontend, backend)를 함께 관리하는 구조입니다.<br>
+            <span style="font-size:0.88rem;color:var(--color-text-secondary);display:inline-block;margin-top:6px">* 💡 멀티 레포(Multi-repo): 서비스마다 독립된 깃 저장소를 따로 개설해 독립적으로 관리하는 대조 방식입니다.</span>
+          </p>
+          <div style="text-align:left;background:rgba(234,88,12,0.04);padding:20px 24px;border-radius:16px;border:1px solid rgba(234,88,12,0.15);margin-bottom:28px">
+            <h3 style="color:var(--color-orange-brand);font-size:1.18rem;margin-bottom:10px;display:flex;align-items:center;gap:8px">🤖 AI 협업 &amp; 바이브코딩(Vibe Coding)에서 유용한 이유</h3>
+            <ul style="margin:0;padding-left:20px;font-size:0.92rem;line-height:1.6;display:flex;flex-direction:column;gap:6px;color:var(--color-text-secondary)">
+              <li><strong>단일 AI 컨텍스트:</strong> 프론트와 백엔드 코드를 AI에게 한 번에 전달하여 API 및 데이터 모델 싱크의 정확도를 높입니다.</li>
+              <li><strong>빠른 개발 흐름(Vibe) 유지:</strong> 저장소를 오가는 번거로움 없이 하나의 공간에서 수정과 검증을 동시에 처리해 고속 반복 개발을 돕습니다.</li>
+              <li><strong>타입 공유 및 오류 예방:</strong> 공통 데이터 스펙(TypeScript Types)을 직접 참조하므로, 연동 규격이 어긋나는 실수를 차단합니다.</li>
+            </ul>
+          </div>
+          <div style="text-align:left;margin-bottom:28px">
+            <p style="font-size:1rem;line-height:1.7;margin-bottom:16px">AI PUG 프로젝트에서 모노레포 구조로 협업 시, 프로젝트 루트 위치에서 <strong>프론트엔드(화면)와 백엔드(서버/API) 디렉토리를 물리적으로 완벽히 구분</strong>하여 개발 및 관리해야 합니다.</p>
+          </div>
+          <div class="font-mono bg-charcoal text-[#cbd5e1] p-6 rounded-xl text-[0.95rem] leading-[1.7] border border-white/10 shadow-[inset_0_2px_8px_rgba(0,0,0,0.3)]">
+            <div class="flex items-center gap-2 ml-0 relative before:hidden after:hidden"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 shrink-0 text-[#f59e0b]"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z" fill="currentColor" fill-opacity="0.2"/></svg><span>my-monorepo-project/</span><span class="text-[#64748b] ml-auto text-[0.85rem]"># 전체 프로젝트 루트 디렉토리 (소문자 &amp; 케밥 케이스)</span></div>
+            <div class="flex items-center gap-2 ml-5 relative before:absolute before:left-[-12px] before:top-0 before:bottom-[10px] before:w-[1px] before:border-l before:border-dashed before:border-white/20 after:absolute after:left-[-12px] after:top-[10px] after:w-2 after:border-t after:border-dashed after:border-white/20"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 shrink-0 text-[#f59e0b]"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z" fill="currentColor" fill-opacity="0.2"/></svg><span>backend/</span><span class="text-[#64748b] ml-auto text-[0.85rem]"># 백엔드 서버 로직 (API, 데이터베이스 모델 등)</span></div>
+            <div class="flex items-center gap-2 ml-10 relative before:absolute before:left-[-12px] before:top-0 before:bottom-[10px] before:w-[1px] before:border-l before:border-dashed before:border-white/20 after:absolute after:left-[-12px] after:top-[10px] after:w-2 after:border-t after:border-dashed after:border-white/20"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 shrink-0 text-[#f59e0b]"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z" fill="currentColor" fill-opacity="0.2"/></svg><span>src/</span></div>
+            <div class="flex items-center gap-2 ml-10 relative before:absolute before:left-[-12px] before:top-0 before:bottom-[10px] before:w-[1px] before:border-l before:border-dashed before:border-white/20 after:absolute after:left-[-12px] after:top-[10px] after:w-2 after:border-t after:border-dashed after:border-white/20"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 shrink-0 text-[#38bdf8]"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/></svg><span>package.json</span></div>
+            <div class="flex items-center gap-2 ml-5 relative before:absolute before:left-[-12px] before:top-0 before:bottom-[10px] before:w-[1px] before:border-l before:border-dashed before:border-white/20 after:absolute after:left-[-12px] after:top-[10px] after:w-2 after:border-t after:border-dashed after:border-white/20"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 shrink-0 text-[#f59e0b]"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z" fill="currentColor" fill-opacity="0.2"/></svg><span>frontend/</span><span class="text-[#64748b] ml-auto text-[0.85rem]"># 프론트엔드 웹 화면 (React, Vue, HTML 등)</span></div>
+            <div class="flex items-center gap-2 ml-10 relative before:absolute before:left-[-12px] before:top-0 before:bottom-[10px] before:w-[1px] before:border-l before:border-dashed before:border-white/20 after:absolute after:left-[-12px] after:top-[10px] after:w-2 after:border-t after:border-dashed after:border-white/20"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 shrink-0 text-[#f59e0b]"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z" fill="currentColor" fill-opacity="0.2"/></svg><span>src/</span></div>
+            <div class="flex items-center gap-2 ml-10 relative before:absolute before:left-[-12px] before:top-0 before:bottom-[10px] before:w-[1px] before:border-l before:border-dashed before:border-white/20 after:absolute after:left-[-12px] after:top-[10px] after:w-2 after:border-t after:border-dashed after:border-white/20"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 shrink-0 text-[#38bdf8]"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/></svg><span>package.json</span></div>
+            <div class="flex items-center gap-2 ml-5 relative before:absolute before:left-[-12px] before:top-0 before:bottom-[10px] before:w-[1px] before:border-l before:border-dashed before:border-white/20 after:absolute after:left-[-12px] after:top-[10px] after:w-2 after:border-t after:border-dashed after:border-white/20"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 shrink-0 text-[#f59e0b]"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z" fill="currentColor" fill-opacity="0.2"/></svg><span>docs/</span><span class="text-[#64748b] ml-auto text-[0.85rem]"># 프로젝트 보조 마크다운 문서 보관함</span></div>
+            <div class="flex items-center gap-2 ml-10 relative before:absolute before:left-[-12px] before:top-0 before:bottom-[10px] before:w-[1px] before:border-l before:border-dashed before:border-white/20 after:absolute after:left-[-12px] after:top-[10px] after:w-2 after:border-t after:border-dashed after:border-white/20"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 shrink-0 text-[#4ade80]"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/></svg><span>commit-guide.md</span><span class="text-[#64748b] ml-auto text-[0.85rem]"># 하위 문서는 소문자 &amp; 케밥 케이스</span></div>
+            <div class="flex items-center gap-2 ml-5 relative before:absolute before:left-[-12px] before:top-0 before:bottom-[10px] before:w-[1px] before:border-l before:border-dashed before:border-white/20 after:absolute after:left-[-12px] after:top-[10px] after:w-2 after:border-t after:border-dashed after:border-white/20"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 shrink-0 text-[#4ade80]"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/></svg><span>README.md</span><span class="text-[#64748b] ml-auto text-[0.85rem]"># 최상위 루트 문서 (대문자 표기 규칙)</span></div>
+            <div class="flex items-center gap-2 ml-5 relative before:absolute before:left-[-12px] before:top-0 before:bottom-[10px] before:w-[1px] before:border-l before:border-dashed before:border-white/20 after:absolute after:left-[-12px] after:top-[10px] after:w-2 after:border-t after:border-dashed after:border-white/20"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 shrink-0 text-[#4ade80]"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/></svg><span>DESIGN.md</span><span class="text-[#64748b] ml-auto text-[0.85rem]"># 최상위 루트 문서 (대문자 표기 규칙)</span></div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+
+    <footer class="text-center pt-10 mt-[60px] border-t border-card-border text-[#94a3b8] text-[0.9rem]">
+      <p>© 2026 AI Power User Group (AI PUG). All Rights Reserved.</p>
+    </footer>
+  </div>
+
+  <script>
+    (function () {
+      var selectedPrefix = 'feat';
+      var copyIconHtml = "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" style=\"width:16px;height:16px\"><rect width=\"14\" height=\"14\" x=\"8\" y=\"8\" rx=\"2\" ry=\"2\"/><path d=\"M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2\"/></svg>";
+      var doubleCheckIconHtml = "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" style=\"width:16px;height:16px\"><path d=\"m2 12 5.25 5 10.25-10\"/><path d=\"m16 7-8 8-4-4\"/></svg>";
+
+      document.querySelectorAll('.tab-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var tab = btn.getAttribute('data-tab');
+          document.querySelectorAll('.tab-btn').forEach(function (b) { b.classList.remove('active'); });
+          document.querySelectorAll('.tab-panel').forEach(function (p) { p.classList.remove('active'); });
+          btn.classList.add('active');
+          document.getElementById('panel-' + tab).classList.add('active');
+        });
+      });
+
+      document.querySelectorAll('.prefix-card').forEach(function (card) {
+        card.addEventListener('click', function () {
+          selectedPrefix = card.getAttribute('data-prefix');
+          document.querySelectorAll('.prefix-card').forEach(function (c) { c.classList.remove('selected'); });
+          card.classList.add('selected');
+          updatePreview();
+        });
+      });
+
+      var commitInput = document.getElementById('commit-msg');
+      var preview = document.getElementById('commit-preview');
+
+      function updatePreview() {
+        var msg = commitInput.value.trim() || '작업 내용 요약';
+        preview.textContent = 'git commit -m "' + selectedPrefix + ': ' + msg + '"';
+      }
+
+      commitInput.addEventListener('input', updatePreview);
+
+      document.getElementById('copy-btn').addEventListener('click', function () {
+        var text = preview.textContent;
+        navigator.clipboard.writeText(text).then(function () {
+          var btn = document.getElementById('copy-btn');
+          var icon = document.getElementById('copy-icon');
+          var label = document.getElementById('copy-label');
+          btn.classList.add('copied');
+          icon.innerHTML = doubleCheckIconHtml;
+          label.textContent = '복사 완료!';
+          setTimeout(function () {
+            btn.classList.remove('copied');
+            icon.innerHTML = copyIconHtml;
+            label.textContent = '클립보드 복사';
+          }, 2000);
+        });
+      });
+    })();
+  </script>
+<script src="../embed-autoscroll.js"></script>
+</body>
+</html>
