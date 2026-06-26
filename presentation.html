@@ -118,6 +118,37 @@
         .interview-goal-check { flex-shrink: 0; margin-top: 0.1rem; padding: 0.3rem; background: #F5B041; color: #33271F; border-radius: 4px; display: inline-flex; }
         .interview-goal-check [data-lucide="check"] { width: 0.75rem; height: 0.75rem; }
         .interview-highlight { padding: 0.6rem 0.85rem; font-size: 0.8125rem; line-height: 1.45; flex-shrink: 0; }
+        .practice-qa-graph-layout { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr); gap: 0.65rem; flex: 1; min-height: 0; height: min(380px, calc(100vh - 290px)); margin-top: 0.45rem; }
+        .practice-qa-graph-stage { position: relative; min-height: 260px; height: 100%; min-width: 0; background: radial-gradient(ellipse at 50% 52%, #fff 0%, #FBF8F3 55%, #F5EFE6 100%); border: 1px solid #F0EAE0; border-radius: 10px; overflow: hidden; }
+        .practice-qa-graph-svg { display: block; width: 100%; height: 100%; }
+        .practice-qa-graph-svg .kg-link { stroke: #CBBBA8; stroke-width: 1; opacity: 0.38; transition: stroke 0.25s, stroke-width 0.25s, opacity 0.25s; }
+        .practice-qa-graph-svg .kg-link.is-near { stroke: #D8CFC3; opacity: 0.55; stroke-width: 1.2; }
+        .practice-qa-graph-svg .kg-link.is-active { stroke: #F5B041; stroke-width: 2; opacity: 1; }
+        .practice-qa-graph-svg .kg-node { cursor: pointer; }
+        .practice-qa-graph-svg .kg-node circle { fill: #fff; stroke: #D8CFC3; stroke-width: 2; transition: fill 0.25s, stroke 0.25s; }
+        .practice-qa-graph-svg .kg-link.is-core-link { stroke: #E8DFD3; opacity: 0.5; stroke-width: 1.1; }
+        .practice-qa-graph-svg .kg-link.is-core-link.is-active { stroke: #F5B041; opacity: 0.95; stroke-width: 2.2; }
+        .practice-qa-graph-svg .kg-node.is-core { cursor: default; pointer-events: none; }
+        .practice-qa-graph-svg .kg-node.is-core circle { fill: #F5B041; stroke: #E8A830; stroke-width: 2.5; filter: drop-shadow(0 2px 8px rgba(245,176,65,.35)); }
+        .practice-qa-graph-svg .kg-node.is-core .kg-node-label { font-size: 9px; font-weight: 800; fill: #33271F; }
+        .practice-qa-graph-svg .kg-node.is-topic { cursor: default; }
+        .practice-qa-graph-svg .kg-node.is-topic circle { fill: #F0EAE0; stroke: #CBBBA8; stroke-width: 1.5; }
+        .practice-qa-graph-svg .kg-node.is-active circle { fill: #FFF6E8; stroke: #F5B041; stroke-width: 2.5; }
+        .practice-qa-graph-svg .kg-node.is-near circle { fill: #FFFBF4; stroke: #E8C878; stroke-width: 2; }
+        .practice-qa-graph-svg .kg-node:not(.is-topic):hover circle { stroke: #F5B041; }
+        .practice-qa-graph-svg .kg-node-label { font-size: 10px; font-weight: 800; fill: #33271F; pointer-events: none; text-anchor: middle; dominant-baseline: central; }
+        .practice-qa-graph-svg .kg-node.is-topic .kg-node-label { font-size: 8px; font-weight: 700; fill: #8A7B6E; }
+        .practice-qa-graph-svg .kg-node-title { font-size: 8px; font-weight: 700; fill: rgba(51,39,31,.62); pointer-events: none; text-anchor: middle; }
+        .practice-qa-graph-detail { min-height: 0; min-width: 0; height: 100%; display: flex; flex-direction: column; background: #FBF8F3; border: 1px solid #F0EAE0; border-radius: 10px; padding: 0.65rem 0.75rem; overflow: hidden; }
+        .practice-qa-graph-detail__hint { font-size: 0.72rem; color: rgba(51,39,31,.55); line-height: 1.5; margin: 0; }
+        .practice-qa-graph-detail__q { font-size: 0.78rem; font-weight: 800; color: #33271F; margin: 0 0 0.35rem; line-height: 1.4; }
+        .practice-qa-graph-detail__a { font-size: 0.74rem; color: rgba(51,39,31,0.84); line-height: 1.55; margin: 0; flex: 1; min-height: 0; overflow-y: auto; padding-right: 2px; }
+        .practice-qa-graph-detail__a ul { margin: 0.25rem 0 0 1rem; padding: 0; }
+        .practice-qa-graph-detail__a li { margin-bottom: 0.12rem; }
+        .practice-qa-graph-detail__tag { display: inline-block; font-size: 0.62rem; font-weight: 800; color: #8A7B6E; background: #F0EAE0; border-radius: 9999px; padding: 0.15rem 0.45rem; margin-bottom: 0.35rem; }
+        .slide-practice-qa > div { display: flex; flex-direction: column; min-height: 0; flex: 1; max-height: calc(100vh - 8.5rem); }
+        .slide-practice-qa .practice-qa-bullets { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.35rem 0.75rem; }
+        .slide-practice-qa .practice-qa-bullets li { font-size: 0.78rem !important; }
         .interview-fields-figure { flex: 0 0 auto; height: min(360px, 44vh); max-height: min(360px, 44vh); min-height: 0; margin: 0; display: flex; flex-direction: column; background: #fff; border: 1px solid #F0EAE0; border-radius: 8px; padding: 0.4rem 0.65rem 0.5rem; overflow: hidden; }
         .interview-fields-caption { flex-shrink: 0; font-size: 0.68rem; font-weight: 700; color: #8A7B6E; text-align: center; margin: 0 0 0.25rem; }
         .interview-fields-img { flex: 1; min-height: 0; width: 100%; object-fit: contain; display: block; }
@@ -143,6 +174,13 @@
         .photo-banner-grid--in-layout { max-width: none; }
         .photo-banner-item { border-radius: 8px; overflow: hidden; line-height: 0; box-shadow: 0 1px 3px rgba(51,39,31,.08); }
         .slide-photo-banner { width: 100%; height: auto; display: block; }
+        .material-share-layout { display: grid; grid-template-columns: minmax(0, 0.62fr) minmax(0, 1.38fr); gap: 0.75rem; align-items: stretch; width: 100%; height: min(520px, calc(100vh - 280px)); max-height: min(520px, calc(100vh - 280px)); min-height: 0; overflow: hidden; }
+        .material-share-layout__left, .material-share-layout__right { min-width: 0; min-height: 0; display: flex; flex-direction: column; }
+        .material-share-photo { flex: 1; min-height: 0; background: #fff; border: 1px solid #F0EAE0; border-radius: 8px; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 1px 3px rgba(51,39,31,.08); margin: 0; }
+        .material-share-photo img { width: 100%; flex: 1; min-height: 0; object-fit: contain; object-position: top center; background: #fff; padding: 8px; display: block; }
+        .material-share-photo figcaption { flex-shrink: 0; font-size: 9.5px; font-weight: 700; text-align: center; padding: 5px 6px 7px; color: #33271F; line-height: 1.3; background: #FBF8F3; }
+        .material-share-side { flex: 1; min-height: 0; display: flex; flex-direction: column; gap: 0.5rem; }
+        .material-share-side--empty { background: transparent; border: 1px dashed #E8DFD3; border-radius: 8px; }
         .lecture-layout { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr); gap: 0.75rem; align-items: stretch; width: 100%; min-height: 0; height: min(520px, calc(100vh - 280px)); max-height: min(520px, calc(100vh - 280px)); overflow: hidden; }
         .lecture-layout__main { min-width: 0; min-height: 0; overflow-y: auto; overflow-x: hidden; padding-right: 2px; }
         .lecture-layout__side { min-width: 0; min-height: 0; display: flex; flex-direction: column; gap: 0.5rem; overflow: hidden; }
@@ -158,6 +196,9 @@
         .photo-banner-grid--in-layout .slide-photo-banner { width: 100%; max-width: 100%; height: auto; }
         .photo-grid--dense .slide-photo { height: 168px; }
         .photo-grid--dense figcaption { padding-top: 0.4rem; padding-bottom: 0.55rem; }
+        .photo-grid--quad { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: repeat(2, minmax(0, 1fr)); gap: 0.5rem; height: min(520px, calc(100vh - 280px)); max-height: min(520px, calc(100vh - 280px)); width: 100%; }
+        .photo-grid--quad figure { min-height: 0; display: flex; flex-direction: column; overflow: hidden; margin: 0; }
+        .photo-grid--quad .support-photo-contain { flex: 1; min-height: 0; height: auto; max-height: none; }
         .meeting-reveal { width: 100%; }
         .meeting-reveal-stack { position: relative; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.75rem; height: min(480px, calc(100vh - 260px)); max-height: 520px; }
         .meeting-reveal-photo { background: #fff; border: 1px solid #F0EAE0; border-radius: 8px; overflow: hidden; display: flex; flex-direction: column; min-height: 0; margin: 0; }
@@ -409,6 +450,356 @@
                 label, title, message, scroll, compact, alignTop, wide,
                 body
             });
+        }
+
+        const PRACTICE_QA_ITEMS = [
+            {
+                q: 'Q1. FastAPI를 이용해 API 문서를 만드는 이유는?',
+                a: '코드 기반으로 API 문서를 자동 생성하여 별도 문서 작업 없이 요청/응답 구조를 공유하고, Swagger UI를 통해 테스트 및 협업 효율을 높이기 위함'
+            },
+            {
+                q: 'Q2. API 문서의 유즈 케이스는?',
+                a: '프론트엔드 개발자가 API의 URL, 요청 데이터, 응답 형식을 확인하고 Swagger에서 직접 테스트하여 백엔드와의 연동을 사전에 검증하는 용도'
+            },
+            {
+                q: 'Q3. POST 호출 시 함수 정의에 req 변수를 사용하는 이유는?',
+                a: 'POST <code>/api/chat</code>로 들어온 요청 본문을 담는 변수 이름입니다. <code>request</code>를 줄인 관습적인 이름이라, “이번 요청 데이터”를 가리킵니다.'
+            },
+            {
+                q: 'Q4. 인코딩이란?',
+                a: '문자를 컴퓨터가 저장하고 처리할 수 있는 숫자 형태로 변환하는 방식입니다. UTF-8, EUC-KR 등이 있으며 인코딩이 맞지 않으면 문자 깨짐 현상이 발생합니다.'
+            },
+            {
+                q: 'Q5. 로케일(locale)이란?',
+                a: '프로그램이 사용하는 언어 및 지역 설정 환경입니다. 문자 정렬 방식, 날짜 형식, 숫자 표기 방식 등에 영향을 줍니다.'
+            },
+            {
+                q: 'Q6. SELECT에서 만든 alias 컬럼을 WHERE 절에서 사용할 수 있는지?',
+                a: '사용할 수 없습니다. alias는 SELECT 결과에서만 적용되는 이름이기 때문에 필요한 경우 서브쿼리나 별도 컬럼으로 만들어 활용해야 합니다.'
+            },
+            {
+                q: 'Q7. MongoDB, Supabase와 SQL 데이터베이스의 차이',
+                a: 'MongoDB는 문서 기반 NoSQL, Supabase는 PostgreSQL 기반 SQL 데이터베이스입니다. SQL DB는 테이블 구조 기반 관계형으로 구조화된 데이터·복잡한 쿼리에 강하고, NoSQL은 데이터 구조가 유연해 실시간·대규모 처리에 적합합니다. 비즈니스 성격에 따라 기술 검토가 필요합니다.'
+            },
+            {
+                q: 'Q8. 데이터베이스는 어디에 구축되는지?',
+                a: '업무 시스템의 DB는 일반적으로 별도의 서버 환경에 구축됩니다. 서버 형태는 물리 서버 또는 클라우드 서버로 운영될 수 있습니다.'
+            },
+            {
+                q: 'Q9. SQL 실행 후 데이터를 저장하지 않아도 DB에 반영되는지?',
+                a: 'SQL 쿼리를 실행하면 DB에 즉시 반영됩니다. 에디터의 저장 기능은 SQL 스크립트 파일을 저장하는 것일 뿐 DB 저장과는 별개입니다.'
+            },
+            {
+                q: 'Q10. 데이터 테이블을 효과적으로 설계하는 방법은?',
+                a: `<ul>
+                    <li>데이터 중복 최소화</li>
+                    <li>테이블 간 관계 구조 설계</li>
+                    <li>기본키(PK) 및 외래키(FK) 설정 고려</li>
+                </ul>`
+            }
+        ];
+
+        const PRACTICE_QA_GRAPH_LABELS = [
+            'FastAPI', 'API 활용', 'POST req', '인코딩', '로케일',
+            'SQL alias', 'DB 비교', 'DB 구축', 'SQL 반영', '테이블 설계'
+        ];
+
+        const PRACTICE_QA_GRAPH_TOPICS = [
+            { id: 't-api', label: 'API' },
+            { id: 't-swagger', label: 'Swagger' },
+            { id: 't-backend', label: '백엔드' },
+            { id: 't-i18n', label: 'i18n' },
+            { id: 't-sql', label: 'SQL' },
+            { id: 't-db', label: 'DB' },
+            { id: 't-server', label: '서버' },
+            { id: 't-design', label: '설계' }
+        ];
+
+        const PRACTICE_QA_GRAPH_CORE = { id: 'core', label: '실습', sub: 'Q&A' };
+
+        const PRACTICE_QA_GRAPH_CORE_LINKS = [
+            ['core', 'q0'], ['core', 'q1'], ['core', 'q2'], ['core', 'q3'], ['core', 'q4'],
+            ['core', 'q5'], ['core', 'q6'], ['core', 'q7'], ['core', 'q8'], ['core', 'q9'],
+            ['core', 't-api'], ['core', 't-db'], ['core', 't-sql']
+        ];
+
+        const PRACTICE_QA_GRAPH_LINKS = [
+            ['q0', 'q1'], ['q1', 'q2'], ['q0', 'q2'], ['q3', 'q4'],
+            ['q5', 'q6'], ['q6', 'q7'], ['q7', 'q8'], ['q8', 'q9'], ['q9', 'q5'],
+            ['q5', 'q8'], ['q6', 'q9'], ['q7', 'q9'], ['q5', 'q9'], ['q0', 'q6'],
+            ['q1', 'q7'], ['q2', 'q5'], ['q3', 'q8'], ['q4', 'q9'], ['q2', 'q4'],
+            ['q0', 't-api'], ['q1', 't-api'], ['q2', 't-api'], ['q0', 't-swagger'], ['q1', 't-swagger'],
+            ['q2', 't-backend'], ['q1', 't-backend'],
+            ['q3', 't-i18n'], ['q4', 't-i18n'], ['q4', 't-backend'],
+            ['q5', 't-sql'], ['q8', 't-sql'], ['q9', 't-sql'], ['q5', 't-db'],
+            ['q6', 't-db'], ['q7', 't-db'], ['q8', 't-db'], ['q9', 't-db'],
+            ['q7', 't-server'], ['q8', 't-server'], ['q9', 't-design'], ['q5', 't-design'],
+            ['t-api', 't-swagger'], ['t-api', 't-backend'], ['t-api', 't-db'],
+            ['t-backend', 't-i18n'], ['t-sql', 't-db'], ['t-sql', 't-design'],
+            ['t-db', 't-server'], ['t-db', 't-design'], ['t-swagger', 't-backend']
+        ];
+
+        let practiceQaGraphRaf = null;
+        let practiceQaGraphCycleTimer = null;
+        let practiceQaGraphActive = -1;
+        let practiceQaGraphPausedUntil = 0;
+        let practiceQaGraphSlide = null;
+        let practiceQaGraphSim = null;
+
+        const PRACTICE_QA_GRAPH_VIEW = { w: 640, h: 360 };
+
+        function practiceQaNodeId(index) {
+            return `q${index}`;
+        }
+
+        function setPracticeQaGraphDetail(index) {
+            const panel = practiceQaGraphSlide?.querySelector('#practice-qa-graph-detail');
+            if (!panel || index < 0 || index >= PRACTICE_QA_ITEMS.length) return;
+            const { q, a } = PRACTICE_QA_ITEMS[index];
+            panel.innerHTML = `<span class="practice-qa-graph-detail__tag">Q${index + 1}</span>
+                <p class="practice-qa-graph-detail__q">${q.replace(/^Q\d+\.\s*/, '')}</p>
+                <div class="practice-qa-graph-detail__a">${a}</div>`;
+        }
+
+        function getPracticeQaGraphAllLinks() {
+            return [...PRACTICE_QA_GRAPH_CORE_LINKS, ...PRACTICE_QA_GRAPH_LINKS];
+        }
+
+        function getPracticeQaGraphNeighbors(activeId) {
+            const near = new Set();
+            getPracticeQaGraphAllLinks().forEach(([a, b]) => {
+                if (a === activeId) near.add(b);
+                if (b === activeId) near.add(a);
+            });
+            return near;
+        }
+
+        function selectPracticeQaGraphNode(index, userClick) {
+            practiceQaGraphActive = index;
+            if (userClick) practiceQaGraphPausedUntil = performance.now() + 8000;
+            const activeId = practiceQaNodeId(index);
+            const neighbors = getPracticeQaGraphNeighbors(activeId);
+            practiceQaGraphSlide?.querySelectorAll('.kg-node[data-node]').forEach(el => {
+                const id = el.dataset.node;
+                el.classList.toggle('is-active', id === activeId);
+                el.classList.toggle('is-near', id !== activeId && neighbors.has(id) && id.startsWith('q'));
+            });
+            practiceQaGraphSlide?.querySelectorAll('.kg-link').forEach(el => {
+                const [a, b] = el.dataset.link.split('|');
+                const touches = a === activeId || b === activeId;
+                el.classList.toggle('is-active', touches);
+                el.classList.toggle('is-near', !touches && (
+                    (neighbors.has(a) && b === activeId) || (neighbors.has(b) && a === activeId)
+                ));
+            });
+            setPracticeQaGraphDetail(index);
+        }
+
+        function stopPracticeQaGraph() {
+            if (practiceQaGraphRaf) cancelAnimationFrame(practiceQaGraphRaf);
+            practiceQaGraphRaf = null;
+            if (practiceQaGraphCycleTimer) clearInterval(practiceQaGraphCycleTimer);
+            practiceQaGraphCycleTimer = null;
+            practiceQaGraphActive = -1;
+            practiceQaGraphSlide = null;
+            practiceQaGraphSim = null;
+        }
+
+        function buildPracticeQaGraphNodes() {
+            const qaNodes = PRACTICE_QA_GRAPH_LABELS.map((title, i) => ({
+                id: practiceQaNodeId(i),
+                type: 'qa',
+                index: i,
+                r: 17,
+                label: `Q${i + 1}`,
+                title
+            }));
+            const topicNodes = PRACTICE_QA_GRAPH_TOPICS.map(({ id, label }) => ({
+                id,
+                type: 'topic',
+                r: 11,
+                label
+            }));
+            return [...qaNodes, ...topicNodes];
+        }
+
+        function initPracticeQaGraph() {
+            stopPracticeQaGraph();
+            practiceQaGraphSlide = slides[current];
+            const svg = practiceQaGraphSlide?.querySelector('#practice-qa-graph-svg');
+            if (!svg) return;
+
+            const { w, h } = PRACTICE_QA_GRAPH_VIEW;
+            svg.setAttribute('viewBox', `0 0 ${w} ${h}`);
+            svg.innerHTML = '';
+
+            const pad = 36;
+            const cx = w * 0.5;
+            const cy = h * 0.5;
+            const outerNodes = buildPracticeQaGraphNodes();
+            const simNodes = outerNodes.map((n, i) => {
+                const angle = (i / outerNodes.length) * Math.PI * 2 - Math.PI / 2;
+                const dist = n.type === 'qa' ? 108 + (i % 4) * 12 : 78 + (i % 3) * 8;
+                return {
+                    ...n,
+                    x: cx + Math.cos(angle) * dist,
+                    y: cy + Math.sin(angle) * dist * 0.82,
+                    vx: 0,
+                    vy: 0
+                };
+            });
+            const coreNode = {
+                id: PRACTICE_QA_GRAPH_CORE.id,
+                type: 'core',
+                r: 26,
+                x: cx,
+                y: cy,
+                vx: 0,
+                vy: 0,
+                fixed: true
+            };
+            simNodes.push(coreNode);
+            const nodeById = Object.fromEntries(simNodes.map(n => [n.id, n]));
+            const allLinks = getPracticeQaGraphAllLinks();
+            const simLinks = allLinks.map(([a, b]) => ({
+                a, b,
+                core: a === 'core' || b === 'core',
+                qa: a.startsWith('q') && b.startsWith('q'),
+                topic: (a.startsWith('t') || b.startsWith('t')) && a !== 'core' && b !== 'core'
+            }));
+
+            const linksG = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+            const nodesG = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+            const coreG = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+            svg.appendChild(linksG);
+            svg.appendChild(nodesG);
+            svg.appendChild(coreG);
+
+            const lineEls = simLinks.map(({ a, b, core }) => {
+                const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                line.dataset.link = `${a}|${b}`;
+                line.setAttribute('class', `kg-link${core ? ' is-core-link' : ''}`);
+                linksG.appendChild(line);
+                return { a, b, el: line };
+            });
+
+            const nodeGroups = outerNodes.map(n => {
+                const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+                g.setAttribute('class', `kg-node${n.type === 'topic' ? ' is-topic' : ''}`);
+                g.dataset.node = n.id;
+                const titleLine = n.type === 'qa'
+                    ? `<text class="kg-node-title" dy="24">${n.title}</text>`
+                    : '';
+                g.innerHTML = `<circle r="${n.r}"></circle>
+                    <text class="kg-node-label">${n.label}</text>${titleLine}`;
+                if (n.type === 'qa') {
+                    g.addEventListener('click', () => selectPracticeQaGraphNode(n.index, true));
+                }
+                nodesG.appendChild(g);
+                return { ...n, g };
+            });
+
+            const coreGEl = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+            coreGEl.setAttribute('class', 'kg-node is-core');
+            coreGEl.dataset.node = 'core';
+            coreGEl.innerHTML = `<circle r="${coreNode.r}"></circle>
+                <text class="kg-node-label" dy="-0.35em">${PRACTICE_QA_GRAPH_CORE.label}</text>
+                <text class="kg-node-label" dy="0.85em">${PRACTICE_QA_GRAPH_CORE.sub}</text>`;
+            coreG.appendChild(coreGEl);
+
+            practiceQaGraphSim = { simNodes, simLinks, nodeById, lineEls, nodeGroups, coreGEl, cx, cy, pad, w, h, lastNow: 0 };
+
+            function simulate(now) {
+                practiceQaGraphSim.lastNow = now;
+                const spread = 0.68 + 0.42 * (0.5 + 0.5 * Math.sin(now * 0.00085));
+                const repulse = 4800 * spread * spread;
+                const springK = 0.02 / spread;
+                const restQa = 76 * spread;
+                const restTopic = 46 * spread;
+                const restCore = 92 * spread;
+                const restMix = 58 * spread;
+                const damp = 0.84;
+                const outerNodesOnly = simNodes.filter(n => !n.fixed);
+
+                for (let i = 0; i < outerNodesOnly.length; i++) {
+                    for (let j = i + 1; j < outerNodesOnly.length; j++) {
+                        const a = outerNodesOnly[i];
+                        const b = outerNodesOnly[j];
+                        let dx = b.x - a.x;
+                        let dy = b.y - a.y;
+                        let dist = Math.hypot(dx, dy) || 0.01;
+                        const force = repulse / (dist * dist);
+                        const fx = (dx / dist) * force;
+                        const fy = (dy / dist) * force;
+                        a.vx -= fx; a.vy -= fy;
+                        b.vx += fx; b.vy += fy;
+                    }
+                }
+
+                simLinks.forEach(({ a, b, core, qa, topic }) => {
+                    const na = nodeById[a];
+                    const nb = nodeById[b];
+                    if (!na || !nb) return;
+                    let dx = nb.x - na.x;
+                    let dy = nb.y - na.y;
+                    let dist = Math.hypot(dx, dy) || 0.01;
+                    const rest = core ? restCore : qa ? restQa : topic ? restTopic : restMix;
+                    const force = (dist - rest) * springK;
+                    const fx = (dx / dist) * force;
+                    const fy = (dy / dist) * force;
+                    if (!na.fixed) { na.vx += fx; na.vy += fy; }
+                    if (!nb.fixed) { nb.vx -= fx; nb.vy -= fy; }
+                });
+
+                outerNodesOnly.forEach(n => {
+                    n.vx += (cx - n.x) * 0.0025;
+                    n.vy += (cy - n.y) * 0.0025;
+                    n.vx *= damp;
+                    n.vy *= damp;
+                    n.x += n.vx;
+                    n.y += n.vy;
+                    n.x = Math.max(pad, Math.min(w - pad, n.x));
+                    n.y = Math.max(pad, Math.min(h - pad, n.y));
+                });
+
+                coreNode.x = cx;
+                coreNode.y = cy;
+                coreNode.vx = 0;
+                coreNode.vy = 0;
+            }
+
+            function renderGraph() {
+                lineEls.forEach(({ a, b, el }) => {
+                    const pa = nodeById[a];
+                    const pb = nodeById[b];
+                    el.setAttribute('x1', pa.x);
+                    el.setAttribute('y1', pa.y);
+                    el.setAttribute('x2', pb.x);
+                    el.setAttribute('y2', pb.y);
+                });
+                nodeGroups.forEach(n => {
+                    const scale = n.type === 'qa' && practiceQaGraphActive === n.index ? 1.12 : 1;
+                    n.g.setAttribute('transform', `translate(${n.x}, ${n.y}) scale(${scale})`);
+                });
+                const pulse = 1 + 0.05 * Math.sin(practiceQaGraphSim.lastNow * 0.0011);
+                coreGEl.setAttribute('transform', `translate(${cx}, ${cy}) scale(${pulse})`);
+            }
+
+            function tick(now) {
+                simulate(now);
+                renderGraph();
+                practiceQaGraphRaf = requestAnimationFrame(tick);
+            }
+
+            selectPracticeQaGraphNode(0, false);
+            practiceQaGraphRaf = requestAnimationFrame(tick);
+
+            let cycleIdx = 0;
+            practiceQaGraphCycleTimer = setInterval(() => {
+                if (performance.now() < practiceQaGraphPausedUntil) return;
+                cycleIdx = (cycleIdx + 1) % PRACTICE_QA_ITEMS.length;
+                selectPracticeQaGraphNode(cycleIdx, false);
+            }, 3200);
         }
 
         function buildInterviewSlide() {
@@ -940,7 +1331,12 @@
 
         // ── PART 3: 디전센 X PUG ──
         const SUPPORT = [
-            { icon: 'presentation', title: '사내 전문가 연결 - 웹 개발자 강의', desc: '도메인 특성을 이해한 실무형 강의 및 코칭' },
+            { icon: 'presentation', title: '사내 전문가 연결 - 웹 개발자 강의', desc: '도메인 특성을 이해한 실무형 강의 및 코칭', photoLayout: 'quad', photoFit: 'contain', photos: [
+                { src: 'assets/26-web-dev-lecture/lecture-code-review.png', caption: '실습 코드 리뷰 · 화면 공유 강의' },
+                { src: 'assets/26-web-dev-lecture/lecture-llm-params.png', caption: 'LLM 출력 파라미터 강의' },
+                { src: 'assets/26-web-dev-lecture/lecture-workshop.png', caption: '웹 개발 워크숍 세션' },
+                { src: 'assets/26-web-dev-lecture/lecture-onprem-llm.png', caption: '온프레미스 LLM 연동 실무' }
+            ]},
             { icon: 'palette', title: '사내 전문가 연결 - 웹 디자인 지원 (UI/UX 피드백)', embedGuide: 'assets/27-design-consulting/vibe-coding-design-guide.html', photos: [
                 { src: 'assets/27-design-consulting/consulting-1.png', caption: '디지털진화팀 심수정님 | UI/UX 강의 세션' },
                 { src: 'assets/27-design-consulting/consulting-2.png', caption: '1:1 디자인 피드백' }
@@ -950,7 +1346,9 @@
                 { src: 'assets/28-meeting/meeting-playground.png', caption: 'AI Playground 소개 (신민규님)' }
             ], overlayPhoto: { src: 'assets/28-meeting/meeting-dinner.png', caption: '간담회 식사', note: 'Power User Group의 P를 나타낸 포즈입니다 ^^' }},
             { icon: 'message-square', title: '운영진 활동 - 주차별 활동 요약 (팀즈 채널)', video: 'assets/29-teams-channel/teams-channel.mp4' },
-            { icon: 'folder-open', title: '운영진 활동 - 주차별 실습자료 공유', desc: '교육 자료·실습 가이드 지속 공유' },
+            { icon: 'folder-open', title: '운영진 활동 - 주차별 실습자료 공유', desc: '교육 자료·실습 가이드 지속 공유', materialShare: {
+                leftPhoto: { src: 'assets/30-weekly-materials/weekly-materials-folders.png', caption: 'Power User Group (집중) · 주차별 실습자료 폴더' }
+            }},
             { icon: 'archive', title: '운영진 활동 - 주차별 미팅노트 아카이빙 & 회고', desc: '미팅노트 축적 및 회고 문화 정착', notionEmbed: 'assets/31-meeting-notes/pug-meeting-notes.html' },
             { icon: 'graduation-cap', title: '개발 환경 지원 - AI/Dev 온라인 강의 선별', desc: 'PoC 수행에 필요한 AI·개발 역량 강화를 위해 인프런 등 온라인 강의를 선별·추천했습니다.', photoBanner: true, photos: [
                 { src: 'assets/32-online-lectures/lecture-llm.png', caption: 'LLM 핵심 이론, 구조로 이해하기' },
@@ -1195,6 +1593,26 @@
             </div>`;
         }
 
+        function buildMaterialShareLayout({ leftPhoto, rightPhotos = [] }) {
+            const left = `<figure class="material-share-photo">
+                <img src="${leftPhoto.src}" alt="${leftPhoto.caption || ''}" loading="lazy">
+                ${leftPhoto.caption ? `<figcaption>${leftPhoto.caption}</figcaption>` : ''}
+            </figure>`;
+            const rightItems = rightPhotos.map(p =>
+                `<figure class="material-share-photo">
+                    <img src="${p.src}" alt="${p.caption || ''}" loading="lazy">
+                    ${p.caption ? `<figcaption>${p.caption}</figcaption>` : ''}
+                </figure>`
+            ).join('');
+            const right = rightPhotos.length
+                ? `<div class="material-share-side">${rightItems}</div>`
+                : `<div class="material-share-side material-share-side--empty"></div>`;
+            return `<div class="material-share-layout">
+                <div class="material-share-layout__left">${left}</div>
+                <div class="material-share-layout__right">${right}</div>
+            </div>`;
+        }
+
         function buildNotionEmbedLayout(src) {
             return `<div class="notion-embed-wrap">
                 <iframe src="${src}" title="PUG Meeting Notes" class="notion-embed-iframe embed-scroll-iframe"></iframe>
@@ -1229,6 +1647,16 @@
                     title: s.title,
                     wide: true,
                     body: buildDesignConsultLayout(s)
+                });
+            }
+            if (s.materialShare) {
+                const intro = s.desc ? `<p class="text-sm text-ink/80 mb-3 leading-relaxed shrink-0">${s.desc}</p>` : '';
+                return contentSlide({
+                    label: 'Support · 디전센 × PUG',
+                    title: s.title,
+                    wide: true,
+                    compact: true,
+                    body: `${intro}${buildMaterialShareLayout(s.materialShare)}`
                 });
             }
             if (s.notionEmbed) {
@@ -1272,7 +1700,9 @@
             if (s.photos) {
                 const intro = s.desc ? `<p class="text-base text-ink/85 mb-4 leading-relaxed">${s.desc}</p>` : '';
                 const dense = !s.photoBanner && s.photos.length > 3 ? ' photo-grid--dense' : '';
-                const gridCls = s.photoBanner ? 'photo-banner-grid' : `grid md:grid-cols-3 gap-3${dense}`;
+                const gridCls = s.photoLayout === 'quad' ? 'photo-grid--quad'
+                    : s.photoBanner ? 'photo-banner-grid'
+                    : `grid md:grid-cols-3 gap-3${dense}`;
                 const photoCls = s.photoFit === 'contain' ? 'support-photo-contain' : (s.photoBanner ? 'slide-photo-banner' : 'slide-photo');
                 const photoGrid = s.photos.map(p => {
                     const cap = (!s.photoBanner && p.caption) ? `<figcaption class="px-3 py-3 text-xs font-bold text-ink text-center leading-snug">${p.caption}</figcaption>` : '';
@@ -1285,9 +1715,9 @@
                 return contentSlide({
                     label: 'Support · 디전센 × PUG',
                     title: s.title,
-                    wide: !!s.photoFit,
-                    compact: !!s.photoFit,
-                    scroll: s.photoBanner ? false : true,
+                    wide: !!(s.photoFit || s.photoLayout === 'quad'),
+                    compact: !!(s.photoFit || s.photoLayout === 'quad'),
+                    scroll: s.photoBanner ? false : s.photoLayout !== 'quad',
                     body: `${intro}<div class="${gridCls}">${photoGrid}</div>`
                 });
             }
@@ -1386,17 +1816,30 @@
         const part4 = [
             sectionDivider('PART 4', '활동 효과', '서로 얻어가는 성장과 조직에 남긴 변화'),
 
-            listSlide({
+            contentSlide({
                 label: 'Effect · 서로 얻어가는',
                 title: '실습에서 서로 질문하며 배워가는',
                 message: '혼자 배우는 활동에서 함께 질문하고 토론하며 성장하는 구조로 변화했습니다.',
-                items: [
-                    '실습 중 발생하는 기술 이슈를 서로 질문·답변',
-                    'PoC 진행 상황을 공유하며 피드백 교환',
-                    '데이터 확보, 구현 방향, 사용자 관점 등 다각도 토론',
-                    '개인 실험을 공동의 문제 해결 경험으로 전환'
-                ],
-                highlight: '💬 <strong class="text-ink">질문 & 토론</strong> 내용을 여기에 추가하세요.'
+                wide: true,
+                compact: true,
+                alignTop: true,
+                slideClass: 'slide-practice-qa',
+                body: `<div class="bg-card rounded-lg p-3 shrink-0">
+                    <ul class="practice-qa-bullets">
+                        <li class="flex items-start gap-2 text-ink/85"><span class="shrink-0 mt-0.5 p-1 bg-pug text-ink rounded"><i data-lucide="check" class="w-3 h-3"></i></span><span>실습 중 기술 이슈를 서로 질문·답변</span></li>
+                        <li class="flex items-start gap-2 text-ink/85"><span class="shrink-0 mt-0.5 p-1 bg-pug text-ink rounded"><i data-lucide="check" class="w-3 h-3"></i></span><span>PoC 진행 상황 공유·피드백 교환</span></li>
+                        <li class="flex items-start gap-2 text-ink/85"><span class="shrink-0 mt-0.5 p-1 bg-pug text-ink rounded"><i data-lucide="check" class="w-3 h-3"></i></span><span>데이터·구현·사용자 관점 다각 토론</span></li>
+                        <li class="flex items-start gap-2 text-ink/85"><span class="shrink-0 mt-0.5 p-1 bg-pug text-ink rounded"><i data-lucide="check" class="w-3 h-3"></i></span><span>개인 실험 → 공동 문제 해결로 전환</span></li>
+                    </ul>
+                </div>
+                <div class="practice-qa-graph-layout">
+                    <div class="practice-qa-graph-stage" id="practice-qa-graph">
+                        <svg class="practice-qa-graph-svg" id="practice-qa-graph-svg" role="img" aria-label="실습 질문 지식 그래프"></svg>
+                    </div>
+                    <div class="practice-qa-graph-detail" id="practice-qa-graph-detail">
+                        <p class="practice-qa-graph-detail__hint">노드를 클릭하거나 연결선을 따라 자동으로 질문이 이어집니다</p>
+                    </div>
+                </div>`
             }),
 
             listSlide({
@@ -2379,6 +2822,7 @@
             if (!slides[current]?.querySelector('#meeting-reveal')) resetMeetingReveal();
             if (!slides[current]?.querySelector('#member-radar-grid')) destroyMemberRadars();
             if (!slides[current]?.querySelector('#checklist-panel')) stopChecklistAutoLoop();
+            if (!slides[current]?.querySelector('#practice-qa-graph-svg')) stopPracticeQaGraph();
             document.getElementById('cur').innerText = current + 1;
             document.getElementById('progress-bar').style.width = ((current + 1) / slides.length * 100) + '%';
             lucide.createIcons();
@@ -2401,6 +2845,8 @@
                 startMemberRadarAutoLoop();
             } else if (slides[current]?.querySelector(CONVENTION_GUIDE_SELECTOR)) {
                 initConventionGuideTab();
+            } else if (slides[current]?.querySelector('#practice-qa-graph-svg')) {
+                initPracticeQaGraph();
             } else if (slides[current]?.querySelector(EMBED_SCROLL_SELECTOR)) {
                 initEmbedAutoScroll();
             }
