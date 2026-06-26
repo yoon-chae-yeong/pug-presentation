@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Agent 마스터 강의 자료</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            scroll-behavior: smooth;
+            font-size: 20px;
+            line-height: 1.7;
+            color: #0f172a;
+        }
+        h2 { font-weight: 900 !important; color: #1e3a8a; }
+        h3 { font-weight: 700 !important; color: #1e40af; }
+        strong { color: #2563eb; font-weight: 700; }
+        
+        .section-container {
+            margin-bottom: 4rem;
+            padding: 2rem;
+            border-bottom: 2px solid #f1f5f9;
+        }
+
+        /* 코드 블록 가시성 개선 (구문 강조) */
+        .code-block {
+            background-color: #0f172a;
+            color: #f8fafc;
+            padding: 0.9rem 1rem;
+            border-radius: 0.6rem;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin: 0.8rem 0;
+            border: 2px solid #1e293b;
+            white-space: pre-wrap;
+        }
+        .code-key { color: #67e8f9; font-weight: bold; } /* Cyan for Keys */
+        .code-string { color: #fbbf24; } /* Yellow for Strings */
+        .code-num { color: #f472b6; } /* Pink for Numbers */
+        .code-punct { color: #94a3b8; } /* Slate for Brackets/Comma */
+
+        .highlight-box {
+            background-color: #f8fafc;
+            border-left: 8px solid #2563eb;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 1rem 1rem 0;
+        }
+        .table-custom {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 1.1rem;
+            margin: 1.5rem 0;
+        }
+        .table-custom th {
+            background-color: #1e293b;
+            color: white;
+            padding: 1rem;
+            text-align: left;
+        }
+        .table-custom td {
+            padding: 1rem;
+            border-bottom: 1px solid #e2e8f0;
+            color: #0f172a;
+            font-weight: 500;
+        }
+        
+        /* 다중 에이전트 패턴 카드 개선 (라이트 톤) */
+        .pattern-card {
+            background: #f8fafc;
+            color: #1e293b;
+            padding: 2rem;
+            border-radius: 0.9rem;
+            margin-bottom: 1.4rem;
+            border: 1px solid #e2e8f0;
+            box-shadow: none;
+        }
+        .pattern-card h4 {
+            color: #0f172a;
+        }
+        .pattern-card .text-blue-400 {
+            color: #2563eb !important;
+        }
+        .inner-flow-box {
+            background-color: #ffffff;
+            color: #334155;
+            padding: 1.1rem;
+            border-radius: 0.8rem;
+            font-family: "Pretendard", "Noto Sans KR", "Segoe UI", sans-serif;
+            font-size: 1.05rem;
+            line-height: 1.45;
+            margin: 1rem 0;
+            white-space: normal;
+            border: 1px solid #cbd5e1;
+        }
+        .flow-col { display: flex; flex-direction: column; gap: 0.45rem; }
+        .flow-row { display: flex; flex-wrap: wrap; align-items: center; gap: 0.45rem; }
+        .flow-node {
+            display: inline-block;
+            background: #eff6ff;
+            color: #1e3a8a;
+            border: 1px solid #93c5fd;
+            border-radius: 0.45rem;
+            padding: 0.28rem 0.58rem;
+            font-size: 0.98rem;
+            font-weight: 800;
+            font-family: "Pretendard", "Noto Sans KR", "Segoe UI", sans-serif;
+        }
+        .flow-node.primary {
+            border-color: #2563eb;
+            color: #1e40af;
+            background: #dbeafe;
+        }
+        .flow-arrow {
+            color: #2563eb;
+            font-weight: 900;
+            margin: 0 0.15rem;
+            font-family: "Pretendard", "Noto Sans KR", "Segoe UI", sans-serif;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            border-radius: 0.7rem;
+            font-size: 0.9rem;
+            font-weight: 800;
+            margin-bottom: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .example-tag {
+            background-color: #f0f9ff;
+            color: #0c4a6e;
+            padding: 0.4rem 0.8rem;
+            border-radius: 0.55rem;
+            font-size: 1rem;
+            font-weight: 800;
+            display: inline-flex;
+            align-items: center;
+            border: 1px solid #e2e8f0;
+            margin-right: 0.4rem;
+            margin-bottom: 0.4rem;
+        }
+        .example-tag::before {
+            content: "•";
+            color: #67e8f9;
+            margin-right: 0.5rem;
+            font-size: 1.2rem;
+        }
+    </style>
+</head>
+<body class="bg-white">
+
+    <nav class="sticky top-0 bg-white/95 border-b-2 border-slate-200 z-50 py-4 shadow-md">
+        <div class="max-w-5xl mx-auto px-6 flex justify-between items-center">
+            <h1 class="font-black text-2xl text-blue-800">AI AGENT MASTER</h1>
+            <p class="text-sm font-bold text-slate-500 uppercase tracking-widest">Full Curriculum</p>
+        </div>
+    </nav>
+
+    <main class="max-w-5xl mx-auto px-6 py-8">
+
+        <!-- Header -->
+        <header class="text-center py-10 bg-slate-900 text-white rounded-3xl mb-12">
+            <h1 class="text-5xl font-black mb-4">AI Agent 강의 자료</h1>
+            <p class="text-xl opacity-80 font-medium">기초 개념부터 다중 에이전트 설계 패턴까지</p>
+        </header>
+
+        <!-- 1. AI 에이전트란? -->
+        <section id="section-1" class="section-container">
+            <h2 class="text-4xl mb-6">1. AI 에이전트란?</h2>
+            <p class="text-xl mb-6">
+                AI 에이전트는 단순히 질문에 답하는 챗봇이 아니라, <br>
+                <strong>목표를 이해하고 → 필요한 도구를 선택하고 → 실행하고 → 결과를 판단하고 → 최종 응답을 만드는 시스템</strong>이다.
+            </p>
+            <div class="bg-blue-50 p-8 rounded-3xl border-2 border-blue-100 text-center">
+                <div class="flex flex-col items-center space-y-2">
+                    <div class="bg-blue-600 text-white px-10 py-3 rounded-xl font-black shadow-lg">사용자 요청</div>
+                    <div class="text-blue-300 text-2xl font-black">↓</div>
+                    <div class="bg-white border-2 border-blue-600 text-blue-700 px-10 py-3 rounded-xl font-black">Agent 판단</div>
+                    <div class="text-blue-300 text-2xl font-black">↓</div>
+                    <div class="bg-white border-2 border-slate-700 text-slate-900 px-10 py-3 rounded-xl font-black">Tool 선택</div>
+                    <div class="text-blue-300 text-2xl font-black">↓</div>
+                    <div class="bg-slate-900 text-white px-10 py-3 rounded-xl font-bold">API / DB / 파일 / 검색 실행</div>
+                    <div class="text-blue-300 text-2xl font-black">↓</div>
+                    <div class="bg-white border-2 border-blue-600 text-blue-700 px-10 py-3 rounded-xl font-black">결과 해석</div>
+                    <div class="text-blue-300 text-2xl font-black">↓</div>
+                    <div class="bg-blue-700 text-white px-10 py-3 rounded-xl font-black shadow-lg">최종 답변</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. LLM과 Agent의 차이 -->
+        <section id="section-2" class="section-container">
+            <h2 class="text-4xl mb-6">2. LLM과 Agent의 차이</h2>
+            <table class="table-custom shadow-lg">
+                <thead>
+                    <tr>
+                        <th>구분</th>
+                        <th>LLM</th>
+                        <th>Agent</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="font-bold bg-slate-50">역할</td>
+                        <td>텍스트 생성</td>
+                        <td><strong>목표 수행</strong></td>
+                    </tr>
+                    <tr>
+                        <td class="font-bold bg-slate-50">할 수 있는 일</td>
+                        <td>답변, 요약, 분류</td>
+                        <td><strong>조회, 실행, 판단, 반복 수행</strong></td>
+                    </tr>
+                    <tr>
+                        <td class="font-bold bg-slate-50">외부 시스템 연결</td>
+                        <td>기본적으로 없음</td>
+                        <td><strong>Tool로 연결</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="highlight-box text-2xl font-black italic">
+                "LLM은 두뇌이고, Agent는 두뇌 + 도구 + 실행 흐름이다."
+            </div>
+        </section>
+
+        <!-- 3. Tool 이란? -->
+        <section id="section-3" class="section-container">
+            <h2 class="text-4xl mb-6">3. Tool이란?</h2>
+            <p class="mb-4">Tool은 에이전트가 사용할 수 있는 <strong>외부 기능</strong>이다.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                <ul class="space-y-2 font-mono text-blue-700 font-bold bg-slate-50 p-6 rounded-2xl border border-slate-200">
+                    <li>• get_course_list()</li>
+                    <li>• search_employee()</li>
+                    <li>• get_inventory()</li>
+                    <li>• create_report()</li>
+                    <li>• send_email()</li>
+                    <li>• query_database()</li>
+                    <li>• call_external_api()</li>
+                </ul>
+                <div class="bg-blue-600 text-white p-6 rounded-2xl flex items-center justify-center text-center">
+                    <p class="text-2xl font-black">Tool은 에이전트의<br>"손과 발"이다.</p>
+                </div>
+            </div>
+            <p class="text-slate-700 font-medium">OpenAI 문서에서도 <strong>function calling, tool calling</strong>은 모델이 외부 시스템과 연결되어 데이터나 기능을 사용할 수 있게 하는 방식으로 설명한다.</p>
+        </section>
+
+        <!-- 4. 에이전트와 Tool의 관계 -->
+        <section id="section-4" class="section-container">
+            <h2 class="text-4xl mb-6">4. 에이전트와 Tool의 관계</h2>
+            <div class="highlight-box mb-8">
+                <p class="text-2xl font-black">"에이전트와 툴의 관계는 '직업'과 '도구 상자'의 관계와 같습니다."</p>
+            </div>
+            
+            <div class="grid grid-cols-1 gap-6">
+                <div class="bg-slate-50 p-8 rounded-2xl border border-slate-200">
+                    <h3 class="text-2xl mb-4">1) 개발자가 툴을 '부여'합니다</h3>
+                    <p class="mb-4">에이전트를 만들 때, 우리는 그 에이전트의 목적에 맞는 툴들을 미리 손에 쥐여줍니다.</p>
+                    <div class="space-y-3 mb-6">
+                        <div class="bg-white p-3 rounded-lg border border-blue-200 font-bold text-blue-800">● 검색 에이전트: [구글 검색 툴, 뉴스 API 툴] 부여</div>
+                        <div class="bg-white p-3 rounded-lg border border-blue-200 font-bold text-blue-800">● 데이터 분석 에이전트: [Python 코드 실행기, CSV 리더 툴] 부여</div>
+                        <div class="bg-white p-3 rounded-lg border border-blue-200 font-bold text-blue-800">● 고객 응대 에이전트: [주문 조회 툴, 환불 정책 DB 툴] 부여</div>
+                    </div>
+                    
+                    <p class="font-black text-slate-600 mb-2">툴 부여 코드 예시:</p>
+                    <div class="code-block">
+<span class="code-punct">@agent</span>
+<span class="code-key">def</span> <span class="code-string">research_agent</span><span class="code-punct">(self)</span> <span class="code-punct">-></span> <span class="code-key">Agent</span><span class="code-punct">:</span>
+    <span class="code-key">return</span> <span class="code-string">Agent</span><span class="code-punct">(</span>
+        <span class="code-key">config</span><span class="code-punct">=</span>self.agents_config<span class="code-punct">[</span><span class="code-string">"research_agent"</span><span class="code-punct">],</span>
+        <span class="code-key">tools</span><span class="code-punct">=</span><span class="code-punct">[</span>self._search_tool<span class="code-punct">,</span> self._scrape_tool<span class="code-punct">],</span>
+        <span class="code-key">verbose</span><span class="code-punct">=</span><span class="code-num">True</span><span class="code-punct">,</span>
+        <span class="code-key">allow_delegation</span><span class="code-punct">=</span><span class="code-num">False</span><span class="code-punct">,</span>
+    <span class="code-punct">)</span></div>
+                </div>
+
+                <div class="bg-white p-8 rounded-2xl border-2 border-blue-600">
+                    <h3 class="text-2xl mb-4">2) '정해진 툴' 안에서 에이전트가 하는 일</h3>
+                    <p class="mb-4">툴이 정해져 있다고 해서 에이전트가 수동적인 것은 아닙니다. 에이전트의 핵심은 <strong>"어떤 툴을, 언제, 어떤 순서로 쓸지 스스로 결정한다"</strong>는 점에 있습니다.</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="bg-slate-100 p-4 rounded-xl">
+                            <p class="font-black text-slate-500 mb-2">일반 프로그램 (Non-Agent)</p>
+                            <p class="text-sm font-medium">코딩된 순서대로 A 툴 실행 -> B 툴 실행 합니다.</p>
+                        </div>
+                        <div class="bg-blue-100 p-4 rounded-xl border border-blue-300 shadow-sm">
+                            <p class="font-black text-blue-800 mb-2">에이전트 (Agent)</p>
+                            <p class="text-sm font-medium">질문을 보고 "음, 이건 A 툴만 써도 되겠네?" 혹은 "A로 정보를 찾고, 그 결과를 바탕으로 B 툴을 써야겠다!"라고 <strong>추론(Reasoning)</strong>합니다.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-slate-900 text-white p-8 rounded-2xl">
+                    <h3 class="text-2xl mb-4 text-blue-400">3) 왜 에이전트마다 툴을 다르게 줄까요?</h3>
+                    <p class="mb-6 opacity-80">모든 에이전트에게 세상의 모든 툴을 다 줄 수도 있겠지만, 보통은 제한된 툴만 줍니다.</p>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm">
+                        <div class="bg-slate-800 p-5 rounded-xl border border-slate-700">
+                            <p class="font-black text-emerald-400 mb-2">정확도 (Accuracy)</p>
+                            <p class="opacity-70 font-medium">툴이 너무 많으면 에이전트가 혼란을 느껴 엉뚱한 툴을 선택할 확률(Hallucination)이 높아집니다.</p>
+                        </div>
+                        <div class="bg-slate-800 p-5 rounded-xl border border-slate-700">
+                            <p class="font-black text-amber-400 mb-2">비용/속도 (Efficiency)</p>
+                            <p class="opacity-70 font-medium">불필요한 고민 시간을 줄이고, 꼭 필요한 작업만 빠르게 수행하기 위해서입니다.</p>
+                        </div>
+                        <div class="bg-slate-800 p-5 rounded-xl border border-slate-700">
+                            <p class="font-black text-rose-400 mb-2">보안 (Security)</p>
+                            <p class="opacity-70 font-medium">데이터 분석 에이전트가 굳이 고객의 개인정보 수정 툴을 가질 필요는 없기 때문입니다.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. Task: 에이전트가 수행할 구체적인 업무 -->
+        <section id="section-5" class="section-container">
+            <h2 class="text-4xl mb-6">5. Task: 에이전트가 수행할 구체적인 업무</h2>
+            <p class="text-xl mb-8">
+                에이전트가 <strong>'누구(Who)'</strong>라면, 태스크(Task)는 그 에이전트가 실제로 달성해야 할 '일(What)'입니다. 
+                잘 정의된 태스크는 에이전트에게 명확한 가이드라인과 결과물의 형식을 제공합니다.
+            </p>
+            
+            <div class="bg-blue-50 p-8 rounded-3xl border-2 border-blue-200">
+                <h3 class="text-2xl mb-4 font-black">Agent vs Task 관계</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                    <div class="bg-white p-5 rounded-2xl shadow-sm">
+                        <p class="text-blue-700 font-black mb-2">Agent (Who)</p>
+                        <p class="text-sm font-medium">특정한 전문성을 가진 페르소나 (예: 시장 분석 전문가)</p>
+                    </div>
+                    <div class="bg-white p-5 rounded-2xl shadow-sm">
+                        <p class="text-blue-700 font-black mb-2">Task (What)</p>
+                        <p class="text-sm font-medium">에이전트가 수행해야 할 구체적인 미션 (예: 경쟁사 가격 조사)</p>
+                    </div>
+                </div>
+
+                <p class="font-black text-slate-600 mb-2">Task 정의 코드 예시:</p>
+                <div class="code-block">
+<span class="code-punct">@task</span>
+<span class="code-key">def</span> <span class="code-string">research_task</span><span class="code-punct">(self)</span> <span class="code-punct">-></span> <span class="code-key">Task</span><span class="code-punct">:</span>
+    <span class="code-key">return</span> <span class="code-string">Task</span><span class="code-punct">(</span>
+        <span class="code-key">config</span><span class="code-punct">=</span>self.tasks_config<span class="code-punct">[</span><span class="code-string">"research_task"</span><span class="code-punct">],</span>
+    <span class="code-punct">)</span>
+
+<span class="code-punct">@task</span>
+<span class="code-key">def</span> <span class="code-string">opportunity_task</span><span class="code-punct">(self)</span> <span class="code-punct">-></span> <span class="code-key">Task</span><span class="code-punct">:</span>
+    <span class="code-key">return</span> <span class="code-string">Task</span><span class="code-punct">(</span>
+        <span class="code-key">config</span><span class="code-punct">=</span>self.tasks_config<span class="code-punct">[</span><span class="code-string">"opportunity_task"</span><span class="code-punct">],</span>
+        <span class="code-key">context</span><span class="code-punct">=</span><span class="code-punct">[</span>self.research_task<span class="code-punct">()],</span>
+    <span class="code-punct">)</span></div>
+                <p class="mt-4 font-bold text-blue-800 italic">※ 하나의 에이전트는 여러 개의 태스크를 순차적으로 혹은 병렬로 수행할 수 있습니다.</p>
+            </div>
+        </section>
+
+        <!-- 6. Tool Calling 이란? (번호 조정됨) -->
+        <section id="section-6" class="section-container">
+            <h2 class="text-4xl mb-6">6. Tool Calling이란?</h2>
+            <p class="mb-6">Tool Calling은 LLM이 코드를 직접 실행하는 것이 아니라, <strong>"어떤 툴을 어떤 인자로 호출할지"</strong>를 구조화해 요청하는 방식이다.</p>
+            
+            <div class="bg-slate-50 p-8 rounded-3xl border border-slate-200 space-y-6">
+                <div>
+                    <p class="font-black text-blue-800">사용자 입력 (터미널):</p>
+                    <p class="text-xl bg-white p-3 rounded-lg border border-slate-200 mt-2 font-bold">"제품 단면 품질검사 비전 AI 솔루션 시장"</p>
+                </div>
+                <div>
+                    <p class="font-black text-blue-800">코드에서 실행 시작:</p>
+                    <p class="text-xl bg-slate-800 text-emerald-400 p-3 rounded-lg font-mono mt-2">crew.kickoff(inputs={"topic": user_topic})</p>
+                </div>
+                <div>
+                    <p class="font-black text-blue-800">LLM 판단 (구조화된 툴 호출 명령):</p>
+                    <div class="code-block">
+<span class="code-punct">{</span>
+  <span class="code-key">"tool_name"</span><span class="code-punct">:</span> <span class="code-string">"search_the_internet_with_serper"</span><span class="code-punct">,</span>
+  <span class="code-key">"arguments"</span><span class="code-punct">:</span> <span class="code-punct">{</span>
+    <span class="code-key">"search_query"</span><span class="code-punct">:</span> <span class="code-string">"제품 단면 품질검사 비전 AI 솔루션 시장 규모 성장률 주요 공급업체"</span>
+  <span class="code-punct">}</span>
+<span class="code-punct">}</span></div>
+                </div>
+                <div>
+                    <p class="font-black text-blue-800">프레임워크/서버가 실제 툴 실행:</p>
+                    <p class="text-xl bg-slate-800 text-emerald-400 p-3 rounded-lg font-mono mt-2">SerperDevTool(search_query="...")</p>
+                </div>
+                <div>
+                    <p class="font-black text-blue-800">결과 반환:</p>
+                    <div class="code-block">
+<span class="code-punct">[</span> 
+  <span class="code-punct">{</span> 
+    <span class="code-key">"title"</span><span class="code-punct">:</span> <span class="code-string">"시장 조사 보고서: 제품 단면 품질검사 비전 AI 솔루션 주요 공급업체 (2026)"</span><span class="code-punct">,</span> 
+    <span class="code-key">"url"</span><span class="code-punct">:</span> <span class="code-string">"https://example.com/report"</span> 
+  <span class="code-punct">}</span> 
+<span class="code-punct">]</span></div>
+                </div>
+                <div>
+                    <p class="font-black text-blue-800">LLM 최종 답변:</p>
+                    <p class="text-xl bg-blue-100 p-4 rounded-lg border border-blue-200 mt-2 font-bold italic">"리서치 결과를 정리한 뒤 Opportunity → Growth → Business Case → Validation 순서로 분석을 이어갑니다."</p>
+                </div>
+            </div>
+            <div class="grid grid-cols-3 gap-4 mt-8 text-center font-black">
+                <div class="bg-blue-700 text-white p-4 rounded-xl shadow-md">LLM은 호출 판단</div>
+                <div class="bg-slate-700 text-white p-4 rounded-xl shadow-md">Tool은 실제 실행</div>
+                <div class="bg-slate-900 text-white p-4 rounded-xl shadow-md">Crew는 흐름 연결</div>
+            </div>
+        </section>
+
+        <!-- 7. Tool Schema (번호 조정됨) -->
+        <section id="section-7" class="section-container">
+            <h2 class="text-4xl mb-6">7. Tool Schema란?</h2>
+            <p class="mb-4">Tool Schema는 LLM에게 <strong>"이 도구는 이렇게 쓰는 것이다"</strong>라고 알려주는 설명서다.</p>
+            <div class="code-block">
+<span class="code-punct">{</span>
+  <span class="code-key">"name"</span><span class="code-punct">:</span> <span class="code-string">"search_the_internet_with_serper"</span><span class="code-punct">,</span>
+  <span class="code-key">"description"</span><span class="code-punct">:</span> <span class="code-string">"시장 조사 주제와 관련된 최신 웹 정보를 검색한다."</span><span class="code-punct">,</span>
+  <span class="code-key">"parameters"</span><span class="code-punct">:</span> <span class="code-punct">{</span>
+    <span class="code-key">"type"</span><span class="code-punct">:</span> <span class="code-string">"object"</span><span class="code-punct">,</span>
+    <span class="code-key">"properties"</span><span class="code-punct">:</span> <span class="code-punct">{</span>
+      <span class="code-key">"search_query"</span><span class="code-punct">:</span> <span class="code-punct">{</span>
+        <span class="code-key">"type"</span><span class="code-punct">:</span> <span class="code-string">"string"</span><span class="code-punct">,</span>
+        <span class="code-key">"description"</span><span class="code-punct">:</span> <span class="code-string">"검색할 시장 조사 질의문"</span>
+      <span class="code-punct">}</span>
+    <span class="code-punct">}</span><span class="code-punct">,</span>
+    <span class="code-key">"required"</span><span class="code-punct">:</span> <span class="code-punct">[</span><span class="code-string">"search_query"</span><span class="code-punct">]</span>
+  <span class="code-punct">}</span>
+<span class="code-punct">}</span></div>
+            <div class="bg-blue-50 p-6 rounded-2xl border-2 border-blue-100 mt-6">
+                <p class="text-xl font-bold mb-4">잘 만든 Tool Schema는 에이전트 품질에 큰 영향을 준다.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="bg-rose-50 p-4 border border-rose-200 rounded-xl">
+                        <p class="text-rose-700 font-black">❌ 나쁜 예</p>
+                        <p class="font-medium">search_data: 데이터를 찾는다</p>
+                    </div>
+                    <div class="bg-emerald-50 p-4 border border-emerald-200 rounded-xl">
+                        <p class="text-emerald-700 font-black">✅ 좋은 예</p>
+                        <p class="font-medium">SerperDevTool: 시장 조사 쿼리를 받아 최신 웹 근거를 검색한다.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 8. Tool의 종류 (번호 조정됨) -->
+        <section id="section-8" class="section-container">
+            <h2 class="text-4xl mb-6">8. Tool의 종류</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="p-6 bg-white border-2 border-slate-100 rounded-3xl shadow-sm">
+                    <h3 class="text-2xl mb-3">1) 조회 Tool (정보 획득)</h3>
+                    <p class="text-slate-600 text-sm mb-2">DB나 API에서 정보를 가져온다.</p>
+                    <ul class="text-base font-bold text-blue-800">
+                        <li>• 교육 목록 조회, 재고 조회</li>
+                        <li>• 고객 정보 조회, 매출 데이터 조회</li>
+                    </ul>
+                </div>
+                <div class="p-6 bg-white border-2 border-slate-100 rounded-3 shadow-sm">
+                    <h3 class="text-2xl mb-3">2) 실행 Tool (액션 수행)</h3>
+                    <p class="text-slate-600 text-sm mb-2">실제 액션을 수행한다.</p>
+                    <ul class="text-base font-bold text-blue-800">
+                        <li>• 메일 발송, 신청 등록, 보고서 생성</li>
+                        <li>• 캘린더 등록, 파일 저장</li>
+                    </ul>
+                </div>
+                <div class="p-6 bg-white border-2 border-slate-100 rounded-3xl shadow-sm">
+                    <h3 class="text-2xl mb-3">3) 계산 Tool (수치 연산)</h3>
+                    <p class="text-slate-600 text-sm mb-2">LLM이 틀리기 쉬운 계산을 대신한다.</p>
+                    <ul class="text-base font-bold text-blue-800">
+                        <li>• 단가 계산, 수율 계산</li>
+                        <li>• 예측값 계산, 통계 계산</li>
+                    </ul>
+                </div>
+                <div class="p-6 bg-white border-2 border-slate-100 rounded-3xl shadow-sm">
+                    <h3 class="text-2xl mb-3">4) 검색 Tool (지식 검색)</h3>
+                    <p class="text-slate-600 text-sm mb-2">문서, 웹, 사내 지식 DB를 검색한다.</p>
+                    <ul class="text-base font-bold text-blue-800">
+                        <li>• 규정 검색, 매뉴얼 검색</li>
+                        <li>• 회의록 검색, RAG 검색</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 9. 단일 Agent 구조 (번호 조정됨) -->
+        <section id="section-9" class="section-container">
+            <h2 class="text-4xl mb-6">9. 단일 Agent 구조</h2>
+            <p class="mb-6">가장 기본 구조는 이렇다.</p>
+            <div class="bg-slate-50 p-8 rounded-3xl border border-slate-200 text-center font-bold text-xl">
+                User → Main Agent → Tool → DB/API → Main Agent → Response
+            </div>
+            <div class="mt-6 p-6 border-2 border-blue-600 rounded-3xl bg-blue-50/30">
+                <h4 class="text-2xl font-black mb-4">예: 시장 조사 에이전트</h4>
+                <ul class="space-y-2 text-xl font-medium">
+                    <li>✅ 웹 검색 기반 근거 수집</li>
+                    <li>✅ 주제별 핵심 포인트 정리</li>
+                    <li>✅ 출처 신뢰도 점검</li>
+                    <li>✅ 요약 리포트 생성</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- 10. 다중 Agent란? (번호 조정됨) -->
+        <section id="section-10" class="section-container">
+            <h2 class="text-4xl mb-6">10. 다중 Agent란?</h2>
+            <p class="text-xl mb-6">다중 에이전트는 <strong>여러 에이전트가 역할을 나눠서 일하는 구조</strong>다.</p>
+            <div class="bg-slate-900 text-white p-10 rounded-3xl shadow-2xl">
+                <div class="flex flex-col items-center">
+                    <div class="bg-blue-600 px-8 py-3 rounded-xl font-black mb-4 shadow-lg">사용자 요청</div>
+                    <div class="text-slate-500 font-black text-2xl">↓</div>
+                    <div class="bg-blue-800 px-8 py-3 rounded-xl font-black mb-6 shadow-md border border-blue-400">총괄 에이전트 (Supervisor)</div>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 w-full">
+                        <div class="bg-slate-700 p-4 rounded-xl border border-slate-500 text-center text-sm font-bold">검색 에이전트</div>
+                        <div class="bg-slate-700 p-4 rounded-xl border border-slate-500 text-center text-sm font-bold">분석 에이전트</div>
+                        <div class="bg-slate-700 p-4 rounded-xl border border-slate-500 text-center text-sm font-bold">작성 에이전트</div>
+                        <div class="bg-slate-700 p-4 rounded-xl border border-slate-500 text-center text-sm font-bold">검토 에이전트</div>
+                    </div>
+                    <div class="text-slate-500 font-black mt-6 text-2xl">↓</div>
+                    <div class="bg-blue-600 px-8 py-3 rounded-xl font-black mt-2 shadow-lg">최종 결과</div>
+                </div>
+            </div>
+            <p class="mt-8 text-center text-2xl font-black italic">"다중 에이전트는 한 명이 모든 일을 하는 구조가 아니라,<br>역할을 나눠 협업하는 구조다."</p>
+        </section>
+
+        <!-- 11. 다중 Agent가 필요한 경우 (번호 조정됨) -->
+        <section id="section-11" class="section-container">
+            <h2 class="text-4xl mb-6">11. 다중 Agent가 필요한 경우</h2>
+            <p class="mb-6 font-bold text-xl">아래 조건이면 다중 에이전트가 적합하다.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8 text-xl">
+                <div class="bg-slate-50 p-6 rounded-2xl border-2 border-slate-200">
+                    <ul class="space-y-3 font-bold">
+                        <li>• 업무가 여러 단계로 나뉜다</li>
+                        <li>• 각 단계의 전문성이 다르다</li>
+                        <li>• 중간 검토가 필요하다</li>
+                        <li>• 도구가 너무 많다</li>
+                        <li>• 출력 품질 관리가 필요하다</li>
+                    </ul>
+                </div>
+                <div class="bg-blue-50 p-6 rounded-2xl border-2 border-blue-200">
+                    <h4 class="font-black text-blue-800 mb-2">예: 시장 조사 보고서 작성</h4>
+                    <ol class="text-slate-700 font-bold">
+                        <li>1. 자료 수집</li>
+                        <li>2. 데이터 분석</li>
+                        <li>3. 요약 작성</li>
+                        <li>4. 리스크 검토</li>
+                        <li>5. 최종 보고서 생성</li>
+                    </ol>
+                </div>
+            </div>
+            <p class="bg-slate-800 text-white p-4 rounded-xl text-center font-bold text-xl">이런 업무는 단일 에이전트보다 다중 에이전트가 적합하다.</p>
+        </section>
+
+        <!-- 12. 다중 Agent 패턴 -->
+        <section id="section-12" class="section-container">
+            <h2 class="text-4xl mb-8">12. 다중 Agent 패턴</h2>
+            <p class="text-xl mb-6">실무에서는 문제 유형에 따라 여러 패턴을 선택해 사용한다.</p>
+
+            <div class="space-y-8">
+                <div class="pattern-card group">
+                    <div class="badge bg-blue-600 text-white shadow-none">1) Supervisor Pattern</div>
+                    <h4 class="text-2xl font-black mb-4 flex items-center">
+                        <span class="text-blue-400 mr-2">◈</span> 총괄 에이전트가 하위 에이전트들을 지휘한다.
+                    </h4>
+                    <div class="inner-flow-box flow-col">
+                        <div class="flow-row"><span class="flow-node primary">Supervisor Agent</span></div>
+                        <div class="flow-row"><span class="flow-arrow">├─▶</span><span class="flow-node">Research Agent</span></div>
+                        <div class="flow-row"><span class="flow-arrow">├─▶</span><span class="flow-node">Analysis Agent</span></div>
+                        <div class="flow-row"><span class="flow-arrow">└─▶</span><span class="flow-node">Writer Agent</span></div>
+                    </div>
+                    <div class="mt-6 flex flex-wrap">
+                        <div class="example-tag">복잡한 협업 조정</div>
+                        <div class="example-tag">의사결정 집중</div>
+                    </div>
+                </div>
+
+                <div class="pattern-card group">
+                    <div class="badge bg-blue-700 text-white shadow-none">2) Sequential Pattern (강의 예제)</div>
+                    <h4 class="text-2xl font-black mb-4 flex items-center">
+                        <span class="text-blue-400 mr-2">◈</span> 앞 단계의 결과를 다음 단계가 이어받아, 순서대로 완성도를 높여 가는 패턴이다.
+                    </h4>
+                    <div class="inner-flow-box">
+                        <div class="flow-row">
+                            <span class="flow-node">Research Agent</span>
+                            <span class="flow-arrow">→</span>
+                            <span class="flow-node">Opportunity Agent</span>
+                            <span class="flow-arrow">→</span>
+                            <span class="flow-node">Growth Agent</span>
+                            <span class="flow-arrow">→</span>
+                            <span class="flow-node">Business Case Agent</span>
+                            <span class="flow-arrow">→</span>
+                            <span class="flow-node primary">Validation Agent</span>
+                        </div>
+                    </div>
+                    <div class="mt-6 flex flex-wrap">
+                        <div class="example-tag">역할 분리</div>
+                        <div class="example-tag">단계별 품질 점검</div>
+                        <div class="example-tag">보고서 자동 생성</div>
+                    </div>
+                </div>
+
+                <div class="pattern-card group">
+                    <div class="badge bg-blue-600 text-white shadow-none">3) Debate Pattern</div>
+                    <h4 class="text-2xl font-black mb-4 flex items-center">
+                        <span class="text-blue-400 mr-2">◈</span> 서로 다른 관점의 에이전트가 토론하고 검토 후 결론을 낸다.
+                    </h4>
+                    <div class="inner-flow-box flow-col">
+                        <div class="flow-row">
+                            <span class="flow-node">찬성 Agent</span><span class="flow-arrow">↔</span><span class="flow-node">반대 Agent</span>
+                        </div>
+                        <div class="flow-row">
+                            <span class="flow-arrow">↘</span><span class="flow-node">검토 Agent</span><span class="flow-arrow">→</span><span class="flow-node primary">최종 판단 Agent</span>
+                        </div>
+                    </div>
+                    <div class="mt-6 flex flex-wrap">
+                        <div class="example-tag">리스크 검토</div>
+                        <div class="example-tag">의사결정 보강</div>
+                    </div>
+                </div>
+
+                <div class="pattern-card group">
+                    <div class="badge bg-blue-600 text-white shadow-none">4) Router Pattern</div>
+                    <h4 class="text-2xl font-black mb-4 flex items-center">
+                        <span class="text-blue-400 mr-2">◈</span> 입력 유형에 따라 적절한 전문 에이전트로 라우팅한다.
+                    </h4>
+                    <div class="inner-flow-box flow-col">
+                        <div class="flow-row"><span class="flow-node primary">Router Agent</span></div>
+                        <div class="flow-row">
+                            <span class="flow-arrow">├─▶</span><span class="flow-node">HR Agent</span>
+                            <span class="flow-arrow">├─▶</span><span class="flow-node">Finance Agent</span>
+                        </div>
+                        <div class="flow-row">
+                            <span class="flow-arrow">├─▶</span><span class="flow-node">Sales Agent</span>
+                            <span class="flow-arrow">└─▶</span><span class="flow-node">Production Agent</span>
+                        </div>
+                    </div>
+                    <div class="mt-6 flex flex-wrap">
+                        <div class="example-tag">요청 분류</div>
+                        <div class="example-tag">전문화 대응</div>
+                    </div>
+                </div>
+
+                <div class="pattern-card group">
+                    <div class="badge bg-blue-600 text-white shadow-none">5) Swarm Pattern</div>
+                    <h4 class="text-2xl font-black mb-4 flex items-center">
+                        <span class="text-blue-400 mr-2">◈</span> 여러 에이전트가 자율적으로 상호작용하며 문제를 해결한다.
+                    </h4>
+                    <div class="inner-flow-box">
+                        <div class="flow-row">
+                            <span class="flow-node">Agent A</span><span class="flow-arrow">↔</span>
+                            <span class="flow-node">Agent B</span><span class="flow-arrow">↔</span>
+                            <span class="flow-node">Agent C</span><span class="flow-arrow">↔</span>
+                            <span class="flow-node">Agent D</span>
+                        </div>
+                    </div>
+                    <div class="mt-6 flex flex-wrap">
+                        <div class="example-tag">자율 협업</div>
+                        <div class="example-tag">유연한 작업 분산</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 13. 에이전트 인계 규칙 -->
+        <section id="section-13" class="section-container">
+            <h2 class="text-4xl mb-6">13. 에이전트 인계(Handoff) 규칙</h2>
+            <p class="text-xl mb-6">다음 단계가 바로 활용할 수 있도록, 인계 데이터는 <strong>구조화된 형태</strong>로 넘긴다.</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-white border-2 border-slate-100 rounded-xl p-6 shadow-sm">
+                    <h3 class="text-2xl mb-4 border-b-2 border-blue-100 pb-2">입력 예시</h3>
+                    <div class="code-block">
+<span class="code-punct">{</span>
+  <span class="code-key">"topic"</span><span class="code-punct">:</span> <span class="code-string">"제품 단면 품질검사 비전 AI 솔루션 시장"</span><span class="code-punct">,</span>
+  <span class="code-key">"question"</span><span class="code-punct">:</span> <span class="code-string">"시장 기회와 핵심 공급업체를 알려줘"</span>
+<span class="code-punct">}</span></div>
+                </div>
+                <div class="bg-white border-2 border-slate-100 rounded-xl p-6 shadow-sm">
+                    <h3 class="text-2xl mb-4 border-b-2 border-blue-100 pb-2">출력 예시</h3>
+                    <div class="code-block">
+<span class="code-punct">{</span>
+  <span class="code-key">"sources"</span><span class="code-punct">:</span> <span class="code-punct">[</span>
+    <span class="code-punct">{</span>
+      <span class="code-key">"title"</span><span class="code-punct">:</span> <span class="code-string">"시장 조사 보고서: 제품 단면 품질검사 비전 AI 솔루션 주요 공급업체 (2026)"</span><span class="code-punct">,</span>
+      <span class="code-key">"url"</span><span class="code-punct">:</span> <span class="code-string">"https://example.com/report"</span>
+    <span class="code-punct">}</span>
+  <span class="code-punct">]</span>
+<span class="code-punct">}</span></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 14. 다중 Agent에서 중요한 개념 -->
+        <section id="section-14" class="section-container">
+            <h2 class="text-4xl mb-6">14. 다중 Agent에서 중요한 개념</h2>
+            
+            <div class="grid grid-cols-1 gap-5">
+                <div class="bg-white border-2 border-slate-100 rounded-xl p-6 shadow-sm">
+                    <h3 class="text-2xl mb-4 border-b-2 border-blue-100 pb-2">1) Role (역할)</h3>
+                    <p class="text-slate-800 font-medium text-xl">각 에이전트의 역할: <strong>검색 담당, 분석 담당, 작성 담당, 검토 담당, 실행 담당.</strong> 역할이 겹치면 결과가 흐려진다.</p>
+                </div>
+
+                <div class="bg-white border-2 border-slate-100 rounded-xl p-6 shadow-sm">
+                    <h3 class="text-2xl mb-4 border-b-2 border-blue-100 pb-2">2) Goal (목표)</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <p class="bg-rose-50 p-4 rounded-xl font-medium">❌ 나쁜 예:<br>"좋은 답변을 만든다"</p>
+                        <p class="bg-emerald-50 p-4 rounded-xl font-bold">✅ 좋은 예:<br>"제품 단면 품질검사 비전 AI 솔루션 시장의 최신 동향과 핵심 공급업체를 근거와 함께 3개 이상 찾는다"</p>
+                    </div>
+                </div>
+
+                <div class="bg-white border-2 border-slate-100 rounded-xl p-6 shadow-sm">
+                    <h3 class="text-2xl mb-4 border-b-2 border-blue-100 pb-2">3) Input / 4) Output (데이터 규격)</h3>
+                    <p class="font-bold text-blue-700">Input 예시:</p>
+                    <div class="code-block">
+<span class="code-punct">{</span>
+  <span class="code-key">"topic"</span><span class="code-punct">:</span> <span class="code-string">"제품 단면 품질검사 비전 AI 솔루션 시장"</span><span class="code-punct">,</span>
+  <span class="code-key">"question"</span><span class="code-punct">:</span> <span class="code-string">"시장 기회와 핵심 공급업체를 알려줘"</span>
+<span class="code-punct">}</span></div>
+                    <p class="font-bold text-emerald-700 mt-4">Output 예시:</p>
+                    <div class="code-block">
+<span class="code-punct">{</span> 
+  <span class="code-key">"sources"</span><span class="code-punct">:</span> <span class="code-punct">[</span> 
+    <span class="code-punct">{</span>
+      <span class="code-key">"title"</span><span class="code-punct">:</span> <span class="code-string">"시장 조사 보고서: 제품 단면 품질검사 비전 AI 솔루션 주요 공급업체 (2026)"</span><span class="code-punct">,</span>
+      <span class="code-key">"url"</span><span class="code-punct">:</span> <span class="code-string">"https://example.com/report"</span>
+    <span class="code-punct">}</span> 
+  <span class="code-punct">]</span> 
+<span class="code-punct">}</span></div>
+                    <p class="mt-4 font-black text-xl text-blue-900 underline">※ 다중 에이전트에서는 Output 형식을 반드시 정해야 한다.</p>
+                </div>
+
+                <div class="bg-white border-2 border-slate-100 rounded-xl p-6 shadow-sm">
+                    <h3 class="text-2xl mb-4 border-b-2 border-blue-100 pb-2">4) Handoff (인계)</h3>
+                    <p class="text-xl">한 에이전트가 다음 에이전트에게 작업을 넘기는 것. (Research Agent → Opportunity Agent) <br><strong>넘길 때는 자연어보다 구조화된 형식이 좋다.</strong></p>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- 15. AI 에이전트 프레임워크 비교 -->
+        <section id="section-15" class="section-container">
+            <h2 class="text-4xl mb-6">15. AI 에이전트 프레임워크 비교</h2>
+            <p class="text-xl mb-6">에이전트 시스템을 구축할 때 자주 비교되는 대표 프레임워크들이다.</p>
+            
+            <div class="overflow-x-auto">
+                <table class="table-custom shadow-lg min-w-full">
+                    <thead>
+                        <tr>
+                            <th class="px-6 py-4">비교 항목</th>
+                            <th class="px-6 py-4">LangGraph</th>
+                            <th class="px-6 py-4 text-blue-300">CrewAI</th>
+                            <th class="px-6 py-4">AutoGen</th>
+                            <th class="px-6 py-4">Assistants API</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-sm md:text-base">
+                        <tr>
+                            <td class="font-bold bg-slate-50 px-6 py-4">제어권 (Control)</td>
+                            <td class="px-6 py-4">최상 (세밀한 제어)</td>
+                            <td class="px-6 py-4">중 (추상화 높음)</td>
+                            <td class="px-6 py-4">중상 (커스터마이징 가능)</td>
+                            <td class="px-6 py-4 text-rose-600">낮음 (OpenAI 의존)</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold bg-slate-50 px-6 py-4">복잡도 (Complexity)</td>
+                            <td class="px-6 py-4 text-rose-600">높음 (학습 필요)</td>
+                            <td class="px-6 py-4">보통 (직관적)</td>
+                            <td class="px-6 py-4">보통</td>
+                            <td class="px-6 py-4 text-emerald-600">낮음 (매우 쉬움)</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold bg-slate-50 px-6 py-4">상태 관리</td>
+                            <td class="px-6 py-4 font-black">매우 강력 (Persistence)</td>
+                            <td class="px-6 py-4">보통</td>
+                            <td class="px-6 py-4">보통</td>
+                            <td class="px-6 py-4">자동 (서버에서 관리)</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold bg-slate-50 px-6 py-4">주요 철학</td>
+                            <td class="px-6 py-4">결정론적 흐름 제어</td>
+                            <td class="px-6 py-4">역할 기반 협업</td>
+                            <td class="px-6 py-4">에이전트 간 대화</td>
+                            <td class="px-6 py-4">편리한 도구 통합</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- 16. CrewAI 핵심 구성요소 -->
+        <section id="section-16" class="section-container">
+            <h2 class="text-4xl mb-6">16. CrewAI 핵심 구성요소</h2>
+            <p class="text-xl mb-6">시장 조사 멀티에이전트 시스템을 구성할 때 꼭 이해해야 할 요소들이다.</p>
+
+            <div class="mt-8 bg-blue-50 p-8 rounded-3xl border-2 border-blue-200">
+                <ul class="space-y-4 text-xl font-medium text-slate-800">
+                    <li class="grid grid-cols-1 lg:grid-cols-12 gap-3 items-start">
+                        <div class="lg:col-span-6">• <strong>Agent (역할 정의):</strong><br><span class="block pl-4">역할(role)과 목표(goal)가 분리된 담당자 정의</span></div>
+                        <div class="lg:col-span-6 code-block text-sm" style="border-radius: 10px; white-space: pre-wrap;"><span class="code-punct">@agent</span>
+<span class="code-key">def</span> <span class="code-string">research_agent</span><span class="code-punct">(self)</span> <span class="code-punct">-></span> <span class="code-key">Agent</span><span class="code-punct">:</span>
+    <span class="code-key">return</span> <span class="code-string">Agent</span><span class="code-punct">(</span>
+        <span class="code-key">config</span><span class="code-punct">=</span>self.agents_config<span class="code-punct">[</span><span class="code-string">"research_agent"</span><span class="code-punct">],</span>
+        <span class="code-key">tools</span><span class="code-punct">=</span><span class="code-punct">[</span>self._search_tool<span class="code-punct">,</span> self._scrape_tool<span class="code-punct">],</span>
+    <span class="code-punct">)</span></div>
+                    </li>
+                    <li class="grid grid-cols-1 lg:grid-cols-12 gap-3 items-start">
+                        <div class="lg:col-span-6">• <strong>Task (일 정의):</strong><br><span class="block pl-4">각 에이전트가 수행할 작업 설명과 기대 산출물(expected_output)</span></div>
+                        <div class="lg:col-span-6 code-block text-sm" style="border-radius: 10px; white-space: pre-wrap;"><span class="code-punct">@task</span>
+<span class="code-key">def</span> <span class="code-string">research_task</span><span class="code-punct">(self)</span> <span class="code-punct">-></span> <span class="code-key">Task</span><span class="code-punct">:</span>
+    <span class="code-key">return</span> <span class="code-string">Task</span><span class="code-punct">(</span>
+        <span class="code-key">config</span><span class="code-punct">=</span>self.tasks_config<span class="code-punct">[</span><span class="code-string">"research_task"</span><span class="code-punct">],</span>
+    <span class="code-punct">)</span></div>
+                    </li>
+                    <li class="grid grid-cols-1 lg:grid-cols-12 gap-3 items-start">
+                        <div class="lg:col-span-6">• <strong>Crew (협업 오케스트레이터):</strong><br><span class="block pl-4">여러 Agent와 Task를 하나의 실행 단위로 묶어 워크플로우를 관리</span></div>
+                        <div class="lg:col-span-6 code-block text-sm" style="border-radius: 10px; white-space: pre-wrap;"><span class="code-key">my_crew</span> <span class="code-punct">=</span> <span class="code-string">Crew</span><span class="code-punct">(</span>
+    <span class="code-key">agents</span><span class="code-punct">=</span>self.agents<span class="code-punct">,</span>
+    <span class="code-key">tasks</span><span class="code-punct">=</span>self.tasks<span class="code-punct">,</span>
+<span class="code-punct">)</span></div>
+                    </li>
+                    <li class="grid grid-cols-1 lg:grid-cols-12 gap-3 items-start">
+                        <div class="lg:col-span-6">• <strong>Crew + Process (오케스트레이션):</strong><br><span class="block pl-4">에이전트/태스크를 묶고 실행 방식(Sequential 등) 지정</span></div>
+                        <div class="lg:col-span-6 code-block text-sm" style="border-radius: 10px; white-space: pre-wrap;"><span class="code-punct">@crew</span>
+<span class="code-key">def</span> <span class="code-string">crew</span><span class="code-punct">(self)</span> <span class="code-punct">-></span> <span class="code-key">Crew</span><span class="code-punct">:</span>
+    <span class="code-key">return</span> <span class="code-string">Crew</span><span class="code-punct">(</span>
+        <span class="code-key">agents</span><span class="code-punct">=</span>self.agents<span class="code-punct">,</span>
+        <span class="code-key">tasks</span><span class="code-punct">=</span>self.tasks<span class="code-punct">,</span>
+        <span class="code-key">process</span><span class="code-punct">=</span><span class="code-key">Process.sequential</span><span class="code-punct">,</span>
+    <span class="code-punct">)</span></div>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- 17. 구현할 때 주의할 점 -->
+        <section id="section-17" class="section-container border-b-0">
+            <h2 class="text-4xl mb-8 text-blue-800">17. 구현할 때 주의할 점</h2>
+            
+            <div class="space-y-6">
+                <div class="bg-blue-50 p-8 rounded-xl border-2 border-blue-200">
+                    <h4 class="text-2xl font-black mb-2">1) 처음부터 너무 똑똑한 에이전트를 만들지 말기</h4>
+                    <div class="pl-4">
+                        <p class="text-xl font-medium">처음에는 <strong>정해진 순서대로 Agent 실행(Sequential)</strong>부터 시작하고, 그 다음 Supervisor가 조건에 따라 선택하게 확장하라.</p>
+                    </div>
+                </div>
+
+                <div class="bg-white p-8 rounded-xl border-2 border-slate-200">
+                    <h4 class="text-2xl font-black mb-2">2) Agent별 Output 형식을 명확히 정의하기</h4>
+                    <div class="pl-4 mt-2 flex flex-col space-y-2">
+                        <p class="text-rose-700 font-bold">나쁜 방식: "적당히 답변해줘"</p>
+                        <p class="text-emerald-700 font-bold">좋은 방식: "핵심 근거·수치·출처·가정을 포함한 구조화된 리서치 요약"</p>
+                    </div>
+                </div>
+
+                <div class="bg-white p-8 rounded-xl border-2 border-slate-200">
+                    <h4 class="text-2xl font-black mb-2">3) Tool은 작고 명확하게 만들기</h4>
+                    <div class="pl-4 mt-2 flex flex-col space-y-2">
+                        <p class="text-rose-700 font-bold">나쁜 Tool: process_everything()</p>
+                        <p class="text-emerald-700 font-bold">좋은 Tool: SerperDevTool(), ScrapeWebsiteTool()</p>
+                    </div>
+                </div>
+
+                <div class="bg-white p-8 rounded-xl border-2 border-slate-200">
+                    <h4 class="text-2xl font-black mb-2">4) Agent 역할을 겹치게 하지 않기</h4>
+                    <div class="pl-4">
+                        <p class="text-slate-800 font-medium">SearchAgent가 추천까지 하면 RecommendAgent가 필요 없어진다. <strong>역할은 철저히 분리해야 한다.</strong></p>
+                    </div>
+                </div>
+
+                <div class="bg-rose-100 p-8 rounded-xl border-2 border-rose-300 shadow-sm">
+                    <h4 class="text-2xl font-black mb-2 text-rose-900">5) DB에 없는 내용을 만들지 못하게 하기</h4>
+                    <div class="pl-4">
+                        <p class="text-xl font-black text-rose-900 underline decoration-rose-400 decoration-4">프롬프트에 반드시 넣기: "수집한 출처에 없는 시장 사실/수치는 절대 생성하지 마라."</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer class="text-center py-10 text-slate-500 font-bold border-t-2 border-slate-100 text-xl">
+            AI Agent Engineering Course | AI Power User Group
+        </footer>
+    </main>
+
+</body>
+</html>
