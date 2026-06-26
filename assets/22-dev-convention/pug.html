@@ -17,7 +17,46 @@
     .tab-btn.active { background-color: #fff; color: var(--color-orange-brand); box-shadow: var(--shadow-sm); }
     .prefix-card.selected { border-color: var(--color-orange-brand); background-color: color-mix(in oklab, var(--color-orange-brand) 5%, transparent); box-shadow: 0 0 0 1px #ea580c; }
     .copy-btn.copied { background-color: var(--color-teal-brand); border-color: var(--color-teal-brand); }
-    #app { min-height: 100vh; display: flex; flex-direction: column; }
+    #app { min-height: 100vh; display: flex; flex-direction: column; padding-top: 1.25rem !important; padding-bottom: 1rem !important; }
+    header { margin-bottom: 0.5rem !important; }
+    header h1 { font-size: 2.75rem !important; }
+    nav {
+      margin-bottom: 0.75rem !important;
+      flex-wrap: nowrap !important;
+      max-width: 100% !important;
+      gap: 0.42rem !important;
+      padding: 0.5rem !important;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    nav::-webkit-scrollbar { display: none; }
+    .tab-btn {
+      padding: 0.52rem 0.78rem !important;
+      font-size: 0.88rem !important;
+      white-space: nowrap !important;
+      flex-shrink: 0;
+      gap: 0.4rem !important;
+    }
+    .tab-btn svg { width: 1.08rem !important; height: 1.08rem !important; }
+    .tab-panel > div {
+      padding: 2.6rem !important;
+      font-size: 1.04rem;
+    }
+    .tab-panel h2 {
+      font-size: 2.05rem !important;
+      margin-bottom: 1.25rem !important;
+    }
+    .tab-panel h2 svg { width: 1.28rem !important; height: 1.28rem !important; }
+    .tab-panel > div > p { font-size: 1.14rem !important; line-height: 1.72 !important; }
+    #panel-intro > div { padding: 2.75rem !important; }
+    #panel-intro h2 { font-size: 2.15rem !important; margin-bottom: 1.35rem !important; }
+    #panel-intro h2 svg { width: 1.35rem !important; height: 1.35rem !important; }
+    #panel-intro > div > p { font-size: 1.22rem !important; line-height: 1.75 !important; margin-bottom: 1.65rem !important; }
+    #panel-intro .grid { gap: 1.1rem !important; grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
+    #panel-intro .grid > div { padding: 2rem !important; gap: 1rem !important; min-height: 11.5rem; }
+    #panel-intro .grid h3 { font-size: 1.48rem !important; }
+    #panel-intro .grid p { font-size: 1.1rem !important; line-height: 1.65 !important; }
+    #panel-intro .grid > div > div:first-child { width: 2.65rem !important; height: 2.65rem !important; font-size: 2.4rem !important; }
   </style>
 </head>
 <body>
@@ -27,31 +66,24 @@
   </div>
 
   <div id="app" class="max-w-[1200px] w-full mx-auto px-6 pt-10 pb-20 relative z-10">
-    <header class="text-center mb-[60px] animate-fade-in-down">
-      <div class="inline-flex items-center justify-center bg-card-bg border border-card-border p-4 rounded-[24px] shadow-sm mb-6 backdrop-blur-md transition-transform duration-300 hover:rotate-5 hover:scale-105">
-        <span style="font-size:3rem;line-height:1;display:inline-flex;align-items:center;justify-content:center">🐶</span>
-      </div>
-      <h1 class="text-[3.5rem] tracking-[-0.03em] mb-4 bg-gradient-to-br from-charcoal to-orange-brand bg-clip-text text-transparent leading-[1.2] font-bold">
+    <header class="text-center mb-8 animate-fade-in-down">
+      <h1 class="text-[3.5rem] tracking-[-0.03em] mb-0 bg-gradient-to-br from-charcoal to-orange-brand bg-clip-text text-transparent leading-[1.2] font-bold">
         AI PUG Dev Convention Guide
       </h1>
-      <p class="text-xl text-text-secondary max-w-[600px] mx-auto">
-        AI Power User Group (AI PUG) 구성원을 위한 협업 컨벤션 가이드입니다.
-        더 매끄러운 공동 작업을 위해 약속된 규칙들을 한눈에 살펴보세요!
-      </p>
     </header>
 
     <nav class="flex justify-center gap-2 mb-12 bg-slate-200/40 p-1.5 rounded-2xl backdrop-blur-sm border border-slate-200/60 max-w-[800px] mx-auto flex-wrap animate-fade-in-up">
-      <button type="button" class="tab-btn py-3 px-6 font-heading text-base font-medium text-text-secondary cursor-pointer rounded-xl transition-all duration-250 ease-in-out flex items-center gap-2 hover:text-text-primary hover:bg-white/50 border-none bg-transparent active" data-tab="intro"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-orange-brand"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>컨벤션 소개</button>
+      <button type="button" class="tab-btn py-3 px-6 font-heading text-base font-medium text-text-secondary cursor-pointer rounded-xl transition-all duration-250 ease-in-out flex items-center gap-2 hover:text-text-primary hover:bg-white/50 border-none bg-transparent" data-tab="intro"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-orange-brand"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>컨벤션 소개</button>
           <button type="button" class="tab-btn py-3 px-6 font-heading text-base font-medium text-text-secondary cursor-pointer rounded-xl transition-all duration-250 ease-in-out flex items-center gap-2 hover:text-text-primary hover:bg-white/50 border-none bg-transparent" data-tab="naming"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-orange-brand"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>네이밍 케이스</button>
           <button type="button" class="tab-btn py-3 px-6 font-heading text-base font-medium text-text-secondary cursor-pointer rounded-xl transition-all duration-250 ease-in-out flex items-center gap-2 hover:text-text-primary hover:bg-white/50 border-none bg-transparent" data-tab="folder"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-orange-brand"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg>폴더명 컨벤션</button>
           <button type="button" class="tab-btn py-3 px-6 font-heading text-base font-medium text-text-secondary cursor-pointer rounded-xl transition-all duration-250 ease-in-out flex items-center gap-2 hover:text-text-primary hover:bg-white/50 border-none bg-transparent" data-tab="markdown"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-orange-brand"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/></svg>마크다운 규칙</button>
-          <button type="button" class="tab-btn py-3 px-6 font-heading text-base font-medium text-text-secondary cursor-pointer rounded-xl transition-all duration-250 ease-in-out flex items-center gap-2 hover:text-text-primary hover:bg-white/50 border-none bg-transparent" data-tab="git"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-orange-brand"><circle cx="18" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 15V9a4 4 0 0 0-4-4H9"/><path d="M6 9v6"/></svg>Git 커밋 가이드</button>
+          <button type="button" class="tab-btn py-3 px-6 font-heading text-base font-medium text-text-secondary cursor-pointer rounded-xl transition-all duration-250 ease-in-out flex items-center gap-2 hover:text-text-primary hover:bg-white/50 border-none bg-transparent active" data-tab="git"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-orange-brand"><circle cx="18" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 15V9a4 4 0 0 0-4-4H9"/><path d="M6 9v6"/></svg>Git 커밋 가이드</button>
           <button type="button" class="tab-btn py-3 px-6 font-heading text-base font-medium text-text-secondary cursor-pointer rounded-xl transition-all duration-250 ease-in-out flex items-center gap-2 hover:text-text-primary hover:bg-white/50 border-none bg-transparent" data-tab="monorepo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-orange-brand"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>모노레포 구조</button>
     </nav>
 
     <main class="animate-fade-in-scale">
 
-      <div id="panel-intro" class="tab-panel active transition-all duration-300">
+      <div id="panel-intro" class="tab-panel transition-all duration-300">
         <div class="bg-card-bg backdrop-blur-md border border-card-border rounded-[20px] p-9 shadow-md mb-8 transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-1 hover:shadow-lg hover:border-orange-brand/20">
           <h2 class="text-[1.8rem] mb-6 flex items-center gap-3 text-text-primary font-bold">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-orange-brand"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
@@ -183,7 +215,7 @@ ai-pug project (띄어쓰기 금지)</code></pre>
         </div>
       </div>
 
-      <div id="panel-git" class="tab-panel transition-all duration-300">
+      <div id="panel-git" class="tab-panel active transition-all duration-300">
         <div class="bg-card-bg backdrop-blur-md border border-card-border rounded-[20px] p-9 shadow-md mb-8 transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-1 hover:shadow-lg hover:border-orange-brand/20">
           <h2 class="text-[1.8rem] mb-6 flex items-center gap-3 text-text-primary font-bold">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-orange-brand"><circle cx="18" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 15V9a4 4 0 0 0-4-4H9"/><path d="M6 9v6"/></svg>
@@ -330,10 +362,6 @@ ai-pug project (띄어쓰기 금지)</code></pre>
       </div>
 
     </main>
-
-    <footer class="text-center pt-10 mt-[60px] border-t border-card-border text-[#94a3b8] text-[0.9rem]">
-      <p>© 2026 AI Power User Group (AI PUG). All Rights Reserved.</p>
-    </footer>
   </div>
 
   <script>
@@ -342,15 +370,28 @@ ai-pug project (띄어쓰기 금지)</code></pre>
       var copyIconHtml = "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" style=\"width:16px;height:16px\"><rect width=\"14\" height=\"14\" x=\"8\" y=\"8\" rx=\"2\" ry=\"2\"/><path d=\"M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2\"/></svg>";
       var doubleCheckIconHtml = "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" style=\"width:16px;height:16px\"><path d=\"m2 12 5.25 5 10.25-10\"/><path d=\"m16 7-8 8-4-4\"/></svg>";
 
+      function activateTab(tab) {
+        document.querySelectorAll('.tab-btn').forEach(function (b) {
+          b.classList.toggle('active', b.getAttribute('data-tab') === tab);
+        });
+        document.querySelectorAll('.tab-panel').forEach(function (p) { p.classList.remove('active'); });
+        var panel = document.getElementById('panel-' + tab);
+        if (panel) panel.classList.add('active');
+      }
+
       document.querySelectorAll('.tab-btn').forEach(function (btn) {
         btn.addEventListener('click', function () {
-          var tab = btn.getAttribute('data-tab');
-          document.querySelectorAll('.tab-btn').forEach(function (b) { b.classList.remove('active'); });
-          document.querySelectorAll('.tab-panel').forEach(function (p) { p.classList.remove('active'); });
-          btn.classList.add('active');
-          document.getElementById('panel-' + tab).classList.add('active');
+          activateTab(btn.getAttribute('data-tab'));
         });
       });
+
+      window.addEventListener('message', function (e) {
+        var d = e.data;
+        if (!d || d.type !== 'pug-convention-tab' || !d.tab) return;
+        activateTab(d.tab);
+      });
+
+      activateTab('git');
 
       document.querySelectorAll('.prefix-card').forEach(function (card) {
         card.addEventListener('click', function () {
@@ -389,6 +430,5 @@ ai-pug project (띄어쓰기 금지)</code></pre>
       });
     })();
   </script>
-<script src="../embed-autoscroll.js"></script>
 </body>
 </html>

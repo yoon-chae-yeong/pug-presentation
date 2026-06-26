@@ -80,6 +80,7 @@
         .week-photo-layout { display: grid; grid-template-columns: 1.55fr 1fr; gap: 0.75rem; height: min(420px, calc(100vh - 300px)); max-height: 420px; margin-top: 0.75rem; }
         .week-photo-layout--equal { grid-template-columns: 1fr 1fr; }
         .week-photo-layout--quiz-race { grid-template-columns: minmax(0, 1.14fr) minmax(0, 1.36fr); }
+        .week-photo-layout--convention { grid-template-columns: minmax(0, 0.88fr) minmax(0, 1.52fr); }
         .week-photo-layout--quiz-race .week-photo-main-stack .week-photo-sub--quiz-1 { flex: 1.1; }
         .week-photo-layout--quiz-race .week-photo-main-stack .week-photo-sub--quiz-2 { flex: 0.9; }
         .week-photo-layout--quiz-race .week-quiz-img-wrap { flex: 1; min-height: 0; width: 100%; display: flex; align-items: center; justify-content: center; }
@@ -98,7 +99,7 @@
         .week-guide-embed__scaler { flex: 1; min-height: 0; overflow-x: hidden; overflow-y: auto; position: relative; scrollbar-width: none; }
         .week-guide-embed__scaler::-webkit-scrollbar { display: none; }
         .week-guide-embed--agent .week-guide-iframe { zoom: 0.54; }
-        .week-guide-embed--convention .week-guide-iframe { zoom: 0.46; }
+        .week-guide-embed--convention .week-guide-iframe { zoom: 0.63; }
         .week-guide-iframe { width: 100%; height: 100%; border: 0; display: block; background: #fff; zoom: 0.58; }
         .week-photo-sub { flex: 1; min-height: 0; border-radius: 8px; overflow: hidden; background: #fff; border: 1px solid #F0EAE0; display: flex; flex-direction: column; }
         .week-photo-sub img { width: 100%; flex: 1; min-height: 0; object-fit: contain; display: block; background: #fff; padding: 6px; }
@@ -442,7 +443,7 @@
             });
         }
 
-        function weekSlide({ week, title, topics, message, goals, mainImage, mainImages, subImages, photoLayout, photoTall, photoGrid, goalsLeft, embedGuide, embedGuideVariant, embedGuideTitle }) {
+        function weekSlide({ week, title, topics, message, goals, mainImage, mainImages, subImages, photoLayout, photoTall, photoGrid, goalsLeft, embedGuide, embedGuideVariant, embedGuideTitle, embedGuideScroll = true }) {
             const chips = topics.map(t => `<span class="inline-block bg-beige text-ink text-xs font-medium px-3 py-1.5 rounded-lg mr-2 mb-2">${t}</span>`).join('');
             const goalsList = goals && goals.length
                 ? `<p class="week-goals-title">🎯 목표</p><ul>${goals.map(g => `<li class="flex items-start gap-2 text-ink/85"><span class="text-pug shrink-0 mt-0.5">•</span><span>${g}</span></li>`).join('')}</ul>`
@@ -469,9 +470,10 @@
                 </div>`;
             } else if (mainImage || mainImages?.length) {
                 const hasMeta = !!(message || (goals && goals.length));
-                const layoutCls = ['week-photo-layout', photoLayout === 'equal' && 'week-photo-layout--equal', photoLayout === 'quiz-race' && 'week-photo-layout--quiz-race', photoTall && hasMeta && 'week-photo-layout--tall-meta', photoTall && !hasMeta && 'week-photo-layout--tall', hasMeta && !photoTall && 'week-photo-layout--compact'].filter(Boolean).join(' ');
+                const layoutCls = ['week-photo-layout', photoLayout === 'equal' && 'week-photo-layout--equal', photoLayout === 'quiz-race' && 'week-photo-layout--quiz-race', photoLayout === 'convention' && 'week-photo-layout--convention', photoTall && hasMeta && 'week-photo-layout--tall-meta', photoTall && !hasMeta && 'week-photo-layout--tall', hasMeta && !photoTall && 'week-photo-layout--compact'].filter(Boolean).join(' ');
+                const iframeScrollCls = embedGuideScroll === false ? '' : ' embed-scroll-iframe';
                 const guideEmbed = embedGuide
-                    ? `<div class="week-guide-embed${embedGuideVariant ? ` week-guide-embed--${embedGuideVariant}` : ''}"><div class="week-guide-embed__scaler"><iframe src="${embedGuide}" title="${embedGuideTitle || '실습 가이드'}" class="week-guide-iframe embed-scroll-iframe"></iframe></div></div>`
+                    ? `<div class="week-guide-embed${embedGuideVariant ? ` week-guide-embed--${embedGuideVariant}` : ''}"><div class="week-guide-embed__scaler"><iframe src="${embedGuide}" title="${embedGuideTitle || '실습 가이드'}" class="week-guide-iframe${iframeScrollCls}"></iframe></div></div>`
                     : '';
                 const subs = embedGuide
                     ? guideEmbed
@@ -481,6 +483,14 @@
                             ${p.caption ? `<figcaption>${p.caption}</figcaption>` : ''}
                         </figure>`
                     ).join('');
+                const leftSubHtml = embedGuide && subImages?.length
+                    ? subImages.map(p =>
+                        `<figure class="week-photo-sub">
+                            <img src="${p.src}" alt="${p.caption || ''}" loading="lazy">
+                            ${p.caption ? `<figcaption>${p.caption}</figcaption>` : ''}
+                        </figure>`
+                    ).join('')
+                    : '';
                 const mainBlock = mainImages?.length
                     ? `<div class="week-photo-main-stack">${mainImages.map(p =>
                         `<figure class="week-photo-sub">
@@ -488,10 +498,18 @@
                             ${p.caption ? `<figcaption>${p.caption}</figcaption>` : ''}
                         </figure>`
                     ).join('')}</div>`
-                    : `<figure class="week-photo-main">
-                        <img src="${mainImage.src}" alt="${mainImage.caption || title}" loading="lazy">
-                        ${mainImage.caption ? `<figcaption>${mainImage.caption}</figcaption>` : ''}
-                    </figure>`;
+                    : leftSubHtml
+                        ? `<div class="week-photo-main-stack">
+                            <figure class="week-photo-main">
+                                <img src="${mainImage.src}" alt="${mainImage.caption || title}" loading="lazy">
+                                ${mainImage.caption ? `<figcaption>${mainImage.caption}</figcaption>` : ''}
+                            </figure>
+                            ${leftSubHtml}
+                        </div>`
+                        : `<figure class="week-photo-main">
+                            <img src="${mainImage.src}" alt="${mainImage.caption || title}" loading="lazy">
+                            ${mainImage.caption ? `<figcaption>${mainImage.caption}</figcaption>` : ''}
+                        </figure>`;
                 photos = `<div class="${layoutCls}">
                     ${mainBlock}
                     <div class="week-photo-subs">${subs}</div>
@@ -774,9 +792,14 @@
             },
             { week: '5월 4주차', title: 'AI PUG 개발 컨벤션 가이드 교육', topics: ['코딩 컨벤션', '개발 가이드', '협업 규칙', 'PoC 품질'],
                 mainImage: { src: 'assets/22-dev-convention/main-session.png', caption: '개발 컨벤션 가이드 교육 세션' },
+                subImages: [
+                    { src: 'assets/22-dev-convention/github-readme.png', caption: 'pug-convention-guide · GitHub README' }
+                ],
                 embedGuide: 'assets/22-dev-convention/pug.html',
                 embedGuideVariant: 'convention',
                 embedGuideTitle: 'AI PUG Dev Convention Guide',
+                embedGuideScroll: false,
+                photoLayout: 'convention',
                 photoTall: true
             },
             { week: '6월 2주차', title: 'Outlook·Teams API 서비스 소개, Full-Stack Live Coding', topics: ['Outlook API', 'Teams API', 'Full-Stack Live Coding', '실무 연동'],
@@ -2098,6 +2121,8 @@
         }
 
         const EMBED_SCROLL_SELECTOR = '.embed-scroll-iframe';
+        const CONVENTION_GUIDE_SELECTOR = '.week-guide-embed--convention .week-guide-iframe';
+        const CONVENTION_DEFAULT_TAB = 'git';
         const EMBED_SCROLL_SPEED = 220;
         const EMBED_SCROLL_START_PAUSE_MS = 80;
         const EMBED_SCROLL_SETTLE_MS = 320;
@@ -2275,6 +2300,28 @@
             return startIframeEmbedScroll(iframe);
         }
 
+        function initConventionGuideTab() {
+            const iframe = slides[current]?.querySelector(CONVENTION_GUIDE_SELECTOR);
+            if (!iframe) return;
+
+            const send = () => {
+                try {
+                    iframe.contentWindow?.postMessage({
+                        type: 'pug-convention-tab',
+                        tab: CONVENTION_DEFAULT_TAB
+                    }, '*');
+                } catch (_) {}
+            };
+
+            send();
+            setTimeout(send, 120);
+
+            if (iframe.dataset.conventionTabBound !== '1') {
+                iframe.dataset.conventionTabBound = '1';
+                iframe.addEventListener('load', send);
+            }
+        }
+
         function initEmbedAutoScroll() {
             const iframe = slides[current]?.querySelector(EMBED_SCROLL_SELECTOR);
             if (!iframe) return;
@@ -2352,6 +2399,8 @@
             } else if (slides[current]?.querySelector('#member-radar-grid')) {
                 renderMemberRadars();
                 startMemberRadarAutoLoop();
+            } else if (slides[current]?.querySelector(CONVENTION_GUIDE_SELECTOR)) {
+                initConventionGuideTab();
             } else if (slides[current]?.querySelector(EMBED_SCROLL_SELECTOR)) {
                 initEmbedAutoScroll();
             }
