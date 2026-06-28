@@ -116,6 +116,10 @@
         .week-photo-layout--equal { grid-template-columns: 1fr 1fr; }
         .week-photo-layout--quiz-race { grid-template-columns: minmax(0, 1.14fr) minmax(0, 1.36fr); }
         .week-photo-layout--convention { grid-template-columns: minmax(0, 0.88fr) minmax(0, 1.52fr); }
+        .week-photo-layout--convention .week-photo-main-stack .week-photo-main { flex: 0 1 auto; max-height: 47%; min-height: 0; }
+        .week-photo-layout--convention .week-photo-main-stack .week-photo-sub { flex: 1 1 0; min-height: 0; }
+        .week-photo-layout--convention .week-photo-main-stack .week-photo-main img { object-fit: cover; object-position: center; padding: 0; }
+        .week-photo-layout--convention .week-photo-main-stack .week-photo-sub img { object-fit: contain; object-position: top center; padding: 6px 8px; background: #161b22; }
         .week-photo-layout--quiz-race .week-photo-main-stack .week-photo-sub--quiz-1 { flex: 1.1; }
         .week-photo-layout--quiz-race .week-photo-main-stack .week-photo-sub--quiz-2 { flex: 0.9; }
         .week-photo-layout--quiz-race .week-quiz-img-wrap { flex: 1; min-height: 0; width: 100%; display: flex; align-items: center; justify-content: center; }
@@ -130,6 +134,18 @@
         .week-photo-main-stack--focus { gap: 0.4rem; }
         .week-photo-main-stack--focus .week-photo-main--hero { flex: 1 1 auto; min-height: 0; }
         .week-photo-layout--session-focus { grid-template-columns: 1.62fr 1fr; }
+        .week-photo-layout--cover-fill .week-photo-main img,
+        .week-photo-layout--cover-fill .week-photo-sub img { object-fit: cover; object-position: center; padding: 0; }
+        .week-photo-layout--cover-fill .week-photo-main img { background: #F0EAE0; }
+        .week-photo-layout--cover-fill .week-photo-sub img { background: #1e1e1e; }
+        .week-photo-layout--cover-fill .week-photo-sub--stacked img.week-photo-sub__header { object-fit: contain; background: #fff; }
+        .week-photo-sub img.week-photo-sub__img--contain { object-fit: contain !important; padding: 5px 8px !important; }
+        .week-photo-sub--compact { flex: 0 0 auto; max-height: 30%; }
+        .week-photo-sub--compact img { flex: 0 0 auto; max-height: 96px; object-fit: contain; padding: 4px 6px; background: #1e1e1e; }
+        .week-photo-sub--table-ref { flex: 0 0 auto !important; min-height: 0; height: auto; }
+        .week-photo-sub--table-ref img { flex: 0 0 auto !important; width: 100%; height: auto; max-height: 158px; object-fit: contain; padding: 4px 6px; background: #1e1e1e; display: block; }
+        .week-photo-sub--flat { flex: 0 0 auto !important; min-height: 0; height: auto; max-height: none; }
+        .week-photo-sub--flat img { flex: 0 0 auto !important; width: 100%; height: auto; max-height: 86px; object-fit: contain; padding: 4px 8px !important; background: #1e1e1e; display: block; }
         .week-terms-strip { flex-shrink: 0; background: #FBF8F3; border: 1px solid #F0EAE0; border-radius: 8px; padding: 0.4rem 0.5rem 0.45rem; }
         .week-terms-strip__head { margin: 0 0 0.32rem; font-size: 0.56rem; font-weight: 700; color: #8A7B6E; letter-spacing: 0.01em; }
         .week-terms-strip__grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0.32rem; }
@@ -153,6 +169,8 @@
         .week-photo-sub figcaption { flex-shrink: 0; font-size: 9.5px; font-weight: 700; text-align: center; padding: 4px 6px 6px; color: #33271F; background: #FBF8F3; line-height: 1.3; }
         .week-photo-sub--guide-header { flex: 0 0 auto; max-height: 44%; }
         .week-photo-sub--guide-header img { flex: 0 0 auto; max-height: 148px; object-fit: contain; padding: 4px 6px; background: #2d3748; }
+        .week-photo-sub--stacked img.week-photo-sub__header { flex: 0 0 auto; max-height: 48px; object-fit: contain; padding: 5px 8px 2px; background: #fff; }
+        .week-photo-sub--stacked img.week-photo-sub__body { flex: 1; min-height: 0; }
         .week-present-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-template-rows: repeat(2, minmax(0, 1fr)); gap: 0.5rem; margin-top: 0.75rem; height: min(500px, calc(100vh - 230px)); max-height: 520px; }
         .slide-poc-present .week-present-grid { margin-top: 0.5rem; height: min(540px, calc(100vh - 260px)); max-height: 560px; width: 100%; }
         .list-slide-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.45rem 0.85rem; }
@@ -211,7 +229,30 @@
         .week-present-cell figcaption { flex-shrink: 0; font-size: 9.5px; font-weight: 700; text-align: center; padding: 4px 6px 6px; color: #33271F; background: #FBF8F3; line-height: 1.3; }
         .week-split-layout { display: grid; grid-template-columns: minmax(0, 1.65fr) minmax(0, 1fr); gap: 0.75rem; height: min(440px, calc(100vh - 270px)); max-height: 460px; margin-top: 0.75rem; min-height: 0; }
         .week-split-left { min-height: 0; min-width: 0; }
-        .week-split-left__box { background: #F0EAE0; border-radius: 8px; padding: 1.25rem 1.35rem; height: 100%; display: flex; flex-direction: column; justify-content: center; }
+        .week-split-left__box { background: #F0EAE0; border-radius: 8px; padding: 1.25rem 1.35rem; height: 100%; display: flex; flex-direction: column; justify-content: center; min-height: 0; }
+        .week-split-left__box--materials { justify-content: flex-start; overflow-y: auto; gap: 0.55rem; padding: 1rem 1.1rem; scrollbar-width: thin; scrollbar-color: #CBBBA8 transparent; }
+        .week-split-left__box--materials .week-goals-title { margin-bottom: 0.55rem; }
+        .week-split-left__box--materials ul { gap: 0.45rem; }
+        .week-split-left__box--materials li { font-size: 0.8125rem; line-height: 1.45; }
+        .week-split-left__materials { display: flex; flex-direction: column; gap: 0.4rem; width: 100%; flex-shrink: 0; }
+        .week-split-left__material { margin: 0; border-radius: 6px; overflow: hidden; background: #fff; border: 1px solid #E5DFD5; line-height: 0; display: flex; flex-direction: column; }
+        .week-split-left__material img { width: 100%; height: auto; display: block; object-fit: contain; background: #fff; }
+        .week-split-left__material figcaption { flex-shrink: 0; font-size: 8.5px; font-weight: 700; text-align: center; padding: 3px 5px 5px; color: #33271F; background: #FBF8F3; line-height: 1.25; }
+        .week-split-left__material--html { line-height: normal; padding: 0.42rem 0.45rem 0; overflow: hidden; }
+        .week-split-left__material-cap { margin: 0.38rem -0.45rem 0; font-size: 8.5px; font-weight: 700; text-align: center; padding: 3px 5px 5px; color: #33271F; background: #FBF8F3; border-top: 1px solid #F0EAE0; line-height: 1.25; }
+        .poc-trigger__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.3rem; }
+        .poc-trigger__item { border: 1px solid #d8dee8; border-radius: 6px; padding: 0.32rem 0.34rem; background: #fff; min-width: 0; }
+        .poc-trigger__label { font-size: 0.42rem; font-weight: 800; color: #2563eb; letter-spacing: 0.03em; margin: 0 0 0.06rem; }
+        .poc-trigger__title { font-size: 0.48rem; font-weight: 800; color: #1a1a1a; margin: 0 0 0.08rem; line-height: 1.25; }
+        .poc-trigger__desc { font-size: 0.42rem; color: #64748b; margin: 0; line-height: 1.35; }
+        .poc-problem__template { border: 1.5px dashed #cbd5e1; border-radius: 6px; padding: 0.4rem 0.44rem; margin-bottom: 0.36rem; text-align: center; font-size: 0.44rem; font-weight: 600; color: #334155; line-height: 1.45; background: #fff; }
+        .poc-problem__hl { color: #2563eb; text-decoration: underline; text-underline-offset: 2px; font-weight: 700; }
+        .poc-problem__cols { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.38rem; }
+        .poc-problem__col { border: 1.5px solid #e2e8f0; border-radius: 8px; padding: 0.48rem 0.52rem 0.52rem; background: #fff; min-width: 0; }
+        .poc-problem__col-title { margin: 0 0 0.3rem; font-size: 0.42rem; font-weight: 800; color: #1a1a1a; }
+        .poc-problem__lines { display: flex; flex-direction: column; gap: 0.24rem; }
+        .poc-problem__line { margin: 0; font-size: 0.5rem; font-weight: 600; color: #334155; line-height: 1.45; }
+        .week-split-layout--tall { height: min(520px, calc(100vh - 230px)); max-height: 540px; }
         .week-split-left__box .week-goals-title { font-size: 0.75rem; font-weight: 800; color: #33271F; margin-bottom: 0.85rem; }
         .week-split-left__box ul { display: flex; flex-direction: column; gap: 0.65rem; }
         .week-split-left__box li { font-size: 0.875rem; line-height: 1.5; }
@@ -250,9 +291,10 @@
         .photo-banner-grid--in-layout .slide-photo-banner { width: 100%; max-width: 100%; height: auto; }
         .photo-grid--dense .slide-photo { height: 168px; }
         .photo-grid--dense figcaption { padding-top: 0.4rem; padding-bottom: 0.55rem; }
-        .photo-grid--quad { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: repeat(2, minmax(0, 1fr)); gap: 0.5rem; height: min(520px, calc(100vh - 280px)); max-height: min(520px, calc(100vh - 280px)); width: 100%; }
+        .photo-grid--quad { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: repeat(2, minmax(0, 1fr)); gap: 0.5rem; height: min(580px, calc(100vh - 240px)); max-height: min(580px, calc(100vh - 240px)); width: 100%; }
         .photo-grid--quad figure { min-height: 0; display: flex; flex-direction: column; overflow: hidden; margin: 0; }
-        .photo-grid--quad .support-photo-contain { flex: 1; min-height: 0; height: auto; max-height: none; }
+        .photo-grid--quad .support-photo-contain { flex: 1; min-height: 0; height: auto; max-height: none; object-fit: cover; object-position: center; padding: 0; background: #F0EAE0; }
+        .photo-grid--quad figcaption { padding-left: 0.5rem !important; padding-right: 0.5rem !important; }
         .meeting-reveal { width: 100%; }
         .meeting-reveal-stack { position: relative; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.75rem; height: min(480px, calc(100vh - 260px)); max-height: 520px; }
         .meeting-reveal-photo { background: #fff; border: 1px solid #F0EAE0; border-radius: 8px; overflow: hidden; display: flex; flex-direction: column; min-height: 0; margin: 0; }
@@ -943,7 +985,57 @@
             });
         }
 
-        function weekSlide({ week, title, topics, message, goals, mainImage, mainImages, mainExtra, subImages, photoLayout, photoTall, photoGrid, goalsLeft, embedGuide, embedGuideImage, embedGuideVariant, embedGuideTitle, embedGuideScroll = true }) {
+        function buildPocTriggerFrameworkHtml() {
+            const triggers = [
+                ['TRIGGER 1', '반복 업무', '매일/매주 똑같이 반복되는 일'],
+                ['TRIGGER 2', '병목 구간', '시간이 유독 오래 걸리는 업무'],
+                ['TRIGGER 3', '판단 모호', '사람마다 기준이 달라 실수가 잦은 일'],
+                ['TRIGGER 4', '데이터 방치', '데이터는 쌓이지만 활용 못하는 영역'],
+                ['TRIGGER 5', '비효율 소통', '매번 누군가에게 물어봐야 하는 정보'],
+                ['TRIGGER 6', '수작업 관리', '엑셀로 수작업 관리하는 복잡한 규칙']
+            ];
+            return `<div class="poc-trigger">
+                <div class="poc-trigger__grid">${triggers.map(([label, t, d]) =>
+                    `<div class="poc-trigger__item"><p class="poc-trigger__label">${label}</p><p class="poc-trigger__title">${t}</p><p class="poc-trigger__desc">${d}</p></div>`
+                ).join('')}</div>
+            </div>`;
+        }
+
+        function buildPocProblemStatementHtml() {
+            return `<div class="poc-problem">
+                <div class="poc-problem__template">"나는(우리 팀은) <span class="poc-problem__hl">OO 상황</span> 에서 <span class="poc-problem__hl">OO 문제</span> 를 겪고 있으며, 이는 현재 <span class="poc-problem__hl">OO 방식</span> 으로 해결 중이다."</div>
+                <div class="poc-problem__cols">
+                    <div class="poc-problem__col">
+                        <p class="poc-problem__col-title">문제 크기 (Impact)</p>
+                        <div class="poc-problem__lines">
+                            <p class="poc-problem__line">소요 시간: 주당 평균 몇 시간?</p>
+                            <p class="poc-problem__line">발생 비용: 직접/간접 비용은?</p>
+                            <p class="poc-problem__line">조직 파급력: 해결 시 어떤 변화가?</p>
+                        </div>
+                    </div>
+                    <div class="poc-problem__col">
+                        <p class="poc-problem__col-title">성공 기준 (Success)</p>
+                        <div class="poc-problem__lines">
+                            <p class="poc-problem__line">시간 감소율 (%)</p>
+                            <p class="poc-problem__line">업무 처리 속도 개선</p>
+                            <p class="poc-problem__line">데이터 정확도 향상 지표</p>
+                        </div>
+                    </div>
+                </div>
+            </div>`;
+        }
+
+        function weekSlide({ week, title, topics, message, goals, goalsMaterials, mainImage, mainImages, mainExtra, subImages, photoLayout, photoFit, photoTall, photoGrid, goalsLeft, embedGuide, embedGuideImage, embedGuideVariant, embedGuideTitle, embedGuideScroll = true }) {
+            const renderPhotoSub = (p, altFallback = '') => {
+                const stacked = !!p.headerSrc;
+                const figureCls = ['week-photo-sub', stacked && 'week-photo-sub--stacked', p.compact && 'week-photo-sub--compact', p.tableRef && 'week-photo-sub--table-ref', p.flat && 'week-photo-sub--flat'].filter(Boolean).join(' ');
+                const imgCls = [stacked && 'week-photo-sub__body', p.fit === 'contain' && 'week-photo-sub__img--contain'].filter(Boolean).join(' ');
+                return `<figure class="${figureCls}">
+                    ${stacked ? `<img src="${p.headerSrc}" alt="" class="week-photo-sub__header" loading="lazy">` : ''}
+                    <img src="${p.src}" alt="${p.caption || altFallback}" class="${imgCls}" loading="lazy">
+                    ${p.caption ? `<figcaption>${p.caption}</figcaption>` : ''}
+                </figure>`;
+            };
             const chips = topics.map(t => `<span class="inline-block bg-beige text-ink text-xs font-medium px-3 py-1.5 rounded-lg mr-2 mb-2">${t}</span>`).join('');
             const goalsList = goals && goals.length
                 ? `<p class="week-goals-title">🎯 목표</p><ul>${goals.map(g => `<li class="flex items-start gap-2 text-ink/85"><span class="text-pug shrink-0 mt-0.5">•</span><span>${g}</span></li>`).join('')}</ul>`
@@ -964,13 +1056,23 @@
                         ${p.caption ? `<figcaption>${p.caption}</figcaption>` : ''}
                     </figure>`
                 ).join('');
-                photos = `<div class="week-split-layout">
-                    <div class="week-split-left"><div class="week-split-left__box">${goalsList}</div></div>
+                const materialsHtml = (goalsMaterials || []).map(m =>
+                    m.html
+                        ? `<div class="week-split-left__material week-split-left__material--html">${m.html}${m.caption ? `<p class="week-split-left__material-cap">${m.caption}</p>` : ''}</div>`
+                        : `<figure class="week-split-left__material">
+                        <img src="${m.src}" alt="${m.caption || ''}" loading="lazy">
+                        ${m.caption ? `<figcaption>${m.caption}</figcaption>` : ''}
+                    </figure>`
+                ).join('');
+                const leftBoxCls = materialsHtml ? 'week-split-left__box week-split-left__box--materials' : 'week-split-left__box';
+                const splitCls = materialsHtml ? 'week-split-layout week-split-layout--tall' : 'week-split-layout';
+                photos = `<div class="${splitCls}">
+                    <div class="week-split-left"><div class="${leftBoxCls}">${goalsList}${materialsHtml ? `<div class="week-split-left__materials">${materialsHtml}</div>` : ''}</div></div>
                     <div class="week-split-photos">${subs}</div>
                 </div>`;
             } else if (mainImage || mainImages?.length) {
                 const hasMeta = !!(message || (goals && goals.length));
-                const layoutCls = ['week-photo-layout', photoLayout === 'equal' && 'week-photo-layout--equal', photoLayout === 'quiz-race' && 'week-photo-layout--quiz-race', photoLayout === 'convention' && 'week-photo-layout--convention', photoLayout === 'session-focus' && 'week-photo-layout--session-focus', mainExtra && 'week-photo-layout--session-focus', photoTall && hasMeta && 'week-photo-layout--tall-meta', photoTall && !hasMeta && 'week-photo-layout--tall', hasMeta && !photoTall && 'week-photo-layout--compact'].filter(Boolean).join(' ');
+                const layoutCls = ['week-photo-layout', photoLayout === 'equal' && 'week-photo-layout--equal', photoLayout === 'quiz-race' && 'week-photo-layout--quiz-race', photoLayout === 'convention' && 'week-photo-layout--convention', photoLayout === 'session-focus' && 'week-photo-layout--session-focus', photoFit === 'cover' && 'week-photo-layout--cover-fill', mainExtra && 'week-photo-layout--session-focus', photoTall && hasMeta && 'week-photo-layout--tall-meta', photoTall && !hasMeta && 'week-photo-layout--tall', hasMeta && !photoTall && 'week-photo-layout--compact'].filter(Boolean).join(' ');
                 const isManualScroll = embedGuideScroll === 'manual';
                 const iframeScrollCls = embedGuideScroll === false ? '' : ' embed-scroll-iframe';
                 const manualAttr = isManualScroll ? ' data-embed-scroll-manual="1"' : '';
@@ -988,19 +1090,9 @@
                     : '';
                 const subs = embedGuide
                     ? `${guideHeader}${guideEmbed}`
-                    : (subImages || []).map(p =>
-                        `<figure class="week-photo-sub">
-                            <img src="${p.src}" alt="${p.caption || ''}" loading="lazy">
-                            ${p.caption ? `<figcaption>${p.caption}</figcaption>` : ''}
-                        </figure>`
-                    ).join('');
+                    : (subImages || []).map(p => renderPhotoSub(p)).join('');
                 const leftSubHtml = embedGuide && subImages?.length
-                    ? subImages.map(p =>
-                        `<figure class="week-photo-sub">
-                            <img src="${p.src}" alt="${p.caption || ''}" loading="lazy">
-                            ${p.caption ? `<figcaption>${p.caption}</figcaption>` : ''}
-                        </figure>`
-                    ).join('')
+                    ? subImages.map(p => renderPhotoSub(p)).join('')
                     : '';
                 const mainBlock = mainImages?.length
                     ? `<div class="week-photo-main-stack">${mainImages.map(p =>
@@ -1275,11 +1367,12 @@
                 embedGuideScroll: 'manual',
                 photoTall: true
             },
-            { week: '3월 3주차', title: 'LLM · 컨텍스트 · RAG', topics: ['LLM 강점/한계', 'Temperature·프롬프트', 'LLM API 호출', 'RAG 기초'],
+            { week: '3월 3주차', title: '생성형 AI · LLM · RAG', topics: ['인공지능의 의미·핵심 개념', 'NLP · LLM · 생성형 AI 동작', 'LLM 강점/한계', 'Temperature·프롬프트', 'LLM API 호출', '사전학습·파인튜닝·RAG 차이', 'LangChain·RAG 관계' ],
+                message: 'AI·NLP·LLM의 기본 개념부터 <strong class="text-ink">사전학습·파인튜닝·RAG</strong>의 차이, LangChain과 RAG의 관계까지 학습했습니다. Temperature 등 출력 파라미터 조정·API 호출·벡터 임베딩 실습 후, <strong class="text-ink">슬기로운 DRB 생활</strong> 데이터로 복지 검색 RAG 챗봇을 만들어 봤습니다.',
                 mainImage: { src: 'assets/14-llm-rag/main-llm-session.png', caption: 'LLM·RAG 교육 세션' },
                 subImages: [
                     { src: 'assets/14-llm-rag/sub-rag-diagram.png', caption: 'RAG 개념 설명' },
-                    { src: 'assets/14-llm-rag/sub-rag-chatbot.png', caption: '슬기로운 DRB 생활 데이터를 활용한 RAG 챗봇 예시' }
+                    { src: 'assets/14-llm-rag/sub-rag-chatbot.png', headerSrc: 'assets/14-llm-rag/sub-drb-life-banner.png', caption: '슬기로운 DRB 생활 데이터를 활용한 RAG 챗봇 예시' }
                 ],
                 photoTall: true
             },
@@ -1294,9 +1387,15 @@
                     { src: 'assets/15-rag-chatbot/present-6-pug-archive.png', caption: '박다솜님 발표: PoC 챗봇 사례' }
                 ]
             },
-            { week: '3월 4주차', title: 'n8n 자동화', topics: ['n8n 자동화 개념', '트리거 기반 실습', '워크플로 구성', 'LLM·API 연동'],
-                message: '노코드 자동화 도구 n8n의 기본 개념과 트리거 기반 워크플로 실습을 진행했습니다.',
+            { week: '3월 4주차', title: 'RPA 자동화', topics: ['n8n 워크플로 구성', '사내 Teams OAuth 연동', '실습1 · 키워드 뉴스 요약', '실습2 · 랜덤 발표 순서'],
+                message: '일반 공개 튜토리얼과 달리, 교육용 <strong class="text-ink">사내 Microsoft Teams·클라우드 OAuth</strong> 연결 환경을 구성해 실습했습니다. RSS → ChatGPT 요약 → <strong class="text-ink">실제 Teams 메시지 전송</strong>과 엑셀 기반 랜덤 발표 순서 자동화까지 진행했습니다.',
                 mainImage: { src: 'assets/15-n8n/n8n-session.png', caption: 'n8n 자동화 교육 세션' },
+                subImages: [
+                    { src: 'assets/15-n8n/n8n-practice-1-news-summary.png', caption: '실습1 · 매일 저녁 키워드 뉴스 요약 → Teams 메시지' },
+                    { src: 'assets/15-n8n/n8n-practice-2-random-order.png', caption: '실습2 · 랜덤 발표 순서 정하기', fit: 'contain', flat: true },
+                    { src: 'assets/15-n8n/n8n-tool-compare.png', caption: 'n8n · Zapier · Make · Power Automate 비교', fit: 'contain', tableRef: true }
+                ],
+                photoFit: 'cover',
                 photoTall: true
             },
             { week: '4월 1주차', title: 'PoC 기획 · 아이디어 워크숍', topics: ['업무 과제 도출', '현재 업무 현황(AS-IS) 정리', 'PoC 목표·범위 설정', '기술 스택 선정'],
@@ -1307,15 +1406,29 @@
                     '“아이디어”가 아니라 <strong class="text-ink">실행 가능한 설계 초안</strong>까지 도달'
                 ],
                 goalsLeft: true,
+                goalsMaterials: [
+                    { html: buildPocTriggerFrameworkHtml(), caption: '업무 현장 불편함 찾기 · Trigger 6가지' },
+                    { html: buildPocProblemStatementHtml(), caption: 'Problem Statement Template' }
+                ],
                 subImages: [
                     { src: 'assets/16-poc-idea/sub-workshop-1.png', caption: '프로젝트 기획 워크숍' },
                     { src: 'assets/16-poc-idea/sub-workshop-2.png', caption: 'PoC 설계 협업' }
                 ]
             },
-            { week: '4월 3주차', title: 'FastAPI · 사내 LLM · Git', topics: ['FastAPI 개발', '사내 구축(On-premise) LLM', 'Git 저장소·Commit/Push', 'GitHub 협업'],
-                mainImage: { src: 'assets/17-fastapi-git/main-session.png', caption: 'FastAPI·Git & GitHub 실습 세션' },
+            { week: '4월 3주차', title: 'API 개발 심화 · 사내 LLM 연동', topics: ['FastAPI · 온프레미스 LLM', 'Request/Response·파라미터', 'AI 도구 API 설계·구현', 'Swagger UI'],
+                message: 'FastAPI로 <strong class="text-ink">사내 구축(On-premise) LLM</strong>에 연동해 보았습니다. Request/Response 구조와 필수·선택 파라미터를 파악하고, AI 도구에 API 설계·구현을 요청하는 방식으로 진행했으며 <strong class="text-ink">Swagger UI</strong>로 엔드포인트를 확인했습니다.',
+                mainImage: { src: 'assets/17-fastapi-git/main-session.png', caption: 'FastAPI · 사내 LLM 연동 실습' },
                 subImages: [
                     { src: 'assets/17-fastapi-git/sub-fastapi-guide.png', caption: 'FastAPI 코드 구조 · Swagger UI' }
+                ],
+                photoTall: true
+            },
+            { week: '4월 3주차', title: 'Git · GitHub', topics: ['Git 개념·Repository', 'Commit / Push / Pull', 'GitHub Flow', 'PoC 코드 버전 관리'],
+                message: 'FastAPI 실습 코드를 <strong class="text-ink">Git 저장소</strong>로 관리하고, Commit·Push·Pull 흐름을 익혔습니다. <strong class="text-ink">GitHub Flow</strong>로 브랜치·코드 리뷰·병합까지 PoC 개발에 맞게 연습했습니다.',
+                mainImage: { src: 'assets/17-fastapi-git/sub-git-distributed-vcs.png', caption: 'Distributed Version Control · Commit / Push / Pull' },
+                subImages: [
+                    { src: 'assets/17-fastapi-git/sub-github-flow.png', caption: 'GitHub Flow · branch → code review → merge' },
+                    { src: 'assets/17-fastapi-git/sub-git-github-logo.png', caption: 'Git · GitHub' }
                 ],
                 photoTall: true
             },
@@ -1329,10 +1442,10 @@
                 photoTall: true
             },
             { week: '4월 4주차', title: 'UI/UX 기초', topics: ['Design vs UX', 'UI 컴포넌트', '디자인 시스템', 'AI 디자인 도구'],
-                mainImage: { src: 'assets/19-uiux-basics/uiux-design-vs-ux.png', caption: 'Design vs User Experience' },
+                mainImage: { src: 'assets/19-uiux-basics/uiux-v0-design.png', caption: 'v0 AI 디자인 - Pastel Modernism 적용' },
                 subImages: [
                     { src: 'assets/19-uiux-basics/uiux-components.png', caption: 'UI/UX 핵심 컴포넌트 42가지' },
-                    { src: 'assets/19-uiux-basics/uiux-v0-design.png', caption: 'v0 AI 디자인 - Pastel Modernism 적용' }
+                    { src: 'assets/19-uiux-basics/uiux-design-vs-ux.png', caption: 'Design vs User Experience' }
                 ],
                 photoTall: true
             },
@@ -1357,7 +1470,7 @@
             { week: '5월 4주차', title: '개발 컨벤션 가이드', topics: ['코딩 컨벤션', '개발 가이드', '협업 규칙', 'PoC 품질'],
                 mainImage: { src: 'assets/22-dev-convention/main-session.png', caption: '개발 컨벤션 가이드 교육 세션' },
                 subImages: [
-                    { src: 'assets/22-dev-convention/github-readme.png', caption: 'pug-convention-guide · GitHub README' }
+                    { src: 'assets/22-dev-convention/github-readme.png', caption: 'pug-convention-guide · GitHub README', fit: 'contain' }
                 ],
                 embedGuide: 'assets/22-dev-convention/pug.html',
                 embedGuideVariant: 'convention',
@@ -2179,7 +2292,7 @@
             }),
 
             contentSlide({
-                label: 'Next · 마무리',
+                label: 'Next',
                 title: '다음 PoC로, 함께 나아갑니다',
                 message: '학습·실습·PoC·피드백을 거치며, 다음 실험으로 이어갑니다.',
                 compact: true,
