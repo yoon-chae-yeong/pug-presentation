@@ -100,6 +100,11 @@
         .pain-reveal-btn:hover { background: #E5A030; }
         .pain-reveal-btn.is-hidden { display: none; }
         .pain-reveal-btn i { width: 14px; height: 14px; }
+        .embed-scroll-bar { display: flex; justify-content: center; margin-top: 0.4rem; flex-shrink: 0; }
+        .embed-scroll-btn { display: inline-flex; align-items: center; gap: 0.35rem; padding: 0.5rem 1.2rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 700; color: #33271F; background: #F5B041; border: none; cursor: pointer; transition: background 0.2s, opacity 0.2s; font-family: inherit; }
+        .embed-scroll-btn:hover { background: #E5A030; }
+        .embed-scroll-btn.is-hidden { display: none; }
+        .embed-scroll-btn i { width: 14px; height: 14px; }
         .pain-card__keywords strong { color: #4A3C33; font-weight: 600; }
         @media (max-width: 768px) {
             .pain-grid { grid-template-columns: 1fr; }
@@ -137,6 +142,8 @@
         .week-photo-subs { display: flex; flex-direction: column; gap: 0.5rem; min-height: 0; }
         .week-guide-embed { flex: 1; min-height: 0; border-radius: 8px; overflow: hidden; background: #fff; border: 1px solid #F0EAE0; display: flex; flex-direction: column; }
         .week-guide-embed__scaler { flex: 1; min-height: 0; overflow-x: hidden; overflow-y: auto; position: relative; scrollbar-width: none; }
+        .week-guide-embed[data-embed-scroll-manual]:not(.is-scroll-active) .week-guide-embed__scaler { overflow: hidden; pointer-events: none; }
+        .week-guide-embed[data-embed-scroll-manual].is-scroll-active .week-guide-embed__scaler { pointer-events: auto; }
         .week-guide-embed__scaler::-webkit-scrollbar { display: none; }
         .week-guide-embed--agent .week-guide-iframe { zoom: 0.54; }
         .week-guide-embed--convention .week-guide-iframe { zoom: 0.63; }
@@ -144,6 +151,8 @@
         .week-photo-sub { flex: 1; min-height: 0; border-radius: 8px; overflow: hidden; background: #fff; border: 1px solid #F0EAE0; display: flex; flex-direction: column; }
         .week-photo-sub img { width: 100%; flex: 1; min-height: 0; object-fit: contain; display: block; background: #fff; padding: 6px; }
         .week-photo-sub figcaption { flex-shrink: 0; font-size: 9.5px; font-weight: 700; text-align: center; padding: 4px 6px 6px; color: #33271F; background: #FBF8F3; line-height: 1.3; }
+        .week-photo-sub--guide-header { flex: 0 0 auto; max-height: 44%; }
+        .week-photo-sub--guide-header img { flex: 0 0 auto; max-height: 148px; object-fit: contain; padding: 4px 6px; background: #2d3748; }
         .week-present-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-template-rows: repeat(2, minmax(0, 1fr)); gap: 0.5rem; margin-top: 0.75rem; height: min(500px, calc(100vh - 230px)); max-height: 520px; }
         .slide-poc-present .week-present-grid { margin-top: 0.5rem; height: min(540px, calc(100vh - 260px)); max-height: 560px; width: 100%; }
         .list-slide-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.45rem 0.85rem; }
@@ -934,7 +943,7 @@
             });
         }
 
-        function weekSlide({ week, title, topics, message, goals, mainImage, mainImages, mainExtra, subImages, photoLayout, photoTall, photoGrid, goalsLeft, embedGuide, embedGuideVariant, embedGuideTitle, embedGuideScroll = true }) {
+        function weekSlide({ week, title, topics, message, goals, mainImage, mainImages, mainExtra, subImages, photoLayout, photoTall, photoGrid, goalsLeft, embedGuide, embedGuideImage, embedGuideVariant, embedGuideTitle, embedGuideScroll = true }) {
             const chips = topics.map(t => `<span class="inline-block bg-beige text-ink text-xs font-medium px-3 py-1.5 rounded-lg mr-2 mb-2">${t}</span>`).join('');
             const goalsList = goals && goals.length
                 ? `<p class="week-goals-title">🎯 목표</p><ul>${goals.map(g => `<li class="flex items-start gap-2 text-ink/85"><span class="text-pug shrink-0 mt-0.5">•</span><span>${g}</span></li>`).join('')}</ul>`
@@ -962,12 +971,23 @@
             } else if (mainImage || mainImages?.length) {
                 const hasMeta = !!(message || (goals && goals.length));
                 const layoutCls = ['week-photo-layout', photoLayout === 'equal' && 'week-photo-layout--equal', photoLayout === 'quiz-race' && 'week-photo-layout--quiz-race', photoLayout === 'convention' && 'week-photo-layout--convention', photoLayout === 'session-focus' && 'week-photo-layout--session-focus', mainExtra && 'week-photo-layout--session-focus', photoTall && hasMeta && 'week-photo-layout--tall-meta', photoTall && !hasMeta && 'week-photo-layout--tall', hasMeta && !photoTall && 'week-photo-layout--compact'].filter(Boolean).join(' ');
+                const isManualScroll = embedGuideScroll === 'manual';
                 const iframeScrollCls = embedGuideScroll === false ? '' : ' embed-scroll-iframe';
+                const manualAttr = isManualScroll ? ' data-embed-scroll-manual="1"' : '';
+                const scrollBtn = isManualScroll
+                    ? `<div class="embed-scroll-bar"><button type="button" id="embed-scroll-btn" class="embed-scroll-btn"><i data-lucide="arrow-down"></i> 가이드 스크롤 시작</button></div>`
+                    : '';
                 const guideEmbed = embedGuide
-                    ? `<div class="week-guide-embed${embedGuideVariant ? ` week-guide-embed--${embedGuideVariant}` : ''}"><div class="week-guide-embed__scaler"><iframe src="${embedGuide}" title="${embedGuideTitle || '실습 가이드'}" class="week-guide-iframe${iframeScrollCls}"></iframe></div></div>`
+                    ? `<div class="week-guide-embed${embedGuideVariant ? ` week-guide-embed--${embedGuideVariant}` : ''}"${manualAttr}><div class="week-guide-embed__scaler"><iframe src="${embedGuide}" title="${embedGuideTitle || '실습 가이드'}" class="week-guide-iframe${iframeScrollCls}"></iframe></div>${scrollBtn}</div>`
+                    : '';
+                const guideHeader = embedGuideImage
+                    ? `<figure class="week-photo-sub week-photo-sub--guide-header">
+                        <img src="${embedGuideImage.src}" alt="${embedGuideImage.caption || 'RDB 가이드'}" loading="lazy">
+                        ${embedGuideImage.caption ? `<figcaption>${embedGuideImage.caption}</figcaption>` : ''}
+                    </figure>`
                     : '';
                 const subs = embedGuide
-                    ? guideEmbed
+                    ? `${guideHeader}${guideEmbed}`
                     : (subImages || []).map(p =>
                         `<figure class="week-photo-sub">
                             <img src="${p.src}" alt="${p.caption || ''}" loading="lazy">
@@ -1249,8 +1269,10 @@
                 photoTall: true
             },
             { week: '3월 2주차', title: 'API · SQL · CRUD 실습', topics: ['Flask 기초', 'SQL 개념', '테이블/행/컬럼', '데이터 CRUD 실습'],
-                mainImage: { src: 'assets/13-flask-sql/main-session.png', caption: 'API·SQL CRUD 실습 세션' },
+                mainImage: { src: 'assets/13-flask-sql/rest-api-diagram.png', caption: 'REST API — Client · Server · HTTP · JSON' },
+                embedGuideImage: { src: 'assets/13-flask-sql/sql-rdb-diagram.png', caption: 'SQL · 관계형 데이터베이스(RDB)' },
                 embedGuide: 'assets/13-flask-sql/rdb-guide.html',
+                embedGuideScroll: 'manual',
                 photoTall: true
             },
             { week: '3월 3주차', title: 'LLM · 컨텍스트 · RAG', topics: ['LLM 강점/한계', 'Temperature·프롬프트', 'LLM API 호출', 'RAG 기초'],
@@ -3002,6 +3024,33 @@
             }
         }
 
+        const EMBED_SCROLL_MANUAL_SELECTOR = '[data-embed-scroll-manual]';
+
+        function resetEmbedScrollManual() {
+            slides.forEach(s => {
+                const wrap = s.querySelector(EMBED_SCROLL_MANUAL_SELECTOR);
+                if (!wrap) return;
+                wrap.classList.remove('is-scroll-active');
+                const container = wrap.querySelector('.week-guide-embed__scaler');
+                if (container) container.scrollTop = 0;
+                const btn = wrap.querySelector('#embed-scroll-btn');
+                if (btn) btn.classList.remove('is-hidden');
+            });
+        }
+
+        function initEmbedScrollManual() {
+            resetEmbedScrollManual();
+            const wrap = slides[current]?.querySelector(EMBED_SCROLL_MANUAL_SELECTOR);
+            const btn = wrap?.querySelector('#embed-scroll-btn');
+            if (!btn || !wrap) return;
+
+            btn.onclick = () => {
+                wrap.classList.add('is-scroll-active');
+                btn.classList.add('is-hidden');
+                initEmbedAutoScroll();
+            };
+        }
+
         function initEmbedAutoScroll() {
             const iframe = slides[current]?.querySelector(EMBED_SCROLL_SELECTOR);
             if (!iframe) return;
@@ -3084,8 +3133,12 @@
                 initConventionGuideTab();
             } else if (slides[current]?.querySelector('#practice-qa-graph-svg')) {
                 initPracticeQaGraph();
+            } else if (slides[current]?.querySelector(EMBED_SCROLL_MANUAL_SELECTOR)) {
+                initEmbedScrollManual();
             } else if (slides[current]?.querySelector(EMBED_SCROLL_SELECTOR)) {
                 initEmbedAutoScroll();
+            } else {
+                resetEmbedScrollManual();
             }
         }
         function goToSlideIndex(index) {
