@@ -365,6 +365,20 @@
         .design-consult-photo-wrap { flex: 1; min-height: 0; display: flex; flex-direction: column; border-radius: 8px; overflow: hidden; background: #F0EAE0; }
         .design-consult-photo { flex: 1; min-height: 0; width: 100%; object-fit: cover; display: block; }
         .design-consult-photo-cap { padding: 8px 10px; font-size: 11px; font-weight: 700; text-align: center; background: #fff; color: #33271F; line-height: 1.35; }
+        .slide-toc { justify-content: center !important; padding-bottom: 4.5rem !important; }
+        .slide-toc .toc-head { margin-bottom: 1.75rem; }
+        .slide-toc .toc-head h2 { font-size: 2.25rem; font-weight: 800; line-height: 1.2; margin: 0; }
+        .slide-toc .toc-head p { margin: 0.5rem 0 0; font-size: 0.875rem; color: #8A7B6E; line-height: 1.5; }
+        .toc-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.85rem; }
+        @media (max-width: 768px) { .toc-grid { grid-template-columns: 1fr; } }
+        .toc-item { display: flex; flex-direction: column; align-items: flex-start; gap: 0.45rem; text-align: left; width: 100%; padding: 1.1rem 1.15rem; background: #fff; border: none; border-radius: 8px; cursor: pointer; transition: background 0.2s, transform 0.15s; font-family: inherit; }
+        .toc-item:hover { background: #F0EAE0; transform: translateY(-1px); }
+        .toc-item:focus-visible { outline: 2px solid #F5B041; outline-offset: 2px; }
+        .toc-item__part { display: inline-flex; align-items: center; gap: 0.35rem; font-size: 0.68rem; font-weight: 800; letter-spacing: 0.05em; color: #33271F; background: #F0EAE0; padding: 0.2rem 0.55rem; border-radius: 4px; }
+        .toc-item__title { font-size: 1rem; font-weight: 700; color: #33271F; line-height: 1.35; margin: 0; }
+        .toc-item__sub { font-size: 0.78rem; color: #8A7B6E; line-height: 1.45; margin: 0; }
+        .toc-item__go { display: inline-flex; align-items: center; gap: 0.25rem; margin-top: 0.15rem; font-size: 0.72rem; font-weight: 700; color: #F5B041; }
+        .toc-item__go [data-lucide] { width: 0.85rem; height: 0.85rem; }
     </style>
 </head>
 <body class="bg-paper text-ink antialiased overflow-hidden">
@@ -376,6 +390,9 @@
     <main id="deck" class="w-full h-screen"></main>
 
     <div class="fixed bottom-5 left-1/2 -translate-x-1/2 z-50 flex items-center gap-3 bg-card rounded-full px-3 py-2">
+        <button onclick="goToPart('toc')" class="p-2 rounded-full hover:bg-beige text-ink transition" aria-label="목차" title="목차 (T)">
+            <i data-lucide="list" class="w-5 h-5"></i>
+        </button>
         <button onclick="changeSlide(-1)" class="p-2 rounded-full hover:bg-beige text-ink transition" aria-label="이전">
             <i data-lucide="chevron-left" class="w-5 h-5"></i>
         </button>
@@ -396,8 +413,37 @@
         const deck = document.getElementById('deck');
 
         // ── Slide builders ──
-        function sectionDivider(part, title, subtitle) {
-            return `<section class="slide w-full h-screen flex-col items-center justify-center px-8">
+        const PARTS = [
+            { id: 'part1', badge: 'PART 1', title: 'PUG 출범 · 2025 활동 · 회고', subtitle: '어떻게 시작했고, 무엇이 부족했는가' },
+            { id: 'part2', badge: 'PART 2', title: '인터뷰 · 커리큘럼 · 교육', subtitle: '업무 요구사항 파악부터 맞춤형 학습까지' },
+            { id: 'part3', badge: 'PART 3', title: '디지털전략센터 · PUG · 지원', subtitle: '사내 전문가 연결과 운영 지원' },
+            { id: 'part4', badge: 'PART 4', title: '활동 · 효과 · 변화', subtitle: '서로 얻어가는 성장과 조직에 남긴 변화' }
+        ];
+
+        function buildTocSlide() {
+            const items = PARTS.map(entry =>
+                `<button type="button" class="toc-item" data-part="${entry.id}" aria-label="${entry.badge} ${entry.title}로 이동">
+                    <span class="toc-item__part">${entry.badge}</span>
+                    <span class="toc-item__title">${entry.title}</span>
+                    <span class="toc-item__sub">${entry.subtitle}</span>
+                    <span class="toc-item__go">바로가기 <i data-lucide="arrow-right"></i></span>
+                </button>`
+            ).join('');
+            return `<section class="slide slide-toc w-full h-screen flex-col px-8 lg:px-24" data-part="toc">
+                <div class="max-w-4xl w-full mx-auto">
+                    <div class="toc-head">
+                        <p class="text-sm font-bold text-pug mb-2 uppercase tracking-wider">Contents</p>
+                        <h2>목차</h2>
+                        <p>각 파트를 선택하면 해당 섹션으로 이동합니다</p>
+                    </div>
+                    <div class="toc-grid" id="toc-grid">${items}</div>
+                </div>
+            </section>`;
+        }
+
+        function sectionDivider(part, title, subtitle, partId = '') {
+            const dataAttr = partId ? ` data-part="${partId}"` : '';
+            return `<section class="slide w-full h-screen flex-col items-center justify-center px-8"${dataAttr}>
                 <div class="max-w-3xl w-full text-center flex flex-col items-center gap-6">
                     <div class="inline-flex items-center gap-2 bg-ink text-card px-4 py-2 rounded-lg text-sm font-bold">${part}</div>
                     <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight leading-tight">${title}</h1>
@@ -406,7 +452,7 @@
             </section>`;
         }
 
-        function contentSlide({ label, title, message, body, scroll = false, wide = false, alignTop = false, compact = false, titleExtra, slideClass = '' }) {
+        function contentSlide({ label, title, message, body, scroll = false, wide = false, alignTop = false, compact = false, titleExtra, slideClass = '', partId = '' }) {
             const scrollCls = scroll ? ' py-12 overflow-y-auto' : '';
             const alignCls = alignTop ? ' justify-start pt-6 pb-16 overflow-hidden' : ' justify-center pb-14';
             const maxW = wide ? 'max-w-6xl' : 'max-w-5xl';
@@ -416,7 +462,8 @@
                 ? `<div class="slide-title-row shrink-0"><h2 class="${titleCls.replace(' mb-2', '').replace(' mb-3', '')}">${title}</h2>${titleExtra}</div>`
                 : `<h2 class="${titleCls} shrink-0">${title}</h2>`;
             const slideExtraCls = slideClass ? ` ${slideClass}` : '';
-            return `<section class="slide w-full h-screen flex-col${alignCls} px-8 lg:px-24${scrollCls}${slideExtraCls}">
+            const partAttr = partId ? ` data-part="${partId}"` : '';
+            return `<section class="slide w-full h-screen flex-col${alignCls} px-8 lg:px-24${scrollCls}${slideExtraCls}"${partAttr}>
                 <div class="${maxW} w-full mx-auto min-h-0${alignTop ? ' flex flex-col flex-1 overflow-hidden' : ''}">
                     <p class="text-sm font-bold text-pug mb-2 uppercase tracking-wider shrink-0">${label}</p>
                     ${titleBlock}
@@ -804,7 +851,7 @@
 
         function buildInterviewSlide() {
             const goals = [
-                '각 구성원의 AI 적용 니즈 파악',
+                '각 구성원의 AI 적용 업무 요구사항 파악',
                 '현재 AI·자동화 활용 수준 확인',
                 '희망 학습 주제와 성장 방향 확인',
                 '참여 가능 시간과 제약 조건 파악',
@@ -825,7 +872,7 @@
                         <p class="interview-goals-title">🎯 인터뷰에서 확인한 것</p>
                         <ul class="interview-goals-grid">${goalItems}</ul>
                     </div>
-                    <div class="interview-highlight bg-beige rounded-lg">공통 니즈: 실무형 코칭, 보안 가이드, 기술 전문가 협업, <strong class="text-ink">실제 산출물 중심</strong> 활동</div>
+                    <div class="interview-highlight bg-beige rounded-lg">공통 요구사항: 실무형 코칭, 보안 가이드, 기술 전문가 협업, <strong class="text-ink">실제 산출물 중심</strong> 활동</div>
                     <figure class="interview-fields-figure">
                         <figcaption class="interview-fields-caption">인터뷰 결과 · 분야별 PoC</figcaption>
                         <img src="assets/10-poc-fields/poc-fields.png" alt="분야별 PoC" class="interview-fields-img">
@@ -922,7 +969,7 @@
         // ── PART 1: PUG 출범, 2025 활동 + 회고 ──
         const part1 = [
             // Cover
-            `<section class="slide active w-full h-screen flex-col items-center justify-center px-8">
+            `<section class="slide active w-full h-screen flex-col items-center justify-center px-8" data-part="cover">
                 <div class="max-w-3xl w-full text-center flex flex-col items-center gap-7">
                     <div class="inline-flex items-center gap-2 bg-pug text-ink px-4 py-2 rounded-lg text-sm font-bold">🐶 AI Power User Group</div>
                     <h1 class="text-5xl md:text-6xl font-extrabold tracking-tight leading-tight">AI PUG<br>성장 히스토리</h1>
@@ -930,7 +977,9 @@
                 </div>
             </section>`,
 
-            sectionDivider('PART 1', 'PUG 출범, 2025 활동 + 회고', '어떻게 시작했고, 무엇이 부족했는가'),
+            buildTocSlide(),
+
+            sectionDivider(PARTS[0].badge, PARTS[0].title, PARTS[0].subtitle, PARTS[0].id),
 
             contentSlide({
                 label: 'PUG 소개 · Opening',
@@ -966,7 +1015,7 @@
                     <div class="bg-card rounded-lg px-4 py-3 text-xs font-medium">지식 교류 & 협업 네트워크 구축</div>
                 </div>
                 <div class="bg-ink text-card rounded-lg p-4 text-base font-bold">
-                    PUG는 DRB의 <span class="text-pug">AI 실험 샌드박스</span>이자, <span class="text-pug">조직문화 변화의 파일럿 그룹</span>
+                    PUG는 DRB의 <span class="text-pug">AI 실험 샌드박스</span>이자, <span class="text-pug">조직문화 변화의 시범 그룹</span>
                 </div>`,
                 scroll: true
             }),
@@ -978,7 +1027,7 @@
                 body: `<div class="bg-card rounded-lg p-6"><table class="tbl">
                     <thead><tr><th>월</th><th>주요 활동</th><th>키워드</th></tr></thead>
                     <tbody>
-                        <tr><td>7월</td><td>PUG 출범, 운영 방안 기획 및 검토</td><td>Kick-off</td></tr>
+                        <tr><td>7월</td><td>PUG 출범, 운영 방안 기획 및 검토</td><td>출범</td></tr>
                         <tr><td>8월</td><td>1차 정기 미팅: AI 활용 현황 공유</td><td>협업, 보안, RPA</td></tr>
                         <tr><td>9월</td><td>VSCode + Copilot 실습</td><td>바이브 코딩</td></tr>
                         <tr><td>9월</td><td>Gemini API 실습</td><td>LLM API</td></tr>
@@ -1087,12 +1136,12 @@
             contentSlide({
                 label: '2026 Direction · 개선',
                 title: '2026년 개선 사항 - 인터뷰로 이어지는 전환',
-                message: '2025년 회고를 바탕으로 PUG의 질문을 바꿨습니다. <strong class="text-ink">"AI를 어떻게 쓰는가?"</strong>에서 <strong class="text-ink">"AI로 어떤 업무 문제를 해결할 수 있는가?"</strong>로. 다음 단계는 <strong class="text-ink">사전 인터뷰</strong>를 통해 멤버별 니즈를 파악하고, 맞춤형 커리큘럼과 PoC로 연결하는 것입니다.',
+                message: '2025년 회고를 바탕으로 PUG의 질문을 바꿨습니다. <strong class="text-ink">"AI를 어떻게 쓰는가?"</strong>에서 <strong class="text-ink">"AI로 어떤 업무 문제를 해결할 수 있는가?"</strong>로. 다음 단계는 <strong class="text-ink">사전 인터뷰</strong>를 통해 멤버별 업무 요구사항을 파악하고, 맞춤형 커리큘럼과 PoC로 연결하는 것입니다.',
                 body: `<div class="bg-card rounded-lg p-6"><table class="tbl">
                     <thead><tr><th>구분</th><th>2025년</th><th>2026년</th></tr></thead>
                     <tbody>
                         <tr><td>활동 중심</td><td>AI 도구 학습</td><td class="col-2026">현업 문제 해결 PoC</td></tr>
-                        <tr><td>주제 선정</td><td>공통 학습 주제 중심</td><td class="col-2026">멤버별 업무 Pain Point 기반</td></tr>
+                        <tr><td>주제 선정</td><td>공통 학습 주제 중심</td><td class="col-2026">멤버별 업무 과제 기반</td></tr>
                         <tr><td>참여 방식</td><td>관심 기반 참여</td><td class="col-2026">사전 인터뷰 기반 선정 및 역할 부여</td></tr>
                         <tr><td>결과물</td><td>학습 경험, 활용 팁</td><td class="col-2026">PoC 결과물, 개선 아이디어</td></tr>
                     </tbody>
@@ -1102,7 +1151,7 @@
 
         // ── PART 2: 인터뷰 → 커리큘럼 → 교육 ──
         const WEEKLY = [
-            { week: '3월 1주차', title: '웹·시스템 구조 이해와 바이브 코딩(Vibe Coding) 기초 개념', topics: ['FE/BE 역할 구분', 'REST API 흐름', 'AI 협업 코딩 방식', '요구사항 정의·단계적 확장'] },
+            { week: '3월 1주차', title: '웹·시스템 구조 이해와 바이브 코딩(Vibe Coding) 기초 개념', topics: ['프론트엔드·백엔드(FE/BE) 역할 구분', 'REST API 흐름', 'AI 협업 코딩 방식', '요구사항 정의·단계적 확장'] },
             { week: '3월 2주차', title: 'Flask 웹 프레임워크와 Database(SQL) - 웹 서버 기본 구조와 CRUD 실습', topics: ['Flask 기초', 'SQL 개념', '테이블/행/컬럼', '데이터 CRUD 실습'],
                 mainImage: { src: 'assets/13-flask-sql/main-session.png', caption: 'Flask·SQL CRUD 실습 세션' },
                 embedGuide: 'assets/13-flask-sql/rdb-guide.html',
@@ -1126,7 +1175,7 @@
                     { src: 'assets/15-rag-chatbot/present-6-pug-archive.png', caption: '박다솜님 발표: PoC 챗봇 사례' }
                 ]
             },
-            { week: '4월 1주차', title: 'AI 활용 솔루션 PoC 아이디어 발굴 & 프로젝트 기획', topics: ['업무 Pain Point 도출', 'AS-IS 정리', 'PoC 목표·범위 설정', '기술 스택 선정'],
+            { week: '4월 1주차', title: 'AI 활용 솔루션 PoC 아이디어 발굴 & 프로젝트 기획', topics: ['업무 과제 도출', '현재 업무 현황(AS-IS) 정리', 'PoC 목표·범위 설정', '기술 스택 선정'],
                 message: '이번 활동을 통해 각자의 업무 문제를 AI로 어떻게 풀 수 있을지 구체적으로 고민하고, 실행 가능한 수준까지 정리했습니다.',
                 goals: [
                     '각 참여자가 <strong class="text-ink">실제 해결 가능한 문제 1개</strong>를 정의',
@@ -1139,7 +1188,7 @@
                     { src: 'assets/16-poc-idea/sub-workshop-2.png', caption: 'PoC 설계 협업' }
                 ]
             },
-            { week: '4월 3주차', title: 'FastAPI 기반 API 개발 심화, On-premise LLM 연동, Git & GitHub 실습', topics: ['FastAPI 개발', 'On-premise LLM', 'Git 저장소·Commit/Push', 'GitHub 협업'],
+            { week: '4월 3주차', title: 'FastAPI 기반 API 개발 심화, 사내 구축 LLM 연동, Git & GitHub 실습', topics: ['FastAPI 개발', '사내 구축(On-premise) LLM', 'Git 저장소·Commit/Push', 'GitHub 협업'],
                 mainImage: { src: 'assets/17-fastapi-git/main-session.png', caption: 'FastAPI·Git & GitHub 실습 세션' },
                 subImages: [
                     { src: 'assets/17-fastapi-git/sub-fastapi-guide.png', caption: 'FastAPI 코드 구조 · Swagger UI' }
@@ -1200,11 +1249,11 @@
                 ],
                 photoTall: true
             },
-            { week: '6월 3주차', title: '바이브코딩 디자인 가이드를 활용한 UI/UX 가이드', topics: ['디자인 가이드', 'UI/UX 원칙', '바이브 코딩 적용', 'PoC UI 개선'] }
+            { week: '6월 3주차', title: '바이브 코딩 디자인 가이드를 활용한 UI/UX 가이드', topics: ['디자인 가이드', 'UI/UX 원칙', '바이브 코딩 적용', 'PoC UI 개선'] }
         ];
 
         const part2 = [
-            sectionDivider('PART 2', '인터뷰 → 커리큘럼 → 교육', '니즈 파악부터 맞춤형 학습까지'),
+            sectionDivider(PARTS[1].badge, PARTS[1].title, PARTS[1].subtitle, PARTS[1].id),
 
             buildInterviewSlide(),
 
@@ -1265,7 +1314,7 @@
                             </ul></div>
                             <div class="cur-block"><div class="cur-block-title">API 구현·활용</div><ul>
                                 <li>Request/Response 구조·필수/선택 파라미터 파악</li>
-                                <li>AI툴로 API 설계·구현 요청</li>
+                                <li>AI 도구로 API 설계·구현 요청</li>
                             </ul></div>
                             <div class="cur-block"><div class="cur-block-title">AI 협업 코딩</div><ul>
                                 <li>자연어 요구사항 정의·단계적 기능 확장</li>
@@ -1291,7 +1340,7 @@
                             </ul></div>
                             <div class="cur-block"><div class="cur-block-title">LLM API</div><ul>
                                 <li>API 호출 흐름 구현·응답 수신</li>
-                                <li>on-premise LLM API 실 호출</li>
+                                <li>온프레미스(사내 구축) LLM API 실 호출</li>
                             </ul></div>
                             <div class="cur-block"><div class="cur-block-title">RAG</div><ul>
                                 <li>적용 전/후·할루시네이션 완화 체감</li>
@@ -1299,7 +1348,7 @@
                             </ul></div>
                         </div></td></tr>
                         <tr><td>프로젝트 기획</td><td class="cur-main">학습 내용 기반 프로젝트 기획</td><td><div class="cur-detail"><div class="cur-block"><ul>
-                            <li>Pain Point 도출·AS-IS 정리·AI·자동화 적용 지점</li>
+                            <li>업무 과제 도출·현황(AS-IS) 정리·AI·자동화 적용 지점</li>
                             <li>PoC 목표·MVP 범위·기술 스택 선정</li>
                             <li>예상 리스크·대응 방안</li>
                         </ul></div></div></td></tr>
@@ -1308,7 +1357,7 @@
                             <li>GitHub 코드 변경·관리 흐름 경험</li>
                         </ul></div></div></td></tr>
                         <tr><td>배포와 운영</td><td class="cur-main">로컬 vs 운영 환경 · 빌드→배포→실행</td><td><div class="cur-detail"><div class="cur-block"><ul>
-                            <li>로컬 실행·on-prem/Azure 배포 방식</li>
+                            <li>로컬 실행·온프레미스/Azure 배포 방식</li>
                             <li>호스팅·DNS·환경변수 설정</li>
                             <li>자동화된 배포 흐름(빌드→배포→실행)</li>
                         </ul></div></div></td></tr>
@@ -1329,7 +1378,7 @@
             ...WEEKLY.map(w => weekSlide(w))
         ];
 
-        // ── PART 3: 디전센 X PUG ──
+        // ── PART 3: 디지털전략센터 × PUG ──
         const SUPPORT = [
             { icon: 'presentation', title: '사내 전문가 연결 - 웹 개발자 강의', desc: '도메인 특성을 이해한 실무형 강의 및 코칭', photoLayout: 'quad', photoFit: 'contain', photos: [
                 { src: 'assets/26-web-dev-lecture/lecture-code-review.png', caption: '실습 코드 리뷰 · 화면 공유 강의' },
@@ -1341,7 +1390,7 @@
                 { src: 'assets/27-design-consulting/consulting-1.png', caption: '디지털진화팀 심수정님 | UI/UX 강의 세션' },
                 { src: 'assets/27-design-consulting/consulting-2.png', caption: '1:1 디자인 피드백' }
             ]},
-            { icon: 'users', title: "디지털전략센터 Laeder's Talk", meetingReveal: true, photos: [
+            { icon: 'users', title: "디지털전략센터 Leader's Talk", meetingReveal: true, photos: [
                 { src: 'assets/28-meeting/meeting-reflection.png', caption: 'AI 시대에 대한 고찰 (정민석님)' },
                 { src: 'assets/28-meeting/meeting-playground.png', caption: 'AI Playground 소개 (신민규님)' }
             ], overlayPhoto: { src: 'assets/28-meeting/meeting-dinner.png', caption: '간담회 식사', note: 'Power User Group의 P를 나타낸 포즈입니다 ^^' }},
@@ -1430,7 +1479,7 @@
                 summary: 'LLM · RAG · 자동화',
                 items: [
                     { name: 'Python Libraries', desc: 'AI/ML 생태계 기반' },
-                    { name: 'LLM API', desc: 'On-premise · Cloud 연동' },
+                    { name: 'LLM API', desc: '온프레미스 · 클라우드 연동' },
                     { name: 'RAG', desc: '검색 증강 생성 파이프라인' },
                     { name: 'n8n / Power Automate', desc: '워크플로 · 업무 자동화' }
                 ]
@@ -1567,7 +1616,7 @@
             return `<div class="design-consult-layout grid lg:grid-cols-3 gap-4 items-stretch">
                 <div class="lg:col-span-2 design-guide-wrap bg-card rounded-lg border border-beige">
                     <div class="design-guide-scaler">
-                        <iframe src="${embedGuide}" title="바이브코딩 디자인 가이드" class="design-guide-iframe embed-scroll-iframe"></iframe>
+                        <iframe src="${embedGuide}" title="바이브 코딩 디자인 가이드" class="design-guide-iframe embed-scroll-iframe"></iframe>
                     </div>
                 </div>
                 <div class="design-consult-photos flex flex-col gap-3">${photoHtml}</div>
@@ -1643,7 +1692,7 @@
         function supportSlide(s) {
             if (s.embedGuide) {
                 return contentSlide({
-                    label: 'Support · 디전센 × PUG',
+                    label: 'Support · 디지털전략센터 × PUG',
                     title: s.title,
                     wide: true,
                     body: buildDesignConsultLayout(s)
@@ -1652,7 +1701,7 @@
             if (s.materialShare) {
                 const intro = s.desc ? `<p class="text-sm text-ink/80 mb-3 leading-relaxed shrink-0">${s.desc}</p>` : '';
                 return contentSlide({
-                    label: 'Support · 디전센 × PUG',
+                    label: 'Support · 디지털전략센터 × PUG',
                     title: s.title,
                     wide: true,
                     compact: true,
@@ -1661,7 +1710,7 @@
             }
             if (s.notionEmbed) {
                 return contentSlide({
-                    label: 'Support · 디전센 × PUG',
+                    label: 'Support · 디지털전략센터 × PUG',
                     title: s.title,
                     message: s.desc,
                     wide: true,
@@ -1672,7 +1721,7 @@
             }
             if (s.meetingReveal) {
                 return contentSlide({
-                    label: 'Support · 디전센 × PUG',
+                    label: 'Support · 디지털전략센터 × PUG',
                     title: s.title,
                     wide: true,
                     compact: true,
@@ -1681,7 +1730,7 @@
             }
             if (s.teamsPost) {
                 return contentSlide({
-                    label: 'Support · 디전센 × PUG',
+                    label: 'Support · 디지털전략센터 × PUG',
                     title: s.title,
                     wide: true,
                     body: buildTechStackTeamsPost()
@@ -1690,7 +1739,7 @@
             if (s.photoBanner && s.sidePhotos) {
                 const intro = s.desc ? `<p class="text-sm text-ink/80 mb-3 leading-relaxed shrink-0">${s.desc}</p>` : '';
                 return contentSlide({
-                    label: 'Support · 디전센 × PUG',
+                    label: 'Support · 디지털전략센터 × PUG',
                     title: s.title,
                     wide: true,
                     compact: true,
@@ -1713,7 +1762,7 @@
                     </figure>`;
                 }).join('');
                 return contentSlide({
-                    label: 'Support · 디전센 × PUG',
+                    label: 'Support · 디지털전략센터 × PUG',
                     title: s.title,
                     wide: !!(s.photoFit || s.photoLayout === 'quad'),
                     compact: !!(s.photoFit || s.photoLayout === 'quad'),
@@ -1723,7 +1772,7 @@
             }
             if (s.image) {
                 return contentSlide({
-                    label: 'Support · 디전센 × PUG',
+                    label: 'Support · 디지털전략센터 × PUG',
                     title: s.title,
                     scroll: true,
                     body: `<div class="bg-card rounded-lg overflow-hidden">
@@ -1740,7 +1789,7 @@
                     <p class="text-lg text-ink/85 leading-relaxed pt-2">${s.desc}</p>
                 </div>` : '';
             return contentSlide({
-                label: 'Support · 디전센 × PUG',
+                label: 'Support · 디지털전략센터 × PUG',
                 title: s.title,
                 scroll: !!s.video,
                 body: `${descBlock}${videoBlock}`
@@ -1748,7 +1797,7 @@
         }
 
         const part3 = [
-            sectionDivider('PART 3', '디전센 × PUG', '디지털전략센터와 함께한 사내 전문가 연결·운영 지원'),
+            sectionDivider(PARTS[2].badge, PARTS[2].title, PARTS[2].subtitle, PARTS[2].id),
             ...SUPPORT.map(supportSlide)
         ];
 
@@ -1814,7 +1863,7 @@
         }
 
         const part4 = [
-            sectionDivider('PART 4', '활동 효과', '서로 얻어가는 성장과 조직에 남긴 변화'),
+            sectionDivider(PARTS[3].badge, PARTS[3].title, PARTS[3].subtitle, PARTS[3].id),
 
             contentSlide({
                 label: 'Effect · 서로 얻어가는',
@@ -1843,8 +1892,8 @@
             }),
 
             listSlide({
-                label: 'Effect · 콜라보',
-                title: '콜라보 제안',
+                label: 'Effect · 협업',
+                title: '협업 제안',
                 message: 'PUG 활동을 통해 멤버 간, 그리고 디지털전략센터와의 협업 제안이 이루어졌습니다.',
                 items: [
                     '멤버 간 PoC 주제 연계·기술 공유',
@@ -1852,7 +1901,7 @@
                     '부서 간 AI·자동화 적용 사례 확산',
                     '향후 부서 내 AI 활용 촉진자 역할 수행'
                 ],
-                highlight: '🤝 <strong class="text-ink">콜라보 제안</strong> 사례를 여기에 추가하세요.'
+                highlight: '🤝 <strong class="text-ink">협업 제안</strong> 사례를 여기에 추가하세요.'
             }),
 
             // Radar chart slide
@@ -1926,6 +1975,7 @@
                 message: '학습·실습·PoC·피드백을 거치며, 다음 실험으로 이어갑니다.',
                 compact: true,
                 wide: true,
+                partId: 'closing',
                 body: `<div class="closing-layout">
                     <div class="closing-copy">
                         <span class="closing-copy__badge">🐶 AI Power User Group</span>
@@ -1977,13 +2027,13 @@
                     '에러 로그 기반으로 AI에게 재질문하며 문제를 해결할 수 있다'
                 ]},
                 { sub: '2-2. 개발환경 & 서버 실행', items: [
-                    '(직접 또는 AI툴 활용) 로컬 개발환경 구성 및 서버 실행이 가능하다',
+                    '(직접 또는 AI 도구 활용) 로컬 개발환경 구성 및 서버 실행이 가능하다',
                     'port / .env 설정을 만져보고 FE–BE 연동 테스트를 진행해본 경험이 있다'
                 ]},
                 { sub: '2-3. API 구현 및 활용', items: [
                     'API 명세를 보고 요청(Request)과 응답(Response) 구조를 파악할 수 있다',
                     'API 명세를 보고 필수/선택 파라미터를 구분할 수 있다',
-                    '필요한 경우 AI툴에 API 설계나 구현을 요청할 수 있다'
+                    '필요한 경우 AI 도구에 API 설계나 구현을 요청할 수 있다'
                 ]}
             ]},
             { title: '3. LLM 기본 원리 및 활용', subs: [
@@ -1998,7 +2048,7 @@
                 ]},
                 { sub: '3-3. LLM API 활용', items: [
                     'LLM API 호출 흐름을 따라 구현해보고 응답을 받아보았다',
-                    'On-premise LLM API를 실제로 호출해 사용해보았다'
+                    '온프레미스(사내 구축) LLM API를 실제로 호출해 사용해보았다'
                 ]},
                 { sub: '3-4. RAG 기초 이해', items: [
                     'RAG 적용 전/후 차이를 비교해보고 할루시네이션 완화 효과를 체감해보았다',
@@ -2023,7 +2073,7 @@
             { title: '6. 배포와 운영', subs: [
                 { sub: '6. 인프라 및 환경 설정', items: [
                     '로컬 환경에서의 서비스 실행을 이해한다',
-                    '조직 내에서의 배포 방식(on-premise, Azure Cloud)에 대해 이해한다',
+                    '조직 내에서의 배포 방식(온프레미스, Azure Cloud)에 대해 이해한다',
                     '호스팅과 DNS의 개념에 대해 이해하고 실무 적용 방식에 대해 이해한다',
                     '배포와 운영에 필요한 환경변수 설정을 이해한다',
                     '자동화된 배포 흐름(빌드→배포→실행)의 필요성에 대해 공감한다'
@@ -2851,17 +2901,40 @@
                 initEmbedAutoScroll();
             }
         }
+        function goToSlideIndex(index) {
+            if (index < 0 || index >= slides.length) return;
+            current = index;
+            render();
+        }
+
+        function goToPart(partId) {
+            const idx = slides.findIndex(s => s.dataset.part === partId);
+            if (idx >= 0) goToSlideIndex(idx);
+        }
+
+        function initTocNavigation() {
+            document.getElementById('toc-grid')?.addEventListener('click', e => {
+                const btn = e.target.closest('.toc-item[data-part]');
+                if (!btn) return;
+                goToPart(btn.dataset.part);
+            });
+        }
+
         function changeSlide(dir) {
             const next = current + dir;
             if (next < 0 || next >= slides.length) return;
             current = next; render();
         }
+        window.goToPart = goToPart;
+        window.changeSlide = changeSlide;
         document.addEventListener('keydown', e => {
             if (['ArrowRight','PageDown',' '].includes(e.key)) { e.preventDefault(); changeSlide(1); }
             else if (['ArrowLeft','PageUp'].includes(e.key)) { e.preventDefault(); changeSlide(-1); }
             else if (e.key === 'Home') { current = 0; render(); }
             else if (e.key === 'End') { current = slides.length - 1; render(); }
+            else if (e.key === 't' || e.key === 'T') { goToPart('toc'); }
         });
+        initTocNavigation();
         render();
     </script>
 </body>
