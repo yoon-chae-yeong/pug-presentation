@@ -862,7 +862,7 @@
             ).join('');
             return contentSlide({
                 label: 'Interview · 사전 인터뷰',
-                title: '2026년 PUG 멤버 사전 인터뷰',
+                title: '선정 멤버 사전 인터뷰',
                 message: 'PoC 수행 가능성과 필요한 지원 사항을 확인하기 위한 과정이었습니다.',
                 wide: true,
                 compact: true,
@@ -983,7 +983,7 @@
 
             contentSlide({
                 label: 'PUG 소개 · Opening',
-                title: 'AI PUG의 시작: AI 활용을 함께 고민하다',
+                title: 'AI PUG의 시작 - AI 활용을 함께 고민하다',
                 message: 'AI 활용에 대한 관심은 높아졌지만, 실제 업무에 어떻게 적용할지는 각자 막막한 상황이었습니다. AI PUG는 이런 고민을 함께 풀어가기 위해 시작된 <strong class="text-ink">자발적 학습·공유 그룹</strong>이었습니다.',
                 body: `<div class="grid lg:grid-cols-5 gap-6 items-start">
                     <div class="lg:col-span-3 bg-card rounded-lg p-6"><table class="tbl nowrap-first"><tbody>
@@ -1001,7 +1001,7 @@
 
             contentSlide({
                 label: 'PUG 소개 · 역할',
-                title: 'AI를 \'활용하는 조직\'으로 전환하기 위한 실험실',
+                title: 'AI를 활용하는 조직으로 가는 실험실',
                 body: `<div class="bg-pug text-ink rounded-lg p-4 mb-5 flex items-start gap-3">
                     <i data-lucide="lightbulb" class="w-6 h-6 shrink-0"></i>
                     <p class="text-base font-bold">AI를 '도입'하는 조직이 아니라, '활용하는 조직'으로 전환하기 위한 실험실</p>
@@ -1021,8 +1021,8 @@
             }),
 
             contentSlide({
-                label: '2025 Review · 활동 히스토리',
-                title: '2025년 활동 히스토리',
+                label: '2025 Review · 활동',
+                title: '2025년 주요 활동',
                 message: '최신 도구를 직접 실습하고 활용 경험을 공유하는 방식으로 운영되었습니다.',
                 body: `<div class="bg-card rounded-lg p-6"><table class="tbl">
                     <thead><tr><th>월</th><th>주요 활동</th><th>키워드</th></tr></thead>
@@ -1038,8 +1038,8 @@
             }),
 
             contentSlide({
-                label: '2025 Review · 회고 → 2026 개선',
-                title: '2025년 활동 문제점 & 운영 이슈 회고',
+                label: '2025 Review · 회고',
+                title: '2025년, 무엇이 아쉬웠나',
                 message: '2025년 PUG는 AI 학습과 공유 문화를 만드는 데 의미가 있었지만, 활동이 <strong class="text-ink">현업 성과로 연결되기에는 몇 가지 한계</strong>가 있었습니다.',
                 body: `<div class="pain-grid" id="pain-review-grid">
                     <article class="pain-card">
@@ -1134,8 +1134,8 @@
             }),
 
             contentSlide({
-                label: '2026 Direction · 개선',
-                title: '2026년 개선 사항 - 인터뷰로 이어지는 전환',
+                label: '2026 Direction · 전환',
+                title: '2026년 전환 - 인터뷰에서 PoC까지',
                 message: '2025년 회고를 바탕으로 PUG의 질문을 바꿨습니다. <strong class="text-ink">"AI를 어떻게 쓰는가?"</strong>에서 <strong class="text-ink">"AI로 어떤 업무 문제를 해결할 수 있는가?"</strong>로. 다음 단계는 <strong class="text-ink">사전 인터뷰</strong>를 통해 멤버별 업무 요구사항을 파악하고, 맞춤형 커리큘럼과 PoC로 연결하는 것입니다.',
                 body: `<div class="bg-card rounded-lg p-6"><table class="tbl">
                     <thead><tr><th>구분</th><th>2025년</th><th>2026년</th></tr></thead>
@@ -1151,13 +1151,13 @@
 
         // ── PART 2: 인터뷰 → 커리큘럼 → 교육 ──
         const WEEKLY = [
-            { week: '3월 1주차', title: '웹·시스템 구조 이해와 바이브 코딩(Vibe Coding) 기초 개념', topics: ['프론트엔드·백엔드(FE/BE) 역할 구분', 'REST API 흐름', 'AI 협업 코딩 방식', '요구사항 정의·단계적 확장'] },
-            { week: '3월 2주차', title: 'Flask 웹 프레임워크와 Database(SQL) - 웹 서버 기본 구조와 CRUD 실습', topics: ['Flask 기초', 'SQL 개념', '테이블/행/컬럼', '데이터 CRUD 실습'],
+            { week: '3월 1주차', title: '바이브 코딩 · 웹·시스템 구조', topics: ['프론트엔드·백엔드(FE/BE) 역할 구분', 'REST API 흐름', 'AI 협업 코딩 방식', '요구사항 정의·단계적 확장'] },
+            { week: '3월 2주차', title: 'Flask · SQL · CRUD 실습', topics: ['Flask 기초', 'SQL 개념', '테이블/행/컬럼', '데이터 CRUD 실습'],
                 mainImage: { src: 'assets/13-flask-sql/main-session.png', caption: 'Flask·SQL CRUD 실습 세션' },
                 embedGuide: 'assets/13-flask-sql/rdb-guide.html',
                 photoTall: true
             },
-            { week: '3월 3주차', title: 'LLM의 이해, 컨텍스트 설계, LLM API 활용, RAG 구현', topics: ['LLM 강점/한계', 'Temperature·프롬프트', 'LLM API 호출', 'RAG 기초'],
+            { week: '3월 3주차', title: 'LLM · 컨텍스트 · RAG', topics: ['LLM 강점/한계', 'Temperature·프롬프트', 'LLM API 호출', 'RAG 기초'],
                 mainImage: { src: 'assets/14-llm-rag/main-llm-session.png', caption: 'LLM·RAG 교육 세션' },
                 subImages: [
                     { src: 'assets/14-llm-rag/sub-rag-diagram.png', caption: 'RAG 개념 설명' },
@@ -1165,7 +1165,7 @@
                 ],
                 photoTall: true
             },
-            { week: '3월 4주차', title: 'RAG 기반 챗봇 만들기 개인 발표, n8n 개념 학습 및 실습', topics: ['RAG 챗봇 구현', '개인 발표', 'n8n 자동화 개념', '트리거 기반 실습'],
+            { week: '3월 4주차', title: 'RAG 챗봇 · n8n 자동화', topics: ['RAG 챗봇 구현', '개인 발표', 'n8n 자동화 개념', '트리거 기반 실습'],
                 photoGrid: [
                     { src: 'assets/15-rag-chatbot/present-1-vscode.png', caption: '강응준님 발표: PoC 챗봇 사례' },
                     { src: 'assets/15-rag-chatbot/present-2-webapp.png', caption: '강주혁님 발표: PoC 챗봇 사례' },
@@ -1175,7 +1175,7 @@
                     { src: 'assets/15-rag-chatbot/present-6-pug-archive.png', caption: '박다솜님 발표: PoC 챗봇 사례' }
                 ]
             },
-            { week: '4월 1주차', title: 'AI 활용 솔루션 PoC 아이디어 발굴 & 프로젝트 기획', topics: ['업무 과제 도출', '현재 업무 현황(AS-IS) 정리', 'PoC 목표·범위 설정', '기술 스택 선정'],
+            { week: '4월 1주차', title: 'PoC 기획 · 아이디어 워크숍', topics: ['업무 과제 도출', '현재 업무 현황(AS-IS) 정리', 'PoC 목표·범위 설정', '기술 스택 선정'],
                 message: '이번 활동을 통해 각자의 업무 문제를 AI로 어떻게 풀 수 있을지 구체적으로 고민하고, 실행 가능한 수준까지 정리했습니다.',
                 goals: [
                     '각 참여자가 <strong class="text-ink">실제 해결 가능한 문제 1개</strong>를 정의',
@@ -1188,14 +1188,14 @@
                     { src: 'assets/16-poc-idea/sub-workshop-2.png', caption: 'PoC 설계 협업' }
                 ]
             },
-            { week: '4월 3주차', title: 'FastAPI 기반 API 개발 심화, 사내 구축 LLM 연동, Git & GitHub 실습', topics: ['FastAPI 개발', '사내 구축(On-premise) LLM', 'Git 저장소·Commit/Push', 'GitHub 협업'],
+            { week: '4월 3주차', title: 'FastAPI · 사내 LLM · Git', topics: ['FastAPI 개발', '사내 구축(On-premise) LLM', 'Git 저장소·Commit/Push', 'GitHub 협업'],
                 mainImage: { src: 'assets/17-fastapi-git/main-session.png', caption: 'FastAPI·Git & GitHub 실습 세션' },
                 subImages: [
                     { src: 'assets/17-fastapi-git/sub-fastapi-guide.png', caption: 'FastAPI 코드 구조 · Swagger UI' }
                 ],
                 photoTall: true
             },
-            { week: '4월 4주차', title: 'Webhook 기반 API 이해, 배포 개념 학습', topics: ['Webhook API', 'FastAPI', 'POST 요청 처리', 'n8n·Teams 연동', '빌드→배포→실행'],
+            { week: '4월 4주차', title: 'Webhook · 배포 흐름', topics: ['Webhook API', 'FastAPI', 'POST 요청 처리', 'n8n·Teams 연동', '빌드→배포→실행'],
                 message: 'FastAPI로 웹훅 서버 구현 및 POST 요청 처리 경험. 프론트엔드 → 서버 → 메시지 전송까지 전체 흐름 실습.',
                 mainImage: { src: 'assets/18-webhook-api/main-activity.png', caption: 'Webhook·배포 실습 세션' },
                 subImages: [
@@ -1204,7 +1204,7 @@
                 ],
                 photoTall: true
             },
-            { week: '4월 4주차', title: 'UI/UX 기초 개념', topics: ['Design vs UX', 'UI 컴포넌트', '디자인 시스템', 'AI 디자인 도구'],
+            { week: '4월 4주차', title: 'UI/UX 기초', topics: ['Design vs UX', 'UI 컴포넌트', '디자인 시스템', 'AI 디자인 도구'],
                 mainImage: { src: 'assets/19-uiux-basics/uiux-design-vs-ux.png', caption: 'Design vs User Experience' },
                 subImages: [
                     { src: 'assets/19-uiux-basics/uiux-components.png', caption: 'UI/UX 핵심 컴포넌트 42가지' },
@@ -1212,17 +1212,17 @@
                 ],
                 photoTall: true
             },
-            { week: '4월 5주차', title: 'AI 에이전트 핵심 메커니즘, LLM vs 에이전트, Multi-Agent 설계', topics: ['에이전트 역할·입출력', 'LLM과 에이전트 차이', 'Multi-Agent 패턴', 'MVP 구조 설계'],
+            { week: '4월 5주차', title: 'AI 에이전트 · 멀티에이전트', topics: ['에이전트 역할·입출력', 'LLM과 에이전트 차이', 'Multi-Agent 패턴', 'MVP 구조 설계'],
                 message: 'PUG GitHub Organization에 <strong class="text-ink">market-research-crew</strong> 실습 레포를 공유하고, CrewAI 기반 멀티에이전트 가이드를 함께 제공했습니다.',
                 mainImage: { src: 'assets/20-agent/github-repo.png', caption: 'PUG GitHub · market-research-crew 실습' },
                 embedGuide: 'assets/20-agent/agent-guide.html',
                 embedGuideVariant: 'agent',
                 photoTall: true
             },
-            { week: '5월 1주차', title: 'PUG Quiz Race - 비전공자를 위한 IT 지식', topics: ['Quiz Race', 'IT 기초 지식', '비전공자'],
+            { week: '5월 1주차', title: 'Quiz Race · IT 기초', topics: ['Quiz Race', 'IT 기초 지식', '비전공자'],
                 mainImages: [
-                    { src: 'assets/21-quiz-race/quiz-lap3-get-post.png', caption: 'Quiz Race — LAP 3 · GET vs POST' },
-                    { src: 'assets/21-quiz-race/quiz-lap4-404.png', caption: 'Quiz Race — LAP 4 · 404 에러' }
+                    { src: 'assets/21-quiz-race/quiz-lap3-get-post.png', caption: 'Quiz Race - LAP 3 · GET vs POST' },
+                    { src: 'assets/21-quiz-race/quiz-lap4-404.png', caption: 'Quiz Race - LAP 4 · 404 에러' }
                 ],
                 subImages: [
                     { src: 'assets/21-quiz-race/sub-winner.png', caption: 'Quiz Race 우승자 시상' }
@@ -1230,7 +1230,7 @@
                 photoTall: true,
                 photoLayout: 'quiz-race'
             },
-            { week: '5월 4주차', title: 'AI PUG 개발 컨벤션 가이드 교육', topics: ['코딩 컨벤션', '개발 가이드', '협업 규칙', 'PoC 품질'],
+            { week: '5월 4주차', title: '개발 컨벤션 가이드', topics: ['코딩 컨벤션', '개발 가이드', '협업 규칙', 'PoC 품질'],
                 mainImage: { src: 'assets/22-dev-convention/main-session.png', caption: '개발 컨벤션 가이드 교육 세션' },
                 subImages: [
                     { src: 'assets/22-dev-convention/github-readme.png', caption: 'pug-convention-guide · GitHub README' }
@@ -1242,14 +1242,14 @@
                 photoLayout: 'convention',
                 photoTall: true
             },
-            { week: '6월 2주차', title: 'Outlook·Teams API 서비스 소개, Full-Stack Live Coding', topics: ['Outlook API', 'Teams API', 'Full-Stack Live Coding', '실무 연동'],
+            { week: '6월 2주차', title: 'Outlook·Teams API · 라이브 코딩', topics: ['Outlook API', 'Teams API', 'Full-Stack Live Coding', '실무 연동'],
                 mainImage: { src: 'assets/23-outlook-teams-api/main-session.png', caption: 'Full-Stack Live Coding 세션' },
                 subImages: [
                     { src: 'assets/23-outlook-teams-api/sub-api-playground.png', caption: 'pug-api-playground - Outlook·Teams API 연동' }
                 ],
                 photoTall: true
             },
-            { week: '6월 3주차', title: '바이브 코딩 디자인 가이드를 활용한 UI/UX 가이드', topics: ['디자인 가이드', 'UI/UX 원칙', '바이브 코딩 적용', 'PoC UI 개선'] }
+            { week: '6월 3주차', title: 'PoC UI/UX · 디자인 가이드', topics: ['디자인 가이드', 'UI/UX 원칙', '바이브 코딩 적용', 'PoC UI 개선'] }
         ];
 
         const part2 = [
@@ -1258,8 +1258,8 @@
             buildInterviewSlide(),
 
             contentSlide({
-                label: 'PoC · 멤버 분석',
-                title: '멤버 자기소개 + PoC 소개',
+                label: 'PoC · 멤버 소개',
+                title: '멤버별 PoC 주제 소개',
                 message: '추상적인 AI 학습에서 벗어나, 각 부서와 업무의 <strong class="text-ink">실제 문제</strong>로 활동 범위가 확장되었습니다.',
                 compact: true,
                 wide: true,
@@ -1294,7 +1294,7 @@
 
             contentSlide({
                 label: 'Curriculum · 커리큘럼',
-                title: 'AI PUG 맞춤형 커리큘럼 제작',
+                title: '맞춤형 커리큘럼 · 교육 자료',
                 message: '인터뷰 결과를 반영해 PoC 수행에 필요한 역량을 <strong class="text-ink">단계적으로 쌓는 맞춤형 커리큘럼</strong>을 제작하고, 교육 자료를 선별했습니다.',
                 compact: true,
                 wide: true,
@@ -1380,26 +1380,26 @@
 
         // ── PART 3: 디지털전략센터 × PUG ──
         const SUPPORT = [
-            { icon: 'presentation', title: '사내 전문가 연결 - 웹 개발자 강의', desc: '도메인 특성을 이해한 실무형 강의 및 코칭', photoLayout: 'quad', photoFit: 'contain', photos: [
+            { icon: 'presentation', title: '전문가 연결 · 웹 개발 실무 강의', desc: '도메인 특성을 이해한 실무형 강의 및 코칭', photoLayout: 'quad', photoFit: 'contain', photos: [
                 { src: 'assets/26-web-dev-lecture/lecture-code-review.png', caption: '실습 코드 리뷰 · 화면 공유 강의' },
                 { src: 'assets/26-web-dev-lecture/lecture-llm-params.png', caption: 'LLM 출력 파라미터 강의' },
                 { src: 'assets/26-web-dev-lecture/lecture-workshop.png', caption: '웹 개발 워크숍 세션' },
                 { src: 'assets/26-web-dev-lecture/lecture-onprem-llm.png', caption: '온프레미스 LLM 연동 실무' }
             ]},
-            { icon: 'palette', title: '사내 전문가 연결 - 웹 디자인 지원 (UI/UX 피드백)', embedGuide: 'assets/27-design-consulting/vibe-coding-design-guide.html', photos: [
+            { icon: 'palette', title: '전문가 연결 · UI/UX 컨설팅', embedGuide: 'assets/27-design-consulting/vibe-coding-design-guide.html', photos: [
                 { src: 'assets/27-design-consulting/consulting-1.png', caption: '디지털진화팀 심수정님 | UI/UX 강의 세션' },
                 { src: 'assets/27-design-consulting/consulting-2.png', caption: '1:1 디자인 피드백' }
             ]},
-            { icon: 'users', title: "디지털전략센터 Leader's Talk", meetingReveal: true, photos: [
+            { icon: 'users', title: '디지털전략센터 · Leader\'s Talk', meetingReveal: true, photos: [
                 { src: 'assets/28-meeting/meeting-reflection.png', caption: 'AI 시대에 대한 고찰 (정민석님)' },
                 { src: 'assets/28-meeting/meeting-playground.png', caption: 'AI Playground 소개 (신민규님)' }
             ], overlayPhoto: { src: 'assets/28-meeting/meeting-dinner.png', caption: '간담회 식사', note: 'Power User Group의 P를 나타낸 포즈입니다 ^^' }},
-            { icon: 'message-square', title: '운영진 활동 - 주차별 활동 요약 (팀즈 채널)', video: 'assets/29-teams-channel/teams-channel.mp4' },
-            { icon: 'folder-open', title: '운영진 활동 - 주차별 실습자료 공유', desc: '교육 자료·실습 가이드 지속 공유', materialShare: {
+            { icon: 'message-square', title: '운영 지원 · 주차별 활동 요약', video: 'assets/29-teams-channel/teams-channel.mp4' },
+            { icon: 'folder-open', title: '운영 지원 · 실습자료 공유', desc: '교육 자료·실습 가이드 지속 공유', materialShare: {
                 leftPhoto: { src: 'assets/30-weekly-materials/weekly-materials-folders.png', caption: 'Power User Group (집중) · 주차별 실습자료 폴더' }
             }},
-            { icon: 'archive', title: '운영진 활동 - 주차별 미팅노트 아카이빙 & 회고', desc: '미팅노트 축적 및 회고 문화 정착', notionEmbed: 'assets/31-meeting-notes/pug-meeting-notes.html' },
-            { icon: 'graduation-cap', title: '개발 환경 지원 - AI/Dev 온라인 강의 선별', desc: 'PoC 수행에 필요한 AI·개발 역량 강화를 위해 인프런 등 온라인 강의를 선별·추천했습니다.', photoBanner: true, photos: [
+            { icon: 'archive', title: '운영 지원 · 미팅노트 아카이빙', desc: '미팅노트 축적 및 회고 문화 정착', notionEmbed: 'assets/31-meeting-notes/pug-meeting-notes.html' },
+            { icon: 'graduation-cap', title: '개발 환경 · 온라인 강의 선별', desc: 'PoC 수행에 필요한 AI·개발 역량 강화를 위해 인프런 등 온라인 강의를 선별·추천했습니다.', photoBanner: true, photos: [
                 { src: 'assets/32-online-lectures/lecture-llm.png', caption: 'LLM 핵심 이론, 구조로 이해하기' },
                 { src: 'assets/32-online-lectures/lecture-github.png', caption: '우주에서 가장 쉬운 GitHub 베이스캠프' },
                 { src: 'assets/32-online-lectures/lecture-n8n.png', caption: 'n8n 업무자동화 (왕초보편)' }
@@ -1407,15 +1407,15 @@
                 { src: 'assets/32-online-lectures/lecture-llm-diagram.png', caption: 'LLM - 다음 단어 예측 확률' },
                 { src: 'assets/32-online-lectures/lecture-n8n-workflow.png', caption: 'n8n - 워크플로우 실습 화면' }
             ]},
-            { icon: 'sparkles', title: '개발 환경 지원 - AI 도구 탐색 & 구독 지원', desc: 'Google AI · OpenAI · SerpApi 등 PoC에 필요한 AI 도구를 탐색하고, 구독·API 키를 지원했습니다.', photoBanner: true, mainCaptionLarge: true, photos: [
+            { icon: 'sparkles', title: '개발 환경 · AI 도구 구독 지원', desc: 'Google AI · OpenAI · SerpApi 등 PoC에 필요한 AI 도구를 탐색하고, 구독·API 키를 지원했습니다.', photoBanner: true, mainCaptionLarge: true, photos: [
                 { src: 'assets/33-google-subscription/google-ai-plans.png', caption: 'Google AI Pro 구독 지원' }
             ], sidePhotos: [
                 { src: 'assets/33-google-subscription/openai-usage.png', caption: 'OpenAI API Key 발급 (AI Playground 활성화 전)' },
-                { src: 'assets/33-google-subscription/serpapi.png', caption: 'SerpApi — Google Search API' }
+                { src: 'assets/33-google-subscription/serpapi.png', caption: 'SerpApi - Google Search API' }
             ]},
-            { icon: 'github', title: '개발 환경 지원 - GitHub Organization 개설 및 관리', video: 'assets/34-github-org/github-org.mp4' },
-            { icon: 'book-open', title: '개발 환경 지원 - 표준 기술스택 가이드 제공', teamsPost: true },
-            { icon: 'book', title: '개발 환경 지원 - IT 기초 역량 강화를 위한 서적 배부', desc: '「<strong>비전공자를 위한 이해할 수 있는 IT 지식</strong>」 -  프로그래밍 언어, 운영체제, 네트워크, API, JSON, 데이터베이스, 깃(Git)', photos: [
+            { icon: 'github', title: '개발 환경 · GitHub Organization', video: 'assets/34-github-org/github-org.mp4' },
+            { icon: 'book-open', title: '개발 환경 · 표준 기술스택 가이드', teamsPost: true },
+            { icon: 'book', title: '개발 환경 · IT 기초 서적 배부', desc: '「<strong>비전공자를 위한 이해할 수 있는 IT 지식</strong>」 -  프로그래밍 언어, 운영체제, 네트워크, API, JSON, 데이터베이스, 깃(Git)', photos: [
                 { src: 'assets/36-book/book-distribution.png', caption: '서적 배부 준비' },
                 { src: 'assets/36-book/book-group.png', caption: 'PUG 멤버 전원 수령' },
                 { src: 'assets/36-book/book-members-1.png', caption: '박다솜님 & 윤성수님' },
@@ -1423,8 +1423,8 @@
                 { src: 'assets/36-book/book-members-3.png', caption: '현재호님 & 김보근님' },
                 { src: 'assets/36-book/book-members-4.png', caption: '강응준님 & 박지훈님' }
             ]},
-            { icon: 'flask-conical', title: '활동 촉진 - AI Playground 활용 방법 안내', video: 'assets/37-ai-playground/ai-playground.mp4' },
-            { icon: 'code-2', title: '활동 촉진 - API 개발 지원', desc: 'PoC 구현 과정의 API 개발 기술 지원' }
+            { icon: 'flask-conical', title: '개발 환경 · AI Playground 안내', video: 'assets/37-ai-playground/ai-playground.mp4' },
+            { icon: 'code-2', title: '개발 환경 · API 개발 지원', desc: 'PoC 구현 과정의 API 개발 기술 지원' }
         ];
 
         const TECH_STACK_ROWS = [
@@ -1830,7 +1830,7 @@
             }).join('');
             return contentSlide({
                 label: 'Effect · 역량 강화',
-                title: '체크리스트 Before / After - 멤버별 성장 차트',
+                title: '멤버별 역량 성장 차트',
                 message: '동일 40문항 · 7개 역량 영역 기준 - <strong class="text-ink">Before(회색) → After(주황)</strong> 자동 재생',
                 compact: true,
                 wide: true,
@@ -1866,8 +1866,8 @@
             sectionDivider(PARTS[3].badge, PARTS[3].title, PARTS[3].subtitle, PARTS[3].id),
 
             contentSlide({
-                label: 'Effect · 서로 얻어가는',
-                title: '실습에서 서로 질문하며 배워가는',
+                label: 'Effect · 함께 배우기',
+                title: '실습에서 함께 질문하고 배우기',
                 message: '혼자 배우는 활동에서 함께 질문하고 토론하며 성장하는 구조로 변화했습니다.',
                 wide: true,
                 compact: true,
@@ -1893,7 +1893,7 @@
 
             listSlide({
                 label: 'Effect · 협업',
-                title: '협업 제안',
+                title: '멤버·센터 간 협업 제안',
                 message: 'PUG 활동을 통해 멤버 간, 그리고 디지털전략센터와의 협업 제안이 이루어졌습니다.',
                 items: [
                     '멤버 간 PoC 주제 연계·기술 공유',
@@ -1907,7 +1907,7 @@
             // Radar chart slide
             contentSlide({
                 label: 'Effect · 역량 강화',
-                title: '체크리스트 Before / After - PUG 역량 성장',
+                title: 'PUG 전체 역량 성장',
                 message: '동일 체크리스트 40문항 기준, <strong class="text-ink">전체 멤버 평균 달성률 Before 28% → After 87%</strong>(+59%). 7개 역량 영역별 변화입니다.',
                 body: `<div class="growth-radar-layout grid lg:grid-cols-3 gap-4 items-stretch">
                     <div class="lg:col-span-2 bg-card rounded-lg growth-radar-panel">
@@ -1935,7 +1935,7 @@
 
             contentSlide({
                 label: 'Effect · 체크리스트',
-                title: '역량 측정 체크리스트 - 40문항',
+                title: '역량 체크리스트 40문항',
                 message: '7개 역량 영역 · <strong class="text-ink">40문항 전체</strong>',
                 compact: true,
                 wide: true,
@@ -1950,7 +1950,7 @@
 
             contentSlide({
                 label: 'Effect · Closing',
-                title: '"AI 활용 문화 확산"이라는 대전제 목표 달성',
+                title: 'AI 활용 문화, 조직에 뿌리내리다',
                 message: 'PUG의 성장은 AI 도구를 더 잘 쓰게 된 것이 아니라, 현업 문제를 AI 관점으로 다시 정의하고 해결 가능성을 검증하는 방식의 성장입니다.',
                 body: `<div class="bg-card rounded-lg p-6 mb-6"><table class="tbl nowrap-first">
                     <thead><tr><th>변화</th><th>의미</th></tr></thead>
@@ -1970,8 +1970,8 @@
             }),
 
             contentSlide({
-                label: 'Next · 다음 여정',
-                title: 'AI PUG, 함께 만들어가는 여정',
+                label: 'Next · 마무리',
+                title: '다음 PoC로, 함께 나아갑니다',
                 message: '학습·실습·PoC·피드백을 거치며, 다음 실험으로 이어갑니다.',
                 compact: true,
                 wide: true,
