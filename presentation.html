@@ -149,6 +149,11 @@
         .slide-practice-qa > div { display: flex; flex-direction: column; min-height: 0; flex: 1; max-height: calc(100vh - 8.5rem); }
         .slide-practice-qa .practice-qa-bullets { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.35rem 0.75rem; }
         .slide-practice-qa .practice-qa-bullets li { font-size: 0.78rem !important; }
+        .practice-qa-spotlight { background: #F0EAE0; border-radius: 8px; padding: 0.65rem 0.85rem; margin-bottom: 0.45rem; flex-shrink: 0; }
+        .practice-qa-spotlight__title { font-size: 0.72rem; font-weight: 800; color: #33271F; margin: 0 0 0.4rem; }
+        .practice-qa-spotlight__list { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 0.28rem; }
+        .practice-qa-spotlight__list li { font-size: 0.72rem; line-height: 1.4; color: #4A3C33; padding-left: 0.85rem; position: relative; }
+        .practice-qa-spotlight__list li::before { content: 'Q'; position: absolute; left: 0; font-size: 0.62rem; font-weight: 800; color: #F5B041; top: 0.1rem; }
         .interview-fields-figure { flex: 0 0 auto; height: min(360px, 44vh); max-height: min(360px, 44vh); min-height: 0; margin: 0; display: flex; flex-direction: column; background: #fff; border: 1px solid #F0EAE0; border-radius: 8px; padding: 0.4rem 0.65rem 0.5rem; overflow: hidden; }
         .interview-fields-caption { flex-shrink: 0; font-size: 0.68rem; font-weight: 700; color: #8A7B6E; text-align: center; margin: 0 0 0.25rem; }
         .interview-fields-img { flex: 1; min-height: 0; width: 100%; object-fit: contain; display: block; }
@@ -498,6 +503,14 @@
                 body
             });
         }
+
+        const PRACTICE_QA_SPOTLIGHT = [
+            'FastAPI로 API 문서를 자동 생성하는 이유는?',
+            'POST 요청에서 req 변수 이름을 쓰는 이유는?',
+            'MongoDB·Supabase와 SQL DB의 차이는?',
+            'SELECT alias를 WHERE 절에서 바로 쓸 수 있나?',
+            'SQL 실행 후 저장하지 않아도 DB에 반영되나?'
+        ];
 
         const PRACTICE_QA_ITEMS = [
             {
@@ -1151,7 +1164,14 @@
 
         // ── PART 2: 인터뷰 → 커리큘럼 → 교육 ──
         const WEEKLY = [
-            { week: '3월 1주차', title: '바이브 코딩 · 웹·시스템 구조', topics: ['프론트엔드·백엔드(FE/BE) 역할 구분', 'REST API 흐름', 'AI 협업 코딩 방식', '요구사항 정의·단계적 확장'] },
+            { week: '3월 1주차', title: '바이브 코딩 · 웹·시스템 구조', topics: ['프론트엔드·백엔드(FE/BE) 역할 구분', 'REST API 흐름', 'AI 협업 코딩 방식', '요구사항 정의·단계적 확장'],
+                mainImage: { src: 'assets/12-vibe-coding/main-session.jpg', caption: '바이브 코딩 · 웹·시스템 구조 교육 세션' },
+                subImages: [
+                    { src: 'assets/12-vibe-coding/sub-it-fields.png', caption: 'IT 개발 분야 — 프론트·백·데이터·임베디드·보안' },
+                    { src: 'assets/12-vibe-coding/sub-fe-be-meme.png', caption: 'Frontend vs Backend — 겉과 속' }
+                ],
+                photoTall: true
+            },
             { week: '3월 2주차', title: 'Flask · SQL · CRUD 실습', topics: ['Flask 기초', 'SQL 개념', '테이블/행/컬럼', '데이터 CRUD 실습'],
                 mainImage: { src: 'assets/13-flask-sql/main-session.png', caption: 'Flask·SQL CRUD 실습 세션' },
                 embedGuide: 'assets/13-flask-sql/rdb-guide.html',
@@ -1165,7 +1185,8 @@
                 ],
                 photoTall: true
             },
-            { week: '3월 4주차', title: 'RAG 챗봇 · n8n 자동화', topics: ['RAG 챗봇 구현', '개인 발표', 'n8n 자동화 개념', '트리거 기반 실습'],
+            { week: '3월 4주차', title: 'RAG 챗봇 · 개인 발표', topics: ['RAG 챗봇 구현', '개인 발표', 'PoC 챗봇 사례 공유'],
+                message: '3월 3주차 RAG 학습을 바탕으로, 멤버별 PoC 챗봇을 구현하고 발표했습니다.',
                 photoGrid: [
                     { src: 'assets/15-rag-chatbot/present-1-vscode.png', caption: '강응준님 발표: PoC 챗봇 사례' },
                     { src: 'assets/15-rag-chatbot/present-2-webapp.png', caption: '강주혁님 발표: PoC 챗봇 사례' },
@@ -1174,6 +1195,11 @@
                     { src: 'assets/15-rag-chatbot/present-5-sales-bot.png', caption: '김진용님 발표: PoC 챗봇 사례' },
                     { src: 'assets/15-rag-chatbot/present-6-pug-archive.png', caption: '박다솜님 발표: PoC 챗봇 사례' }
                 ]
+            },
+            { week: '3월 4주차', title: 'n8n 자동화', topics: ['n8n 자동화 개념', '트리거 기반 실습', '워크플로 구성', 'LLM·API 연동'],
+                message: '노코드 자동화 도구 n8n의 기본 개념과 트리거 기반 워크플로 실습을 진행했습니다.',
+                mainImage: { src: 'assets/15-n8n/n8n-session.png', caption: 'n8n 자동화 교육 세션' },
+                photoTall: true
             },
             { week: '4월 1주차', title: 'PoC 기획 · 아이디어 워크숍', topics: ['업무 과제 도출', '현재 업무 현황(AS-IS) 정리', 'PoC 목표·범위 설정', '기술 스택 선정'],
                 message: '이번 활동을 통해 각자의 업무 문제를 AI로 어떻게 풀 수 있을지 구체적으로 고민하고, 실행 가능한 수준까지 정리했습니다.',
@@ -1880,6 +1906,10 @@
                         <li class="flex items-start gap-2 text-ink/85"><span class="shrink-0 mt-0.5 p-1 bg-pug text-ink rounded"><i data-lucide="check" class="w-3 h-3"></i></span><span>데이터·구현·사용자 관점 다각 토론</span></li>
                         <li class="flex items-start gap-2 text-ink/85"><span class="shrink-0 mt-0.5 p-1 bg-pug text-ink rounded"><i data-lucide="check" class="w-3 h-3"></i></span><span>개인 실험 → 공동 문제 해결로 전환</span></li>
                     </ul>
+                </div>
+                <div class="practice-qa-spotlight">
+                    <p class="practice-qa-spotlight__title">💬 PUG 실습에서 실제로 오갔던 질문</p>
+                    <ul class="practice-qa-spotlight__list">${PRACTICE_QA_SPOTLIGHT.map(q => `<li>${q}</li>`).join('')}</ul>
                 </div>
                 <div class="practice-qa-graph-layout">
                     <div class="practice-qa-graph-stage" id="practice-qa-graph">
