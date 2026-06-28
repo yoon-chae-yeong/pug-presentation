@@ -42,6 +42,36 @@
         .tbl-curriculum .cur-block ul { margin: 0; padding-left: 0.95rem; list-style: disc; color: #4A3C33; }
         .tbl-curriculum .cur-block li { margin-bottom: 0.08rem; }
         .tbl-curriculum .cur-block li:last-child { margin-bottom: 0; }
+        .slide-curriculum { justify-content: center !important; padding-top: 2.75rem !important; padding-bottom: 4.5rem !important; overflow: hidden; }
+        .slide-curriculum > div { display: flex; flex-direction: column; justify-content: flex-start; min-height: 0; flex: 1; max-height: calc(100vh - 5.25rem); gap: 0.15rem; }
+        .slide-curriculum > div > p.text-pug { margin-bottom: 0.25rem !important; }
+        .slide-curriculum > div > p.leading-relaxed { margin-bottom: 0.65rem !important; font-size: 0.875rem; max-width: none !important; line-height: 1.55; }
+        .slide-curriculum > div > h2 { margin-bottom: 0.45rem !important; }
+        .slide-curriculum > div > .slide-title-row { margin-bottom: 0.45rem !important; }
+        .slide-curriculum > div > div:last-child { display: flex; flex-direction: column; min-height: 0; flex: 1; }
+        .curriculum-split { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.75rem; flex: 1; min-height: 0; height: 100%; max-height: calc(100vh - 215px); align-items: stretch; margin-top: 0.1rem; }
+        .curriculum-split__col { min-width: 0; min-height: 0; height: 100%; display: flex; flex-direction: column; overflow: hidden; background: #fff; border: 1px solid #F0EAE0; border-radius: 10px; box-shadow: 0 1px 3px rgba(51,39,31,.04); }
+        .curriculum-split__scroll { flex: 1; min-height: 0; overflow-y: auto; overflow-x: hidden; padding: 0 0 0.45rem; scrollbar-gutter: stable; scrollbar-width: thin; scrollbar-color: #CBBBA8 #F0EAE0; }
+        .curriculum-split__scroll::-webkit-scrollbar { width: 6px; }
+        .curriculum-split__scroll::-webkit-scrollbar-thumb { background: #CBBBA8; border-radius: 999px; }
+        .curriculum-split__scroll::-webkit-scrollbar-track { background: transparent; }
+        .curriculum-split .tbl-curriculum { table-layout: fixed; width: 100%; border-collapse: collapse; }
+        .curriculum-split .tbl-curriculum thead th { font-size: 0.68rem; padding: 0.45rem 0.55rem; position: sticky; top: 0; z-index: 3; background: #F0EAE0 !important; border-bottom: 1px solid #E5DFD5; box-shadow: none; border-radius: 0 !important; }
+        .curriculum-split .tbl-curriculum thead th:first-child { border-top-left-radius: 8px !important; border-bottom-left-radius: 0 !important; padding-left: 0.55rem; }
+        .curriculum-split .tbl-curriculum thead th:last-child { border-top-right-radius: 8px !important; border-bottom-right-radius: 0 !important; padding-right: 0.55rem; }
+        .curriculum-split .tbl-curriculum thead th::before { content: ''; position: absolute; left: 0; right: 0; bottom: 100%; height: 100vh; background: #fff; z-index: -1; pointer-events: none; }
+        .curriculum-split .tbl-curriculum thead th:nth-child(1) { width: 19%; padding-left: 0.55rem; padding-right: 0.3rem; }
+        .curriculum-split .tbl-curriculum thead th:nth-child(2) { width: 27%; }
+        .curriculum-split .tbl-curriculum thead th:nth-child(3) { width: 54%; padding-right: 0.55rem; }
+        .curriculum-split .tbl-curriculum tbody td { font-size: 0.65rem; line-height: 1.4; padding: 0.42rem 0.55rem; vertical-align: top; }
+        .curriculum-split .tbl-curriculum tbody td:first-child { min-width: 0; max-width: none; width: 19%; padding-left: 0.55rem; padding-right: 0.3rem; font-size: 0.64rem; line-height: 1.35; word-break: keep-all; }
+        .curriculum-split .tbl-curriculum tbody td:nth-child(2) { width: 27%; }
+        .curriculum-split .tbl-curriculum tbody td:nth-child(3) { width: 54%; padding-right: 0.55rem; }
+        .curriculum-split .tbl-curriculum .cur-main { font-size: 0.65rem; line-height: 1.38; }
+        .curriculum-split .tbl-curriculum .cur-block-title { font-size: 0.62rem; }
+        .curriculum-split .tbl-curriculum .cur-detail { gap: 0.28rem; }
+        .curriculum-split .tbl-curriculum .cur-block ul { padding-left: 0.85rem; font-size: 0.62rem; line-height: 1.36; }
+        .curriculum-split .tbl-curriculum .cur-block li { margin-bottom: 0.05rem; }
         .col-2026 { color: #33271F !important; font-weight: 600 !important; }
         .pain-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.75rem; }
         .pain-card { background: #fff; border: 1px solid #F0EAE0; border-left: 4px solid #F5B041; border-radius: 8px; padding: 0.85rem 1rem; }
@@ -92,6 +122,16 @@
         .week-photo-main { border-radius: 8px; overflow: hidden; background: #fff; border: 1px solid #F0EAE0; line-height: 0; display: flex; flex-direction: column; min-height: 0; }
         .week-photo-main-stack { display: flex; flex-direction: column; gap: 0.5rem; min-height: 0; height: 100%; }
         .week-photo-main-stack .week-photo-sub { flex: 1; min-height: 0; }
+        .week-photo-main-stack--focus { gap: 0.4rem; }
+        .week-photo-main-stack--focus .week-photo-main--hero { flex: 1 1 auto; min-height: 0; }
+        .week-photo-layout--session-focus { grid-template-columns: 1.62fr 1fr; }
+        .week-terms-strip { flex-shrink: 0; background: #FBF8F3; border: 1px solid #F0EAE0; border-radius: 8px; padding: 0.4rem 0.5rem 0.45rem; }
+        .week-terms-strip__head { margin: 0 0 0.32rem; font-size: 0.56rem; font-weight: 700; color: #8A7B6E; letter-spacing: 0.01em; }
+        .week-terms-strip__grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0.32rem; }
+        .week-terms-strip__col { min-width: 0; background: #fff; border: 1px solid #F0EAE0; border-radius: 6px; padding: 0.28rem 0.32rem 0.3rem; }
+        .week-terms-strip__title { font-size: 0.5rem; font-weight: 800; color: #33271F; margin-bottom: 0.18rem; padding-bottom: 0.12rem; border-bottom: 2px solid #F5B041; line-height: 1.25; }
+        .week-terms-strip__col ul { margin: 0; padding: 0; list-style: none; }
+        .week-terms-strip__col li { font-size: 0.46rem; line-height: 1.32; color: #4A3C33; padding: 0.04rem 0; }
         .week-photo-main img { width: 100%; flex: 1; min-height: 0; object-fit: contain; display: block; background: #fff; padding: 6px; }
         .week-photo-main figcaption { flex-shrink: 0; font-size: 9.5px; font-weight: 700; text-align: center; padding: 4px 6px 6px; color: #33271F; background: #FBF8F3; line-height: 1.3; }
         .week-photo-subs { display: flex; flex-direction: column; gap: 0.5rem; min-height: 0; }
@@ -894,7 +934,7 @@
             });
         }
 
-        function weekSlide({ week, title, topics, message, goals, mainImage, mainImages, subImages, photoLayout, photoTall, photoGrid, goalsLeft, embedGuide, embedGuideVariant, embedGuideTitle, embedGuideScroll = true }) {
+        function weekSlide({ week, title, topics, message, goals, mainImage, mainImages, mainExtra, subImages, photoLayout, photoTall, photoGrid, goalsLeft, embedGuide, embedGuideVariant, embedGuideTitle, embedGuideScroll = true }) {
             const chips = topics.map(t => `<span class="inline-block bg-beige text-ink text-xs font-medium px-3 py-1.5 rounded-lg mr-2 mb-2">${t}</span>`).join('');
             const goalsList = goals && goals.length
                 ? `<p class="week-goals-title">🎯 목표</p><ul>${goals.map(g => `<li class="flex items-start gap-2 text-ink/85"><span class="text-pug shrink-0 mt-0.5">•</span><span>${g}</span></li>`).join('')}</ul>`
@@ -921,7 +961,7 @@
                 </div>`;
             } else if (mainImage || mainImages?.length) {
                 const hasMeta = !!(message || (goals && goals.length));
-                const layoutCls = ['week-photo-layout', photoLayout === 'equal' && 'week-photo-layout--equal', photoLayout === 'quiz-race' && 'week-photo-layout--quiz-race', photoLayout === 'convention' && 'week-photo-layout--convention', photoTall && hasMeta && 'week-photo-layout--tall-meta', photoTall && !hasMeta && 'week-photo-layout--tall', hasMeta && !photoTall && 'week-photo-layout--compact'].filter(Boolean).join(' ');
+                const layoutCls = ['week-photo-layout', photoLayout === 'equal' && 'week-photo-layout--equal', photoLayout === 'quiz-race' && 'week-photo-layout--quiz-race', photoLayout === 'convention' && 'week-photo-layout--convention', photoLayout === 'session-focus' && 'week-photo-layout--session-focus', mainExtra && 'week-photo-layout--session-focus', photoTall && hasMeta && 'week-photo-layout--tall-meta', photoTall && !hasMeta && 'week-photo-layout--tall', hasMeta && !photoTall && 'week-photo-layout--compact'].filter(Boolean).join(' ');
                 const iframeScrollCls = embedGuideScroll === false ? '' : ' embed-scroll-iframe';
                 const guideEmbed = embedGuide
                     ? `<div class="week-guide-embed${embedGuideVariant ? ` week-guide-embed--${embedGuideVariant}` : ''}"><div class="week-guide-embed__scaler"><iframe src="${embedGuide}" title="${embedGuideTitle || '실습 가이드'}" class="week-guide-iframe${iframeScrollCls}"></iframe></div></div>`
@@ -956,6 +996,14 @@
                                 ${mainImage.caption ? `<figcaption>${mainImage.caption}</figcaption>` : ''}
                             </figure>
                             ${leftSubHtml}
+                        </div>`
+                    : mainExtra
+                        ? `<div class="week-photo-main-stack week-photo-main-stack--focus">
+                            <figure class="week-photo-main week-photo-main--hero">
+                                <img src="${mainImage.src}" alt="${mainImage.caption || title}" loading="lazy">
+                                ${mainImage.caption ? `<figcaption>${mainImage.caption}</figcaption>` : ''}
+                            </figure>
+                            ${mainExtra}
                         </div>`
                         : `<figure class="week-photo-main">
                             <img src="${mainImage.src}" alt="${mainImage.caption || title}" loading="lazy">
@@ -1164,16 +1212,44 @@
 
         // ── PART 2: 인터뷰 → 커리큘럼 → 교육 ──
         const WEEKLY = [
+            { week: '2월 4주차', title: '코딩 기본 문법 · 변수·함수', topics: ['Python 입문·중급', '변수·자료형', '함수', '조건·반복문'],
+                message: '인터뷰·커리큘럼 착수 전, Python 기본 문법·변수·함수 개념을 <strong class="text-ink">개인 학습</strong>했습니다.',
+                mainImage: { src: 'assets/11-feb-python/youtube-python.png', caption: 'YouTube · 파이썬 3시간 완성 (김플 스튜디오)' },
+                subImages: [
+                    { src: 'assets/11-feb-python/inflearn-courses.png', caption: '인프런 · 파이썬 입문·중급 (Inflearn Original)' },
+                    { src: 'assets/11-feb-python/inflearn-curriculum.png', caption: '인프런 · 파이썬 기초 강의 커리큘럼' }
+                ],
+                photoTall: true
+            },
             { week: '3월 1주차', title: '바이브 코딩 · 웹·시스템 구조', topics: ['프론트엔드·백엔드(FE/BE) 역할 구분', 'REST API 흐름', 'AI 협업 코딩 방식', '요구사항 정의·단계적 확장'],
                 mainImage: { src: 'assets/12-vibe-coding/main-session.jpg', caption: '바이브 코딩 · 웹·시스템 구조 교육 세션' },
+                mainExtra: `<div class="week-terms-strip">
+                    <div class="week-terms-strip__grid">
+                        <div class="week-terms-strip__col"><div class="week-terms-strip__title">A. 환경</div><ul>
+                            <li>IDE</li><li>CLI / Terminal</li><li>Model</li>
+                        </ul></div>
+                        <div class="week-terms-strip__col"><div class="week-terms-strip__title">B. AI 기초</div><ul>
+                            <li>Prompt</li><li>Context Window</li><li>Token</li><li>Hallucination</li>
+                        </ul></div>
+                        <div class="week-terms-strip__col"><div class="week-terms-strip__title">C. 프로젝트 설정</div><ul>
+                            <li>PRD</li><li>Rule File</li><li>API</li><li>MCP</li>
+                        </ul></div>
+                        <div class="week-terms-strip__col"><div class="week-terms-strip__title">D. 에이전트</div><ul>
+                            <li>Agent</li><li>Skill</li><li>Hook</li><li>Orchestration</li><li>Multi-Agent</li>
+                        </ul></div>
+                        <div class="week-terms-strip__col"><div class="week-terms-strip__title">E. 코드 관리</div><ul>
+                            <li>Debug</li><li>Git</li><li>Deploy</li><li>Sandbox</li>
+                        </ul></div>
+                    </div>
+                </div>`,
                 subImages: [
                     { src: 'assets/12-vibe-coding/sub-it-fields.png', caption: 'IT 개발 분야 — 프론트·백·데이터·임베디드·보안' },
                     { src: 'assets/12-vibe-coding/sub-fe-be-meme.png', caption: 'Frontend vs Backend — 겉과 속' }
                 ],
                 photoTall: true
             },
-            { week: '3월 2주차', title: 'Flask · SQL · CRUD 실습', topics: ['Flask 기초', 'SQL 개념', '테이블/행/컬럼', '데이터 CRUD 실습'],
-                mainImage: { src: 'assets/13-flask-sql/main-session.png', caption: 'Flask·SQL CRUD 실습 세션' },
+            { week: '3월 2주차', title: 'API · SQL · CRUD 실습', topics: ['Flask 기초', 'SQL 개념', '테이블/행/컬럼', '데이터 CRUD 실습'],
+                mainImage: { src: 'assets/13-flask-sql/main-session.png', caption: 'API·SQL CRUD 실습 세션' },
                 embedGuide: 'assets/13-flask-sql/rdb-guide.html',
                 photoTall: true
             },
@@ -1324,21 +1400,50 @@
                 message: '인터뷰 결과를 반영해 PoC 수행에 필요한 역량을 <strong class="text-ink">단계적으로 쌓는 맞춤형 커리큘럼</strong>을 제작하고, 교육 자료를 선별했습니다.',
                 compact: true,
                 wide: true,
-                scroll: true,
-                body: `<div class="bg-card rounded-lg p-5"><table class="tbl tbl-curriculum">
+                alignTop: true,
+                slideClass: 'slide-curriculum',
+                body: `<div class="curriculum-split">
+                    <div class="curriculum-split__col"><div class="curriculum-split__scroll"><table class="tbl tbl-curriculum">
                     <thead><tr><th>학습 주제</th><th>주요 학습 내용</th><th>상세</th></tr></thead>
                     <tbody>
-                        <tr><td>코딩 기초 이해</td><td class="cur-main">Python 기본 문법, 변수·함수</td><td><div class="cur-detail"><div class="cur-block"><ul>
-                            <li>변수/자료형/함수 개념 이해·간단한 함수 작성</li>
-                            <li>JavaScript 또는 Python 기본 문법 활용</li>
-                            <li>간단한 스크립트 업무 자동화 경험</li>
-                        </ul></div></div></td></tr>
-                        <tr><td>웹 &amp; 시스템 구조<br>바이브 코딩 ①</td><td class="cur-main">FE/BE 역할 · REST API 흐름·서버 개념 · AI 요구사항 정의·단계적 확장</td><td><div class="cur-detail">
-                            <div class="cur-block"><div class="cur-block-title">FE/BE 분리</div><ul>
-                                <li>FE·BE 역할 구분, 입력→요청→응답 흐름 이해</li>
-                                <li>로컬 서버 실행·REST API(GET/POST) 개념</li>
+                        <tr><td>코딩 기초 이해</td><td class="cur-main">Python 기본 문법, 변수·함수</td><td><div class="cur-detail">
+                            <div class="cur-block"><div class="cur-block-title">개념 이해</div><ul>
+                                <li>변수/자료형/함수 개념 이해·간단한 함수 작성</li>
                             </ul></div>
-                            <div class="cur-block"><div class="cur-block-title">API 구현·활용</div><ul>
+                            <div class="cur-block"><div class="cur-block-title">문법 활용</div><ul>
+                                <li>JavaScript 또는 Python 기본 문법 활용</li>
+                            </ul></div>
+                        </div></td></tr>
+                        <tr><td>웹 &amp; 시스템 구조</td><td class="cur-main">FE/BE 역할 · 클라이언트·서버 · REST API 흐름</td><td><div class="cur-detail">
+                            <div class="cur-block"><div class="cur-block-title">FE/BE 분리</div><ul>
+                                <li>FE·BE 역할 구분, 화면 처리 vs 비즈니스·데이터 처리</li>
+                                <li>사용자 입력→서버 요청→응답 표시 흐름 이해</li>
+                            </ul></div>
+                            <div class="cur-block"><div class="cur-block-title">클라이언트·서버</div><ul>
+                                <li>브라우저(클라이언트)와 서버의 요청·응답 관계</li>
+                                <li>로컬 서버 실행·포트 개념·개발/운영 환경 차이</li>
+                            </ul></div>
+                            <div class="cur-block"><div class="cur-block-title">REST API</div><ul>
+                                <li>GET/POST 등 HTTP 메서드·엔드포인트 개념</li>
+                                <li>Request/Response 구조·JSON 데이터 주고받기</li>
+                            </ul></div>
+                        </div></td></tr>
+                        <tr><td>DB 기초 개념</td><td class="cur-main">테이블/행/컬럼 · PK/FK · SQL CRUD · Flask 연동</td><td><div class="cur-detail">
+                            <div class="cur-block"><div class="cur-block-title">테이블 구조</div><ul>
+                                <li>테이블·행(레코드)·컬럼(필드) 개념 이해</li>
+                                <li>데이터 타입·스키마·실무 데이터 저장 방식</li>
+                            </ul></div>
+                            <div class="cur-block"><div class="cur-block-title">Key·관계</div><ul>
+                                <li>PK/FK 개념·1:N 등 테이블 관계 설명</li>
+                                <li>ERD로 엔티티 관계 시각화·조인 개념</li>
+                            </ul></div>
+                            <div class="cur-block"><div class="cur-block-title">SQL·CRUD</div><ul>
+                                <li>SELECT/INSERT/UPDATE/DELETE 기본 쿼리</li>
+                                <li>Flask·API와 DB 연동·CRUD 실습 경험</li>
+                            </ul></div>
+                        </div></td></tr>
+                        <tr><td>API 구현·활용</td><td class="cur-main">AI 요구사항 정의·단계적 확장</td><td><div class="cur-detail">
+                            <div class="cur-block"><div class="cur-block-title">명세·구현</div><ul>
                                 <li>Request/Response 구조·필수/선택 파라미터 파악</li>
                                 <li>AI 도구로 API 설계·구현 요청</li>
                             </ul></div>
@@ -1347,14 +1452,25 @@
                                 <li>에러 로그 기반 AI 재질문·문제 해결</li>
                             </ul></div>
                         </div></td></tr>
-                        <tr><td>바이브 코딩 ②</td><td class="cur-main">에러 로그 기반 재질문, 로컬 실행·환경변수</td><td><div class="cur-detail"><div class="cur-block"><ul>
-                            <li>로컬 개발환경 구성·서버 실행</li>
-                            <li>port/.env 설정, FE–BE 연동 테스트</li>
-                        </ul></div></div></td></tr>
-                        <tr><td>DB 기초 개념</td><td class="cur-main">테이블/행/컬럼, 관계형 DB Key(PK/FK)</td><td><div class="cur-detail"><div class="cur-block"><ul>
-                            <li>테이블/행/컬럼 개념 이해</li>
-                            <li>PK/FK·테이블 관계 설명</li>
-                        </ul></div></div></td></tr>
+                        <tr><td>Full Stack 개발</td><td class="cur-main">에러 로그 재질문 · 로컬 실행 · 환경변수 · FE–BE 연동</td><td><div class="cur-detail">
+                            <div class="cur-block"><div class="cur-block-title">AI 협업 디버깅</div><ul>
+                                <li>에러 로그·스택 트레이스를 AI에 전달해 원인 분석</li>
+                                <li>재질문·단계별 수정으로 문제 해결 경험</li>
+                            </ul></div>
+                            <div class="cur-block"><div class="cur-block-title">로컬 개발환경</div><ul>
+                                <li>IDE·런타임·패키지 설치 등 개발환경 구성</li>
+                                <li>백엔드 서버 실행·터미널 로그 확인</li>
+                            </ul></div>
+                            <div class="cur-block"><div class="cur-block-title">연동·설정</div><ul>
+                                <li>port·.env 환경변수 설정·API 키 관리</li>
+                                <li>FE–BE 연동 테스트·CORS 등 연결 오류 대응</li>
+                            </ul></div>
+                        </div></td></tr>
+                    </tbody>
+                </table></div></div>
+                    <div class="curriculum-split__col"><div class="curriculum-split__scroll"><table class="tbl tbl-curriculum">
+                    <thead><tr><th>학습 주제</th><th>주요 학습 내용</th><th>상세</th></tr></thead>
+                    <tbody>
                         <tr><td>LLM 기본 원리<br>및 활용</td><td class="cur-main">LLM 강점/한계 · 컨텍스트 · Temperature 등 옵션</td><td><div class="cur-detail">
                             <div class="cur-block"><div class="cur-block-title">LLM 이해</div><ul>
                                 <li>강점/한계, 시스템·유저 프롬프트 구분</li>
@@ -1373,32 +1489,73 @@
                                 <li>Chunking·Top-K 검색 결과 비교</li>
                             </ul></div>
                         </div></td></tr>
-                        <tr><td>프로젝트 기획</td><td class="cur-main">학습 내용 기반 프로젝트 기획</td><td><div class="cur-detail"><div class="cur-block"><ul>
-                            <li>업무 과제 도출·현황(AS-IS) 정리·AI·자동화 적용 지점</li>
-                            <li>PoC 목표·MVP 범위·기술 스택 선정</li>
-                            <li>예상 리스크·대응 방안</li>
-                        </ul></div></div></td></tr>
-                        <tr><td>Git &amp; GitHub</td><td class="cur-main">Git 개념 · 저장소 생성 · Commit/Push/Pull</td><td><div class="cur-detail"><div class="cur-block"><ul>
-                            <li>Git 역할·Repository 생성</li>
-                            <li>GitHub 코드 변경·관리 흐름 경험</li>
-                        </ul></div></div></td></tr>
-                        <tr><td>배포와 운영</td><td class="cur-main">로컬 vs 운영 환경 · 빌드→배포→실행</td><td><div class="cur-detail"><div class="cur-block"><ul>
-                            <li>로컬 실행·온프레미스/Azure 배포 방식</li>
-                            <li>호스팅·DNS·환경변수 설정</li>
-                            <li>자동화된 배포 흐름(빌드→배포→실행)</li>
-                        </ul></div></div></td></tr>
-                        <tr><td>자동화 &amp;<br>오케스트레이션</td><td class="cur-main">n8n·Power Automate · 트리거 · LLM 삽입</td><td><div class="cur-detail"><div class="cur-block"><ul>
-                            <li>n8n/PA/RPA 자동화 구성 경험</li>
-                            <li>Webhook·스케줄·이벤트 트리거 실행</li>
-                            <li>수집→처리→게시 흐름·LLM 삽입 자동화</li>
-                        </ul></div></div></td></tr>
-                        <tr><td>AI 에이전트 관점</td><td class="cur-main">업무→에이전트 전환, MVP 구조 설계</td><td><div class="cur-detail"><div class="cur-block"><ul>
-                            <li>업무→에이전트 대체 시나리오·역할·입출력 정의</li>
-                            <li>LLM+API+DB 결합 구조 구성</li>
-                            <li>작동하는 MVP 수준 구현</li>
-                        </ul></div></div></td></tr>
+                        <tr><td>프로젝트 기획</td><td class="cur-main">학습 내용 기반 프로젝트 기획</td><td><div class="cur-detail">
+                            <div class="cur-block"><div class="cur-block-title">과제 도출</div><ul>
+                                <li>업무 과제 도출·현황(AS-IS) 정리</li>
+                                <li>AI·자동화 적용 지점 식별</li>
+                            </ul></div>
+                            <div class="cur-block"><div class="cur-block-title">PoC 설계</div><ul>
+                                <li>PoC 목표·MVP 범위·기술 스택 선정</li>
+                            </ul></div>
+                        </div></td></tr>
+                        <tr><td>배포와 운영</td><td class="cur-main">로컬 vs 운영 환경 · 빌드→배포→실행</td><td><div class="cur-detail">
+                            <div class="cur-block"><div class="cur-block-title">배포 방식</div><ul>
+                                <li>로컬 실행·온프레미스/Azure 배포 방식</li>
+                            </ul></div>
+                            <div class="cur-block"><div class="cur-block-title">용어 학습</div><ul>
+                                <li>호스팅·DNS·환경변수 설정</li>
+                            </ul></div>
+                            <div class="cur-block"><div class="cur-block-title">배포 파이프라인</div><ul>
+                                <li>자동화된 배포 흐름(빌드→배포→실행)</li>
+                            </ul></div>
+                        </div></td></tr>
+                        <tr><td>자동화 &amp;<br>오케스트레이션</td><td class="cur-main">n8n·Power Automate · 트리거 · LLM 삽입</td><td><div class="cur-detail">
+                            <div class="cur-block"><div class="cur-block-title">자동화 구성</div><ul>
+                                <li>n8n/PA/RPA 자동화 구성 경험</li>
+                            </ul></div>
+                            <div class="cur-block"><div class="cur-block-title">트리거</div><ul>
+                                <li>Webhook·스케줄·이벤트 트리거 실행</li>
+                            </ul></div>
+                            <div class="cur-block"><div class="cur-block-title">워크플로</div><ul>
+                                <li>수집→처리→게시 흐름·LLM 삽입 자동화</li>
+                            </ul></div>
+                        </div></td></tr>
+                        <tr><td>Git &amp; GitHub</td><td class="cur-main">Git 개념 · 저장소 생성 · Commit/Push/Pull</td><td><div class="cur-detail">
+                            <div class="cur-block"><div class="cur-block-title">Git 기초</div><ul>
+                                <li>Git 역할·Repository 생성</li>
+                            </ul></div>
+                            <div class="cur-block"><div class="cur-block-title">협업 흐름</div><ul>
+                                <li>GitHub 코드 변경·관리 흐름 경험</li>
+                            </ul></div>
+                        </div></td></tr>
+                        <tr><td>AI 에이전트 관점</td><td class="cur-main">업무→에이전트 전환, MVP 구조 설계</td><td><div class="cur-detail">
+                            <div class="cur-block"><div class="cur-block-title">시나리오 설계</div><ul>
+                                <li>업무→에이전트 대체 시나리오·역할·입출력 정의</li>
+                            </ul></div>
+                            <div class="cur-block"><div class="cur-block-title">구조 구성</div><ul>
+                                <li>LLM+API+DB 결합 구조 구성</li>
+                            </ul></div>
+                            <div class="cur-block"><div class="cur-block-title">MVP 구현</div><ul>
+                                <li>작동하는 MVP 수준 구현</li>
+                            </ul></div>
+                        </div></td></tr>
+                        <tr><td>UI / UX</td><td class="cur-main">Design vs UX · UI 컴포넌트 · 디자인 시스템 · AI 디자인 도구</td><td><div class="cur-detail">
+                            <div class="cur-block"><div class="cur-block-title">UI/UX 이해</div><ul>
+                                <li>Design vs UX 구분·사용자 관점 화면 설계</li>
+                                <li>정보 구조·레이아웃·가독성 기본 원칙</li>
+                            </ul></div>
+                            <div class="cur-block"><div class="cur-block-title">컴포넌트·디자인 시스템</div><ul>
+                                <li>버튼·입력·카드 등 UI 컴포넌트 이해</li>
+                                <li>디자인 가이드·색·타이포 일관성 적용</li>
+                            </ul></div>
+                            <div class="cur-block"><div class="cur-block-title">AI·바이브 코딩 적용</div><ul>
+                                <li>v0 등 AI 디자인 도구로 화면 시안 생성</li>
+                                <li>PoC UI 개선·Tailwind·shadcn/ui 활용</li>
+                            </ul></div>
+                        </div></td></tr>
                     </tbody>
-                </table></div>`
+                </table></div></div>
+                </div>`
             }),
 
             ...WEEKLY.map(w => weekSlide(w))
