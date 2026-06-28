@@ -73,6 +73,18 @@
         .curriculum-split .tbl-curriculum .cur-block ul { padding-left: 0.85rem; font-size: 0.62rem; line-height: 1.36; }
         .curriculum-split .tbl-curriculum .cur-block li { margin-bottom: 0.05rem; }
         .col-2026 { color: #33271F !important; font-weight: 600 !important; }
+        .perspective-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; align-items: stretch; }
+        .perspective-panel { display: flex; flex-direction: column; min-height: 0; height: 100%; padding: 1.35rem 1.25rem !important; }
+        .perspective-panel__title { font-size: 1.05rem; font-weight: 700; color: #33271F; margin: 0 0 1rem; line-height: 1.3; }
+        .perspective-panel__list { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 0.85rem; flex: 1; }
+        .perspective-panel__item { display: flex; align-items: flex-start; gap: 0.4rem; font-size: 0.9375rem; line-height: 1.5; color: rgba(51, 39, 31, 0.88); }
+        .perspective-panel__text { flex: 1; min-width: 0; word-break: keep-all; }
+        .perspective-panel__text strong { font-weight: 700; color: #33271F; }
+        .perspective-panel__check { line-height: 0; padding: 1px !important; }
+        .perspective-panel__check i { width: 8px; height: 8px; }
+        .perspective-summary { margin-top: 1rem; }
+        .slide-perspective > div > p.leading-relaxed { font-size: 0.9375rem; max-width: none; }
+        @media (max-width: 900px) { .perspective-grid { grid-template-columns: 1fr; } }
         .pain-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.75rem; }
         .pain-card { background: #fff; border: 1px solid #F0EAE0; border-left: 4px solid #F5B041; border-radius: 8px; padding: 0.85rem 1rem; }
         .pain-card__inner { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); gap: 0.75rem; align-items: stretch; }
@@ -116,6 +128,12 @@
         .week-photo-layout--equal { grid-template-columns: 1fr 1fr; }
         .week-photo-layout--quiz-race { grid-template-columns: minmax(0, 1.14fr) minmax(0, 1.36fr); }
         .week-photo-layout--convention { grid-template-columns: minmax(0, 0.88fr) minmax(0, 1.52fr); }
+        .week-photo-layout--uiux { grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); }
+        .week-photo-layout--llm-api { grid-template-columns: minmax(0, 1.58fr) minmax(0, 1.12fr); }
+        .week-photo-layout--uiux > .week-photo-main,
+        .week-photo-layout--llm-api > .week-photo-main { height: 100%; min-height: 0; }
+        .week-photo-layout--uiux .week-photo-main img { object-fit: contain; object-position: top center; padding: 4px 6px; background: #171717; }
+        .week-photo-layout--llm-api .week-photo-main img { object-fit: cover; object-position: center; padding: 0; background: #F0EAE0; }
         .week-photo-layout--convention .week-photo-main-stack .week-photo-main { flex: 0 1 auto; max-height: 47%; min-height: 0; }
         .week-photo-layout--convention .week-photo-main-stack .week-photo-sub { flex: 1 1 0; min-height: 0; }
         .week-photo-layout--convention .week-photo-main-stack .week-photo-main img { object-fit: cover; object-position: center; padding: 0; }
@@ -134,10 +152,9 @@
         .week-photo-main-stack--focus { gap: 0.4rem; }
         .week-photo-main-stack--focus .week-photo-main--hero { flex: 1 1 auto; min-height: 0; }
         .week-photo-layout--session-focus { grid-template-columns: 1.62fr 1fr; }
-        .week-photo-layout--cover-fill .week-photo-main img,
-        .week-photo-layout--cover-fill .week-photo-sub img { object-fit: cover; object-position: center; padding: 0; }
-        .week-photo-layout--cover-fill .week-photo-main img { background: #F0EAE0; }
-        .week-photo-layout--cover-fill .week-photo-sub img { background: #1e1e1e; }
+        .week-photo-layout--cover-fill .week-photo-main img { object-fit: cover; object-position: center; padding: 0; background: #F0EAE0; }
+        .week-photo-layout--uiux .week-photo-sub img { object-fit: contain; object-position: top center; padding: 4px 6px; background: #fff; }
+        .week-photo-layout--llm-api .week-photo-sub img { object-fit: contain; object-position: top center; padding: 2px 3px; background: #fff; }
         .week-photo-layout--cover-fill .week-photo-sub--stacked img.week-photo-sub__header { object-fit: contain; background: #fff; }
         .week-photo-sub img.week-photo-sub__img--contain { object-fit: contain !important; padding: 5px 8px !important; }
         .week-photo-sub--compact { flex: 0 0 auto; max-height: 30%; }
@@ -228,7 +245,19 @@
         .week-present-cell img { width: 100%; flex: 1; min-height: 0; object-fit: cover; display: block; }
         .week-present-cell figcaption { flex-shrink: 0; font-size: 9.5px; font-weight: 700; text-align: center; padding: 4px 6px 6px; color: #33271F; background: #FBF8F3; line-height: 1.3; }
         .week-split-layout { display: grid; grid-template-columns: minmax(0, 1.65fr) minmax(0, 1fr); gap: 0.75rem; height: min(440px, calc(100vh - 270px)); max-height: 460px; margin-top: 0.75rem; min-height: 0; }
+        .week-split-layout--poc { grid-template-columns: minmax(0, 1.22fr) minmax(0, 0.78fr); height: min(560px, calc(100vh - 228px)); max-height: 580px; align-items: stretch; margin-top: 0; }
         .week-split-left { min-height: 0; min-width: 0; }
+        .week-split-left--poc { display: flex; flex-direction: column; gap: 0.55rem; min-height: 0; overflow: hidden; padding-right: 2px; }
+        .slide-body-poc-workshop { overflow: hidden; margin-top: 0.15rem; }
+        .week-split-layout--poc .week-split-photos { height: 100%; }
+        .poc-workshop-goals { flex-shrink: 0; padding: 0.95rem 1.05rem !important; }
+        .poc-workshop-goals .week-goals-title { font-size: 0.82rem; font-weight: 800; color: #33271F; margin: 0 0 0.6rem; }
+        .poc-workshop-goals__list { display: flex; flex-direction: column; gap: 0.5rem; margin: 0; padding: 0; list-style: none; }
+        .poc-workshop-goals__list li { font-size: 0.8125rem; line-height: 1.48; }
+        .poc-workshop-materials { display: flex; flex-direction: column; gap: 0.55rem; flex-shrink: 0; }
+        .poc-workshop-material { margin: 0; display: flex; flex-direction: column; background: #fff; border-radius: 8px; overflow: hidden; flex-shrink: 0; }
+        .poc-workshop-material img { width: 100%; height: auto; display: block; object-fit: contain; padding: 8px; background: #fff; }
+        .poc-workshop-material figcaption { flex-shrink: 0; font-size: 9.5px; font-weight: 700; text-align: center; padding: 4px 6px 6px; color: #33271F; background: #FBF8F3; line-height: 1.25; }
         .week-split-left__box { background: #F0EAE0; border-radius: 8px; padding: 1.25rem 1.35rem; height: 100%; display: flex; flex-direction: column; justify-content: center; min-height: 0; }
         .week-split-left__box--materials { justify-content: flex-start; overflow-y: auto; gap: 0.55rem; padding: 1rem 1.1rem; scrollbar-width: thin; scrollbar-color: #CBBBA8 transparent; }
         .week-split-left__box--materials .week-goals-title { margin-bottom: 0.55rem; }
@@ -240,18 +269,32 @@
         .week-split-left__material figcaption { flex-shrink: 0; font-size: 8.5px; font-weight: 700; text-align: center; padding: 3px 5px 5px; color: #33271F; background: #FBF8F3; line-height: 1.25; }
         .week-split-left__material--html { line-height: normal; padding: 0.42rem 0.45rem 0; overflow: hidden; }
         .week-split-left__material-cap { margin: 0.38rem -0.45rem 0; font-size: 8.5px; font-weight: 700; text-align: center; padding: 3px 5px 5px; color: #33271F; background: #FBF8F3; border-top: 1px solid #F0EAE0; line-height: 1.25; }
-        .poc-trigger__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.3rem; }
-        .poc-trigger__item { border: 1px solid #d8dee8; border-radius: 6px; padding: 0.32rem 0.34rem; background: #fff; min-width: 0; }
-        .poc-trigger__label { font-size: 0.42rem; font-weight: 800; color: #2563eb; letter-spacing: 0.03em; margin: 0 0 0.06rem; }
-        .poc-trigger__title { font-size: 0.48rem; font-weight: 800; color: #1a1a1a; margin: 0 0 0.08rem; line-height: 1.25; }
-        .poc-trigger__desc { font-size: 0.42rem; color: #64748b; margin: 0; line-height: 1.35; }
-        .poc-problem__template { border: 1.5px dashed #cbd5e1; border-radius: 6px; padding: 0.4rem 0.44rem; margin-bottom: 0.36rem; text-align: center; font-size: 0.44rem; font-weight: 600; color: #334155; line-height: 1.45; background: #fff; }
-        .poc-problem__hl { color: #2563eb; text-decoration: underline; text-underline-offset: 2px; font-weight: 700; }
-        .poc-problem__cols { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.38rem; }
-        .poc-problem__col { border: 1.5px solid #e2e8f0; border-radius: 8px; padding: 0.48rem 0.52rem 0.52rem; background: #fff; min-width: 0; }
-        .poc-problem__col-title { margin: 0 0 0.3rem; font-size: 0.42rem; font-weight: 800; color: #1a1a1a; }
-        .poc-problem__lines { display: flex; flex-direction: column; gap: 0.24rem; }
-        .poc-problem__line { margin: 0; font-size: 0.5rem; font-weight: 600; color: #334155; line-height: 1.45; }
+        .poc-workshop-material--html { padding: 0; overflow: hidden; background: #fff; }
+        .poc-workshop-material--html .poc-trigger { border: none; box-shadow: none; border-radius: 0; }
+        .poc-workshop-material--html .poc-problem { border: none; box-shadow: none; border-radius: 0; }
+        .poc-workshop-material__cap { margin: 0; font-size: 9.5px; font-weight: 700; text-align: center; padding: 4px 6px 6px; color: #33271F; background: #FBF8F3; line-height: 1.25; border-top: 1px solid #F0EAE0; }
+        .poc-trigger { background: #fff; border-radius: 8px; overflow: hidden; border: 1px solid #E5E7EB; box-shadow: 0 1px 3px rgba(51, 39, 31, 0.06); }
+        .poc-trigger__mission { background: #EEF6FF; padding: 0.72rem 0.85rem; border-bottom: 1px solid #D8E8FF; }
+        .poc-trigger__mission-title { margin: 0 0 0.32rem; font-size: 0.74rem; font-weight: 800; color: #2563EB; letter-spacing: 0.01em; }
+        .poc-trigger__mission-quote { margin: 0; font-size: 0.68rem; font-weight: 600; color: #4B5563; line-height: 1.48; }
+        .poc-trigger__body { padding: 0.62rem 0.68rem 0.7rem; background: #fff; }
+        .poc-trigger__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.42rem; }
+        .poc-trigger__item { border: 1px solid #E5E7EB; border-radius: 8px; padding: 0.52rem 0.58rem; background: #fff; min-width: 0; }
+        .poc-trigger__label { font-size: 0.54rem; font-weight: 800; color: #2563EB; letter-spacing: 0.04em; margin: 0 0 0.18rem; }
+        .poc-trigger__title { font-size: 0.7rem; font-weight: 800; color: #111827; margin: 0 0 0.22rem; line-height: 1.28; }
+        .poc-trigger__desc { font-size: 0.6rem; font-weight: 500; color: #6B7280; margin: 0; line-height: 1.38; word-break: keep-all; }
+        .poc-problem { background: #fff; border-radius: 8px; overflow: hidden; border: 1px solid #E5E7EB; box-shadow: 0 1px 3px rgba(51, 39, 31, 0.06); }
+        .poc-problem__header { padding: 0.62rem 0.68rem 0.48rem; text-align: center; background: #fff; border-bottom: 1px solid #F3F4F6; }
+        .poc-problem__header-title { margin: 0; font-size: 0.68rem; font-weight: 800; color: #111827; line-height: 1.35; word-break: keep-all; }
+        .poc-problem__body { padding: 0.55rem 0.62rem 0.65rem; background: #fff; }
+        .poc-problem__template { border: 1.5px dashed #CBD5E1; border-radius: 8px; padding: 0.55rem 0.5rem; margin-bottom: 0.45rem; text-align: center; font-size: 0.62rem; font-weight: 600; color: #374151; line-height: 1.5; background: #FAFBFC; word-break: keep-all; }
+        .poc-problem__hl { color: #2563EB; text-decoration: underline; text-underline-offset: 2px; font-weight: 700; }
+        .poc-problem__cols { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.4rem; }
+        .poc-problem__col { border: 1px solid #E5E7EB; border-radius: 8px; padding: 0.5rem 0.55rem 0.52rem; background: #fff; min-width: 0; }
+        .poc-problem__col-title { margin: 0 0 0.28rem; font-size: 0.66rem; font-weight: 800; color: #111827; }
+        .poc-problem__lines { display: flex; flex-direction: column; gap: 0.22rem; }
+        .poc-problem__line { margin: 0; font-size: 0.58rem; font-weight: 500; color: #4B5563; line-height: 1.42; padding-left: 0.55rem; position: relative; word-break: keep-all; }
+        .poc-problem__line::before { content: '•'; position: absolute; left: 0; color: #9CA3AF; font-weight: 700; }
         .week-split-layout--tall { height: min(520px, calc(100vh - 230px)); max-height: 540px; }
         .week-split-left__box .week-goals-title { font-size: 0.75rem; font-weight: 800; color: #33271F; margin-bottom: 0.85rem; }
         .week-split-left__box ul { display: flex; flex-direction: column; gap: 0.65rem; }
@@ -564,9 +607,17 @@
                     <p class="text-sm font-bold text-pug mb-2 uppercase tracking-wider shrink-0">${label}</p>
                     ${titleBlock}
                     ${message ? `<p class="text-sm text-ink/80 leading-relaxed ${msgMb} max-w-3xl shrink-0">${message}</p>` : ''}
-                    <div class="${alignTop ? 'min-h-0 flex-1 overflow-hidden' : ''}">${body}</div>
+                    <div class="${alignTop ? 'min-h-0 flex-1 overflow-hidden flex flex-col' : ''}">${body}</div>
                 </div>
             </section>`;
+        }
+
+        function buildPerspectiveItem(text) {
+            return `<li class="perspective-panel__item"><span class="shrink-0 mt-0.5 p-0.5 bg-pug text-ink rounded perspective-panel__check"><i data-lucide="check"></i></span><span class="perspective-panel__text">${text}</span></li>`;
+        }
+
+        function buildPerspectivePanel(title, items) {
+            return `<div class="bg-card rounded-lg perspective-panel"><p class="perspective-panel__title">${title}</p><ul class="perspective-panel__list">${items.map(buildPerspectiveItem).join('')}</ul></div>`;
         }
 
         function listSlide({ label, title, message, items, highlight, footer, scroll, listLayout, compact, alignTop, wide }) {
@@ -985,6 +1036,29 @@
             });
         }
 
+        function buildPocWorkshopGoalsList(goals) {
+            const items = goals.map(g =>
+                `<li class="flex items-start gap-2 text-ink/85"><span class="text-pug shrink-0 mt-0.5">•</span><span>${g}</span></li>`
+            ).join('');
+            return `<div class="bg-card rounded-lg poc-workshop-goals"><p class="week-goals-title">🎯 목표</p><ul class="poc-workshop-goals__list">${items}</ul></div>`;
+        }
+
+        function buildPocWorkshopMaterials(materials) {
+            const blocks = materials.map(m => {
+                if (m.html) {
+                    return `<div class="poc-workshop-material poc-workshop-material--html">
+                        ${m.html}
+                        ${m.caption ? `<p class="poc-workshop-material__cap">${m.caption}</p>` : ''}
+                    </div>`;
+                }
+                return `<figure class="poc-workshop-material">
+                    <img src="${m.src}" alt="${m.caption || ''}" loading="lazy">
+                    ${m.caption ? `<figcaption>${m.caption}</figcaption>` : ''}
+                </figure>`;
+            }).join('');
+            return `<div class="poc-workshop-materials">${blocks}</div>`;
+        }
+
         function buildPocTriggerFrameworkHtml() {
             const triggers = [
                 ['TRIGGER 1', '반복 업무', '매일/매주 똑같이 반복되는 일'],
@@ -995,37 +1069,48 @@
                 ['TRIGGER 6', '수작업 관리', '엑셀로 수작업 관리하는 복잡한 규칙']
             ];
             return `<div class="poc-trigger">
-                <div class="poc-trigger__grid">${triggers.map(([label, t, d]) =>
-                    `<div class="poc-trigger__item"><p class="poc-trigger__label">${label}</p><p class="poc-trigger__title">${t}</p><p class="poc-trigger__desc">${d}</p></div>`
-                ).join('')}</div>
+                <div class="poc-trigger__mission">
+                    <p class="poc-trigger__mission-title">핵심 미션</p>
+                    <p class="poc-trigger__mission-quote">"AI 아이디어가 아니라, 업무 현장의 진짜 불편함을 찾으세요."</p>
+                </div>
+                <div class="poc-trigger__body">
+                    <div class="poc-trigger__grid">${triggers.map(([label, t, d]) =>
+                        `<div class="poc-trigger__item"><p class="poc-trigger__label">${label}</p><p class="poc-trigger__title">${t}</p><p class="poc-trigger__desc">${d}</p></div>`
+                    ).join('')}</div>
+                </div>
             </div>`;
         }
 
         function buildPocProblemStatementHtml() {
             return `<div class="poc-problem">
-                <div class="poc-problem__template">"나는(우리 팀은) <span class="poc-problem__hl">OO 상황</span> 에서 <span class="poc-problem__hl">OO 문제</span> 를 겪고 있으며, 이는 현재 <span class="poc-problem__hl">OO 방식</span> 으로 해결 중이다."</div>
-                <div class="poc-problem__cols">
-                    <div class="poc-problem__col">
-                        <p class="poc-problem__col-title">문제 크기 (Impact)</p>
-                        <div class="poc-problem__lines">
-                            <p class="poc-problem__line">소요 시간: 주당 평균 몇 시간?</p>
-                            <p class="poc-problem__line">발생 비용: 직접/간접 비용은?</p>
-                            <p class="poc-problem__line">조직 파급력: 해결 시 어떤 변화가?</p>
+                <div class="poc-problem__header">
+                    <p class="poc-problem__header-title">🎯 좋은 문제 1개로 좁히기 위한 Problem Statement Template</p>
+                </div>
+                <div class="poc-problem__body">
+                    <div class="poc-problem__template">"나는(우리 팀은) <span class="poc-problem__hl">OO 상황</span> 에서 <span class="poc-problem__hl">OO 문제</span> 를 겪고 있으며, 이는 현재 <span class="poc-problem__hl">OO 방식</span> 으로 해결 중이다."</div>
+                    <div class="poc-problem__cols">
+                        <div class="poc-problem__col">
+                            <p class="poc-problem__col-title">문제 크기 (Impact)</p>
+                            <div class="poc-problem__lines">
+                                <p class="poc-problem__line">소요 시간: 주당 평균 몇 시간?</p>
+                                <p class="poc-problem__line">발생 비용: 직접/간접 비용은?</p>
+                                <p class="poc-problem__line">조직 파급력: 해결 시 어떤 변화가?</p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="poc-problem__col">
-                        <p class="poc-problem__col-title">성공 기준 (Success)</p>
-                        <div class="poc-problem__lines">
-                            <p class="poc-problem__line">시간 감소율 (%)</p>
-                            <p class="poc-problem__line">업무 처리 속도 개선</p>
-                            <p class="poc-problem__line">데이터 정확도 향상 지표</p>
+                        <div class="poc-problem__col">
+                            <p class="poc-problem__col-title">성공 기준 (Success)</p>
+                            <div class="poc-problem__lines">
+                                <p class="poc-problem__line">시간 감소율 (%)</p>
+                                <p class="poc-problem__line">업무 처리 속도 개선</p>
+                                <p class="poc-problem__line">데이터 정확도 향상 지표</p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>`;
         }
 
-        function weekSlide({ week, title, topics, message, goals, goalsMaterials, mainImage, mainImages, mainExtra, subImages, photoLayout, photoFit, photoTall, photoGrid, goalsLeft, embedGuide, embedGuideImage, embedGuideVariant, embedGuideTitle, embedGuideScroll = true }) {
+        function weekSlide({ week, title, topics, message, goals, goalsMaterials, mainImage, mainImages, mainExtra, subImages, photoLayout, photoFit, photoTall, photoGrid, goalsLeft, goalsLayout, embedGuide, embedGuideImage, embedGuideVariant, embedGuideTitle, embedGuideScroll = true }) {
             const renderPhotoSub = (p, altFallback = '') => {
                 const stacked = !!p.headerSrc;
                 const figureCls = ['week-photo-sub', stacked && 'week-photo-sub--stacked', p.compact && 'week-photo-sub--compact', p.tableRef && 'week-photo-sub--table-ref', p.flat && 'week-photo-sub--flat'].filter(Boolean).join(' ');
@@ -1036,7 +1121,7 @@
                     ${p.caption ? `<figcaption>${p.caption}</figcaption>` : ''}
                 </figure>`;
             };
-            const chips = topics.map(t => `<span class="inline-block bg-beige text-ink text-xs font-medium px-3 py-1.5 rounded-lg mr-2 mb-2">${t}</span>`).join('');
+            const chips = (topics || []).map(t => `<span class="inline-block bg-beige text-ink text-xs font-medium px-3 py-1.5 rounded-lg mr-2 mb-2">${t}</span>`).join('');
             const goalsList = goals && goals.length
                 ? `<p class="week-goals-title">🎯 목표</p><ul>${goals.map(g => `<li class="flex items-start gap-2 text-ink/85"><span class="text-pug shrink-0 mt-0.5">•</span><span>${g}</span></li>`).join('')}</ul>`
                 : '';
@@ -1049,6 +1134,8 @@
                     </figure>`
                 ).join('');
                 photos = `<div class="week-present-grid">${cells}</div>`;
+            } else if (photoLayout === 'design-consult' && embedGuide) {
+                photos = buildDesignConsultLayout({ embedGuide, photos: subImages || [] });
             } else if (goalsLeft && subImages && goalsList) {
                 const subs = subImages.map(p =>
                     `<figure class="week-photo-sub">
@@ -1056,6 +1143,15 @@
                         ${p.caption ? `<figcaption>${p.caption}</figcaption>` : ''}
                     </figure>`
                 ).join('');
+                if (goalsLayout === 'poc-workshop' && goalsMaterials?.length) {
+                    photos = `<div class="week-split-layout week-split-layout--poc">
+                        <div class="week-split-left week-split-left--poc">
+                            ${buildPocWorkshopGoalsList(goals)}
+                            ${buildPocWorkshopMaterials(goalsMaterials)}
+                        </div>
+                        <div class="week-split-photos">${subs}</div>
+                    </div>`;
+                } else {
                 const materialsHtml = (goalsMaterials || []).map(m =>
                     m.html
                         ? `<div class="week-split-left__material week-split-left__material--html">${m.html}${m.caption ? `<p class="week-split-left__material-cap">${m.caption}</p>` : ''}</div>`
@@ -1070,9 +1166,10 @@
                     <div class="week-split-left"><div class="${leftBoxCls}">${goalsList}${materialsHtml ? `<div class="week-split-left__materials">${materialsHtml}</div>` : ''}</div></div>
                     <div class="week-split-photos">${subs}</div>
                 </div>`;
+                }
             } else if (mainImage || mainImages?.length) {
                 const hasMeta = !!(message || (goals && goals.length));
-                const layoutCls = ['week-photo-layout', photoLayout === 'equal' && 'week-photo-layout--equal', photoLayout === 'quiz-race' && 'week-photo-layout--quiz-race', photoLayout === 'convention' && 'week-photo-layout--convention', photoLayout === 'session-focus' && 'week-photo-layout--session-focus', photoFit === 'cover' && 'week-photo-layout--cover-fill', mainExtra && 'week-photo-layout--session-focus', photoTall && hasMeta && 'week-photo-layout--tall-meta', photoTall && !hasMeta && 'week-photo-layout--tall', hasMeta && !photoTall && 'week-photo-layout--compact'].filter(Boolean).join(' ');
+                const layoutCls = ['week-photo-layout', photoLayout === 'equal' && 'week-photo-layout--equal', photoLayout === 'quiz-race' && 'week-photo-layout--quiz-race', photoLayout === 'convention' && 'week-photo-layout--convention', photoLayout === 'uiux' && 'week-photo-layout--uiux', photoLayout === 'llm-api' && 'week-photo-layout--llm-api', photoLayout === 'session-focus' && 'week-photo-layout--session-focus', photoFit === 'cover' && 'week-photo-layout--cover-fill', mainExtra && 'week-photo-layout--session-focus', photoTall && hasMeta && 'week-photo-layout--tall-meta', photoTall && !hasMeta && 'week-photo-layout--tall', hasMeta && !photoTall && 'week-photo-layout--compact'].filter(Boolean).join(' ');
                 const isManualScroll = embedGuideScroll === 'manual';
                 const iframeScrollCls = embedGuideScroll === false ? '' : ' embed-scroll-iframe';
                 const manualAttr = isManualScroll ? ' data-embed-scroll-manual="1"' : '';
@@ -1129,13 +1226,22 @@
             const goalsBlock = goals && !goalsLeft && goalsList
                 ? `<div class="bg-beige rounded-lg p-4 mb-3">${goalsList}</div>`
                 : '';
+            const isPocWorkshop = goalsLayout === 'poc-workshop';
+            const isDesignConsult = photoLayout === 'design-consult';
+            const body = isPocWorkshop
+                ? `<div class="slide-body-poc-workshop">${photos}</div>`
+                : isDesignConsult
+                    ? photos
+                : `<div class="bg-card rounded-lg p-4 mb-3"><div class="flex flex-wrap gap-1">${chips}</div></div>${goalsBlock}${photos}`;
             return contentSlide({
                 label: `Education · ${week}`,
                 title,
                 message,
                 compact: !!(mainImage || mainImages?.length || photoGrid || message || goalsLeft || embedGuide),
                 wide: !!(photoGrid || mainImage || mainImages?.length || goalsLeft || embedGuide),
-                body: `<div class="bg-card rounded-lg p-4 mb-3"><div class="flex flex-wrap gap-1">${chips}</div></div>${goalsBlock}${photos}`
+                alignTop: false,
+                scroll: false,
+                body
             });
         }
 
@@ -1213,110 +1319,49 @@
             contentSlide({
                 label: '2025 Review · 회고',
                 title: '2025년, 무엇이 아쉬웠나',
-                message: '2025년 PUG는 AI 학습과 공유 문화를 만드는 데 의미가 있었지만, 활동이 <strong class="text-ink">현업 성과로 연결되기에는 몇 가지 한계</strong>가 있었습니다.',
-                body: `<div class="pain-grid" id="pain-review-grid">
-                    <article class="pain-card">
-                        <div class="pain-card__inner">
-                            <div class="pain-card__side pain-card__side--2025">
-                                <span class="pain-card__year">2025</span>
-                                <p class="pain-card__text">개인별 관심·요구·성장 방향 파악 어려움</p>
-                            </div>
-                            <div class="pain-card__divider" aria-hidden="true"></div>
-                            <div class="pain-card__side pain-card__side--2026">
-                                <span class="pain-card__year pain-card__year--2026">2026</span>
-                                <p class="pain-card__solution-text">사전 인터뷰로 성장 방향·업무 과제 정리</p>
-                                <p class="pain-card__keywords"><strong>키워드</strong> · 사전 인터뷰, 맞춤 커리큘럼</p>
-                            </div>
-                        </div>
-                    </article>
-                    <article class="pain-card">
-                        <div class="pain-card__inner">
-                            <div class="pain-card__side pain-card__side--2025">
-                                <span class="pain-card__year">2025</span>
-                                <p class="pain-card__text">현업 병행 시 학습·실습 시간 부족</p>
-                            </div>
-                            <div class="pain-card__divider" aria-hidden="true"></div>
-                            <div class="pain-card__side pain-card__side--2026">
-                                <span class="pain-card__year pain-card__year--2026">2026</span>
-                                <p class="pain-card__solution-text">매주 수요일 정기 모임 · 주 2회 이상</p>
-                                <p class="pain-card__keywords"><strong>키워드</strong> · 주간 모임, 실습 시간 확보</p>
-                            </div>
-                        </div>
-                    </article>
-                    <article class="pain-card">
-                        <div class="pain-card__inner">
-                            <div class="pain-card__side pain-card__side--2025">
-                                <span class="pain-card__year">2025</span>
-                                <p class="pain-card__text">도구 학습 후 실무 적용 주제 불명확</p>
-                            </div>
-                            <div class="pain-card__divider" aria-hidden="true"></div>
-                            <div class="pain-card__side pain-card__side--2026">
-                                <span class="pain-card__year pain-card__year--2026">2026</span>
-                                <p class="pain-card__solution-text">실무 연계 실습 자료·과제 설계</p>
-                                <p class="pain-card__keywords"><strong>키워드</strong> · 실무 연계, PoC 주제</p>
-                            </div>
-                        </div>
-                    </article>
-                    <article class="pain-card">
-                        <div class="pain-card__inner">
-                            <div class="pain-card__side pain-card__side--2025">
-                                <span class="pain-card__year">2025</span>
-                                <p class="pain-card__text">학습 우선순위·진입 경로 불명확</p>
-                            </div>
-                            <div class="pain-card__divider" aria-hidden="true"></div>
-                            <div class="pain-card__side pain-card__side--2026">
-                                <span class="pain-card__year pain-card__year--2026">2026</span>
-                                <p class="pain-card__solution-text">단계별 학습 커리큘럼 설계·운영</p>
-                                <p class="pain-card__keywords"><strong>키워드</strong> · 학습 로드맵, 시민개발자</p>
-                            </div>
-                        </div>
-                    </article>
-                    <article class="pain-card">
-                        <div class="pain-card__inner">
-                            <div class="pain-card__side pain-card__side--2025">
-                                <span class="pain-card__year">2025</span>
-                                <p class="pain-card__text">체계 없이 진행되어 산출물 완성도 낮음</p>
-                            </div>
-                            <div class="pain-card__divider" aria-hidden="true"></div>
-                            <div class="pain-card__side pain-card__side--2026">
-                                <span class="pain-card__year pain-card__year--2026">2026</span>
-                                <p class="pain-card__solution-text">커리큘럼 구축 · 전문가 컨설팅</p>
-                                <p class="pain-card__keywords"><strong>키워드</strong> · 시민개발자, 전문가 지원</p>
-                            </div>
-                        </div>
-                    </article>
-                    <article class="pain-card">
-                        <div class="pain-card__inner">
-                            <div class="pain-card__side pain-card__side--2025">
-                                <span class="pain-card__year">2025</span>
-                                <p class="pain-card__text">결과물 축적·공유 어려움</p>
-                            </div>
-                            <div class="pain-card__divider" aria-hidden="true"></div>
-                            <div class="pain-card__side pain-card__side--2026">
-                                <span class="pain-card__year pain-card__year--2026">2026</span>
-                                <p class="pain-card__solution-text">GitHub 개설 · PoC·실습 결과 아카이빙</p>
-                                <p class="pain-card__keywords"><strong>키워드</strong> · GitHub, 버전 관리</p>
-                            </div>
-                        </div>
-                    </article>
-                </div>
-                <div class="pain-reveal-bar">
-                    <button type="button" id="pain-reveal-btn" class="pain-reveal-btn"><i data-lucide="sparkles"></i> 2026 개선 방안 보기</button>
-                </div>
-                <div class="bg-ink text-card rounded-lg p-4 mt-5 text-sm font-medium leading-relaxed">핵심 전환 - 2025년 한계를 인식하고, 2026년에는 <strong class="text-pug">문제 정의·실행 구조·결과물 축적</strong>으로 개선합니다.</div>`
+                message: 'AI 학습·공유 문화는 만들었지만, <strong class="text-ink">운영 · 멤버 · 보안</strong> 측면에서 한계가 있었습니다.',
+                slideClass: 'slide-perspective',
+                body: `<div class="perspective-grid">
+                    ${buildPerspectivePanel('운영진', [
+                        '<strong>멤버별 요구·성장 방향</strong> 파악 어려움',
+                        '<strong>인원 과다</strong> · 현업 병행 → <strong>이탈 · 진도 불일치</strong>'
+                    ])}
+                    ${buildPerspectivePanel('멤버', [
+                        '<strong>현업 병행</strong> · <strong>실습 시간·집중도</strong> 부족',
+                        '<strong>비전공자</strong> 중심 · <strong>학습 우선순위</strong> 혼란'
+                    ])}
+                    ${buildPerspectivePanel('보안', [
+                        '<strong>바이브 코딩</strong> · <strong>보안 미고려</strong> 시스템 증가',
+                        '<strong>중앙 아카이빙</strong> 부재 · 로컬 저장 → <strong>휘발</strong>'
+                    ])}
+                </div>`
             }),
 
             contentSlide({
                 label: '2026 Direction · 전환',
                 title: '2026년 전환 - 인터뷰에서 PoC까지',
-                message: '2025년 회고를 바탕으로 PUG의 질문을 바꿨습니다. <strong class="text-ink">"AI를 어떻게 쓰는가?"</strong>에서 <strong class="text-ink">"AI로 어떤 업무 문제를 해결할 수 있는가?"</strong>로. 다음 단계는 <strong class="text-ink">사전 인터뷰</strong>를 통해 멤버별 업무 요구사항을 파악하고, 맞춤형 커리큘럼과 PoC로 연결하는 것입니다.',
-                body: `<div class="bg-card rounded-lg p-6"><table class="tbl">
-                    <thead><tr><th>구분</th><th>2025년</th><th>2026년</th></tr></thead>
+                message: '2025년 회고 이후, PUG의 질문을 바꿨습니다. <strong class="text-ink">AI를 어떻게 쓰는가</strong>가 아니라, <strong class="text-ink">AI로 어떤 업무 문제를 풀 수 있는가</strong>에 답하는 방향으로 전환했습니다.',
+                slideClass: 'slide-perspective',
+                body: `<div class="perspective-grid">
+                    ${buildPerspectivePanel('운영진', [
+                        '<strong>사전 인터뷰</strong> · 멤버별 과제·성장 방향 파악',
+                        '<strong>인원 조정</strong> · PoC 활동 시간 사전 확보'
+                    ])}
+                    ${buildPerspectivePanel('멤버', [
+                        '<strong>시간 확보</strong> 공지 · 정기 모임 운영',
+                        '<strong>맞춤 커리큘럼</strong> 설계·운영'
+                    ])}
+                    ${buildPerspectivePanel('보안', [
+                        '<strong>보안 가이드</strong> · <strong>온프레미스 LLM</strong> 활용',
+                        '<strong>GitHub Organization</strong> · PoC·실습 아카이빙'
+                    ])}
+                </div>
+                <div class="perspective-summary bg-card rounded-lg p-6"><table class="tbl">
+                    <thead><tr><th>관점</th><th>2025년 한계</th><th>2026년 개선</th></tr></thead>
                     <tbody>
-                        <tr><td>활동 중심</td><td>AI 도구 학습</td><td class="col-2026">현업 문제 해결 PoC</td></tr>
-                        <tr><td>주제 선정</td><td>공통 학습 주제 중심</td><td class="col-2026">멤버별 업무 과제 기반</td></tr>
-                        <tr><td>참여 방식</td><td>관심 기반 참여</td><td class="col-2026">사전 인터뷰 기반 선정 및 역할 부여</td></tr>
-                        <tr><td>결과물</td><td>학습 경험, 활용 팁</td><td class="col-2026">PoC 결과물, 개선 아이디어</td></tr>
+                        <tr><td>운영진</td><td>멤버 파악·진도 조율 한계</td><td class="col-2026">사전 인터뷰 · 집중반 운영 + PoC 시간 확보</td></tr>
+                        <tr><td>멤버</td><td>학습 시간·우선순위 부족</td><td class="col-2026">시간 확보 공지 · 맞춤 커리큘럼</td></tr>
+                        <tr><td>보안</td><td>보안·아카이빙 미흡</td><td class="col-2026">실습 보안 가이드 · GitHub 아카이빙</td></tr>
                     </tbody>
                 </table></div>`
             })
@@ -1406,9 +1451,10 @@
                     '“아이디어”가 아니라 <strong class="text-ink">실행 가능한 설계 초안</strong>까지 도달'
                 ],
                 goalsLeft: true,
+                goalsLayout: 'poc-workshop',
                 goalsMaterials: [
-                    { html: buildPocTriggerFrameworkHtml(), caption: '업무 현장 불편함 찾기 · Trigger 6가지' },
-                    { html: buildPocProblemStatementHtml(), caption: 'Problem Statement Template' }
+                    { html: buildPocTriggerFrameworkHtml()},
+                    { html: buildPocProblemStatementHtml()}
                 ],
                 subImages: [
                     { src: 'assets/16-poc-idea/sub-workshop-1.png', caption: '프로젝트 기획 워크숍' },
@@ -1417,10 +1463,12 @@
             },
             { week: '4월 3주차', title: 'API 개발 심화 · 사내 LLM 연동', topics: ['FastAPI · 온프레미스 LLM', 'Request/Response·파라미터', 'AI 도구 API 설계·구현', 'Swagger UI'],
                 message: 'FastAPI로 <strong class="text-ink">사내 구축(On-premise) LLM</strong>에 연동해 보았습니다. Request/Response 구조와 필수·선택 파라미터를 파악하고, AI 도구에 API 설계·구현을 요청하는 방식으로 진행했으며 <strong class="text-ink">Swagger UI</strong>로 엔드포인트를 확인했습니다.',
-                mainImage: { src: 'assets/17-fastapi-git/main-session.png', caption: 'FastAPI · 사내 LLM 연동 실습' },
+                mainImage: { src: 'assets/26-web-dev-lecture/lecture-onprem-llm.png', caption: 'AI PlayGround 활용 방법 안내' },
                 subImages: [
-                    { src: 'assets/17-fastapi-git/sub-fastapi-guide.png', caption: 'FastAPI 코드 구조 · Swagger UI' }
+                    { src: 'assets/17-fastapi-git/sub-fastapi-guide.png', caption: 'FastAPI 코드 구조 · Swagger UI', fit: 'contain' }
                 ],
+                photoLayout: 'llm-api',
+                photoFit: 'cover',
                 photoTall: true
             },
             { week: '4월 3주차', title: 'Git · GitHub', topics: ['Git 개념·Repository', 'Commit / Push / Pull', 'GitHub Flow', 'PoC 코드 버전 관리'],
@@ -1447,6 +1495,7 @@
                     { src: 'assets/19-uiux-basics/uiux-components.png', caption: 'UI/UX 핵심 컴포넌트 42가지' },
                     { src: 'assets/19-uiux-basics/uiux-design-vs-ux.png', caption: 'Design vs User Experience' }
                 ],
+                photoLayout: 'uiux',
                 photoTall: true
             },
             { week: '4월 5주차', title: 'AI 에이전트 · 멀티에이전트', topics: ['에이전트 역할·입출력', 'LLM과 에이전트 차이', 'Multi-Agent 패턴', 'MVP 구조 설계'],
@@ -1456,7 +1505,7 @@
                 embedGuideVariant: 'agent',
                 photoTall: true
             },
-            { week: '5월 1주차', title: 'Quiz Race · IT 기초', topics: ['Quiz Race', 'IT 기초 지식', '비전공자'],
+            { week: '5월 1주차', title: 'Quiz Race · IT 지식 · 개발 개념', topics: ['Quiz Race', 'IT 기초 지식', '비전공자'],
                 mainImages: [
                     { src: 'assets/21-quiz-race/quiz-lap3-get-post.png', caption: 'Quiz Race - LAP 3 · GET vs POST' },
                     { src: 'assets/21-quiz-race/quiz-lap4-404.png', caption: 'Quiz Race - LAP 4 · 404 에러' }
@@ -1486,7 +1535,16 @@
                 ],
                 photoTall: true
             },
-            { week: '6월 3주차', title: 'PoC UI/UX · 디자인 가이드', topics: ['디자인 가이드', 'UI/UX 원칙', '바이브 코딩 적용', 'PoC UI 개선'] }
+            { week: '6월 3주차', title: 'PoC UI/UX · 디자인 가이드',
+                message: '디지털진화팀 심수정님과 <strong class="text-ink">UI/UX 강의·1:1 피드백</strong>을 진행하고, 바이브 코딩 디자인 가이드를 공유했습니다.',
+                embedGuide: 'assets/27-design-consulting/vibe-coding-design-guide.html',
+                embedGuideTitle: '바이브 코딩 디자인 가이드',
+                photoLayout: 'design-consult',
+                subImages: [
+                    { src: 'assets/27-design-consulting/consulting-1.png', caption: '디지털진화팀 심수정님 | UI/UX 강의 세션' },
+                    { src: 'assets/27-design-consulting/consulting-2.png', caption: '1:1 디자인 피드백' }
+                ]
+            }
         ];
 
         const part2 = [
@@ -1700,19 +1758,15 @@
         const SUPPORT = [
             { icon: 'presentation', title: '전문가 연결 · 웹 개발 실무 강의', desc: '도메인 특성을 이해한 실무형 강의 및 코칭', photoLayout: 'quad', photoFit: 'contain', photos: [
                 { src: 'assets/26-web-dev-lecture/lecture-code-review.png', caption: '실습 코드 리뷰 · 화면 공유 강의' },
-                { src: 'assets/26-web-dev-lecture/lecture-llm-params.png', caption: 'LLM 출력 파라미터 강의' },
-                { src: 'assets/26-web-dev-lecture/lecture-workshop.png', caption: '웹 개발 워크숍 세션' },
-                { src: 'assets/26-web-dev-lecture/lecture-onprem-llm.png', caption: '온프레미스 LLM 연동 실무' }
-            ]},
-            { icon: 'palette', title: '전문가 연결 · UI/UX 컨설팅', embedGuide: 'assets/27-design-consulting/vibe-coding-design-guide.html', photos: [
-                { src: 'assets/27-design-consulting/consulting-1.png', caption: '디지털진화팀 심수정님 | UI/UX 강의 세션' },
-                { src: 'assets/27-design-consulting/consulting-2.png', caption: '1:1 디자인 피드백' }
+                { src: 'assets/26-web-dev-lecture/lecture-llm-params.png', caption: 'FastAPI 실습 안내' },
+                { src: 'assets/26-web-dev-lecture/lecture-workshop.png', caption: 'Git & GitHub 강의' },
+                { src: 'assets/26-web-dev-lecture/lecture-onprem-llm.png', caption: 'AI PlayGround 활용 방법 안내' }
             ]},
             { icon: 'users', title: '디지털전략센터 · Leader\'s Talk', meetingReveal: true, photos: [
                 { src: 'assets/28-meeting/meeting-reflection.png', caption: 'AI 시대에 대한 고찰 (정민석님)' },
                 { src: 'assets/28-meeting/meeting-playground.png', caption: 'AI Playground 소개 (신민규님)' }
             ], overlayPhoto: { src: 'assets/28-meeting/meeting-dinner.png', caption: '간담회 식사', note: 'Power User Group의 P를 나타낸 포즈입니다 ^^' }},
-            { icon: 'message-square', title: '운영 지원 · 주차별 활동 요약', video: 'assets/29-teams-channel/teams-channel.mp4' },
+            { icon: 'message-square', title: '운영 지원 · 주차별 활동 요약', video: 'assets/29-teams-channel/teams-channel.mp4', videoRate: 1.5 },
             { icon: 'folder-open', title: '운영 지원 · 실습자료 공유', desc: '교육 자료·실습 가이드 지속 공유', materialShare: {
                 leftPhoto: { src: 'assets/30-weekly-materials/weekly-materials-folders.png', caption: 'Power User Group (집중) · 주차별 실습자료 폴더' }
             }},
@@ -1795,7 +1849,7 @@
             ai: {
                 label: 'AI / ML',
                 summary: 'LLM · RAG · 자동화',
-                items: [
+                items: [ 
                     { name: 'Python Libraries', desc: 'AI/ML 생태계 기반' },
                     { name: 'LLM API', desc: '온프레미스 · 클라우드 연동' },
                     { name: 'RAG', desc: '검색 증강 생성 파이프라인' },
@@ -1929,7 +1983,7 @@
         function buildDesignConsultLayout({ embedGuide, photos }) {
             const photoHtml = photos.map(p => {
                 const cap = p.caption ? `<figcaption class="design-consult-photo-cap">${p.caption}</figcaption>` : '';
-                return `<figure class="design-consult-photo-wrap"><img src="${p.src}" alt="${p.caption || '디자인 컨설팅'}" class="design-consult-photo">${cap}</figure>`;
+                return `<figure class="design-consult-photo-wrap"><img src="${p.src}" alt="${p.caption || '디자인 피드백'}" class="design-consult-photo">${cap}</figure>`;
             }).join('');
             return `<div class="design-consult-layout grid lg:grid-cols-3 gap-4 items-stretch">
                 <div class="lg:col-span-2 design-guide-wrap bg-card rounded-lg border border-beige">
@@ -2099,8 +2153,9 @@
                 });
             }
             const videoOnly = s.video && !s.desc;
+            const videoRateAttr = s.videoRate ? ` data-playback-rate="${s.videoRate}"` : '';
             const videoBlock = s.video ? `<div class="bg-card rounded-lg overflow-hidden${videoOnly ? '' : ' mt-5'}">
-                    <video src="${s.video}" controls playsinline muted loop preload="auto" class="${videoOnly ? 'slide-media-tall' : 'slide-media'}"></video>
+                    <video src="${s.video}" controls playsinline muted loop preload="auto" class="${videoOnly ? 'slide-media-tall' : 'slide-media'}"${videoRateAttr}></video>
                 </div>` : '';
             const descBlock = s.desc ? `<div class="bg-card rounded-lg p-8 flex items-start gap-5">
                     <div class="p-4 bg-pug text-ink rounded-lg shrink-0"><i data-lucide="${s.icon}" class="w-8 h-8"></i></div>
@@ -2930,6 +2985,7 @@
             });
             slides[current]?.querySelectorAll('video').forEach(v => {
                 v.muted = true;
+                v.playbackRate = parseFloat(v.dataset.playbackRate || '1') || 1;
                 const p = v.play();
                 if (p?.catch) p.catch(() => {});
             });
