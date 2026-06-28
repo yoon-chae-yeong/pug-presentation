@@ -1349,7 +1349,7 @@
                     ])}
                     ${buildPerspectivePanel('멤버', [
                         '<strong>시간 확보</strong> 공지 · 정기 모임 운영',
-                        '<strong>맞춤 커리큘럼</strong> 설계·운영'
+                        '<strong>PUG 맞춤 커리큘럼</strong> 설계·운영'
                     ])}
                     ${buildPerspectivePanel('보안', [
                         '<strong>보안 가이드</strong> · <strong>온프레미스 LLM</strong> 활용',
@@ -2180,9 +2180,9 @@
             { name: '멤버1', before: [0, 0, 11, 0, 0, 0, 0], after: [75, 71, 78, 75, 100, 60, 100] },
             { name: '멤버2', before: [75, 29, 56, 25, 0, 20, 50], after: [75, 71, 89, 100, 100, 100, 100] },
             { name: '멤버3', before: [38, 0, 0, 0, 0, 0, 0], after: [100, 71, 78, 100, 100, 100, 100] },
-            { name: '멤버4', before: [25, 57, 22, 0, 100, 0, 50], after: [100, 86, 89, 75, 100, 40, 75] },
+            { name: '멤버4', before: [25, 57, 22, 0, 100, 0, 50], after: [100, 86, 89, 75, 100, 60, 75] },
             { name: '멤버5', before: [0, 0, 11, 0, 33, 0, 0], after: [100, 86, 100, 100, 100, 40, 50] },
-            { name: '멤버6', before: [50, 29, 0, 0, 100, 40, 25], after: [100, 71, 67, 50, 100, 60, 50] },
+            { name: '멤버6', before: [50, 29, 0, 0, 100, 40, 25], after: [100, 71, 78, 75, 100, 60, 100] },
             { name: '멤버7', before: [50, 29, 22, 25, 0, 0, 0], after: [100, 100, 100, 100, 100, 100, 100] },
             { name: '멤버8', before: [63, 86, 78, 75, 100, 60, 100], after: [100, 100, 100, 100, 100, 100, 100] }
         ];
@@ -2219,15 +2219,15 @@
                         <div class="member-radar-summary">
                             <div class="checklist-stat">
                                 <p class="checklist-stat__label">평균 달성률</p>
-                                <p class="checklist-stat__value">28% → <span class="text-pug">87%</span></p>
+                                <p class="checklist-stat__value">28% → <span class="text-pug">89%</span></p>
                             </div>
                             <div class="checklist-stat">
                                 <p class="checklist-stat__label">평균 체크 항목</p>
-                                <p class="checklist-stat__value">11.0 → <span class="text-pug">34.8</span>개</p>
+                                <p class="checklist-stat__value">11.0 → <span class="text-pug">35.6</span>개</p>
                             </div>
                             <div class="checklist-stat">
                                 <p class="checklist-stat__label">전체 변화</p>
-                                <p class="checklist-stat__value text-pug">+59%p</p>
+                                <p class="checklist-stat__value text-pug">+61%p</p>
                             </div>
                         </div>
                     </div>
@@ -2285,7 +2285,7 @@
             contentSlide({
                 label: 'Effect · 역량 강화',
                 title: 'PUG 전체 역량 성장',
-                message: '동일 체크리스트 40문항 기준, <strong class="text-ink">전체 멤버 평균 달성률 Before 28% → After 87%</strong>(+59%). 7개 역량 영역별 변화입니다.',
+                message: '동일 체크리스트 40문항 기준, <strong class="text-ink">전체 멤버 평균 달성률 Before 28% → After 89%</strong>(+61%). 7개 역량 영역별 변화입니다.',
                 body: `<div class="growth-radar-layout grid lg:grid-cols-3 gap-4 items-stretch">
                     <div class="lg:col-span-2 bg-card rounded-lg growth-radar-panel">
                         <div class="flex flex-wrap items-center justify-center gap-2 mb-2 shrink-0">
@@ -2375,11 +2375,11 @@
         const GROWTH = [
             { area: '코딩 기초 이해', chart: '코딩\n기초', m3: 38, m5: 94 },
             { area: '바이브 코딩 역량', chart: '바이브\n코딩', m3: 29, m5: 82 },
-            { area: 'LLM 기본 원리 및 활용', chart: 'LLM\n활용', m3: 25, m5: 88 },
-            { area: '오케스트레이션 & 자동화', chart: '자동화', m3: 16, m5: 84 },
-            { area: 'Git & 협업 기초', chart: 'Git\n협업', m3: 8, m5: 67 },
-            { area: '배포와 운영', chart: '배포\n운영', m3: 35, m5: 95 },
-            { area: 'AI 에이전트 역량', chart: 'AI\n에이전트', m3: 28, m5: 78 }
+            { area: 'LLM 기본 원리 및 활용', chart: 'LLM\n활용', m3: 25, m5: 89 },
+            { area: '오케스트레이션 & 자동화', chart: '자동화', m3: 16, m5: 91 },
+            { area: 'Git & 협업 기초', chart: 'Git\n협업', m3: 42, m5: 100 },
+            { area: '배포와 운영', chart: '배포\n운영', m3: 15, m5: 78 },
+            { area: 'AI 에이전트 역량', chart: 'AI\n에이전트', m3: 28, m5: 91 }
         ];
         const CHECKLIST = [
             { title: '1. 코딩 기초 이해', subs: [
