@@ -318,6 +318,38 @@
         .material-share-photo figcaption { flex-shrink: 0; font-size: 9.5px; font-weight: 700; text-align: center; padding: 5px 6px 7px; color: #33271F; line-height: 1.3; background: #FBF8F3; }
         .material-share-side { flex: 1; min-height: 0; display: flex; flex-direction: column; gap: 0.5rem; }
         .material-share-side--empty { background: transparent; border: 1px dashed #E8DFD3; border-radius: 8px; }
+        .ops-support-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.65rem; align-items: stretch; width: 100%; height: min(520px, calc(100vh - 260px)); max-height: min(520px, calc(100vh - 260px)); min-height: 0; overflow: hidden; }
+        .ops-support-col { min-width: 0; min-height: 0; display: flex; flex-direction: column; gap: 0.38rem; }
+        .ops-support-col__label { flex-shrink: 0; margin: 0; font-size: 0.72rem; font-weight: 800; color: #33271F; line-height: 1.3; word-break: keep-all; text-align: center; }
+        .ops-support-media { flex: 1; min-height: 0; background: #fff; border: 1px solid #F0EAE0; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 3px rgba(51,39,31,.08); display: flex; flex-direction: column; margin: 0; }
+        .ops-support-media--video { background: #fff; }
+        .ops-support-video-wrap { flex: 1; min-height: 0; width: 100%; overflow: hidden; background: #fff; }
+        .ops-support-video { width: 100%; height: 100%; min-height: 0; object-fit: contain; object-position: top center; display: block; transform: scale(1.28); transform-origin: top center; }
+        .ops-support-photo img { width: 100%; flex: 1; min-height: 0; object-fit: contain; object-position: top center; background: #fff; padding: 6px; display: block; }
+        .ops-support-photo figcaption { flex-shrink: 0; font-size: 0.58rem; font-weight: 700; text-align: center; padding: 0.4rem 0.45rem 0.5rem; color: #33271F; line-height: 1.3; background: #FBF8F3; }
+        .ops-support-photo--dark { background: #191919; border-color: rgba(42,42,42,0.85); }
+        .ops-support-photo--dark img { object-fit: cover; object-position: top center; background: #191919; padding: 0; }
+        .ops-support-photo--dark figcaption { background: #252525; color: #FBF8F3; }
+        .ops-support-col .notion-embed-wrap { flex: 1; min-height: 0; height: auto; max-height: none; border-radius: 8px; }
+        .api-playground-layout { display: grid; grid-template-columns: minmax(0, 1.22fr) minmax(0, 0.78fr); gap: 0.75rem; align-items: stretch; width: 100%; height: min(520px, calc(100vh - 280px)); max-height: min(520px, calc(100vh - 280px)); min-height: 0; overflow: hidden; }
+        .api-playground-photo { margin: 0; min-height: 0; background: #fff; border: 1px solid #F0EAE0; border-radius: 8px; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 1px 3px rgba(51,39,31,.08); }
+        .api-playground-photo img { width: 100%; flex: 1; min-height: 0; object-fit: contain; object-position: top center; background: #fff; padding: 8px; display: block; }
+        .api-playground-photo figcaption { flex-shrink: 0; font-size: 0.68rem; font-weight: 700; text-align: center; padding: 0.45rem 0.6rem 0.55rem; color: #33271F; line-height: 1.3; background: #FBF8F3; }
+        .api-playground-panel { min-width: 0; min-height: 0; background: #FBF8F3; border: 1px solid #F0EAE0; border-radius: 10px; padding: 0.95rem 0.95rem 0.85rem; overflow-y: auto; box-shadow: 0 1px 3px rgba(51,39,31,.08); display: flex; flex-direction: column; gap: 0; }
+        .api-playground-head { flex-shrink: 0; padding-bottom: 0.7rem; margin-bottom: 0.65rem; border-bottom: 1px solid #E8DFD3; }
+        .api-playground-service { margin: 0; font-size: 1.02rem; font-weight: 800; color: #33271F; line-height: 1.35; letter-spacing: -0.01em; }
+        .api-playground-label { margin: 0.28rem 0 0; font-size: 0.66rem; font-weight: 700; color: #8A7B6E; letter-spacing: 0.06em; }
+        .api-playground-features { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 0.42rem; flex: 1; min-height: 0; }
+        .api-playground-feature { display: flex; align-items: flex-start; gap: 0.5rem; background: #fff; border: 1px solid #F0EAE0; border-radius: 8px; padding: 0.52rem 0.58rem; box-shadow: 0 1px 2px rgba(51,39,31,.04); }
+        .api-playground-feature__icon { flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center; width: 1.15rem; height: 1.15rem; margin-top: 0.05rem; background: #F5B041; color: #33271F; border-radius: 5px; line-height: 0; }
+        .api-playground-feature__icon [data-lucide] { width: 0.62rem; height: 0.62rem; }
+        .api-playground-feature__body { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 0.18rem; }
+        .api-playground-feature__title { font-size: 0.73rem; font-weight: 800; color: #33271F; line-height: 1.35; word-break: keep-all; }
+        .api-playground-feature__desc { font-size: 0.67rem; font-weight: 500; color: #8A7B6E; line-height: 1.48; word-break: keep-all; }
+        .api-playground-repo { flex-shrink: 0; margin: 0.65rem 0 0; padding: 0.62rem 0.72rem; background: #33271F; border-radius: 8px; border-top: none; }
+        .api-playground-repo__label { display: block; font-size: 0.6rem; font-weight: 700; color: #CBBBA8; letter-spacing: 0.05em; margin-bottom: 0.18rem; }
+        .api-playground-repo a { color: #F5B041; font-size: 0.67rem; font-weight: 700; text-decoration: none; word-break: break-all; line-height: 1.4; }
+        .api-playground-repo a:hover { color: #fff; text-decoration: underline; }
         .lecture-layout { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr); gap: 0.75rem; align-items: stretch; width: 100%; min-height: 0; height: min(520px, calc(100vh - 280px)); max-height: min(520px, calc(100vh - 280px)); overflow: hidden; }
         .lecture-layout__main { min-width: 0; min-height: 0; overflow-y: auto; overflow-x: hidden; padding-right: 2px; }
         .lecture-layout__side { min-width: 0; min-height: 0; display: flex; flex-direction: column; gap: 0.5rem; overflow: hidden; }
@@ -1150,11 +1182,7 @@
                     { src: 'assets/12-vibe-coding/sub-it-fields.png', caption: 'IT 개발 분야 — 프론트·백·데이터·임베디드·보안' },
                     { src: 'assets/12-vibe-coding/sub-fe-be-meme.png', caption: 'Frontend vs Backend — 겉과 속' }
                 ],
-                photoTall: true,
-                termNotes: [
-                    ['FE/BE', '화면(프론트엔드)과 처리·저장(백엔드) 역할 구분'],
-                    ['REST API', '프로그램·화면이 데이터를 주고받는 규칙']
-                ]
+                photoTall: true
             },
             { week: '3월 2주차', title: 'API · SQL · CRUD 실습', topics: ['Flask 기초', 'SQL 개념', '테이블/행/컬럼', '데이터 CRUD 실습'],
                 mainImage: { src: 'assets/13-flask-sql/rest-api-diagram.png', caption: 'REST API — Client · Server · HTTP · JSON' },
@@ -1527,11 +1555,11 @@
                 { src: 'assets/28-meeting/meeting-reflection.png', caption: 'AI 시대에 대한 고찰 (정민석님)' },
                 { src: 'assets/28-meeting/meeting-playground.png', caption: 'AI Playground 소개 (신민규님)' }
             ], overlayPhoto: { src: 'assets/28-meeting/meeting-dinner.png', caption: '간담회 식사', note: 'Power User Group의 P를 나타낸 포즈입니다 ^^' }},
-            { icon: 'message-square', title: '운영 지원 · 주차별 활동 요약', video: 'assets/29-teams-channel/teams-channel.mp4', videoRate: 1.5 },
-            { icon: 'folder-open', title: '운영 지원 · 실습자료 공유', desc: '교육 자료·실습 가이드 지속 공유', materialShare: {
-                leftPhoto: { src: 'assets/30-weekly-materials/weekly-materials-folders.png', caption: 'Power User Group (집중) · 주차별 실습자료 폴더' }
+            { icon: 'message-square', title: '운영 지원 · 게시판 · 실습자료 · 미팅노트', desc: 'Teams 채널 활동 요약, 주차별 실습자료 공유, 미팅노트 아카이빙으로 운영·회고를 지속했습니다.', opsSupportTriple: {
+                video: { src: 'assets/29-teams-channel/teams-channel.mp4', rate: 1.5, label: 'Teams 게시판 활동 요약' },
+                materials: { src: 'assets/30-weekly-materials/weekly-materials-folders.png', label: '주차별 실습자료 공유' },
+                notion: { src: 'assets/31-meeting-notes/meeting-notes-list.png', label: 'PUG Meeting Notes 아카이빙' }
             }},
-            { icon: 'archive', title: '운영 지원 · 미팅노트 아카이빙', desc: '미팅노트 축적 및 회고 문화 정착', notionEmbed: 'assets/31-meeting-notes/pug-meeting-notes.html' },
             { icon: 'graduation-cap', title: '개발 환경 · 온라인 강의 선별', desc: 'PoC 수행에 필요한 AI·개발 역량 강화를 위해 인프런 등 온라인 강의를 선별·추천했습니다.', photoBanner: true, photos: [
                 { src: 'assets/32-online-lectures/lecture-llm.png', caption: 'LLM 핵심 이론, 구조로 이해하기' },
                 { src: 'assets/32-online-lectures/lecture-github.png', caption: '우주에서 가장 쉬운 GitHub 베이스캠프' },
@@ -1557,7 +1585,19 @@
                 { src: 'assets/36-book/book-members-4.png', caption: '강응준님 & 박지훈님' }
             ]},
             { icon: 'flask-conical', title: '개발 환경 · AI Playground 안내', video: 'assets/37-ai-playground/ai-playground.mp4' },
-            { icon: 'code-2', title: '개발 환경 · API 개발 지원', desc: 'PoC 구현 과정의 API 개발 기술 지원' }
+            { icon: 'code-2', title: '개발 환경 · API 개발 지원', desc: 'PoC 구현 과정의 Outlook·Teams API 연동 등 API 개발 기술 지원', apiPlayground: {
+                serviceName: 'PUG API Playground',
+                image: { src: 'assets/38-api-playground/api-playground.png', caption: 'PUG API Playground — Power Automate · Graph API' },
+                repoUrl: 'https://github.com/drb-ai-pug/pug-api-playground',
+                features: [
+                    { title: 'Microsoft 계정 로그인' },
+                    { title: '4개 기능 탭 전환', desc: '스케줄 조회 / 채널 게시물 / 메시지 조회 / 이메일 본문 (environment 공유, Workflow ID만 분리)' },
+                    { title: 'Power Automate Workflow 호출', desc: '기능별 입력 폼 편집 후 단일 호출' },
+                    { title: '호출 모니터', desc: '요청/응답 기록, 상태/소요시간/엔드포인트/헤더 보존' },
+                    { title: 'JSON 뷰어', desc: '색상 토큰화, 라인·바이트 표시, 복사 / 접기·펼치기' },
+                    { title: '로딩 스피너 / busy overlay', desc: '호출 진행 상태 시각화' }
+                ]
+            }}
         ];
 
         const TECH_STACK_ROWS = [
@@ -1799,6 +1839,63 @@
             </div>`;
         }
 
+        function buildApiPlaygroundLayout({ serviceName, image, features, repoUrl }) {
+            const items = features.map(f => {
+                const desc = f.desc ? `<span class="api-playground-feature__desc">${f.desc}</span>` : '';
+                return `<li class="api-playground-feature">
+                    <span class="api-playground-feature__icon"><i data-lucide="check"></i></span>
+                    <span class="api-playground-feature__body">
+                        <span class="api-playground-feature__title">${f.title}</span>
+                        ${desc}
+                    </span>
+                </li>`;
+            }).join('');
+            const repoLabel = repoUrl.replace(/^https:\/\//, '');
+            return `<div class="api-playground-layout">
+                <figure class="api-playground-photo">
+                    <img src="${image.src}" alt="${image.caption || serviceName}" loading="lazy">
+                    ${image.caption ? `<figcaption>${image.caption}</figcaption>` : ''}
+                </figure>
+                <div class="api-playground-panel">
+                    <div class="api-playground-head">
+                        <p class="api-playground-service">${serviceName}</p>
+                        <p class="api-playground-label">주요 기능</p>
+                    </div>
+                    <ul class="api-playground-features">${items}</ul>
+                    <p class="api-playground-repo">
+                        <span class="api-playground-repo__label">Repository</span>
+                        <a href="${repoUrl}" target="_blank" rel="noopener noreferrer">${repoLabel}</a>
+                    </p>
+                </div>
+            </div>`;
+        }
+
+        function buildOpsSupportTripleLayout({ video, materials, notion }) {
+            const videoRateAttr = video.rate ? ` data-playback-rate="${video.rate}"` : '';
+            return `<div class="ops-support-grid">
+                <div class="ops-support-col">
+                    <div class="ops-support-media ops-support-media--video">
+                        <div class="ops-support-video-wrap">
+                            <video src="${video.src}" controls playsinline muted loop preload="auto" class="ops-support-video"${videoRateAttr}></video>
+                        </div>
+                    </div>
+                    <p class="ops-support-col__label">${video.label}</p>
+                </div>
+                <div class="ops-support-col">
+                    <figure class="ops-support-media ops-support-photo">
+                        <img src="${materials.src}" alt="${materials.label}" loading="lazy">
+                    </figure>
+                    <p class="ops-support-col__label">${materials.label}</p>
+                </div>
+                <div class="ops-support-col">
+                    <figure class="ops-support-media ops-support-photo ops-support-photo--dark">
+                        <img src="${notion.src}" alt="${notion.label}" loading="lazy">
+                    </figure>
+                    <p class="ops-support-col__label">${notion.label}</p>
+                </div>
+            </div>`;
+        }
+
         function buildMaterialShareLayout({ leftPhoto, rightPhotos = [] }) {
             const left = `<figure class="material-share-photo">
                 <img src="${leftPhoto.src}" alt="${leftPhoto.caption || ''}" loading="lazy">
@@ -1855,6 +1952,16 @@
                     body: buildDesignConsultLayout(s)
                 });
             }
+            if (s.opsSupportTriple) {
+                const intro = s.desc ? `<p class="text-sm text-ink/80 mb-3 leading-relaxed shrink-0">${s.desc}</p>` : '';
+                return contentSlide({
+                    label: 'Support · 디지털전략센터 × PUG',
+                    title: s.title,
+                    wide: true,
+                    compact: true,
+                    body: `${intro}${buildOpsSupportTripleLayout(s.opsSupportTriple)}`
+                });
+            }
             if (s.materialShare) {
                 const intro = s.desc ? `<p class="text-sm text-ink/80 mb-3 leading-relaxed shrink-0">${s.desc}</p>` : '';
                 return contentSlide({
@@ -1891,6 +1998,16 @@
                     title: s.title,
                     wide: true,
                     body: buildTechStackTeamsPost()
+                });
+            }
+            if (s.apiPlayground) {
+                const intro = s.desc ? `<p class="text-sm text-ink/80 mb-3 leading-relaxed shrink-0">${s.desc}</p>` : '';
+                return contentSlide({
+                    label: 'Support · 디지털전략센터 × PUG',
+                    title: s.title,
+                    wide: true,
+                    compact: true,
+                    body: `${intro}${buildApiPlaygroundLayout(s.apiPlayground)}`
                 });
             }
             if (s.photoBanner && s.sidePhotos) {
@@ -2119,7 +2236,7 @@
                 body: `<div class="closing-layout">
                     <div class="closing-copy">
                         <span class="closing-copy__badge">🐶 AI Power User Group</span>
-                        <p class="closing-copy__lead">다음 PoC로,<br>함께 나아갑니다</p>
+                        <p class="closing-copy__lead">PUG의 여정은,<br>아직 끝나지 않았습니다</p>
                         <p class="closing-copy__text">2025년의 고민에서 출발해, 2026년에는 현업 문제를 AI로 풀어보는 실험실로 성장했습니다. 이제 PoC와 협업으로 더 멀리 갑니다.</p>
                         <p class="closing-copy__hero">현업 문제를 <span class="text-pug">AI로 풀어보는 방식</span>의 성장을 계속 이어갑니다.</p>
                     </div>
