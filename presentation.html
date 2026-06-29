@@ -102,6 +102,19 @@
         .review-activities-photo img { width: 100%; flex: 1; min-height: 0; object-fit: cover; object-position: center; display: block; background: #F0EAE0; }
         .review-activities-photo figcaption { flex-shrink: 0; font-size: 0.68rem; font-weight: 700; text-align: center; padding: 0.32rem 0.5rem; color: #33271F; background: #FBF8F3; line-height: 1.25; }
         .review-activities-summary { flex-shrink: 0; font-size: 0.72rem; line-height: 1.45; padding: 0.5rem 0.75rem !important; margin-top: 0 !important; }
+        .review-activities-case-bar { display: flex; justify-content: center; flex-shrink: 0; margin-top: 0.15rem; }
+        .case-demo-btn { display: inline-flex; align-items: center; gap: 0.35rem; padding: 0.45rem 1.1rem; border-radius: 9999px; font-size: 0.72rem; font-weight: 700; color: #33271F; background: #F5B041; border: none; cursor: pointer; transition: background 0.2s; font-family: inherit; }
+        .case-demo-btn:hover { background: #E5A030; }
+        .case-demo-modal { position: fixed; inset: 0; z-index: 100; background: rgba(51,39,31,.58); display: flex; align-items: center; justify-content: center; padding: 1.25rem; opacity: 0; pointer-events: none; transition: opacity 0.28s ease; }
+        .case-demo-modal.is-open { opacity: 1; pointer-events: auto; }
+        .case-demo-modal__panel { width: min(1120px, 96vw); height: min(760px, 92vh); background: #fff; border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 16px 48px rgba(51,39,31,.22); border: 1px solid #F0EAE0; transform: scale(0.98); transition: transform 0.28s ease; }
+        .case-demo-modal.is-open .case-demo-modal__panel { transform: scale(1); }
+        .case-demo-modal__head { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; padding: 0.65rem 0.9rem; background: #FBF8F3; border-bottom: 1px solid #F0EAE0; flex-shrink: 0; }
+        .case-demo-modal__title { font-size: 0.82rem; font-weight: 700; color: #33271F; }
+        .case-demo-modal__close { padding: 0.35rem 0.75rem; border-radius: 9999px; border: 1px solid #E5DFD5; background: #fff; color: #33271F; font-size: 0.72rem; font-weight: 700; cursor: pointer; font-family: inherit; }
+        .case-demo-modal__close:hover { background: #F0EAE0; }
+        .case-demo-modal__media { flex: 1; min-height: 0; display: flex; align-items: center; justify-content: center; background: #f8fafc; padding: 0.75rem; overflow: auto; }
+        .case-demo-modal__img { width: 100%; height: 100%; object-fit: contain; display: block; border-radius: 6px; }
         @media (max-width: 900px) { .perspective-grid { grid-template-columns: 1fr; } }
         .pain-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.75rem; }
         .pain-card { background: #fff; border: 1px solid #F0EAE0; border-left: 4px solid #F5B041; border-radius: 8px; padding: 0.85rem 1rem; }
@@ -594,6 +607,18 @@
 
     <main id="deck" class="w-full h-screen"></main>
 
+    <div id="case-demo-modal" class="case-demo-modal" aria-hidden="true">
+        <div class="case-demo-modal__panel" role="dialog" aria-modal="true" aria-labelledby="case-demo-title">
+            <div class="case-demo-modal__head">
+                <span id="case-demo-title" class="case-demo-modal__title">실무 사례 · DRB 핵심가치 체험 게임</span>
+                <button type="button" id="case-demo-close" class="case-demo-modal__close">닫기</button>
+            </div>
+            <div class="case-demo-modal__media">
+                <img src="assets/05-2025-activities/drb-core-value-game.png" alt="DRB 핵심가치 체험 게임" class="case-demo-modal__img" loading="lazy">
+            </div>
+        </div>
+    </div>
+
     <div class="fixed bottom-5 left-1/2 -translate-x-1/2 z-50 flex items-center gap-3 bg-card rounded-full px-3 py-2">
         <button onclick="goToPart('toc')" class="p-2 rounded-full hover:bg-beige text-ink transition" aria-label="목차" title="목차 (T)">
             <i data-lucide="list" class="w-5 h-5"></i>
@@ -1069,7 +1094,7 @@
 
             contentSlide({
                 label: 'PUG 소개 · Opening',
-                title: 'AI PUG의 시작 - AI 활용을 함께 고민하다',
+                title: 'AI PUG의 시작 - AI 활용과 문화 확산',
                 message: 'AI 활용에 대한 관심은 높아졌지만, 실제 업무에 어떻게 적용할지는 각자 막막한 상황이었습니다. AI PUG는 이런 고민을 함께 풀어가기 위해 시작된 <strong class="text-ink">자발적 학습·공유 그룹</strong>이었습니다.',
                 body: `<div class="grid lg:grid-cols-5 gap-6 items-start">
                     <div class="lg:col-span-3 bg-card rounded-lg p-6"><table class="tbl nowrap-first"><tbody>
@@ -1086,27 +1111,6 @@
             }),
 
             contentSlide({
-                label: 'PUG 소개 · 역할',
-                title: 'AI를 활용하는 조직으로 가는 실험실',
-                body: `<div class="bg-pug text-ink rounded-lg p-4 mb-5 flex items-start gap-3">
-                    <i data-lucide="lightbulb" class="w-6 h-6 shrink-0"></i>
-                    <p class="text-base font-bold">AI를 '도입'하는 조직이 아니라, '활용하는 조직'으로 전환하기 위한 실험실</p>
-                </div>
-                <div class="bg-card rounded-lg p-5 mb-5 flex justify-center">
-                    <img src="assets/04-pug-roles/pug-roles.png" alt="PUG 5가지 역할" class="w-full max-w-3xl h-auto">
-                </div>
-                <div class="grid md:grid-cols-3 gap-3 mb-5">
-                    <div class="bg-card rounded-lg px-4 py-3 text-xs font-medium">실습 중심 학습 <span class="text-taupe">(바이브 코딩, LLM API)</span></div>
-                    <div class="bg-card rounded-lg px-4 py-3 text-xs font-medium">현업 중심 자동화·개발 프로젝트</div>
-                    <div class="bg-card rounded-lg px-4 py-3 text-xs font-medium">지식 교류 & 협업 네트워크 구축</div>
-                </div>
-                <div class="bg-ink text-card rounded-lg p-4 text-base font-bold">
-                    PUG는 DRB의 <span class="text-pug">AI 실험 샌드박스</span>이자, <span class="text-pug">조직문화 변화의 시범 그룹</span>
-                </div>`,
-                scroll: true
-            }),
-
-            contentSlide({
                 label: '2025 Review · 활동',
                 title: '2025년 주요 활동',
                 message: '최신 도구를 직접 실습하고 활용 경험을 공유하는 방식으로 운영되었습니다.',
@@ -1117,10 +1121,10 @@
                     <thead><tr><th>월</th><th>주요 활동</th><th>키워드</th></tr></thead>
                     <tbody>
                         <tr><td>7월</td><td>PUG 출범, 운영 방안 기획 및 검토</td><td>출범</td></tr>
-                        <tr><td>8월</td><td>1차 정기 미팅: AI 활용 현황 공유</td><td>협업, 보안, RPA</td></tr>
+                        <tr><td>8월</td><td>AI 활용 현황 공유</td><td>협업, 보안, RPA</td></tr>
                         <tr><td>9월</td><td>VSCode + Copilot 실습</td><td>바이브 코딩</td></tr>
                         <tr><td>9월</td><td>Gemini API 실습</td><td>LLM API</td></tr>
-                        <tr><td>10월</td><td>실무 사례 발표 및 회고</td><td>실습 회고, 운영 전환</td></tr>
+                        <tr><td>10월</td><td>실무 사례 발표</td><td>실무 사례</td></tr>
                     </tbody>
                 </table></div>
                 <div class="review-activities-photos">
@@ -1133,7 +1137,11 @@
                         <figcaption>2차 (Gemini API 실습)</figcaption>
                     </figure>
                 </div>
-                <div class="bg-beige rounded-lg review-activities-summary">주요 성과: AI 도구 활용 경험 공유, 바이브 코딩·LLM API 실습, RPA·AI 시스템 아이디어 발굴, 협업 네트워크 형성, <strong class="text-ink">AI NOW</strong> 전사 공유</div>
+                <div class="bg-beige rounded-lg review-activities-summary">주요 성과: AI 도구 활용 경험 공유, 바이브 코딩·LLM API 실습, RPA·AI 시스템 아이디어 발굴, 협업 네트워크 형성
+                </div>
+                <div class="review-activities-case-bar">
+                    <button type="button" id="case-demo-btn" class="case-demo-btn">실무 사례 클릭하기</button>
+                </div>
                 </div>`
             }),
 
@@ -1161,7 +1169,7 @@
             contentSlide({
                 label: '2026 Direction · 전환',
                 title: '2026년 전환 - 인터뷰에서 PoC까지',
-                message: '2025년 회고 이후, PUG의 질문을 바꿨습니다. <strong class="text-ink">AI를 어떻게 쓰는가</strong>가 아니라, <strong class="text-ink">AI로 어떤 업무 문제를 풀 수 있는가</strong>에 답하는 방향으로 전환했습니다.',
+                message: '2025년 회고를 바탕으로 <strong class="text-ink">업무 문제 해결(PoC)</strong> 중심으로 전환하며, 운영 · 멤버 · 보안을 아래와 같이 개선했습니다.',
                 slideClass: 'slide-perspective',
                 body: `<div class="perspective-grid">
                     ${buildPerspectivePanel('운영진', [
@@ -2872,6 +2880,35 @@
             }
         }
 
+        function closeCaseDemoModal() {
+            const modal = document.getElementById('case-demo-modal');
+            if (!modal) return;
+            modal.classList.remove('is-open');
+            modal.setAttribute('aria-hidden', 'true');
+        }
+
+        function initCaseDemoModal() {
+            const btn = document.getElementById('case-demo-btn');
+            const modal = document.getElementById('case-demo-modal');
+            const close = document.getElementById('case-demo-close');
+            if (!btn || !modal || btn.dataset.bound) return;
+            btn.dataset.bound = '1';
+            btn.addEventListener('click', () => {
+                modal.classList.add('is-open');
+                modal.setAttribute('aria-hidden', 'false');
+            });
+            close?.addEventListener('click', closeCaseDemoModal);
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) closeCaseDemoModal();
+            });
+        }
+
+        function resetCaseDemoModal() {
+            closeCaseDemoModal();
+            const btn = document.getElementById('case-demo-btn');
+            if (btn) delete btn.dataset.bound;
+        }
+
         function initGrowthInteractive() {
             if (growthInteractiveReady) return;
             growthInteractiveReady = true;
@@ -3219,6 +3256,7 @@
             if (!slides[current]?.querySelector('#tech-stack-panel')) stopStackAutoLoop();
             if (!slides[current]?.querySelector('#pain-review-grid')) resetPainReveal();
             if (!slides[current]?.querySelector('#meeting-reveal')) resetMeetingReveal();
+            if (!slides[current]?.querySelector('#case-demo-btn')) resetCaseDemoModal();
             if (!slides[current]?.querySelector('#member-radar-grid')) destroyMemberRadars();
             if (!slides[current]?.querySelector('#checklist-panel')) stopChecklistAutoLoop();
             document.getElementById('cur').innerText = current + 1;
@@ -3239,6 +3277,8 @@
                 initPainReveal();
             } else if (slides[current]?.querySelector('#meeting-reveal')) {
                 initMeetingReveal();
+            } else if (slides[current]?.querySelector('#case-demo-btn')) {
+                initCaseDemoModal();
             } else if (slides[current]?.querySelector('#member-radar-grid')) {
                 renderMemberRadars();
                 startMemberRadarAutoLoop();
@@ -3282,6 +3322,10 @@
         window.goToPart = goToPart;
         window.changeSlide = changeSlide;
         if (!IS_EMBED) document.addEventListener('keydown', e => {
+            if (document.getElementById('case-demo-modal')?.classList.contains('is-open')) {
+                if (e.key === 'Escape') { e.preventDefault(); closeCaseDemoModal(); }
+                return;
+            }
             if (['ArrowRight','PageDown',' '].includes(e.key)) { e.preventDefault(); changeSlide(1); }
             else if (['ArrowLeft','PageUp'].includes(e.key)) { e.preventDefault(); changeSlide(-1); }
             else if (e.key === 'Home') { current = 0; render(); }
