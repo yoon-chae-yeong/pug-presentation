@@ -22,6 +22,13 @@
         };
     </script>
     <style>
+        /* ── 슬라이드 패널 높이 (값만 수정) ── */
+        :root {
+            --slide-43-panel-height: min(560px, 64vh); /* 43 · 실습 Q&A */
+            --slide-47-row-1-height: min(320px, 38vh); /* 47 · 1행 (카드 1~4) */
+            --slide-47-row-2-height: min(220px, 26vh); /* 47 · 2행 (카드 5~7) · 1행보다 낮게 */
+            --slide-47-panel-height: calc(var(--slide-47-row-1-height) + var(--slide-47-row-2-height) + 1.6rem); /* gap + 패딩 포함, 직접 수정 불필요 */
+        }
         body { font-family: 'Inter', 'Noto Sans KR', sans-serif; }
         .slide { display: none; animation: fade 0.35s ease; }
         .slide.active { display: flex; }
@@ -202,17 +209,15 @@
         .interview-goal-check { flex-shrink: 0; margin-top: 0.1rem; padding: 0.3rem; background: #F5B041; color: #33271F; border-radius: 4px; display: inline-flex; }
         .interview-goal-check [data-lucide="check"] { width: 0.75rem; height: 0.75rem; }
         .interview-highlight { padding: 0.6rem 0.85rem; font-size: 0.8125rem; line-height: 1.45; flex-shrink: 0; }
-        .practice-exchange-layout { display: flex; flex-direction: column; gap: 0.45rem; flex: 1; min-height: 0; }
-        .practice-exchange-lead { flex-shrink: 0; font-size: 0.72rem; font-weight: 800; color: #33271F; padding: 0.08rem 0.05rem 0; }
-        .practice-exchange-topics { flex-shrink: 0; display: flex; flex-wrap: wrap; gap: 0.28rem; padding: 0.02rem 0.05rem; }
-        .practice-exchange-topic { font-size: 0.58rem; font-weight: 700; color: #33271F; background: #F0EAE0; border-radius: 9999px; padding: 0.2rem 0.48rem; line-height: 1.2; }
-        .practice-exchange-columns { flex: 1; min-height: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.45rem; }
+        .practice-exchange-layout { display: flex; flex-direction: column; gap: 0.45rem; flex: 0 0 auto; width: 100%; height: var(--slide-43-panel-height); min-height: 0; }
+        .practice-exchange-columns { flex: 1; min-height: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.45rem; width: 100%; align-items: stretch; }
         .practice-exchange-col { min-height: 0; display: flex; flex-direction: column; background: #F0EAE0; border: 1px solid #E5DFD5; border-radius: 10px; padding: 0.42rem; overflow: hidden; }
         .practice-exchange-col__head { flex-shrink: 0; margin-bottom: 0.35rem; padding-bottom: 0.3rem; border-bottom: 1px solid rgba(51,39,31,.08); }
         .practice-exchange-col__title { display: flex; align-items: center; gap: 0.3rem; font-size: 0.72rem; font-weight: 800; color: #33271F; margin: 0; }
-        .practice-exchange-col__list { flex: 0 1 auto; min-height: 0; max-height: 58%; display: flex; flex-direction: column; gap: 0.28rem; overflow-y: auto; padding-right: 1px; scrollbar-width: thin; scrollbar-color: #CBBBA8 transparent; }
-        .practice-exchange-col__figure { flex: 1; min-height: 0; margin: 0.28rem 0 0; display: flex; align-items: flex-end; justify-content: center; border-radius: 8px; overflow: hidden; background: #FBF8F3; line-height: 0; }
-        .practice-exchange-col__figure img { width: 100%; max-height: 100%; display: block; object-fit: contain; object-position: bottom center; }
+        .practice-exchange-col__list { flex: 0 0 auto; min-height: 0; display: flex; flex-direction: column; gap: 0.28rem; overflow-y: auto; padding-right: 1px; scrollbar-width: thin; scrollbar-color: #CBBBA8 transparent; }
+        .practice-exchange-col--discussion .practice-exchange-col__list { overflow-y: hidden; }
+        .practice-exchange-col__figure { flex: 1 1 0; min-height: min(180px, 28vh); margin: 0.28rem 0 0; display: flex; align-items: center; justify-content: center; border-radius: 8px; overflow: hidden; background: #FBF8F3; line-height: 0; }
+        .practice-exchange-col__figure img { width: 100%; height: 100%; display: block; object-fit: contain; object-position: center center; }
         .practice-exchange-item { background: #fff; border: 1px solid #F0EAE0; border-radius: 8px; padding: 0.38rem 0.45rem 0.36rem; min-width: 0; }
         .practice-exchange-col--question .practice-exchange-item { border-left: 3px solid #33271F; }
         .practice-exchange-col--discussion .practice-exchange-item { border-left: 3px solid #F5B041; }
@@ -224,9 +229,9 @@
         .practice-exchange-item__points { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 0.1rem; }
         .practice-exchange-item__points li { display: flex; align-items: flex-start; gap: 0.24rem; font-size: 0.56rem; line-height: 1.4; color: #33271F; }
         .practice-exchange-item__points li::before { content: '·'; flex-shrink: 0; font-weight: 800; color: #F5B041; }
-        .slide-practice-qa > div { display: flex; flex-direction: column; min-height: 0; flex: 1; max-height: calc(100vh - 7.5rem); }
-        .slide-practice-qa > div > .min-h-0.flex-1 { display: flex; flex-direction: column; min-height: 0; flex: 1; }
-        .slide-practice-qa > div > p.leading-relaxed { margin-bottom: 0.45rem !important; }
+        .slide-practice-qa { justify-content: center !important; padding-bottom: 5rem !important; }
+        .slide-practice-qa > div { display: flex; flex-direction: column; min-height: 0; flex: 0 1 auto; max-height: none; }
+        .slide-practice-qa > div > p.leading-relaxed { margin-bottom: 0.75rem !important; }
         .interview-fields-figure { flex: 0 0 auto; height: min(360px, 44vh); max-height: min(360px, 44vh); min-height: 0; margin: 0; display: flex; flex-direction: column; background: #fff; border: 1px solid #F0EAE0; border-radius: 8px; padding: 0.4rem 0.65rem 0.5rem; overflow: hidden; }
         .interview-fields-caption { flex-shrink: 0; font-size: 0.68rem; font-weight: 700; color: #8A7B6E; text-align: center; margin: 0 0 0.25rem; }
         .interview-fields-img { flex: 1; min-height: 0; width: 100%; object-fit: contain; display: block; }
@@ -378,17 +383,18 @@
         .member-radar-delta span { color: #33271F; font-weight: 800; }
         .member-radar-canvas-wrap { flex: 1; min-height: 0; width: 100%; position: relative; }
         .member-radar-canvas-wrap canvas { position: absolute; top: 0; left: 50%; transform: translateX(-50%); height: 100% !important; width: auto !important; max-width: 100% !important; aspect-ratio: 1; }
-        .checklist-slide-body { width: 100%; flex: 1; min-height: 0; display: flex; flex-direction: column; max-height: calc(100vh - 195px); }
-        .slide-checklist-full { justify-content: flex-start !important; padding: 1.25rem 0 5rem !important; }
-        .slide-checklist-full > div { display: flex; flex-direction: column; justify-content: flex-start; flex: 1; min-height: 0; }
-        .slide-checklist-full > div > p.leading-relaxed { margin-bottom: 0.55rem !important; font-size: 0.8125rem !important; }
-        .checklist-overview-panel { flex: 1; min-height: 0; display: flex; flex-direction: column; background: #F0EAE0; border: 1px solid #E5DFD5; border-radius: 10px; padding: 0.5rem; box-shadow: 0 2px 14px rgba(51,39,31,.07); }
-        .checklist-overview-grid { flex: 1; min-height: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-template-rows: auto auto; gap: 0.5rem; align-items: stretch; }
-        .checklist-overview-card { background: #fff; border: 1px solid #F0EAE0; border-left: 3px solid #F5B041; border-radius: 8px; padding: 0.48rem 0.52rem 0.42rem; min-width: 0; min-height: 0; height: 100%; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 1px 4px rgba(51,39,31,.05); }
+        .checklist-slide-body { width: 100%; flex: 0 0 auto; display: flex; flex-direction: column; }
+        .slide-checklist-full { justify-content: center !important; padding-bottom: 5rem !important; }
+        .slide-checklist-full > div { display: flex; flex-direction: column; justify-content: flex-start; flex: 0 1 auto; min-height: 0; }
+        .slide-checklist-full > div > p.leading-relaxed { margin-bottom: 0.75rem !important; font-size: 0.8125rem !important; }
+        .slide-checklist-full > div > h2 { margin-bottom: 0.5rem !important; }
+        .checklist-overview-panel { flex: 0 0 auto; height: var(--slide-47-panel-height); min-height: 0; display: flex; flex-direction: column; background: #F0EAE0; border: 1px solid #E5DFD5; border-radius: 10px; padding: 0.55rem; box-shadow: 0 2px 14px rgba(51,39,31,.07); }
+        .checklist-overview-grid { flex: 0 0 auto; min-height: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-template-rows: var(--slide-47-row-1-height) var(--slide-47-row-2-height); gap: 0.5rem; align-items: stretch; height: calc(var(--slide-47-row-1-height) + var(--slide-47-row-2-height) + 0.5rem); }
+        .checklist-overview-card { background: #fff; border: 1px solid #F0EAE0; border-left: 3px solid #F5B041; border-radius: 8px; padding: 0.55rem 0.52rem 0.48rem; min-width: 0; min-height: 0; height: 100%; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 1px 4px rgba(51,39,31,.05); }
         .checklist-overview-card__head { display: flex; align-items: center; gap: 0.35rem; margin-bottom: 0.32rem; padding-bottom: 0.28rem; border-bottom: 1px solid #F0EAE0; flex-shrink: 0; }
         .checklist-overview-card__num { display: inline-flex; align-items: center; justify-content: center; min-width: 1.15rem; height: 1.15rem; padding: 0 0.2rem; border-radius: 4px; background: #33271F; color: #fff; font-size: 0.56rem; font-weight: 800; flex-shrink: 0; line-height: 1; }
         .checklist-overview-card__title { font-size: 0.64rem; font-weight: 800; color: #33271F; line-height: 1.25; margin: 0; letter-spacing: -0.01em; }
-        .checklist-overview-card__body { flex: 1; min-height: 0; display: flex; flex-direction: column; gap: 0.22rem; overflow: hidden; }
+        .checklist-overview-card__body { flex: 0 1 auto; min-height: 0; display: flex; flex-direction: column; gap: 0.22rem; overflow-y: auto; }
         .checklist-overview-card__block { flex-shrink: 0; }
         .checklist-overview-card__block:last-child { margin-bottom: 0; }
         .checklist-overview-card__sub { font-size: 0.54rem; font-weight: 700; color: #8A7B6E; margin: 0 0 0.1rem; line-height: 1.2; }
@@ -634,8 +640,6 @@
             });
         }
 
-        const PRACTICE_TOPIC_AREAS = ['API·문서', '백엔드', '기초 개념', 'SQL', 'DB 선택·운영', '데이터 설계'];
-
         const PRACTICE_QUESTIONS = [
             { tag: 'API·문서', q: 'FastAPI로 API 문서를 만드는 이유는?', take: '코드 기반 자동 문서화·Swagger로 요청/응답 공유' },
             { tag: '백엔드', q: 'POST 호출 시 req 변수를 쓰는 이유는?', take: '요청 본문을 담는 request의 관습적 변수명' },
@@ -685,12 +689,7 @@
         }
 
         function buildPracticeExchangeBody() {
-            const topics = PRACTICE_TOPIC_AREAS.map(t =>
-                `<span class="practice-exchange-topic">${t}</span>`
-            ).join('');
             return `<div class="practice-exchange-layout" id="practice-exchange-panel">
-                <p class="practice-exchange-lead">PUG 실습에서 오간 질문과 토론</p>
-                <div class="practice-exchange-topics">${topics}</div>
                 <div class="practice-exchange-columns">
                     <section class="practice-exchange-col practice-exchange-col--question">
                         <header class="practice-exchange-col__head">
@@ -712,6 +711,19 @@
                     </section>
                 </div>
             </div>`;
+        }
+
+        function syncPracticeExchangeHeights() {
+            const panel = document.getElementById('practice-exchange-panel');
+            if (!panel) return;
+            const qList = panel.querySelector('.practice-exchange-col--question .practice-exchange-col__list');
+            const dList = panel.querySelector('.practice-exchange-col--discussion .practice-exchange-col__list');
+            if (!qList || !dList) return;
+            qList.style.height = '';
+            dList.style.height = '';
+            const listH = dList.scrollHeight;
+            dList.style.height = `${listH}px`;
+            qList.style.height = `${listH}px`;
         }
 
         function buildInterviewSlide() {
@@ -1913,8 +1925,8 @@
             }).join('');
             return contentSlide({
                 label: 'Effect · 역량 강화',
-                title: '멤버별 역량 성장 차트',
-                message: '동일 40문항 · 7개 역량 영역 기준 - <strong class="text-ink">Before(회색) → After(주황)</strong> 자동 재생',
+                title: '멤버별 역량 성장',
+                message: '같은 40문항 기준으로 멤버별 <strong class="text-ink">Before(회색) → After(주황)</strong> 변화를 확인했습니다.',
                 compact: true,
                 wide: true,
                 alignTop: true,
@@ -1954,7 +1966,6 @@
                 message: 'API부터 DB 설계까지 다양한 주제에서 질문과 토론이 오가며, 혼자 배우던 방식에서 함께 성장하는 구조로 바뀌었습니다.',
                 wide: true,
                 compact: true,
-                alignTop: true,
                 slideClass: 'slide-practice-qa',
                 body: buildPracticeExchangeBody()
             }),
@@ -1972,11 +1983,24 @@
                 highlight: '🤝 <strong class="text-ink">협업 제안</strong> 사례를 여기에 추가하세요.'
             }),
 
-            // Radar chart slide
+            contentSlide({
+                label: 'Effect · 역량 측정',
+                title: 'Before/After 체크리스트 40문항',
+                message: 'PUG 시작 전·후, <strong class="text-ink">동일 40문항 자기점검</strong>으로 7개 역량 영역의 Before / After를 비교했습니다.',
+                compact: true,
+                wide: true,
+                slideClass: 'slide-checklist-full',
+                body: `<div class="checklist-slide-body">
+                    <div class="checklist-overview-panel" id="checklist-panel">
+                        <div class="checklist-overview-grid" id="checklist-overview"></div>
+                    </div>
+                </div>`
+            }),
+
             contentSlide({
                 label: 'Effect · 역량 강화',
                 title: 'PUG 전체 역량 성장',
-                message: '동일 체크리스트 40문항 기준, <strong class="text-ink">전체 멤버 평균 달성률 Before 28% → After 89%</strong>(+61%). 7개 역량 영역별 변화입니다.',
+                message: '체크리스트 기준 <strong class="text-ink">전체 멤버 평균 달성률 Before 28% → After 89%</strong>(+61%). 7개 역량 영역별 변화입니다.',
                 body: `<div class="growth-radar-layout grid lg:grid-cols-3 gap-4 items-stretch">
                     <div class="lg:col-span-2 bg-card rounded-lg growth-radar-panel">
                         <div class="flex flex-wrap items-center justify-center gap-2 mb-2 shrink-0">
@@ -2000,21 +2024,6 @@
             }),
 
             buildMemberRadarSlide(),
-
-            contentSlide({
-                label: 'Effect · 체크리스트',
-                title: '역량 체크리스트 40문항',
-                message: '7개 역량 영역 · <strong class="text-ink">40문항 전체</strong>',
-                compact: true,
-                wide: true,
-                alignTop: true,
-                slideClass: 'slide-checklist-full',
-                body: `<div class="checklist-slide-body">
-                    <div class="checklist-overview-panel" id="checklist-panel">
-                        <div class="checklist-overview-grid" id="checklist-overview"></div>
-                    </div>
-                </div>`
-            }),
 
             contentSlide({
                 label: 'Effect · Closing',
@@ -2997,6 +3006,9 @@
                 startMemberRadarAutoLoop();
             } else if (slides[current]?.querySelector(CONVENTION_GUIDE_SELECTOR)) {
                 initConventionGuideTab();
+            } else if (slides[current]?.querySelector('#practice-exchange-panel')) {
+                syncPracticeExchangeHeights();
+                requestAnimationFrame(syncPracticeExchangeHeights);
             } else if (slides[current]?.querySelector(EMBED_SCROLL_MANUAL_SELECTOR)) {
                 initEmbedScrollManual();
             } else if (slides[current]?.querySelector(EMBED_SCROLL_SELECTOR)) {
@@ -3037,6 +3049,9 @@
             else if (e.key === 'Home') { current = 0; render(); }
             else if (e.key === 'End') { current = slides.length - 1; render(); }
             else if (e.key === 't' || e.key === 'T') { goToPart('toc'); }
+        });
+        window.addEventListener('resize', () => {
+            if (slides[current]?.querySelector('#practice-exchange-panel')) syncPracticeExchangeHeights();
         });
         initTocNavigation();
         render();
