@@ -374,7 +374,7 @@
         .lecture-layout__main:has(.lecture-main-photo) .photo-banner-grid--in-layout { flex: 1; min-height: 0; display: flex; flex-direction: column; }
         .photo-banner-grid--in-layout { max-width: none; gap: 0.4rem; }
         .photo-banner-grid--in-layout .slide-photo-banner { width: 100%; max-width: 100%; height: auto; }
-        .photo-grid--dense .slide-photo { height: 168px; }
+        .photo-grid--dense .slide-photo { height: 186px; }
         .photo-grid--dense figcaption { padding-top: 0.4rem; padding-bottom: 0.55rem; }
         .photo-grid--quad { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: repeat(2, minmax(0, 1fr)); gap: 0.5rem; height: min(580px, calc(100vh - 240px)); max-height: min(580px, calc(100vh - 240px)); width: 100%; }
         .photo-grid--quad figure { min-height: 0; display: flex; flex-direction: column; overflow: hidden; margin: 0; }
@@ -560,6 +560,13 @@
         .toc-item__sub { font-size: 0.78rem; color: #8A7B6E; line-height: 1.45; margin: 0; }
         .toc-item__go { display: inline-flex; align-items: center; gap: 0.25rem; margin-top: 0.15rem; font-size: 0.72rem; font-weight: 700; color: #F5B041; }
         .toc-item__go [data-lucide] { width: 0.85rem; height: 0.85rem; }
+        body.embed-mode .fixed.bottom-5,
+        body.embed-mode .fixed.top-5.left-6,
+        body.embed-mode .fixed.top-0.left-0.right-0.h-1 { display: none !important; }
+        body.embed-mode #deck .slide.active { padding-bottom: 0 !important; }
+        html.embed-root, body.embed-mode { height: 100%; overflow: hidden; }
+        body.embed-mode #deck { height: 100%; }
+        body.embed-mode .slide { height: 100% !important; min-height: 0; }
     </style>
 </head>
 <body class="bg-paper text-ink antialiased overflow-hidden">
@@ -590,7 +597,14 @@
         <span class="hidden md:inline">AI PUG 성장 히스토리</span>
     </div>
 
+    <script src="presenter-sync.js"></script>
     <script>
+        const IS_EMBED = new URLSearchParams(location.search).get('embed') === '1';
+        if (IS_EMBED) {
+            document.documentElement.classList.add('embed-root');
+            document.body.classList.add('embed-mode');
+        }
+
         const deck = document.getElementById('deck');
 
         // ── Slide builders ──
@@ -2859,7 +2873,13 @@
         // ── Navigation ──
         const slides = Array.from(document.querySelectorAll('.slide'));
         let current = 0;
+        let syncFromExternal = false;
         document.getElementById('total').innerText = slides.length;
+
+        function publishSlideSync() {
+            if (syncFromExternal || IS_EMBED || typeof PugDeckSync === 'undefined') return;
+            PugDeckSync.publish(current);
+        }
 
         function manageSlideVideos() {
             slides.forEach((s, i) => {
@@ -3166,6 +3186,7 @@
             if (!slides[current]?.querySelector('#checklist-panel')) stopChecklistAutoLoop();
             document.getElementById('cur').innerText = current + 1;
             document.getElementById('progress-bar').style.width = ((current + 1) / slides.length * 100) + '%';
+            publishSlideSync();
             lucide.createIcons();
             if (slides[current]?.querySelector('#growthRadar')) {
                 renderGrowthRadar();
@@ -3223,7 +3244,7 @@
         }
         window.goToPart = goToPart;
         window.changeSlide = changeSlide;
-        document.addEventListener('keydown', e => {
+        if (!IS_EMBED) document.addEventListener('keydown', e => {
             if (['ArrowRight','PageDown',' '].includes(e.key)) { e.preventDefault(); changeSlide(1); }
             else if (['ArrowLeft','PageUp'].includes(e.key)) { e.preventDefault(); changeSlide(-1); }
             else if (e.key === 'Home') { current = 0; render(); }
@@ -3234,6 +3255,22 @@
             if (slides[current]?.querySelector('#practice-exchange-panel')) syncPracticeExchangeHeights();
         });
         initTocNavigation();
+
+        if (typeof PugDeckSync !== 'undefined') {
+            PugDeckSync.subscribe((slide) => {
+                if (slide === current) return;
+                syncFromExternal = true;
+                goToSlideIndex(slide);
+                syncFromExternal = false;
+            });
+            const saved = PugDeckSync.read();
+            if (saved && Number.isInteger(saved.slide) && saved.slide >= 0 && saved.slide < slides.length) {
+                syncFromExternal = true;
+                goToSlideIndex(saved.slide);
+                syncFromExternal = false;
+            }
+        }
+
         render();
     </script>
 </body>
