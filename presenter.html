@@ -39,7 +39,7 @@
         .btn:disabled { opacity: 0.35; cursor: not-allowed; }
         .main {
             flex: 1; min-height: 0; display: grid;
-            grid-template-rows: minmax(260px, 48vh) auto 1fr;
+            grid-template-rows: minmax(195px, 36vh) auto 1fr;
             overflow: hidden;
         }
         .slide-preview {
@@ -135,6 +135,7 @@
         const PREVIEW_W = 1024;
         const PREVIEW_H = 768;
         const PREVIEW_RATIO = PREVIEW_W / PREVIEW_H;
+        const PREVIEW_SCALE = 0.75;
         let current = 0;
         let timerStartedAt = null;
         let timerId = null;
@@ -205,8 +206,8 @@
             const iframe = els.slidePreview;
             if (!wrap || !frame || !iframe) return;
 
-            const maxW = wrap.clientWidth;
-            const maxH = wrap.clientHeight;
+            const maxW = wrap.clientWidth * PREVIEW_SCALE;
+            const maxH = wrap.clientHeight * PREVIEW_SCALE;
             let frameW = maxW;
             let frameH = frameW / PREVIEW_RATIO;
             if (frameH > maxH) {
