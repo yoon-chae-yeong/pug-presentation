@@ -128,7 +128,7 @@
         state = {
             pos: 0,
             resetPending: false,
-            speed: speed || 220,
+            speed: speed || 170,
             turnPause: turn,
             stepPx: step,
             stepPause: midPause,
