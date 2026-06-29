@@ -177,6 +177,11 @@
         .week-terms-strip__title { font-size: 0.5rem; font-weight: 800; color: #33271F; margin-bottom: 0.18rem; padding-bottom: 0.12rem; border-bottom: 2px solid #F5B041; line-height: 1.25; }
         .week-terms-strip__col ul { margin: 0; padding: 0; list-style: none; }
         .week-terms-strip__col li { font-size: 0.46rem; line-height: 1.32; color: #4A3C33; padding: 0.04rem 0; }
+        .slide-term-notes { flex-shrink: 0; margin-top: 0.45rem; padding: 0.45rem 0.55rem; background: #FBF8F3; border: 1px solid #F0EAE0; border-radius: 8px; }
+        .slide-term-notes__item { margin: 0; font-size: 0.58rem; line-height: 1.45; color: #4A3C33; }
+        .slide-term-notes__item + .slide-term-notes__item { margin-top: 0.14rem; }
+        .slide-term-notes__term { font-weight: 800; color: #33271F; }
+        .slide-term-notes__term::before { content: '* '; color: #8A7B6E; font-weight: 800; }
         .week-photo-main img { width: 100%; flex: 1; min-height: 0; object-fit: contain; display: block; background: #fff; padding: 6px; }
         .week-photo-main figcaption { flex-shrink: 0; font-size: 9.5px; font-weight: 700; text-align: center; padding: 4px 6px 6px; color: #33271F; background: #FBF8F3; line-height: 1.3; }
         .week-photo-subs { display: flex; flex-direction: column; gap: 0.5rem; min-height: 0; }
@@ -319,6 +324,17 @@
         .lecture-side-photo { flex: 1; min-height: 0; min-width: 0; background: #fff; border-radius: 8px; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 1px 3px rgba(51,39,31,.08); border: 1px solid #F0EAE0; }
         .lecture-side-photo img { width: 100%; flex: 1; min-height: 0; object-fit: contain; background: #fff; padding: 8px; display: block; }
         .lecture-side-photo figcaption { flex-shrink: 0; font-size: 9.5px; font-weight: 700; text-align: center; padding: 5px 6px 7px; color: #33271F; line-height: 1.3; background: #FBF8F3; }
+        .lecture-side-html { flex: 1; min-height: 0; display: flex; align-items: center; justify-content: center; padding: 10px 12px; background: #fff; overflow: auto; }
+        .llm-predict-panel { width: 100%; max-width: 15rem; text-align: center; color: #33271F; font-size: 0.72rem; line-height: 1.45; }
+        .llm-predict-prompt { font-size: 0.82rem; font-weight: 800; margin: 0 0 0.35rem; letter-spacing: -0.01em; }
+        .llm-predict-q { margin: 0 0 0.55rem; color: #8A7B6E; font-size: 0.66rem; font-weight: 600; }
+        .llm-predict-vector { display: flex; align-items: center; justify-content: center; gap: 0.35rem; }
+        .llm-predict-br { font-size: 1.35rem; font-weight: 300; line-height: 1; color: #33271F; }
+        .llm-predict-list { list-style: none; margin: 0; padding: 0; text-align: left; font-family: ui-monospace, 'Cascadia Code', Consolas, monospace; font-size: 0.68rem; }
+        .llm-predict-list li { display: flex; justify-content: space-between; gap: 0.75rem; padding: 0.12rem 0; white-space: nowrap; }
+        .llm-predict-list li.is-top { font-weight: 800; color: #33271F; }
+        .llm-predict-list li.is-top .llm-predict-prob { color: #C8860A; }
+        .llm-predict-prob { font-variant-numeric: tabular-nums; color: #8A7B6E; }
         .lecture-main-photo { display: flex; flex-direction: column; flex: 1; min-height: 0; background: #fff; border: 1px solid #F0EAE0; box-shadow: 0 1px 3px rgba(51,39,31,.08); border-radius: 8px; overflow: hidden; }
         .lecture-main-photo img { width: 100%; flex: 1; min-height: 0; object-fit: contain; background: #fff; padding: 10px; display: block; }
         .lecture-main-caption { flex-shrink: 0; font-size: 1.05rem; font-weight: 800; text-align: center; padding: 0.65rem 0.75rem 0.75rem; color: #33271F; line-height: 1.35; background: #FBF8F3; border-top: 1px solid #F0EAE0; }
@@ -832,7 +848,14 @@
             </div>`;
         }
 
-        function weekSlide({ week, title, topics, message, goals, goalsMaterials, mainImage, mainImages, mainExtra, subImages, photoLayout, photoFit, photoTall, photoGrid, goalsLeft, goalsLayout, embedGuide, embedGuideImage, embedGuideVariant, embedGuideTitle, embedGuideScroll = true }) {
+        function buildTermNotes(items) {
+            if (!items?.length) return '';
+            return `<div class="slide-term-notes">${items.map(([term, desc]) =>
+                `<p class="slide-term-notes__item"><span class="slide-term-notes__term">${term}</span> ${desc}</p>`
+            ).join('')}</div>`;
+        }
+
+        function weekSlide({ week, title, topics, message, goals, goalsMaterials, mainImage, mainImages, mainExtra, subImages, photoLayout, photoFit, photoTall, photoGrid, goalsLeft, goalsLayout, embedGuide, embedGuideImage, embedGuideVariant, embedGuideTitle, embedGuideScroll = true, termNotes }) {
             const renderPhotoSub = (p, altFallback = '') => {
                 const stacked = !!p.headerSrc;
                 const figureCls = ['week-photo-sub', stacked && 'week-photo-sub--stacked', p.compact && 'week-photo-sub--compact', p.tableRef && 'week-photo-sub--table-ref', p.flat && 'week-photo-sub--flat'].filter(Boolean).join(' ');
@@ -950,11 +973,13 @@
                 : '';
             const isPocWorkshop = goalsLayout === 'poc-workshop';
             const isDesignConsult = photoLayout === 'design-consult';
-            const body = isPocWorkshop
+            const termNotesBlock = buildTermNotes(termNotes);
+            const bodyCore = isPocWorkshop
                 ? `<div class="slide-body-poc-workshop">${photos}</div>`
                 : isDesignConsult
                     ? photos
                 : `<div class="bg-card rounded-lg p-4 mb-3"><div class="flex flex-wrap gap-1">${chips}</div></div>${goalsBlock}${photos}`;
+            const body = `${bodyCore}${termNotesBlock}`;
             return contentSlide({
                 label: `Education · ${week}`,
                 title,
@@ -1125,14 +1150,21 @@
                     { src: 'assets/12-vibe-coding/sub-it-fields.png', caption: 'IT 개발 분야 — 프론트·백·데이터·임베디드·보안' },
                     { src: 'assets/12-vibe-coding/sub-fe-be-meme.png', caption: 'Frontend vs Backend — 겉과 속' }
                 ],
-                photoTall: true
+                photoTall: true,
+                termNotes: [
+                    ['FE/BE', '화면(프론트엔드)과 처리·저장(백엔드) 역할 구분'],
+                    ['REST API', '프로그램·화면이 데이터를 주고받는 규칙']
+                ]
             },
             { week: '3월 2주차', title: 'API · SQL · CRUD 실습', topics: ['Flask 기초', 'SQL 개념', '테이블/행/컬럼', '데이터 CRUD 실습'],
                 mainImage: { src: 'assets/13-flask-sql/rest-api-diagram.png', caption: 'REST API — Client · Server · HTTP · JSON' },
                 embedGuideImage: { src: 'assets/13-flask-sql/sql-rdb-diagram.png', caption: 'SQL · 관계형 데이터베이스(RDB)' },
                 embedGuide: 'assets/13-flask-sql/rdb-guide.html',
                 embedGuideScroll: 'manual',
-                photoTall: true
+                photoTall: true,
+                termNotes: [
+                    ['Flask', 'Python으로 웹·API를 만드는 가벼운 도구(학습·프로토타입용)']
+                ]
             },
             { week: '3월 3주차', title: '생성형 AI · LLM · RAG', topics: ['인공지능의 의미·핵심 개념', 'NLP · LLM · 생성형 AI 동작', 'LLM 강점/한계', 'Temperature·프롬프트', 'LLM API 호출', '사전학습·파인튜닝·RAG 차이', 'LangChain·RAG 관계' ],
                 message: 'AI·NLP·LLM의 기본 개념부터 <strong class="text-ink">사전학습·파인튜닝·RAG</strong>의 차이, LangChain과 RAG의 관계까지 학습했습니다. Temperature 등 출력 파라미터 조정·API 호출·벡터 임베딩 실습 후, <strong class="text-ink">슬기로운 DRB 생활</strong> 데이터로 복지 검색 RAG 챗봇을 만들어 봤습니다.',
@@ -1191,7 +1223,11 @@
                 ],
                 photoLayout: 'llm-api',
                 photoFit: 'cover',
-                photoTall: true
+                photoTall: true,
+                termNotes: [
+                    ['FastAPI', 'Python으로 API를 빠르게 만드는 도구'],
+                    ['On-premise LLM', 'DRB 서버에 설치해 쓰는 사내 AI']
+                ]
             },
             { week: '4월 3주차', title: 'Git · GitHub', topics: ['Git 개념·Repository', 'Commit / Push / Pull', 'GitHub Flow', 'PoC 코드 버전 관리'],
                 message: 'FastAPI 실습 코드를 <strong class="text-ink">Git 저장소</strong>로 관리하고, Commit·Push·Pull 흐름을 익혔습니다. <strong class="text-ink">GitHub Flow</strong>로 브랜치·코드 리뷰·병합까지 PoC 개발에 맞게 연습했습니다.',
@@ -1200,7 +1236,10 @@
                     { src: 'assets/17-fastapi-git/sub-github-flow.png', caption: 'GitHub Flow · branch → code review → merge' },
                     { src: 'assets/17-fastapi-git/sub-git-github-logo.png', caption: 'Git · GitHub' }
                 ],
-                photoTall: true
+                photoTall: true,
+                termNotes: [
+                    ['GitHub', '코드를 팀과 공유·관리하는 웹 플랫폼']
+                ]
             },
             { week: '4월 4주차', title: 'Webhook · 배포 흐름', topics: ['Webhook API', 'FastAPI', 'POST 요청 처리', 'n8n·Teams 연동', '빌드→배포→실행'],
                 message: 'FastAPI로 웹훅 서버 구현 및 POST 요청 처리 경험. 프론트엔드 → 서버 → 메시지 전송까지 전체 흐름 실습.',
@@ -1498,8 +1537,8 @@
                 { src: 'assets/32-online-lectures/lecture-github.png', caption: '우주에서 가장 쉬운 GitHub 베이스캠프' },
                 { src: 'assets/32-online-lectures/lecture-n8n.png', caption: 'n8n 업무자동화 (왕초보편)' }
             ], sidePhotos: [
-                { src: 'assets/32-online-lectures/lecture-llm-diagram.png', caption: 'LLM - 다음 단어 예측 확률' },
-                { src: 'assets/32-online-lectures/lecture-n8n-workflow.png', caption: 'n8n - 워크플로우 실습 화면' }
+                { src: 'assets/32-online-lectures/lecture-vibe-coding.png', caption: '바이브 코딩 · 개념/툴/사용법 (MetaCode)' },
+                { src: 'assets/32-online-lectures/lecture-ai-concepts.png', caption: '인공지능 13가지 핵심개념 · AI·ML·DL (MetaCode)' }
             ]},
             { icon: 'sparkles', title: '개발 환경 · AI 도구 구독 지원', desc: 'Google AI · OpenAI · SerpApi 등 PoC에 필요한 AI 도구를 탐색하고, 구독·API 키를 지원했습니다.', photoBanner: true, mainCaptionLarge: true, photos: [
                 { src: 'assets/33-google-subscription/google-ai-plans.png', caption: 'Google AI Pro 구독 지원' }
@@ -1717,6 +1756,27 @@
             </div>`;
         }
 
+        function buildLlmPredictSidePanel() {
+            const rows = [
+                ['산다', '0.22', false],
+                ['부신다', '0.02', false],
+                ['고친다', '0.20', false],
+                ['탄다', '0.51', true],
+                ['보낸다', '0.05', false]
+            ].map(([word, prob, top]) =>
+                `<li class="${top ? 'is-top' : ''}"><span>${word}</span><span class="llm-predict-prob">${prob}</span></li>`
+            ).join('');
+            return `<div class="lecture-side-html llm-predict-panel">
+                <p class="llm-predict-prompt">나는 자전거를 _____</p>
+                <p class="llm-predict-q">빈칸에 들어갈 다음 단어는?</p>
+                <div class="llm-predict-vector">
+                    <span class="llm-predict-br" aria-hidden="true">&#x23A8;</span>
+                    <ul class="llm-predict-list">${rows}</ul>
+                    <span class="llm-predict-br" aria-hidden="true">&#x23A9;</span>
+                </div>
+            </div>`;
+        }
+
         function buildLectureBannerLayout({ photos, sidePhotos, mainCaptionLarge }) {
             const banners = photos.map(p => {
                 const mainCap = (mainCaptionLarge && p.caption)
@@ -1724,12 +1784,15 @@
                 const figCls = mainCaptionLarge ? 'lecture-main-photo' : 'photo-banner-item';
                 return `<figure class="${figCls}"><img src="${p.src}" alt="${p.caption || ''}" class="slide-photo-banner" loading="lazy">${mainCap}</figure>`;
             }).join('');
-            const side = sidePhotos.map(p =>
-                `<figure class="lecture-side-photo">
-                    <img src="${p.src}" alt="${p.caption || ''}" loading="lazy">
+            const side = sidePhotos.map(p => {
+                const body = p.html === 'llm-predict'
+                    ? buildLlmPredictSidePanel()
+                    : `<img src="${p.src}" alt="${p.caption || ''}" loading="lazy">`;
+                return `<figure class="lecture-side-photo">
+                    ${body}
                     ${p.caption ? `<figcaption>${p.caption}</figcaption>` : ''}
-                </figure>`
-            ).join('');
+                </figure>`;
+            }).join('');
             return `<div class="lecture-layout">
                 <div class="lecture-layout__main"><div class="photo-banner-grid photo-banner-grid--in-layout">${banners}</div></div>
                 <div class="lecture-layout__side">${side}</div>
