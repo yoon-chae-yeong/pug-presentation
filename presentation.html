@@ -91,6 +91,17 @@
         .perspective-panel__check i { width: 8px; height: 8px; }
         .perspective-summary { margin-top: 1rem; }
         .slide-perspective > div > p.leading-relaxed { font-size: 0.9375rem; max-width: none; }
+        .slide-review-activities { overflow: hidden; }
+        .slide-review-activities > div > p.leading-relaxed { margin-bottom: 0.5rem !important; font-size: 0.8125rem; max-width: none !important; }
+        .review-activities-layout { display: flex; flex-direction: column; gap: 0.5rem; }
+        .review-activities-table-wrap { flex-shrink: 0; background: #fff; border-radius: 8px; padding: 0.55rem 0.75rem; border: 1px solid #F0EAE0; }
+        .review-activities-table-wrap .tbl-compact thead th { font-size: 0.7rem; padding: 0.32rem 0.65rem; }
+        .review-activities-table-wrap .tbl-compact tbody td { font-size: 0.7rem; padding: 0.28rem 0.65rem; line-height: 1.35; vertical-align: middle; }
+        .review-activities-photos { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.5rem; flex: 0 0 auto; height: min(calc((100vh - 400px) * 1.2), 336px); max-height: min(calc((100vh - 400px) * 1.2), 336px); overflow: hidden; }
+        .review-activities-photo { margin: 0; min-height: 0; display: flex; flex-direction: column; border-radius: 8px; overflow: hidden; border: 1px solid #F0EAE0; background: #fff; box-shadow: 0 1px 3px rgba(51,39,31,.06); }
+        .review-activities-photo img { width: 100%; flex: 1; min-height: 0; object-fit: cover; object-position: center; display: block; background: #F0EAE0; }
+        .review-activities-photo figcaption { flex-shrink: 0; font-size: 0.68rem; font-weight: 700; text-align: center; padding: 0.32rem 0.5rem; color: #33271F; background: #FBF8F3; line-height: 1.25; }
+        .review-activities-summary { flex-shrink: 0; font-size: 0.72rem; line-height: 1.45; padding: 0.5rem 0.75rem !important; margin-top: 0 !important; }
         @media (max-width: 900px) { .perspective-grid { grid-template-columns: 1fr; } }
         .pain-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.75rem; }
         .pain-card { background: #fff; border: 1px solid #F0EAE0; border-left: 4px solid #F5B041; border-radius: 8px; padding: 0.85rem 1rem; }
@@ -615,7 +626,7 @@
 
         // ── Slide builders ──
         const PARTS = [
-            { id: 'part1', badge: 'PART 1', title: 'PUG 출범 · 2025 활동 · 회고', subtitle: '어떻게 시작했고, 무엇이 부족했는가', tocLabel: '시작과 회고' },
+            { id: 'part1', badge: 'PART 1', title: 'PUG 출범 · 2025 활동', subtitle: '어떻게 시작했고, 무엇이 부족했는가', tocLabel: '시작과 회고' },
             { id: 'part2', badge: 'PART 2', title: '인터뷰 · 커리큘럼 · 교육', subtitle: '업무 요구사항 파악부터 맞춤형 학습까지', tocLabel: '학습과 교육' },
             { id: 'part3', badge: 'PART 3', title: '디지털전략센터 · PUG · 지원', subtitle: '사내 전문가 연결과 운영 지원', tocLabel: '조직 지원' },
             { id: 'part4', badge: 'PART 4', title: '활동 · 효과 · 변화', subtitle: '서로 얻어가는 성장과 조직에 남긴 변화', tocLabel: '성과와 변화' }
@@ -1099,7 +1110,10 @@
                 label: '2025 Review · 활동',
                 title: '2025년 주요 활동',
                 message: '최신 도구를 직접 실습하고 활용 경험을 공유하는 방식으로 운영되었습니다.',
-                body: `<div class="bg-card rounded-lg p-6"><table class="tbl">
+                compact: true,
+                slideClass: 'slide-review-activities',
+                body: `<div class="review-activities-layout">
+                <div class="review-activities-table-wrap"><table class="tbl tbl-compact">
                     <thead><tr><th>월</th><th>주요 활동</th><th>키워드</th></tr></thead>
                     <tbody>
                         <tr><td>7월</td><td>PUG 출범, 운영 방안 기획 및 검토</td><td>출범</td></tr>
@@ -1109,7 +1123,18 @@
                         <tr><td>10월</td><td>실무 사례 발표 및 회고</td><td>실습 회고, 운영 전환</td></tr>
                     </tbody>
                 </table></div>
-                <div class="bg-beige rounded-lg p-4 mt-5 text-sm">주요 성과: AI 도구 활용 경험 공유, 바이브 코딩·LLM API 실습, RPA·AI 시스템 아이디어 발굴, 협업 네트워크 형성, <strong class="text-ink">AI NOW</strong> 전사 공유</div>`
+                <div class="review-activities-photos">
+                    <figure class="review-activities-photo">
+                        <img src="assets/05-2025-activities/vibe-coding-practice.png" alt="1차 바이브코딩 실습" loading="lazy">
+                        <figcaption>1차 (바이브코딩 실습)</figcaption>
+                    </figure>
+                    <figure class="review-activities-photo">
+                        <img src="assets/05-2025-activities/gemini-api-practice.png" alt="2차 Gemini API 실습" loading="lazy">
+                        <figcaption>2차 (Gemini API 실습)</figcaption>
+                    </figure>
+                </div>
+                <div class="bg-beige rounded-lg review-activities-summary">주요 성과: AI 도구 활용 경험 공유, 바이브 코딩·LLM API 실습, RPA·AI 시스템 아이디어 발굴, 협업 네트워크 형성, <strong class="text-ink">AI NOW</strong> 전사 공유</div>
+                </div>`
             }),
 
             contentSlide({
@@ -2938,10 +2963,16 @@
             } catch (_) {}
         }
 
+        function getIframeZoom(iframe) {
+            const z = parseFloat(getComputedStyle(iframe).zoom);
+            return Number.isFinite(z) && z > 0 ? z : 1;
+        }
+
         function layoutEmbedFromReport(iframe, contentHeight) {
             if (!contentHeight || contentHeight < 80) return null;
             try {
-                iframe.style.height = `${Math.ceil(contentHeight)}px`;
+                const zoom = getIframeZoom(iframe);
+                iframe.style.height = `${Math.ceil(contentHeight * zoom)}px`;
                 iframe.style.width = '100%';
                 iframe.style.display = 'block';
                 const container = getEmbedScrollContainer(iframe);
@@ -2957,7 +2988,7 @@
         }
 
         function setEmbedScrollPosition(prep, pos) {
-            prep.container.scrollTop = pos;
+            prep.container.scrollTop = Math.round(pos);
         }
 
         function stopParentEmbedScrollLoop() {
@@ -3051,6 +3082,7 @@
 
             embedScrollState = {
                 prep,
+                maxScroll: prep.maxScroll,
                 pos: 0,
                 resetPending: false,
                 stepPx: EMBED_SCROLL_STEP_PX,
@@ -3063,11 +3095,9 @@
             const tick = (ts) => {
                 const s = embedScrollState;
                 if (!s || s.prep.iframe !== iframe || embedScrollMode !== 'parent') return;
+                if (s.maxScroll < 16) return;
 
-                s.prep.maxScroll = Math.max(0, s.prep.container.scrollHeight - s.prep.container.clientHeight);
-                if (s.prep.maxScroll < 16) return;
-
-                runEmbedStepScrollTick(s, ts, s.prep.maxScroll, (pos) => setEmbedScrollPosition(s.prep, pos));
+                runEmbedStepScrollTick(s, ts, s.maxScroll, (pos) => setEmbedScrollPosition(s.prep, pos));
                 embedScrollRaf = requestAnimationFrame(tick);
             };
 
@@ -3146,7 +3176,11 @@
                 }
                 embedScrollStartTimer = setTimeout(() => {
                     embedScrollStartTimer = null;
-                    beginEmbedAutoScroll(iframe, contentHeight);
+                    requestAnimationFrame(() => {
+                        requestAnimationFrame(() => {
+                            beginEmbedAutoScroll(iframe, contentHeight);
+                        });
+                    });
                 }, EMBED_SCROLL_SETTLE_MS);
             };
 

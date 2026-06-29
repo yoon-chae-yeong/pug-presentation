@@ -17,9 +17,10 @@
     }
 
     function setScroll(y) {
-        window.scrollTo(0, y);
-        document.documentElement.scrollTop = y;
-        document.body.scrollTop = y;
+        const top = Math.round(y);
+        window.scrollTo(0, top);
+        document.documentElement.scrollTop = top;
+        document.body.scrollTop = top;
     }
 
     function nextStepTarget(pos, maxScroll, stepPx) {
@@ -67,7 +68,7 @@
     function tick(ts) {
         if (!state) return;
 
-        const maxScroll = getMetrics().maxScroll;
+        const maxScroll = state.maxScroll;
         if (maxScroll < 16) {
             stop();
             return;
@@ -127,6 +128,7 @@
         setScroll(0);
         state = {
             pos: 0,
+            maxScroll,
             resetPending: false,
             speed: speed || 170,
             turnPause: turn,
