@@ -128,9 +128,10 @@
     </footer>
 
     <script src="presenter-sync.js"></script>
+    <script src="slide-scripts.raw.js"></script>
     <script src="slide-scripts.js"></script>
     <script>
-        const total = SLIDE_SCRIPTS.length;
+        let total = 0;
         const PREVIEW_W = 1024;
         const PREVIEW_H = 768;
         const PREVIEW_RATIO = PREVIEW_W / PREVIEW_H;
@@ -272,6 +273,36 @@
             new ResizeObserver(schedulePreviewFit).observe(els.previewWrap);
         }
 
+        async function boot() {
+            try {
+                await initSlideScripts();
+            } catch (err) {
+                console.error(err);
+                els.scriptText.textContent = `스크립트를 불러오지 못했습니다. (${err.message})`;
+                els.currentTotal.textContent = '?';
+                lucide.createIcons();
+                return;
+            }
+
+            total = SLIDE_SCRIPTS.length;
+            els.currentTotal.textContent = total;
+
+            if (SLIDE_SCRIPTS.length !== SLIDE_TITLES.length) {
+                console.warn('[발표자] 스크립트와 제목 개수가 일치하지 않습니다.');
+            }
+
+            const saved = PugDeckSync.read();
+            if (saved && Number.isInteger(saved.slide) && saved.slide >= 0 && saved.slide < total) {
+                current = saved.slide;
+            }
+
+            render();
+            schedulePreviewFit();
+            lucide.createIcons();
+        }
+
+        boot();
+
         els.timerToggleBtn.addEventListener('click', toggleTimer);
         els.prevBtn.addEventListener('click', () => changeSlide(-1));
         els.nextBtn.addEventListener('click', () => changeSlide(1));
@@ -294,19 +325,6 @@
             render();
             syncFromExternal = false;
         });
-
-        const saved = PugDeckSync.read();
-        if (saved && Number.isInteger(saved.slide) && saved.slide >= 0 && saved.slide < total) {
-            current = saved.slide;
-        }
-
-        if (SLIDE_SCRIPTS.length !== SLIDE_TITLES.length) {
-            console.warn('[발표자] 스크립트와 제목 개수가 일치하지 않습니다.');
-        }
-
-        render();
-        schedulePreviewFit();
-        lucide.createIcons();
     </script>
 </body>
 </html>
