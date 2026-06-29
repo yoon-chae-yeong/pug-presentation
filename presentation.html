@@ -547,19 +547,25 @@
         .design-consult-photo { flex: 1; min-height: 0; width: 100%; object-fit: cover; display: block; }
         .design-consult-photo-cap { padding: 8px 10px; font-size: 11px; font-weight: 700; text-align: center; background: #fff; color: #33271F; line-height: 1.35; }
         .slide-toc { justify-content: center !important; padding-bottom: 4.5rem !important; }
-        .slide-toc .toc-head { margin-bottom: 1.75rem; }
-        .slide-toc .toc-head h2 { font-size: 2.25rem; font-weight: 800; line-height: 1.2; margin: 0; }
-        .slide-toc .toc-head p { margin: 0.5rem 0 0; font-size: 0.875rem; color: #8A7B6E; line-height: 1.5; }
-        .toc-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.85rem; }
-        @media (max-width: 768px) { .toc-grid { grid-template-columns: 1fr; } }
-        .toc-item { display: flex; flex-direction: column; align-items: flex-start; gap: 0.45rem; text-align: left; width: 100%; padding: 1.1rem 1.15rem; background: #fff; border: none; border-radius: 8px; cursor: pointer; transition: background 0.2s, transform 0.15s; font-family: inherit; }
-        .toc-item:hover { background: #F0EAE0; transform: translateY(-1px); }
-        .toc-item:focus-visible { outline: 2px solid #F5B041; outline-offset: 2px; }
-        .toc-item__part { display: inline-flex; align-items: center; gap: 0.35rem; font-size: 0.68rem; font-weight: 800; letter-spacing: 0.05em; color: #33271F; background: #F0EAE0; padding: 0.2rem 0.55rem; border-radius: 4px; }
-        .toc-item__title { font-size: 1rem; font-weight: 700; color: #33271F; line-height: 1.35; margin: 0; }
-        .toc-item__sub { font-size: 0.78rem; color: #8A7B6E; line-height: 1.45; margin: 0; }
-        .toc-item__go { display: inline-flex; align-items: center; gap: 0.25rem; margin-top: 0.15rem; font-size: 0.72rem; font-weight: 700; color: #F5B041; }
-        .toc-item__go [data-lucide] { width: 0.85rem; height: 0.85rem; }
+        .slide-toc .toc-wrap { max-width: 40rem; width: 100%; margin: 0 auto; }
+        .slide-toc .toc-eyebrow { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #F5B041; margin: 0 0 0.45rem; }
+        .slide-toc .toc-title { font-size: 2.5rem; font-weight: 800; line-height: 1.15; margin: 0 0 1.75rem; color: #33271F; }
+        .toc-tray { background: #F0EAE0; padding: 0.6rem; border-radius: 10px; }
+        .toc-panel { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); background: #fff; border-radius: 8px; overflow: hidden; }
+        .toc-cell { display: flex; flex-direction: column; align-items: flex-start; gap: 0.55rem; padding: 1.65rem 1.5rem; background: #fff; border: none; cursor: pointer; transition: background 0.2s; font-family: inherit; text-align: left; min-height: 7.5rem; }
+        .toc-cell:nth-child(1) { border-right: 1px solid #F0EAE0; border-bottom: 1px solid #F0EAE0; }
+        .toc-cell:nth-child(2) { border-bottom: 1px solid #F0EAE0; }
+        .toc-cell:nth-child(3) { border-right: 1px solid #F0EAE0; }
+        .toc-cell:hover { background: #FBF8F3; }
+        .toc-cell:focus-visible { outline: 2px solid #F5B041; outline-offset: -2px; z-index: 1; }
+        .toc-cell__num { display: inline-flex; align-items: center; justify-content: center; background: #33271F; color: #fff; font-size: 0.68rem; font-weight: 800; letter-spacing: 0.05em; padding: 0.22rem 0.5rem; border-radius: 4px; }
+        .toc-cell__label { font-size: 1.2rem; font-weight: 700; color: #33271F; line-height: 1.35; }
+        @media (max-width: 640px) {
+            .toc-panel { grid-template-columns: 1fr; }
+            .toc-cell { min-height: 0; padding: 1.25rem 1.35rem; }
+            .toc-cell:nth-child(1), .toc-cell:nth-child(3) { border-right: none; }
+            .toc-cell:not(:last-child) { border-bottom: 1px solid #F0EAE0; }
+        }
         body.embed-mode .fixed.bottom-5,
         body.embed-mode .fixed.top-5.left-6,
         body.embed-mode .fixed.top-0.left-0.right-0.h-1 { display: none !important; }
@@ -609,29 +615,26 @@
 
         // ── Slide builders ──
         const PARTS = [
-            { id: 'part1', badge: 'PART 1', title: 'PUG 출범 · 2025 활동 · 회고', subtitle: '어떻게 시작했고, 무엇이 부족했는가' },
-            { id: 'part2', badge: 'PART 2', title: '인터뷰 · 커리큘럼 · 교육', subtitle: '업무 요구사항 파악부터 맞춤형 학습까지' },
-            { id: 'part3', badge: 'PART 3', title: '디지털전략센터 · PUG · 지원', subtitle: '사내 전문가 연결과 운영 지원' },
-            { id: 'part4', badge: 'PART 4', title: '활동 · 효과 · 변화', subtitle: '서로 얻어가는 성장과 조직에 남긴 변화' }
+            { id: 'part1', badge: 'PART 1', title: 'PUG 출범 · 2025 활동 · 회고', subtitle: '어떻게 시작했고, 무엇이 부족했는가', tocLabel: '시작과 회고' },
+            { id: 'part2', badge: 'PART 2', title: '인터뷰 · 커리큘럼 · 교육', subtitle: '업무 요구사항 파악부터 맞춤형 학습까지', tocLabel: '학습과 교육' },
+            { id: 'part3', badge: 'PART 3', title: '디지털전략센터 · PUG · 지원', subtitle: '사내 전문가 연결과 운영 지원', tocLabel: '조직 지원' },
+            { id: 'part4', badge: 'PART 4', title: '활동 · 효과 · 변화', subtitle: '서로 얻어가는 성장과 조직에 남긴 변화', tocLabel: '성과와 변화' }
         ];
 
         function buildTocSlide() {
-            const items = PARTS.map(entry =>
-                `<button type="button" class="toc-item" data-part="${entry.id}" aria-label="${entry.badge} ${entry.title}로 이동">
-                    <span class="toc-item__part">${entry.badge}</span>
-                    <span class="toc-item__title">${entry.title}</span>
-                    <span class="toc-item__sub">${entry.subtitle}</span>
-                    <span class="toc-item__go">바로가기 <i data-lucide="arrow-right"></i></span>
+            const items = PARTS.map((entry, i) =>
+                `<button type="button" class="toc-cell" data-part="${entry.id}" aria-label="${entry.tocLabel}로 이동">
+                    <span class="toc-cell__num">${String(i + 1).padStart(2, '0')}</span>
+                    <span class="toc-cell__label">${entry.tocLabel}</span>
                 </button>`
             ).join('');
             return `<section class="slide slide-toc w-full h-screen flex-col px-8 lg:px-24" data-part="toc">
-                <div class="max-w-4xl w-full mx-auto">
-                    <div class="toc-head">
-                        <p class="text-sm font-bold text-pug mb-2 uppercase tracking-wider">Contents</p>
-                        <h2>목차</h2>
-                        <p>각 파트를 선택하면 해당 섹션으로 이동합니다</p>
+                <div class="toc-wrap">
+                    <p class="toc-eyebrow">Contents</p>
+                    <h2 class="toc-title">목차</h2>
+                    <div class="toc-tray">
+                        <div class="toc-panel" id="toc-list">${items}</div>
                     </div>
-                    <div class="toc-grid" id="toc-grid">${items}</div>
                 </div>
             </section>`;
         }
@@ -3230,8 +3233,8 @@
         }
 
         function initTocNavigation() {
-            document.getElementById('toc-grid')?.addEventListener('click', e => {
-                const btn = e.target.closest('.toc-item[data-part]');
+            document.getElementById('toc-list')?.addEventListener('click', e => {
+                const btn = e.target.closest('.toc-cell[data-part]');
                 if (!btn) return;
                 goToPart(btn.dataset.part);
             });

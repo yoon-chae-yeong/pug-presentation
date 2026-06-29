@@ -7,7 +7,8 @@ function formatScriptMarkup(text) {
         .replace(/&/g, '&amp;')
         .replace(/</g, '&lt;')
         .replace(/>/g, '&gt;')
-        .replace(/\*\*([^*]+)\*\*/g, '<span class="script-em">$1</span>');
+        .replace(/\*\*([^*]+)\*\*/g, '<span class="script-em">$1</span>')
+        .replace(/\n/g, '<br>');
 }
 
 function parseSlideScriptsFile(raw) {
