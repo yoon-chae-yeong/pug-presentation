@@ -165,6 +165,7 @@
         const SCRIPT_MIN_H = 120;
         let current = 0;
         let timerStartedAt = null;
+        let timerElapsedMs = 0;
         let timerId = null;
         let running = false;
         let syncFromExternal = false;
@@ -281,19 +282,35 @@
             return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
         }
 
+        function getTimerElapsedMs() {
+            return timerElapsedMs + (running && timerStartedAt ? Date.now() - timerStartedAt : 0);
+        }
+
+        function updateTimerDisplay() {
+            const ms = getTimerElapsedMs();
+            if (ms > 0 || running) {
+                els.timer.textContent = formatElapsed(ms);
+                els.timer.classList.remove('timer-idle');
+            } else {
+                els.timer.textContent = '—:—';
+                els.timer.classList.add('timer-idle');
+            }
+        }
+
         function tickTimer() {
-            if (!running || !timerStartedAt) return;
-            els.timer.textContent = formatElapsed(Date.now() - timerStartedAt);
+            if (!running) return;
+            updateTimerDisplay();
         }
 
         function setTimerToggleBtn(runningNow) {
             const btn = els.timerToggleBtn;
             const icon = btn.querySelector('[data-lucide]');
             const label = btn.querySelector('span');
+            const paused = !runningNow && timerElapsedMs > 0;
             btn.classList.toggle('btn--primary', !runningNow);
             btn.classList.toggle('btn--stop', runningNow);
             icon.setAttribute('data-lucide', runningNow ? 'square' : 'play');
-            label.textContent = runningNow ? '중지' : '발표 시작';
+            label.textContent = runningNow ? '중지' : (paused ? '이어서 시작' : '발표 시작');
             lucide.createIcons();
         }
 
@@ -301,18 +318,18 @@
             if (running) return;
             running = true;
             timerStartedAt = Date.now();
-            els.timer.classList.remove('timer-idle');
-            tickTimer();
+            updateTimerDisplay();
             timerId = setInterval(tickTimer, 1000);
             setTimerToggleBtn(true);
         }
 
-        function stopTimer() {
+        function pauseTimer() {
+            if (!running) return;
+            timerElapsedMs += Date.now() - timerStartedAt;
             running = false;
             timerStartedAt = null;
             if (timerId) { clearInterval(timerId); timerId = null; }
-            els.timer.textContent = '—:—';
-            els.timer.classList.add('timer-idle');
+            updateTimerDisplay();
             setTimerToggleBtn(false);
         }
 
@@ -347,7 +364,7 @@
         }
 
         function toggleTimer() {
-            if (running) stopTimer();
+            if (running) pauseTimer();
             else startTimer();
         }
 
