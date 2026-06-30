@@ -883,7 +883,6 @@
                         <header class="practice-exchange-col__head">
                             <div class="practice-exchange-col__head-row">
                                 <h3 class="practice-exchange-col__title">❓ 질문 · 개념 정리</h3>
-                                <span class="practice-exchange-col__count">${PRACTICE_QUESTIONS.length}개</span>
                             </div>
                         </header>
                         <div class="practice-exchange-col__list">${PRACTICE_QUESTIONS.map(renderPracticeQuestionItem).join('')}</div>
@@ -895,7 +894,6 @@
                         <header class="practice-exchange-col__head">
                             <div class="practice-exchange-col__head-row">
                                 <h3 class="practice-exchange-col__title">💬 토론 · 관점 나누기</h3>
-                                <span class="practice-exchange-col__count">${PRACTICE_DISCUSSIONS.length}가지</span>
                             </div>
                         </header>
                         <div class="practice-exchange-col__list">${PRACTICE_DISCUSSIONS.map(renderPracticeDiscussionItem).join('')}</div>
@@ -2762,7 +2760,10 @@
 
         const EMBED_SCROLL_SELECTOR = '.embed-scroll-iframe';
         const CONVENTION_GUIDE_SELECTOR = '.week-guide-embed--convention .week-guide-iframe';
-        const CONVENTION_DEFAULT_TAB = 'git';
+        const CONVENTION_TABS = ['intro', 'naming', 'folder', 'markdown', 'git', 'monorepo'];
+        const CONVENTION_TAB_INTERVAL_MS = 1125;
+        let conventionTabTimer = null;
+        let conventionTabIndex = 0;
         const EMBED_SCROLL_SPEED = 170;
         const EMBED_SCROLL_START_PAUSE_MS = 80;
         const EMBED_SCROLL_SETTLE_MS = 320;
@@ -2945,26 +2946,58 @@
             return startIframeEmbedScroll(iframe);
         }
 
-        function initConventionGuideTab() {
+        function postConventionTab(iframe, tab) {
+            if (!iframe || !tab) return;
+            try {
+                iframe.contentWindow?.postMessage({
+                    type: 'pug-convention-tab',
+                    tab
+                }, '*');
+            } catch (_) {}
+        }
+
+        function stopConventionTabLoop() {
+            if (conventionTabTimer) {
+                clearInterval(conventionTabTimer);
+                conventionTabTimer = null;
+            }
+        }
+
+        function startConventionTabLoop() {
+            stopConventionTabLoop();
             const iframe = slides[current]?.querySelector(CONVENTION_GUIDE_SELECTOR);
             if (!iframe) return;
 
-            const send = () => {
-                try {
-                    iframe.contentWindow?.postMessage({
-                        type: 'pug-convention-tab',
-                        tab: CONVENTION_DEFAULT_TAB
-                    }, '*');
-                } catch (_) {}
+            const sendCurrent = () => {
+                postConventionTab(iframe, CONVENTION_TABS[conventionTabIndex % CONVENTION_TABS.length]);
             };
 
-            send();
-            setTimeout(send, 120);
+            sendCurrent();
+            conventionTabTimer = setInterval(() => {
+                const iframeNow = slides[current]?.querySelector(CONVENTION_GUIDE_SELECTOR);
+                if (!iframeNow) {
+                    stopConventionTabLoop();
+                    return;
+                }
+                conventionTabIndex = (conventionTabIndex + 1) % CONVENTION_TABS.length;
+                postConventionTab(iframeNow, CONVENTION_TABS[conventionTabIndex]);
+            }, CONVENTION_TAB_INTERVAL_MS);
 
             if (iframe.dataset.conventionTabBound !== '1') {
                 iframe.dataset.conventionTabBound = '1';
-                iframe.addEventListener('load', send);
+                iframe.addEventListener('load', () => {
+                    conventionTabIndex = 0;
+                    const iframeLoaded = slides[current]?.querySelector(CONVENTION_GUIDE_SELECTOR);
+                    if (iframeLoaded) postConventionTab(iframeLoaded, CONVENTION_TABS[0]);
+                });
             }
+        }
+
+        function initConventionGuideTab() {
+            conventionTabIndex = 0;
+            startConventionTabLoop();
+            const iframe = slides[current]?.querySelector(CONVENTION_GUIDE_SELECTOR);
+            if (iframe) setTimeout(() => postConventionTab(iframe, CONVENTION_TABS[0]), 120);
         }
 
         const EMBED_SCROLL_MANUAL_SELECTOR = '[data-embed-scroll-manual]';
@@ -3055,6 +3088,7 @@
             if (!slides[current]?.querySelector('#case-demo-btn')) resetCaseDemoModal();
             if (!slides[current]?.querySelector('#member-radar-grid')) destroyMemberRadars();
             if (!slides[current]?.querySelector('#checklist-panel')) stopChecklistAutoLoop();
+            if (!slides[current]?.querySelector(CONVENTION_GUIDE_SELECTOR)) stopConventionTabLoop();
             document.getElementById('cur').innerText = current + 1;
             document.getElementById('progress-bar').style.width = ((current + 1) / slides.length * 100) + '%';
             publishSlideSync();
