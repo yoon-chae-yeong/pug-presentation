@@ -235,9 +235,13 @@
         .list-slide-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.45rem 0.85rem; }
         @media (min-width: 1024px) { .list-slide-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
         .interview-body { display: flex; flex-direction: column; gap: 0.6rem; }
-        .interview-goals-box { background: #F0EAE0; border-radius: 8px; padding: 1rem 1.2rem; flex-shrink: 0; }
+        .interview-goals-box { background: #F0EAE0; border-radius: 8px; padding: 1rem 1.2rem; flex-shrink: 0; min-height: 0; }
+        .interview-goals-split { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.75rem; flex-shrink: 0; }
+        @media (max-width: 900px) { .interview-goals-split { grid-template-columns: 1fr; } }
+        .interview-goals-heading { font-size: 0.75rem; font-weight: 800; color: #33271F; margin: 0 0 0.35rem; flex-shrink: 0; }
         .interview-goals-title { font-size: 0.75rem; font-weight: 800; color: #33271F; margin: 0 0 0.6rem; }
         .interview-goals-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.5rem 1.25rem; margin: 0; padding: 0; list-style: none; }
+        .interview-goals-list { display: flex; flex-direction: column; gap: 0.5rem; margin: 0; padding: 0; list-style: none; }
         @media (min-width: 1024px) { .interview-goals-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.55rem 1.5rem; } }
         .interview-goal-item { display: flex; align-items: flex-start; gap: 0.5rem; font-size: 0.8125rem; font-weight: 600; line-height: 1.4; color: #33271F; }
         @media (min-width: 768px) { .interview-goal-item { font-size: 0.9375rem; } }
@@ -913,17 +917,31 @@
             dList.scrollTop = 0;
         }
 
-        function buildInterviewSlide() {
-            const goals = [
-                '각 구성원의 AI 적용 업무 요구사항 파악',
-                '현재 AI·자동화 활용 수준 확인',
-                '희망 학습 주제와 성장 방향 확인',
-                '참여 가능 시간과 제약 조건 파악',
-                'PoC 수행을 위한 지원 방식 설계'
-            ];
-            const goalItems = goals.map(g =>
+        function buildInterviewGoalItems(goals) {
+            return goals.map(g =>
                 `<li class="interview-goal-item"><span class="interview-goal-check"><i data-lucide="check"></i></span><span>${g}</span></li>`
             ).join('');
+        }
+
+        function buildInterviewGoalsCard(title, goals) {
+            return `<div class="interview-goals-box">
+                <p class="interview-goals-title">${title}</p>
+                <ul class="interview-goals-list">${buildInterviewGoalItems(goals)}</ul>
+            </div>`;
+        }
+
+        function buildInterviewSlide() {
+            const technicalGoals = [
+                '각자의 도메인·업무 파악',
+                'AI 적용 현황 및 문제점 확인',
+                '희망 학습 주제와 성장 방향 확인',
+                'PoC 지원·운영 방향 설계'
+            ];
+            const operationalGoals = [
+                '정기 참여 가능 시간대 확인',
+                '부재 시 대체 가능 인원 확인',
+                '활동 제약 조건·일정 조율'
+            ];
             return contentSlide({
                 label: 'Interview · 사전 인터뷰',
                 title: 'PUG 멤버 사전 인터뷰',
@@ -932,9 +950,10 @@
                 compact: true,
                 slideClass: 'slide-interview',
                 body: `<div class="interview-body">
-                    <div class="interview-goals-box">
-                        <p class="interview-goals-title">🎯 인터뷰에서 확인한 것</p>
-                        <ul class="interview-goals-grid">${goalItems}</ul>
+                    <p class="interview-goals-heading">🎯 인터뷰에서 확인한 것</p>
+                    <div class="interview-goals-split">
+                        ${buildInterviewGoalsCard('기술적 관점', technicalGoals)}
+                        ${buildInterviewGoalsCard('운영적 관점', operationalGoals)}
                     </div>
                     <div class="interview-highlight bg-beige rounded-lg">공통 요구사항: 실무형 코칭, 보안 가이드, 기술 전문가 협업, <strong class="text-ink">실제 산출물 중심</strong> 활동</div>
                     <figure class="interview-fields-figure">
