@@ -488,6 +488,10 @@
         .checklist-overview-card__list li { display: flex; align-items: flex-start; gap: 0.28rem; font-size: 0.6rem; line-height: 1.42; color: #33271F; }
         .checklist-overview-card__list li::before { content: ''; flex-shrink: 0; width: 0.46rem; height: 0.46rem; margin-top: 0.06rem; border: 1.5px solid #CBBBA8; border-radius: 2px; background: #FBF8F3; }
         .closing-layout { display: grid; grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr); gap: 1.25rem; align-items: stretch; height: min(480px, calc(100vh - 250px)); max-height: 500px; }
+        .culture-growth-figure { margin: 0; border-radius: 10px; overflow: hidden; background: #FBF8F3; border: 1px solid #F0EAE0; line-height: 0; height: min(210px, 26vh); display: flex; align-items: center; justify-content: center; }
+        .culture-growth-figure img { width: 100%; height: 100%; object-fit: contain; object-position: center; display: block; }
+        .tbl-culture-change thead th { font-size: 0.95rem; padding: 0.8rem 1.1rem; }
+        .tbl-culture-change tbody td { font-size: 1rem; line-height: 1.5; padding: 0.85rem 1.1rem; }
         .closing-copy { display: flex; flex-direction: column; justify-content: center; gap: 1rem; min-height: 0; }
         .closing-copy__badge { display: inline-flex; align-items: center; gap: 0.4rem; align-self: flex-start; background: #F5B041; color: #33271F; font-size: 0.78rem; font-weight: 800; padding: 0.35rem 0.75rem; border-radius: 8px; }
         .closing-copy__lead { font-size: 1.35rem; font-weight: 800; color: #33271F; line-height: 1.45; margin: 0; }
@@ -2297,16 +2301,18 @@
                 label: 'Effect · Closing',
                 title: 'AI 활용 문화, 조직에 뿌리내리다',
                 message: 'PUG의 성장은 AI 도구를 더 잘 쓰게 된 것이 아니라, 현업 문제를 AI 관점으로 다시 정의하고 해결 가능성을 검증하는 방식의 성장입니다.',
-                body: `<div class="bg-card rounded-lg p-6 mb-6"><table class="tbl nowrap-first">
+                body: `<div class="bg-card rounded-lg p-6 mb-4"><table class="tbl tbl-culture-change nowrap-first">
                     <thead><tr><th>변화</th><th>의미</th></tr></thead>
                     <tbody>
                         <tr><td>도구 중심 → 문제 중심</td><td>AI 활용의 목적이 명확해짐</td></tr>
                         <tr><td>학습 중심 → 실행 중심</td><td>실제 업무 적용 가능성 검증</td></tr>
                         <tr><td>개인 경험 → 공동 피드백</td><td>함께 개선하는 구조로 변화</td></tr>
-                        <tr><td>역량 체감 → 역량 측정</td><td>Before / After로 성장 확인</td></tr>
                     </tbody>
                 </table></div>
-                <div class="bg-ink text-card rounded-lg p-8 text-center">
+                <figure class="culture-growth-figure mb-4">
+                    <img src="assets/45-ai-culture/ai-problem-solving.png" alt="현업 문제를 AI로 풀어보는 협업 일러스트" loading="lazy">
+                </figure>
+                <div class="bg-ink text-card rounded-lg p-6 md:p-8 text-center">
                     <p class="text-xl md:text-2xl font-bold leading-relaxed">
                         AI PUG의 성장은 <span class="text-taupe">AI 사용법의 성장</span>이 아니라,<br>
                         현업 문제를 <span class="text-pug">AI로 풀어보는 방식의 성장</span>입니다.
