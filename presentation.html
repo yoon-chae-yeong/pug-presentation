@@ -275,7 +275,7 @@
         .slide-practice-qa .practice-exchange-col { position: relative; padding: 0.34rem; }
         .slide-practice-qa .practice-exchange-col__figure { display: flex; flex: 0 0 auto; min-height: min(216px, 30vh); max-height: min(236px, 34vh); margin: 0.22rem 0 0; }
         .slide-practice-qa .practice-exchange-col--question .practice-exchange-col__list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.2rem; align-content: start; }
-        .slide-practice-qa .practice-exchange-col--discussion .practice-exchange-col__list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.2rem; align-content: start; }
+        .slide-practice-qa .practice-exchange-col--discussion .practice-exchange-col__list { display: grid; grid-template-columns: minmax(0, 1fr); gap: 0.2rem; align-content: start; }
         .slide-practice-qa .practice-exchange-col__list { position: relative; }
         .slide-practice-qa .practice-exchange-col__list::after { content: ''; position: sticky; bottom: 0; display: block; height: 1rem; margin-top: -1rem; background: linear-gradient(to bottom, rgba(240,234,224,0), #F0EAE0 90%); pointer-events: none; }
         .slide-practice-qa .practice-exchange-item { padding: 0.26rem 0.3rem 0.24rem; border-radius: 6px; }
@@ -473,19 +473,19 @@
         .slide-checklist-full { justify-content: center !important; padding-bottom: 5rem !important; }
         .slide-checklist-full > div { display: flex; flex-direction: column; justify-content: flex-start; flex: 0 1 auto; min-height: 0; }
         .slide-checklist-full > div > p.leading-relaxed { margin-bottom: 0.75rem !important; font-size: 0.8125rem !important; }
-        .slide-checklist-full > div > h2 { margin-bottom: 0.5rem !important; }
+        .slide-checklist-full > div > h2 { margin-bottom: 0.5rem !important; font-size: 1.95rem !important; }
         .checklist-overview-panel { flex: 0 0 auto; height: var(--slide-47-panel-height); min-height: 0; display: flex; flex-direction: column; background: #F0EAE0; border: 1px solid #E5DFD5; border-radius: 10px; padding: 0.55rem; box-shadow: 0 2px 14px rgba(51,39,31,.07); }
         .checklist-overview-grid { flex: 0 0 auto; min-height: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-template-rows: var(--slide-47-row-1-height) var(--slide-47-row-2-height); gap: 0.5rem; align-items: stretch; height: calc(var(--slide-47-row-1-height) + var(--slide-47-row-2-height) + 0.5rem); }
         .checklist-overview-card { background: #fff; border: 1px solid #F0EAE0; border-left: 3px solid #F5B041; border-radius: 8px; padding: 0.55rem 0.52rem 0.48rem; min-width: 0; min-height: 0; height: 100%; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 1px 4px rgba(51,39,31,.05); }
         .checklist-overview-card__head { display: flex; align-items: center; gap: 0.35rem; margin-bottom: 0.32rem; padding-bottom: 0.28rem; border-bottom: 1px solid #F0EAE0; flex-shrink: 0; }
-        .checklist-overview-card__num { display: inline-flex; align-items: center; justify-content: center; min-width: 1.15rem; height: 1.15rem; padding: 0 0.2rem; border-radius: 4px; background: #33271F; color: #fff; font-size: 0.56rem; font-weight: 800; flex-shrink: 0; line-height: 1; }
-        .checklist-overview-card__title { font-size: 0.64rem; font-weight: 800; color: #33271F; line-height: 1.25; margin: 0; letter-spacing: -0.01em; }
-        .checklist-overview-card__body { flex: 0 1 auto; min-height: 0; display: flex; flex-direction: column; gap: 0.22rem; overflow-y: auto; }
+        .checklist-overview-card__num { display: inline-flex; align-items: center; justify-content: center; min-width: 1.2rem; height: 1.2rem; padding: 0 0.2rem; border-radius: 4px; background: #33271F; color: #fff; font-size: 0.6rem; font-weight: 800; flex-shrink: 0; line-height: 1; }
+        .checklist-overview-card__title { font-size: 0.72rem; font-weight: 800; color: #33271F; line-height: 1.28; margin: 0; letter-spacing: -0.01em; }
+        .checklist-overview-card__body { flex: 0 1 auto; min-height: 0; display: flex; flex-direction: column; gap: 0.24rem; overflow-y: auto; }
         .checklist-overview-card__block { flex-shrink: 0; }
         .checklist-overview-card__block:last-child { margin-bottom: 0; }
-        .checklist-overview-card__sub { font-size: 0.54rem; font-weight: 700; color: #8A7B6E; margin: 0 0 0.1rem; line-height: 1.2; }
-        .checklist-overview-card__list { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 0.13rem; }
-        .checklist-overview-card__list li { display: flex; align-items: flex-start; gap: 0.28rem; font-size: 0.53rem; line-height: 1.4; color: #33271F; }
+        .checklist-overview-card__sub { font-size: 0.6rem; font-weight: 700; color: #8A7B6E; margin: 0 0 0.1rem; line-height: 1.22; }
+        .checklist-overview-card__list { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 0.14rem; }
+        .checklist-overview-card__list li { display: flex; align-items: flex-start; gap: 0.28rem; font-size: 0.6rem; line-height: 1.42; color: #33271F; }
         .checklist-overview-card__list li::before { content: ''; flex-shrink: 0; width: 0.46rem; height: 0.46rem; margin-top: 0.06rem; border: 1.5px solid #CBBBA8; border-radius: 2px; background: #FBF8F3; }
         .closing-layout { display: grid; grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr); gap: 1.25rem; align-items: stretch; height: min(480px, calc(100vh - 250px)); max-height: 500px; }
         .closing-copy { display: flex; flex-direction: column; justify-content: center; gap: 1rem; min-height: 0; }
@@ -2275,19 +2275,6 @@
                 alignTop: true,
                 slideClass: 'slide-practice-qa',
                 body: buildPracticeExchangeBody()
-            }),
-
-            listSlide({
-                label: 'Effect · 협업',
-                title: '멤버·센터 간 협업 제안',
-                message: 'PUG 활동을 통해 멤버 간, 그리고 디지털전략센터와의 협업 제안이 이루어졌습니다.',
-                items: [
-                    '멤버 간 PoC 주제 연계·기술 공유',
-                    '디지털전략센터 전문가와의 공동 개발',
-                    '부서 간 AI·자동화 적용 사례 확산',
-                    '향후 부서 내 AI 활용 촉진자 역할 수행'
-                ],
-                highlight: '🤝 <strong class="text-ink">협업 제안</strong> 사례를 여기에 추가하세요.'
             }),
 
             contentSlide({
