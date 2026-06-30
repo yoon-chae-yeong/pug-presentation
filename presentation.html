@@ -244,6 +244,18 @@
         .interview-goal-check { flex-shrink: 0; margin-top: 0.1rem; padding: 0.3rem; background: #F5B041; color: #33271F; border-radius: 4px; display: inline-flex; }
         .interview-goal-check [data-lucide="check"] { width: 0.75rem; height: 0.75rem; }
         .interview-highlight { padding: 0.6rem 0.85rem; font-size: 0.8125rem; line-height: 1.45; flex-shrink: 0; }
+        .opening-split { align-items: stretch; }
+        .opening-split__table { display: flex; flex-direction: column; height: 100%; min-height: 0; }
+        .opening-split__tbl { flex: 1; width: 100%; height: 100%; }
+        .opening-split__tbl tbody { height: 100%; }
+        .opening-split__tbl tbody tr { height: 20%; }
+        .opening-split__tbl tbody td { vertical-align: middle; font-size: 0.98rem; line-height: 1.5; padding: 0.85rem 1.1rem; }
+        .opening-split__tbl tbody td:first-child { font-size: 0.95rem; }
+        .opening-pug-panel { min-height: 0; gap: 1rem; height: 100%; }
+        .opening-pug-panel__title { font-size: 1.2rem; font-weight: 800; color: #33271F; line-height: 1.4; margin: 0; letter-spacing: -0.01em; flex-shrink: 0; }
+        .opening-pug-panel__title span { color: #C8860A; }
+        .opening-pug-panel__figure { margin: 0; line-height: 0; flex: 1; min-height: 0; display: flex; align-items: center; justify-content: center; width: 100%; }
+        .opening-pug-panel__figure img { max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; display: block; }
         .practice-exchange-layout { display: flex; flex-direction: column; gap: 0.45rem; flex: 0 0 auto; width: 100%; height: var(--slide-43-panel-height); min-height: 0; }
         .practice-exchange-topics { display: flex; flex-wrap: wrap; gap: 0.2rem; flex-shrink: 0; }
         .practice-exchange-topics__chip { font-size: 0.48rem; font-weight: 700; color: #33271F; background: #fff; border: 1px solid #E5DFD5; border-radius: 999px; padding: 0.07rem 0.36rem; line-height: 1.25; }
@@ -1170,17 +1182,19 @@
                 label: 'PUG 소개 · Opening',
                 title: 'AI PUG의 시작 - AI 활용과 문화 확산',
                 message: 'AI 활용에 대한 관심은 높아졌지만, 실제 업무에 어떻게 적용할지는 각자 막막한 상황이었습니다. AI PUG는 이런 고민을 함께 풀어가기 위해 시작된 <strong class="text-ink">자발적 학습·공유 그룹</strong>이었습니다.',
-                body: `<div class="grid lg:grid-cols-5 gap-6 items-start">
-                    <div class="lg:col-span-3 bg-card rounded-lg p-6"><table class="tbl nowrap-first"><tbody>
+                body: `<div class="opening-split grid lg:grid-cols-5 gap-6 items-stretch">
+                    <div class="lg:col-span-3 opening-split__table bg-card rounded-lg p-6"><table class="tbl nowrap-first opening-split__tbl"><tbody>
                         <tr><td>출범</td><td><strong class="text-ink">2025년 7월</strong></td></tr>
                         <tr><td>그룹명</td><td>AI Power User Group <strong class="text-ink">(15명)</strong></td></tr>
                         <tr><td>목적</td><td>사내 AI 활용 역량 강화 및 자발적 지식 공유 문화 확산</td></tr>
                         <tr><td>운영 방식</td><td><strong class="text-ink">정기 모임</strong>, <strong class="text-ink">캐쥬얼 모임(자율)</strong>, AI 활용 사례 공유, 실습 중심 활동</td></tr>
                         <tr><td>출발점</td><td>AI를 실제 업무에 활용하고 싶은 구성원들의 참여</td></tr>
                     </tbody></table></div>
-                    <div class="lg:col-span-2 bg-pug text-ink rounded-lg p-6 self-stretch flex flex-col justify-center">
-                        <p class="text-xs font-bold uppercase tracking-wider mb-3 opacity-70">출발 질문</p>
-                        <p class="text-xl font-bold leading-snug">"AI, 우리 업무에<br>어떻게 써볼 수 있을까?"</p>
+                    <div class="lg:col-span-2 opening-pug-panel bg-card rounded-lg p-6 self-stretch flex flex-col items-center justify-center text-center">
+                        <p class="opening-pug-panel__title">AI PowerUserGroup <span>(PUG)</span></p>
+                        <figure class="opening-pug-panel__figure">
+                            <img src="assets/01-opening/pug-mascot.png" alt="PUG 마스코트" loading="lazy">
+                        </figure>
                     </div></div>`
             }),
 
