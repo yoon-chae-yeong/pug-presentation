@@ -24,7 +24,7 @@
     <style>
         /* ── 슬라이드 패널 높이 (값만 수정) ── */
         :root {
-            --slide-43-panel-height: min(560px, 64vh); /* 43 · 실습 Q&A */
+            --slide-43-panel-height: min(calc(100vh - 210px), 780px); /* 43 · 실습 Q&A */
             --slide-47-row-1-height: min(320px, 38vh); /* 47 · 1행 (카드 1~4) */
             --slide-47-row-2-height: min(220px, 26vh); /* 47 · 2행 (카드 5~7) · 1행보다 낮게 */
             --slide-47-panel-height: calc(var(--slide-47-row-1-height) + var(--slide-47-row-2-height) + 1.6rem); /* gap + 패딩 포함, 직접 수정 불필요 */
@@ -245,13 +245,17 @@
         .interview-goal-check [data-lucide="check"] { width: 0.75rem; height: 0.75rem; }
         .interview-highlight { padding: 0.6rem 0.85rem; font-size: 0.8125rem; line-height: 1.45; flex-shrink: 0; }
         .practice-exchange-layout { display: flex; flex-direction: column; gap: 0.45rem; flex: 0 0 auto; width: 100%; height: var(--slide-43-panel-height); min-height: 0; }
+        .practice-exchange-topics { display: flex; flex-wrap: wrap; gap: 0.2rem; flex-shrink: 0; }
+        .practice-exchange-topics__chip { font-size: 0.48rem; font-weight: 700; color: #33271F; background: #fff; border: 1px solid #E5DFD5; border-radius: 999px; padding: 0.07rem 0.36rem; line-height: 1.25; }
         .practice-exchange-columns { flex: 1; min-height: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.45rem; width: 100%; align-items: stretch; }
         .practice-exchange-col { min-height: 0; display: flex; flex-direction: column; background: #F0EAE0; border: 1px solid #E5DFD5; border-radius: 10px; padding: 0.42rem; overflow: hidden; }
-        .practice-exchange-col__head { flex-shrink: 0; margin-bottom: 0.35rem; padding-bottom: 0.3rem; border-bottom: 1px solid rgba(51,39,31,.08); }
-        .practice-exchange-col__title { display: flex; align-items: center; gap: 0.3rem; font-size: 0.72rem; font-weight: 800; color: #33271F; margin: 0; }
-        .practice-exchange-col__list { flex: 0 0 auto; min-height: 0; display: flex; flex-direction: column; gap: 0.28rem; overflow-y: auto; padding-right: 1px; scrollbar-width: thin; scrollbar-color: #CBBBA8 transparent; }
-        .practice-exchange-col--discussion .practice-exchange-col__list { overflow-y: hidden; }
-        .practice-exchange-col__figure { flex: 1 1 0; min-height: min(180px, 28vh); margin: 0.28rem 0 0; display: flex; align-items: center; justify-content: center; border-radius: 8px; overflow: hidden; background: #FBF8F3; line-height: 0; }
+        .practice-exchange-col__head { flex-shrink: 0; margin-bottom: 0.28rem; padding-bottom: 0.26rem; border-bottom: 1px solid rgba(51,39,31,.08); }
+        .practice-exchange-col__head-row { display: flex; align-items: center; justify-content: space-between; gap: 0.35rem; width: 100%; }
+        .practice-exchange-col__title { display: flex; align-items: center; gap: 0.3rem; font-size: 0.72rem; font-weight: 800; color: #33271F; margin: 0; min-width: 0; }
+        .practice-exchange-col__count { flex-shrink: 0; font-size: 0.58rem; font-weight: 800; color: #33271F; background: #fff; border: 1px solid #E5DFD5; border-radius: 999px; padding: 0.06rem 0.42rem; line-height: 1.2; }
+        .practice-exchange-col__list { flex: 1; min-height: 0; display: flex; flex-direction: column; gap: 0.28rem; overflow-y: auto; padding-right: 1px; scrollbar-width: thin; scrollbar-color: #CBBBA8 transparent; }
+        .practice-exchange-col--discussion .practice-exchange-col__list { overflow-y: auto; }
+        .practice-exchange-col__figure { flex: 0 0 auto; min-height: min(140px, 22vh); max-height: min(160px, 24vh); margin: 0.28rem 0 0; display: flex; align-items: center; justify-content: center; border-radius: 8px; overflow: hidden; background: #FBF8F3; line-height: 0; }
         .practice-exchange-col__figure img { width: 100%; height: 100%; display: block; object-fit: contain; object-position: center center; }
         .practice-exchange-item { background: #fff; border: 1px solid #F0EAE0; border-radius: 8px; padding: 0.38rem 0.45rem 0.36rem; min-width: 0; }
         .practice-exchange-col--question .practice-exchange-item { border-left: 3px solid #33271F; }
@@ -264,9 +268,24 @@
         .practice-exchange-item__points { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 0.1rem; }
         .practice-exchange-item__points li { display: flex; align-items: flex-start; gap: 0.24rem; font-size: 0.56rem; line-height: 1.4; color: #33271F; }
         .practice-exchange-item__points li::before { content: '·'; flex-shrink: 0; font-weight: 800; color: #F5B041; }
-        .slide-practice-qa { justify-content: center !important; padding-bottom: 5rem !important; }
-        .slide-practice-qa > div { display: flex; flex-direction: column; min-height: 0; flex: 0 1 auto; max-height: none; }
-        .slide-practice-qa > div > p.leading-relaxed { margin-bottom: 0.75rem !important; }
+        .slide-practice-qa { justify-content: flex-start !important; padding-top: 1.25rem !important; padding-bottom: 4.5rem !important; }
+        .slide-practice-qa > div { display: flex; flex-direction: column; min-height: 0; flex: 1; max-height: none; }
+        .slide-practice-qa > div > p.leading-relaxed { margin-bottom: 0.45rem !important; font-size: 0.8125rem !important; line-height: 1.45 !important; }
+        .slide-practice-qa .practice-exchange-layout { flex: 1; min-height: 0; height: auto; max-height: none; }
+        .slide-practice-qa .practice-exchange-col { position: relative; padding: 0.34rem; }
+        .slide-practice-qa .practice-exchange-col__figure { display: flex; flex: 0 0 auto; min-height: min(216px, 30vh); max-height: min(236px, 34vh); margin: 0.22rem 0 0; }
+        .slide-practice-qa .practice-exchange-col--question .practice-exchange-col__list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.2rem; align-content: start; }
+        .slide-practice-qa .practice-exchange-col--discussion .practice-exchange-col__list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.2rem; align-content: start; }
+        .slide-practice-qa .practice-exchange-col__list { position: relative; }
+        .slide-practice-qa .practice-exchange-col__list::after { content: ''; position: sticky; bottom: 0; display: block; height: 1rem; margin-top: -1rem; background: linear-gradient(to bottom, rgba(240,234,224,0), #F0EAE0 90%); pointer-events: none; }
+        .slide-practice-qa .practice-exchange-item { padding: 0.26rem 0.3rem 0.24rem; border-radius: 6px; }
+        .slide-practice-qa .practice-exchange-item__meta { margin-bottom: 0.08rem; }
+        .slide-practice-qa .practice-exchange-item__tag { font-size: 0.46rem; padding: 0.04rem 0.22rem; }
+        .slide-practice-qa .practice-exchange-item__q,
+        .slide-practice-qa .practice-exchange-item__title { font-size: 0.57rem; margin-bottom: 0.06rem; line-height: 1.32; }
+        .slide-practice-qa .practice-exchange-item__take { font-size: 0.5rem; line-height: 1.34; }
+        .slide-practice-qa .practice-exchange-item__points { gap: 0.06rem; }
+        .slide-practice-qa .practice-exchange-item__points li { font-size: 0.5rem; line-height: 1.32; gap: 0.16rem; }
         .interview-fields-figure { flex: 0 0 auto; height: min(360px, 44vh); max-height: min(360px, 44vh); min-height: 0; margin: 0; display: flex; flex-direction: column; background: #fff; border: 1px solid #F0EAE0; border-radius: 8px; padding: 0.4rem 0.65rem 0.5rem; overflow: hidden; }
         .interview-fields-caption { flex-shrink: 0; font-size: 0.68rem; font-weight: 700; color: #8A7B6E; text-align: center; margin: 0 0 0.25rem; }
         .interview-fields-img { flex: 1; min-height: 0; width: 100%; object-fit: contain; display: block; }
@@ -749,16 +768,55 @@
         }
 
         const PRACTICE_QUESTIONS = [
+            { tag: '기초 개념', q: '클라이언트와 서버는 무엇인가?', take: '클라이언트는 요청하는 쪽, 서버는 응답하는 쪽 · PC·스마트폰·브라우저도 클라이언트' },
+            { tag: 'LLM', q: '자연어로 LLM에 요청·응답하는 구조는?', take: '클라이언트 → 서버 → 응답 형태의 API 요청 구조와 동일' },
+            { tag: 'API·데이터', q: '매개변수로 입력된 데이터는 저장되나?', take: '데이터 성격에 따라 다름 · 이메일은 DB 저장, 날씨 조회는 일회성 · 재무는 SAP 백엔드 내 처리' },
+            { tag: 'SAP·연동', q: 'SAP 데이터 연동 시 전용 통신 방식이 있나?', take: '일반 웹 API와 다른 SAP 전용 방식 · ICT 개발팀 내부 개발 예정, PUG는 매개변수·응답 구조 설계 중심' },
+            { tag: '프록시', q: '프록시 서버 사용 사례는?', take: '프레임워크 기본 구조로 두는 경우 많음 · CORS로 클라이언트 직접 요청 제한 시 활용' },
+            { tag: '프록시', q: '프록시 사용 시 보안이 높아지는 이유는?', take: 'API Key 관리 지점 축소 · 직접 통신 100곳 → 프록시 1곳' },
+            { tag: '프록시', q: '클라이언트 요청은 항상 프록시를 거치나?', take: '대부분 보안·관리 목적상 프록시를 거치는 구조 사용' },
+            { tag: 'API', q: 'GET vs POST에서 POST를 쓰는 이유는?', take: 'GET은 URL에 파라미터 노출, POST는 Body에 담아 URL 노출 없음' },
+            { tag: '바이브 코딩', q: '바이브 코딩 도구를 여러 개 익혀야 하나?', take: '처음엔 하나에 익숙해지는 것 권장, 이후 필요에 따라 활용' },
+            { tag: '바이브 코딩', q: '바이브 코딩에서 표준이 생기는 부분은?', take: '코딩 전 요구사항·기능 정의 문서 작성 → 문서 기반 코드 생성 요청' },
             { tag: 'API·문서', q: 'FastAPI로 API 문서를 만드는 이유는?', take: '코드 기반 자동 문서화·Swagger로 요청/응답 공유' },
             { tag: '백엔드', q: 'POST 호출 시 req 변수를 쓰는 이유는?', take: '요청 본문을 담는 request의 관습적 변수명' },
-            { tag: '기초 개념', q: '인코딩이란?', take: '문자를 숫자로 변환하는 방식, UTF-8·EUC-KR 등' },
-            { tag: '기초 개념', q: '로케일(locale)이란?', take: '언어·지역 설정, 날짜·숫자 표기에 영향' },
-            { tag: 'SQL', q: 'SELECT alias를 WHERE 절에서 쓸 수 있나?', take: 'alias는 SELECT 결과에만 적용, 서브쿼리 활용' },
-            { tag: 'DB 선택·운영', q: '데이터베이스는 어디에 구축되나?', take: '별도 서버 환경(물리·클라우드)에 운영' },
-            { tag: 'SQL', q: 'SQL 실행 후 저장 없이 DB에 반영되나?', take: '실행 즉시 반영, 스크립트 파일 저장과 별개' }
+            { tag: '환경설정', q: '.env에 Port 번호를 여러 개 설정할 수 있나?', take: '서비스별 환경변수 이름 구분 가능 · APP01_PORT=5000, APP02_PORT=5001 등' },
+            { tag: '기초 개념', q: '인코딩이란?', take: '문자를 숫자로 변환 · UTF-8·EUC-KR, 불일치 시 깨짐' },
+            { tag: '기초 개념', q: '로케일(locale)이란?', take: '언어·지역 설정 · 문자 정렬, 날짜·숫자 표기에 영향' },
+            { tag: 'SQL', q: 'SELECT alias를 WHERE 절에서 쓸 수 있나?', take: '불가 · alias는 SELECT 결과에만 적용, 서브쿼리 활용' },
+            { tag: 'DB 선택·운영', q: 'MongoDB·Supabase와 SQL DB 차이는?', take: 'MongoDB(NoSQL)·Supabase(SQL) · 관계형은 구조화·복잡 쿼리, NoSQL은 유연·대규모 실시간' },
+            { tag: 'DB 선택·운영', q: '데이터베이스는 어디에 구축되나?', take: '별도 서버(물리·클라우드) 환경에 운영' },
+            { tag: 'SQL', q: 'SQL 실행 후 저장 없이 DB에 반영되나?', take: '실행 즉시 반영 · 에디터 저장은 스크립트 파일만' },
+            { tag: '데이터', q: '데이터 무결성이란?', take: '데이터가 정확·일관되게 유지되는 상태 · 없는 사용자 ID로 게시물 생성 시 깨짐' },
+            { tag: 'AI 기초', q: '강화학습의 기본 방식은?', take: '행동 → 보상/패널티 → 보상 최대화 방향으로 학습' },
+            { tag: 'LLM', q: 'LLM이 코딩을 잘하는 이유는?', take: '대량 코드 데이터 학습으로 패턴 기반 생성 · 업무 활용 방안 고민이 중요' },
+            { tag: 'RAG·파인튜닝', q: '파인튜닝과 RAG 사용 사례 차이는?', take: '일반적으론 RAG, 특정 도메인·동작 반영 시 파인튜닝 · 후자는 비용·관리 부담 증가' },
+            { tag: 'RAG·파인튜닝', q: '파인튜닝과 RAG 리소스 부담은?', take: 'RAG는 검색+생성으로 가볍고, 파인튜닝은 모델 학습으로 비용 큼' },
+            { tag: 'RAG·파인튜닝', q: '파인튜닝과 RAG 답변 차이는?', take: 'RAG는 외부 데이터 기반 사실 답변, 파인튜닝은 행동·스타일 변화' },
+            { tag: 'LLM', q: '내부 LLM의 장점은?', take: '데이터 외부 유출 감소, 내부 문서 RAG로 정확도 향상' },
+            { tag: 'RAG', q: '벡터DB를 학습한다는 표현이 맞나?', take: '임베딩 저장·유사도 검색 역할, 자체 학습은 하지 않음' },
+            { tag: 'RAG', q: '임베딩 모델과 LLM 모델의 관계는?', take: '임베딩은 벡터 변환·검색, LLM은 답변 생성 · 실습에서 OpenAIEmbeddings 호출' },
+            { tag: '프롬프트', q: '감정 프롬프팅 원리와 GPT가 친절한 이유는?', take: '학습된 언어 패턴 기반 톤 생성 · 시스템 프롬프트·정책으로 설계' },
+            { tag: 'RAG', q: '정확도를 위해 벡터DB 세팅이 필요한가?', take: '청킹·top-k·hybrid search 적용 시 검색 정확도 향상' },
+            { tag: 'RAG', q: '표 데이터는 벡터DB에 어떻게 넣나?', take: '텍스트 변환 후 청킹·임베딩 · CSV/PDF는 Loader, 이미지 PDF는 OCR 후 처리' }
         ];
 
         const PRACTICE_DISCUSSIONS = [
+            {
+                tag: '역할·성장',
+                title: '아키텍터가 되기 위해 필요한 것',
+                points: ['AI 개발 환경에서 시스템 구조 설계 역할의 중요성 증가', '시스템 구조 이해', '데이터 흐름 설계 능력']
+            },
+            {
+                tag: 'AI 활용',
+                title: 'AI에게 주도권을 뺏기지 않으려면',
+                points: ['비전공자는 AI 제시 방향대로 흘러가기 쉬움', '요구사항을 명확히 문서화', '기능 단위로 작업 범위 정의']
+            },
+            {
+                tag: 'AI 활용',
+                title: 'AI 코딩 시 주의할 점',
+                points: ['요청하지 않은 코드 수정에 주의', '다른 기능까지 변경되는 경우 주의', '수정 범위 명시하고 결과 확인']
+            },
             {
                 tag: 'API·문서',
                 title: 'API 문서의 실무 유즈케이스',
@@ -767,12 +825,12 @@
             {
                 tag: 'DB 선택·운영',
                 title: 'MongoDB·Supabase·SQL 차이와 선택',
-                points: ['관계형 vs NoSQL 특성 비교', '업무·데이터 성격에 따른 기술 검토']
+                points: ['SQL은 테이블 기반 관계형, NoSQL은 문서 기반으로 유연', '복잡 쿼리·구조화 데이터는 SQL, 실시간·대규모는 NoSQL', '비즈니스 성격에 따른 기술 검토 필요']
             },
             {
                 tag: '데이터 설계',
                 title: '데이터 테이블 효과적 설계',
-                points: ['데이터 중복 최소화', '테이블 관계·PK/FK 구조 설계']
+                points: ['데이터 중복 최소화', '테이블 간 관계 구조 설계', 'PK/FK로 무결성 유지']
             }
         ];
 
@@ -797,11 +855,20 @@
         }
 
         function buildPracticeExchangeBody() {
+            const topicTags = [...new Set([
+                ...PRACTICE_QUESTIONS.map(q => q.tag),
+                ...PRACTICE_DISCUSSIONS.map(d => d.tag)
+            ])];
+            const topics = `<div class="practice-exchange-topics">${topicTags.map(t => `<span class="practice-exchange-topics__chip">${t}</span>`).join('')}</div>`;
             return `<div class="practice-exchange-layout" id="practice-exchange-panel">
+                ${topics}
                 <div class="practice-exchange-columns">
                     <section class="practice-exchange-col practice-exchange-col--question">
                         <header class="practice-exchange-col__head">
-                            <h3 class="practice-exchange-col__title">❓ 질문 · 개념 정리</h3>
+                            <div class="practice-exchange-col__head-row">
+                                <h3 class="practice-exchange-col__title">❓ 질문 · 개념 정리</h3>
+                                <span class="practice-exchange-col__count">${PRACTICE_QUESTIONS.length}개</span>
+                            </div>
                         </header>
                         <div class="practice-exchange-col__list">${PRACTICE_QUESTIONS.map(renderPracticeQuestionItem).join('')}</div>
                         <figure class="practice-exchange-col__figure">
@@ -810,7 +877,10 @@
                     </section>
                     <section class="practice-exchange-col practice-exchange-col--discussion">
                         <header class="practice-exchange-col__head">
-                            <h3 class="practice-exchange-col__title">💬 토론 · 관점 나누기</h3>
+                            <div class="practice-exchange-col__head-row">
+                                <h3 class="practice-exchange-col__title">💬 토론 · 관점 나누기</h3>
+                                <span class="practice-exchange-col__count">${PRACTICE_DISCUSSIONS.length}가지</span>
+                            </div>
                         </header>
                         <div class="practice-exchange-col__list">${PRACTICE_DISCUSSIONS.map(renderPracticeDiscussionItem).join('')}</div>
                         <figure class="practice-exchange-col__figure">
@@ -827,11 +897,8 @@
             const qList = panel.querySelector('.practice-exchange-col--question .practice-exchange-col__list');
             const dList = panel.querySelector('.practice-exchange-col--discussion .practice-exchange-col__list');
             if (!qList || !dList) return;
-            qList.style.height = '';
-            dList.style.height = '';
-            const listH = dList.scrollHeight;
-            dList.style.height = `${listH}px`;
-            qList.style.height = `${listH}px`;
+            qList.scrollTop = 0;
+            dList.scrollTop = 0;
         }
 
         function buildInterviewSlide() {
@@ -2205,6 +2272,7 @@
                 message: 'API부터 DB 설계까지 다양한 주제에서 질문과 토론이 오가며, 혼자 배우던 방식에서 함께 성장하는 구조로 바뀌었습니다.',
                 wide: true,
                 compact: true,
+                alignTop: true,
                 slideClass: 'slide-practice-qa',
                 body: buildPracticeExchangeBody()
             }),
