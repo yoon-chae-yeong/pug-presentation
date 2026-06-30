@@ -1185,7 +1185,7 @@
                         '<strong>인원 조정</strong> · PoC 활동 시간 사전 확보'
                     ])}
                     ${buildPerspectivePanel('멤버', [
-                        '<strong>시간 확보</strong> 공지 · 정기 모임 운영',
+                        '<strong>시간 확보</strong> 공지 · 정기 모임 운영<strong>(주 1회)</strong> ',
                         '<strong>PUG 맞춤 커리큘럼</strong> 설계·운영'
                     ])}
                     ${buildPerspectivePanel('보안', [
@@ -1604,17 +1604,17 @@
 
         // ── PART 3: 디지털전략센터 × PUG ──
         const SUPPORT = [
-            { icon: 'presentation', title: '전문가 연결 · 웹 개발 실무 강의', desc: '도메인 특성을 이해한 실무형 강의 및 코칭', photoLayout: 'quad', photoFit: 'contain', photos: [
-                { src: 'assets/26-web-dev-lecture/lecture-code-review.png', caption: '실습 코드 리뷰 · 화면 공유 강의' },
-                { src: 'assets/26-web-dev-lecture/lecture-llm-params.png', caption: 'FastAPI 실습 안내' },
-                { src: 'assets/26-web-dev-lecture/lecture-workshop.png', caption: 'Git & GitHub 강의' },
-                { src: 'assets/26-web-dev-lecture/lecture-onprem-llm.png', caption: 'AI PlayGround 활용 방법 안내' }
+            { icon: 'presentation', title: '디지털전략센터 실무진 연결 · AI/Dev/Data/UI&UX 실무 강의', desc: '도메인 특성을 이해한 실무형 강의 및 코칭', photoLayout: 'quad', photoFit: 'contain', photos: [
+                { src: 'assets/26-web-dev-lecture/lecture-code-review.png', caption: '실습 코드 리뷰 · 화면 공유 강의(디지털진화팀 송영복)' },
+                { src: 'assets/26-web-dev-lecture/lecture-onprem-llm.png', caption: '머신러닝 · 자연어처리 강의(AI솔루션팀 윤채영)' },
+                { src: 'assets/26-web-dev-lecture/lecture-ai-dev-connect.png', caption: '사내 LLM 활용 관련 Q&A (AI솔루션팀 진완혁)' },
+                { src: 'assets/26-web-dev-lecture/lecture-uiux-design.png', caption: 'UI/UX 디자인 강의(디지털진화팀 심수정)' }
             ]},
             { icon: 'users', title: '디지털전략센터 · Leader\'s Talk', meetingReveal: true, photos: [
                 { src: 'assets/28-meeting/meeting-reflection.png', caption: 'AI 시대에 대한 고찰 (정민석님)' },
                 { src: 'assets/28-meeting/meeting-playground.png', caption: 'AI Playground 소개 (신민규님)' }
             ], overlayPhoto: { src: 'assets/28-meeting/meeting-dinner.png', caption: '간담회 식사', note: 'Power User Group의 P를 나타낸 포즈입니다 ^^' }},
-            { icon: 'message-square', title: '운영 지원 · 게시판 · 실습자료 · 미팅노트', desc: 'Teams 채널 활동 요약, 주차별 실습자료 공유, 미팅노트 아카이빙으로 운영·회고를 지속했습니다.', opsSupportTriple: {
+            { icon: 'message-square', title: '운영 지원 · 게시판 · 실습자료 · 미팅노트', desc: '주차별 실습자료 공유, Teams 채널 활동 요약, 미팅노트 아카이빙으로 운영·회고를 지속했습니다.', opsSupportTriple: {
                 video: { src: 'assets/29-teams-channel/teams-channel.mp4', rate: 1.5, label: 'Teams 게시판 활동 요약' },
                 materials: { src: 'assets/30-weekly-materials/weekly-materials-folders.png', label: '주차별 실습자료 공유' },
                 notion: { src: 'assets/31-meeting-notes/meeting-notes-list.png', label: 'PUG Meeting Notes 아카이빙' }
@@ -1933,18 +1933,18 @@
             const videoRateAttr = video.rate ? ` data-playback-rate="${video.rate}"` : '';
             return `<div class="ops-support-grid">
                 <div class="ops-support-col">
+                    <figure class="ops-support-media ops-support-photo">
+                        <img src="${materials.src}" alt="${materials.label}" loading="lazy">
+                    </figure>
+                    <p class="ops-support-col__label">${materials.label}</p>
+                </div>
+                <div class="ops-support-col">
                     <div class="ops-support-media ops-support-media--video">
                         <div class="ops-support-video-wrap">
                             <video src="${video.src}" controls playsinline muted loop preload="auto" class="ops-support-video"${videoRateAttr}></video>
                         </div>
                     </div>
                     <p class="ops-support-col__label">${video.label}</p>
-                </div>
-                <div class="ops-support-col">
-                    <figure class="ops-support-media ops-support-photo">
-                        <img src="${materials.src}" alt="${materials.label}" loading="lazy">
-                    </figure>
-                    <p class="ops-support-col__label">${materials.label}</p>
                 </div>
                 <div class="ops-support-col">
                     <figure class="ops-support-media ops-support-photo ops-support-photo--dark">
