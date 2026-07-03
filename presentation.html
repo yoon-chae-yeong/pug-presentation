@@ -97,6 +97,19 @@
         .member-dept-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.5rem; }
         .member-dept-block { display: flex; align-items: center; justify-content: center; min-height: 2.25rem; padding: 0.45rem 0.35rem; background: #FBF8F3; border: 1px solid #E8DFD0; border-radius: 6px; text-align: center; }
         .member-dept-block__label { font-size: 0.75rem; font-weight: 700; color: #33271F; line-height: 1.25; word-break: keep-all; }
+        .slide-perspective .member-dept-section { margin-bottom: 1.1rem; padding: 1.1rem 1.35rem; border-color: #E5DFD5; box-shadow: 0 1px 4px rgba(51,39,31,.06); }
+        .slide-perspective .member-dept-section__title { font-size: 0.9rem; margin-bottom: 0.75rem; }
+        .slide-perspective .member-dept-grid { gap: 0.62rem; }
+        .slide-perspective .member-dept-block { min-height: 2.55rem; padding: 0.52rem 0.5rem; border: 1px solid #E0D5C8; box-shadow: 0 1px 2px rgba(51,39,31,.05); }
+        .slide-perspective .member-dept-block:nth-child(1) { background: #FFF0DB; border-color: #E8C99A; }
+        .slide-perspective .member-dept-block:nth-child(2) { background: #E8F5E9; border-color: #B8D4BA; }
+        .slide-perspective .member-dept-block:nth-child(3) { background: #E8EEF8; border-color: #B8C8E8; }
+        .slide-perspective .member-dept-block:nth-child(4) { background: #F3E8F8; border-color: #D4B8E8; }
+        .slide-perspective .member-dept-block:nth-child(5) { background: #FFF8E1; border-color: #E8D48A; }
+        .slide-perspective .member-dept-block:nth-child(6) { background: #E8F4F4; border-color: #A8D4D4; }
+        .slide-perspective .member-dept-block:nth-child(7) { background: #FCE8EC; border-color: #E8B8C4; }
+        .slide-perspective .member-dept-block:nth-child(8) { background: #F0EBE3; border-color: #D4C4B0; }
+        .slide-perspective .member-dept-block__label { font-size: 0.82rem; font-weight: 800; }
         @media (max-width: 900px) { .member-dept-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
         .slide-perspective > div > p.leading-relaxed { font-size: 0.9375rem; max-width: none; }
         .slide-review-activities { overflow: hidden; }
@@ -527,10 +540,21 @@
         .closing-photo img { width: 100%; flex: 1; min-height: 0; object-fit: cover; display: block; }
         .closing-photo figcaption { font-size: 0.72rem; font-weight: 700; text-align: center; padding: 0.5rem 0.65rem; color: #33271F; background: #FBF8F3; line-height: 1.3; }
         .showcase-layout { display: flex; flex-direction: column; gap: 1.15rem; width: 100%; }
+        .showcase-layout--split { flex-direction: row; gap: 0.75rem; align-items: stretch; height: min(520px, calc(100vh - 260px)); min-height: 0; }
+        .showcase-schedule-panel { flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 0.55rem; overflow-y: auto; padding: 0.65rem 0.75rem; border-radius: 10px; border: 1px solid #F0EAE0; box-shadow: 0 4px 16px rgba(51,39,31,.08); background: #fff; }
+        .showcase-schedule-section { min-width: 0; }
+        .showcase-schedule-section__title { font-size: 0.72rem; font-weight: 800; color: #33271F; margin: 0 0 0.35rem; padding-left: 0.45rem; border-left: 3px solid #F5B041; line-height: 1.3; }
+        .showcase-schedule-tbl { font-size: 0.56rem; }
+        .showcase-schedule-tbl thead th { font-size: 0.54rem; padding: 0.32rem 0.42rem; white-space: nowrap; }
+        .showcase-schedule-tbl tbody td { font-size: 0.54rem; padding: 0.3rem 0.42rem; line-height: 1.35; vertical-align: top; }
+        .showcase-schedule-tbl tbody td:first-child { white-space: nowrap; font-weight: 700; }
+        .showcase-photo-stack { flex: 0 0 38%; width: 38%; min-width: 0; display: flex; flex-direction: column; gap: 0.65rem; min-height: 0; }
+        .showcase-photo-stack__item { flex: 1 1 0; min-height: 0; border-radius: 10px; overflow: hidden; border: 1px solid #F0EAE0; box-shadow: 0 4px 16px rgba(51,39,31,.08); margin: 0; line-height: 0; background: #F0EAE0; }
+        .showcase-photo-stack__item img { width: 100%; height: 100%; display: block; object-fit: cover; object-position: center center; }
         .slide-showcase { justify-content: center !important; padding-top: 0 !important; padding-bottom: 4.5rem !important; }
         .slide-showcase > div > p.text-pug { margin-bottom: 0.5rem !important; }
         .slide-showcase > div > h2 { margin-bottom: 0.65rem !important; }
-        .slide-showcase > div > p.leading-relaxed { max-width: none; margin-bottom: 1.15rem !important; }
+        .slide-showcase > div > p.leading-relaxed { max-width: none; margin-bottom: 0.85rem !important; }
         .showcase-info { display: flex; flex-direction: column; gap: 0.75rem; min-width: 0; flex-shrink: 0; }
         .showcase-info__table { flex-shrink: 0; min-width: 0; width: 100%; }
         .showcase-info__table .tbl tbody td { font-size: 0.88rem; line-height: 1.5; padding: 0.7rem 1rem; }
@@ -889,6 +913,37 @@
                 points: ['데이터 중복 최소화', '테이블 간 관계 구조 설계', 'PK/FK로 무결성 유지']
             }
         ];
+
+        function buildShowcaseSchedulePanel() {
+            return `<div class="showcase-schedule-panel">
+                <section class="showcase-schedule-section">
+                    <h3 class="showcase-schedule-section__title">진행 순서</h3>
+                    <table class="tbl showcase-schedule-tbl">
+                        <thead><tr><th>시간</th><th>내용</th><th>담당</th><th>목적</th></tr></thead>
+                        <tbody>
+                            <tr><td>09:00~09:05</td><td>오프닝 및 행사 진행 방식 소개</td><td>운영진</td><td>인트로</td></tr>
+                            <tr><td>09:05~09:20</td><td>기조연설</td><td>운영진</td><td>AI 활용 문화 확산 메시지</td></tr>
+                            <tr><td>09:20~09:40</td><td>AI PUG 성장 히스토리</td><td>운영진</td><td>AI PUG 성장 과정 소개</td></tr>
+                            <tr><td>09:40~09:50</td><td>PoC 체크 포인트 안내</td><td>운영진</td><td>피드백 방식 안내</td></tr>
+                            <tr><td>09:50~10:00</td><td>10분 휴식 및 네트워킹</td><td>-</td><td>-</td></tr>
+                            <tr><td>10:00~12:10</td><td>개인별 PoC 소개</td><td>실무진 8명</td><td>시연 및 질의응답</td></tr>
+                            <tr><td>12:10~12:20</td><td>후속 액션 및 클로징</td><td>운영진</td><td>아웃트로</td></tr>
+                        </tbody>
+                    </table>
+                </section>
+                <section class="showcase-schedule-section">
+                    <h3 class="showcase-schedule-section__title">개인별 PoC 소개 세부 내용</h3>
+                    <table class="tbl showcase-schedule-tbl">
+                        <thead><tr><th>시간</th><th>내용</th><th>발표자</th></tr></thead>
+                        <tbody>
+                            <tr><td>10:00~11:00</td><td>섹션 1. 운영, 지식관리</td><td>현재호 · 강주혁 · 김보근 · 강웅준</td></tr>
+                            <tr><td>11:00~11:10</td><td>10분 휴식 및 네트워킹</td><td>-</td></tr>
+                            <tr><td>11:10~12:10</td><td>섹션 2. 제조, 원가, 연구개발</td><td>윤성수 · 김진용 · 박지훈 · 박다솜</td></tr>
+                        </tbody>
+                    </table>
+                </section>
+            </div>`;
+        }
 
         function renderPracticeQuestionItem(item) {
             return `<article class="practice-exchange-item">
@@ -1292,7 +1347,7 @@
                 body: `<div class="perspective-grid">
                     ${buildPerspectivePanel('운영진', [
                         '<strong>멤버별 요구·성장 방향</strong> 파악 어려움',
-                        '<strong>인원 과다</strong> · 현업 병행 → <strong>이탈 · 진도 불일치</strong>'
+                        '<strong>인원 과다</strong> · 현업 병행<br>→ <strong>이탈 · 진도 불일치</strong>'
                     ])}
                     ${buildPerspectivePanel('멤버', [
                         '<strong>현업 병행</strong> · <strong>실습 시간·집중도</strong> 부족',
@@ -1732,22 +1787,13 @@
                 compact: true,
                 wide: true,
                 slideClass: 'slide-showcase',
-                body: `<div class="showcase-layout">
-                    <div class="showcase-info">
-                        <div class="showcase-info__table bg-card rounded-lg p-4"><table class="tbl nowrap-first"><tbody>
-                            <tr><td>장소</td><td><strong class="text-ink">캠퍼스디 부산 · 룸다빈치</strong></td></tr>
-                            <tr><td>참석</td><td>집중반 멤버 <strong class="text-ink">8명</strong> · 운영진 <strong class="text-ink">2명</strong> · 소속 조직 리더·구성원</td></tr>
-                            <tr><td>배경</td><td>2025년 7월 출범 이후, 2026년 상반기 <strong class="text-ink">4개월 집중반</strong> 활동 성과 공유</td></tr>
-                        </tbody></table></div>
-                    </div>
-                    <div class="showcase-photo-grid">
-                        <figure class="showcase-photo-grid__item">
-                            <img src="assets/49-showcase-poc/poc-present-01.png" alt="PoC 발표 현장" loading="lazy">
-                        </figure>
-                        <figure class="showcase-photo-grid__item">
+                body: `<div class="showcase-layout showcase-layout--split">
+                    ${buildShowcaseSchedulePanel()}
+                    <div class="showcase-photo-stack">
+                        <figure class="showcase-photo-stack__item">
                             <img src="assets/49-showcase-poc/poc-present-02.png" alt="PoC 발표 슬라이드" loading="lazy">
                         </figure>
-                        <figure class="showcase-photo-grid__item">
+                        <figure class="showcase-photo-stack__item">
                             <img src="assets/49-showcase-poc/poc-present-03.png" alt="PoC 발표 현장" loading="lazy">
                         </figure>
                     </div>
@@ -2389,16 +2435,7 @@
                         <tr><td>학습 중심 → 실행 중심</td><td>실제 업무 적용 가능성 검증</td></tr>
                         <tr><td>개인 경험 → 공동 피드백</td><td>함께 개선하는 구조로 변화</td></tr>
                     </tbody>
-                </table></div>
-                <figure class="culture-growth-figure mb-4">
-                    <img src="assets/45-ai-culture/ai-problem-solving.png" alt="현업 문제를 AI로 풀어보는 협업 일러스트" loading="lazy">
-                </figure>
-                <div class="bg-ink text-card rounded-lg p-6 md:p-8 text-center">
-                    <p class="text-xl md:text-2xl font-bold leading-relaxed">
-                        AI PUG의 성장은 <span class="text-taupe">AI 사용법의 성장</span>이 아니라,<br>
-                        현업 문제를 <span class="text-pug">AI로 풀어보는 방식의 성장</span>입니다.
-                    </p>
-                </div>`
+                </table></div>`
             }),
 
             contentSlide({
@@ -2445,8 +2482,8 @@
                             </div>
                             <div class="culture-spread-point__content">
                                 <div class="culture-spread-feedback">
-                                    <span>"우리 부서에도 적용 가능"</span>
-                                    <span>"추가 논의 후 검토"</span>
+                                    <span>"우리 부서에도 적용 하고싶다"</span>
+                                    <span>"논의하고 후 검토하고싶다"</span>
                                     <span>"바로 검토하고 싶다"</span>
                                 </div>
                                 <p class="culture-spread-point__body">특정 부서 사례가 <strong class="text-ink">유사 업무를 가진 다른 부서</strong>에서도 참고 가능한 사례로 확장되었습니다.</p>
