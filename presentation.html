@@ -517,6 +517,37 @@
         .closing-photo { border-radius: 12px; overflow: hidden; border: 1px solid #F0EAE0; box-shadow: 0 8px 28px rgba(51,39,31,.12); margin: 0; height: 100%; min-height: 0; background: #F0EAE0; display: flex; flex-direction: column; }
         .closing-photo img { width: 100%; flex: 1; min-height: 0; object-fit: cover; display: block; }
         .closing-photo figcaption { font-size: 0.72rem; font-weight: 700; text-align: center; padding: 0.5rem 0.65rem; color: #33271F; background: #FBF8F3; line-height: 1.3; }
+        .showcase-layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 1.25rem; align-items: stretch; height: min(480px, calc(100vh - 250px)); max-height: 500px; }
+        .showcase-info { display: flex; flex-direction: column; gap: 0.75rem; min-width: 0; height: 100%; }
+        .showcase-info__table { flex-shrink: 0; min-width: 0; }
+        .showcase-info__table .tbl tbody td { font-size: 0.85rem; line-height: 1.5; padding: 0.65rem 0.95rem; }
+        .showcase-info__agenda { background: #fff; border: 1px solid #F0EAE0; border-radius: 8px; padding: 0.9rem 1rem; flex-shrink: 0; min-width: 0; }
+        .showcase-info__agenda-title { font-size: 0.8rem; font-weight: 800; color: #33271F; margin: 0 0 0.5rem; }
+        .showcase-info__agenda ol { margin: 0; padding-left: 1.15rem; display: flex; flex-direction: column; gap: 0.35rem; }
+        .showcase-info__agenda li { font-size: 0.84rem; color: #4A3C33; line-height: 1.45; }
+        .showcase-info__highlight { background: #F0EAE0; border-radius: 8px; padding: 0.95rem 1.05rem; font-size: 0.82rem; color: #4A3C33; line-height: 1.6; flex: 1; min-width: 0; min-height: 0; overflow-y: auto; word-break: keep-all; }
+        .showcase-photo { border-radius: 12px; overflow: hidden; border: 1px solid #F0EAE0; box-shadow: 0 8px 28px rgba(51,39,31,.1); margin: 0; height: 100%; min-width: 0; background: #F0EAE0; display: flex; flex-direction: column; }
+        .showcase-photo img { width: 100%; flex: 1; min-height: 0; object-fit: cover; object-position: center center; display: block; }
+        .showcase-photo figcaption { font-size: 0.74rem; font-weight: 700; text-align: center; padding: 0.5rem 0.65rem; color: #33271F; background: #FBF8F3; line-height: 1.35; flex-shrink: 0; }
+        .culture-spread-layout { display: grid; grid-template-columns: minmax(0, 1.14fr) minmax(0, 0.86fr); gap: 1.35rem; align-items: stretch; height: min(560px, calc(100vh - 228px)); max-height: 580px; }
+        .slide-culture-spread > div > p.leading-relaxed { max-width: none; margin-bottom: 0.85rem !important; font-size: 0.8125rem; }
+        .culture-spread-photo { border-radius: 12px; overflow: hidden; border: 1px solid #F0EAE0; box-shadow: 0 10px 32px rgba(51,39,31,.12); margin: 0; height: 100%; min-width: 0; background: #1a1a1a; display: flex; flex-direction: column; }
+        .culture-spread-photo img { width: 100%; flex: 1; min-height: 0; object-fit: cover; object-position: center 35%; display: block; }
+        .culture-spread-photo figcaption { font-size: 0.74rem; font-weight: 700; text-align: center; padding: 0.55rem 0.7rem; color: #33271F; background: #FBF8F3; line-height: 1.35; flex-shrink: 0; }
+        .culture-spread-points { display: grid; grid-template-rows: repeat(3, minmax(0, 1fr)); gap: 0.7rem; min-width: 0; height: 100%; }
+        .culture-spread-point { background: #fff; border: 1px solid #F0EAE0; border-radius: 10px; padding: 0.85rem 1rem 0.9rem; min-width: 0; min-height: 0; display: flex; flex-direction: column; gap: 0.45rem; box-shadow: 0 1px 3px rgba(51,39,31,.04); }
+        .culture-spread-point__head { display: flex; align-items: flex-start; gap: 0.55rem; flex-shrink: 0; }
+        .culture-spread-point__num { flex-shrink: 0; width: 1.45rem; height: 1.45rem; border-radius: 6px; background: #F5B041; color: #33271F; font-size: 0.78rem; font-weight: 800; display: flex; align-items: center; justify-content: center; line-height: 1; margin-top: 0.05rem; }
+        .culture-spread-point__title { font-size: 0.86rem; font-weight: 800; color: #33271F; margin: 0; line-height: 1.35; word-break: keep-all; flex: 1; min-width: 0; }
+        .culture-spread-point__body { font-size: 0.78rem; color: #4A3C33; line-height: 1.52; margin: 0; word-break: keep-all; }
+        .culture-spread-point__content { display: flex; flex-direction: column; gap: 0.38rem; min-height: 0; flex: 1; }
+        .culture-spread-quote { background: #FBF8F3; border-left: 3px solid #F5B041; border-radius: 0 6px 6px 0; padding: 0.45rem 0.65rem; font-size: 0.76rem; color: #4A3C33; line-height: 1.48; }
+        .culture-spread-quote strong { color: #33271F; font-weight: 700; }
+        .culture-spread-chips { display: flex; flex-wrap: wrap; gap: 0.3rem; margin: 0.05rem 0; }
+        .culture-spread-chips span { font-size: 0.68rem; font-weight: 600; color: #33271F; background: #F0EAE0; border: 1px solid #E5DFD5; border-radius: 999px; padding: 0.18rem 0.55rem; line-height: 1.3; white-space: nowrap; }
+        .culture-spread-feedback { display: flex; flex-wrap: wrap; gap: 0.3rem; }
+        .culture-spread-feedback span { font-size: 0.68rem; font-weight: 700; color: #33271F; background: #fff; border: 1px solid #F5B041; border-radius: 6px; padding: 0.2rem 0.5rem; line-height: 1.3; }
+        .culture-spread-point__footer { font-size: 0.76rem; color: #4A3C33; line-height: 1.48; margin: 0; padding-top: 0.1rem; border-top: 1px dashed #E8DFD0; }
         .checklist-stat { background: #F0EAE0; border: 1px solid #E5DDD3; border-radius: 8px; padding: 0.45rem 0.65rem; }
         .checklist-stat__label { font-size: 0.6rem; font-weight: 700; color: #8A7B6E; margin-bottom: 0.1rem; }
         .checklist-stat__value { font-size: 0.78rem; font-weight: 800; color: #33271F; line-height: 1.25; }
@@ -1689,7 +1720,39 @@
                 </div>`
             }),
 
-            ...WEEKLY.map(w => weekSlide(w))
+            ...WEEKLY.map(w => weekSlide(w)),
+
+            contentSlide({
+                label: 'Showcase · 7월 1주차',
+                title: 'AI PUG Showcase — 집중반 성과 공유',
+                message: '4개월간 <strong class="text-ink">매주 맞춤형 학습과 PoC</strong>에 집중한 집중반 활동을 마무리하며, 성장 과정과 개인별 프로젝트를 공유했습니다.',
+                compact: true,
+                wide: true,
+                slideClass: 'slide-showcase',
+                body: `<div class="showcase-layout">
+                    <div class="showcase-info">
+                        <div class="showcase-info__table bg-card rounded-lg p-4"><table class="tbl nowrap-first"><tbody>
+                            <tr><td>장소</td><td><strong class="text-ink">캠퍼스디 부산 · 룸다빈치</strong></td></tr>
+                            <tr><td>참석</td><td>집중반 멤버 <strong class="text-ink">8명</strong> · 운영진 <strong class="text-ink">2명</strong> · 소속 조직 리더·구성원</td></tr>
+                            <tr><td>배경</td><td>2025년 7월 출범 이후, 2026년 상반기 <strong class="text-ink">4개월 집중반</strong> 활동 성과 공유</td></tr>
+                        </tbody></table></div>
+                        <div class="showcase-info__agenda">
+                            <p class="showcase-info__agenda-title">행사 내용</p>
+                            <ol>
+                                <li>AI PUG <strong class="text-ink">성장 과정</strong> 공유</li>
+                                <li>구성원 <strong class="text-ink">개인별 PoC 프로젝트</strong> 소개</li>
+                            </ol>
+                        </div>
+                        <div class="showcase-info__highlight">
+                            멤버들은 단순한 배움을 넘어 <strong class="text-ink">현업을 새로운 관점에서 이해</strong>하고 문제 해결 가능성을 모색하는 의미 있는 기회였다고 소감을 나눴습니다. 참석한 리더와 구성원들도 각 프로젝트의 <strong class="text-ink">완성도와 실무 적용 가능성</strong>에 깊은 인상을 받았으며, AI 활용이 가능성 탐색을 넘어 <strong class="text-ink">현업의 일하는 방식에 실질적 변화</strong>를 만들어가는 실행 단계에 있음을 확인했습니다.
+                        </div>
+                    </div>
+                    <figure class="showcase-photo">
+                        <img src="assets/47-showcase/showcase-group-photo.png" alt="AI PUG Showcase 단체 사진" loading="lazy">
+                        <figcaption>캠퍼스디 부산 룸다빈치 · AI PUG Showcase</figcaption>
+                    </figure>
+                </div>`
+            })
         ];
 
         // ── PART 3: 디지털전략센터 × PUG ──
@@ -2336,6 +2399,62 @@
                         AI PUG의 성장은 <span class="text-taupe">AI 사용법의 성장</span>이 아니라,<br>
                         현업 문제를 <span class="text-pug">AI로 풀어보는 방식의 성장</span>입니다.
                     </p>
+                </div>`
+            }),
+
+            contentSlide({
+                label: 'Effect · 문화 확산',
+                title: '전사적 AI 문화 확산 포인트',
+                message: 'Showcase를 통해 확인된 <strong class="text-ink">AI 문화가 조직 안으로 확산되는 세 가지 관점</strong>입니다.',
+                compact: true,
+                wide: true,
+                slideClass: 'slide-culture-spread',
+                body: `<div class="culture-spread-layout">
+                    <figure class="culture-spread-photo">
+                        <img src="assets/48-ai-culture-spread/showcase-group-photo.png" alt="AI PUG Showcase 단체 사진" loading="lazy">
+                        <figcaption>캠퍼스디 부산 룸다빈치 · AI PUG Showcase</figcaption>
+                    </figure>
+                    <div class="culture-spread-points">
+                        <article class="culture-spread-point">
+                            <div class="culture-spread-point__head">
+                                <span class="culture-spread-point__num">1</span>
+                                <h3 class="culture-spread-point__title">AI가 일부 전문가만의 기술이 아니라는 인식 확산</h3>
+                            </div>
+                            <div class="culture-spread-point__content">
+                                <p class="culture-spread-point__body">디지털전략센터 결과물이 아닌, 각 부서 PUG 멤버가 <strong class="text-ink">본인 업무 문제를 직접 PoC로 구현</strong>한 사례가 공유되었습니다.</p>
+                                <div class="culture-spread-quote"><strong>"AI는 개발자·데이터 조직만 쓰는 것"</strong> → <strong>"내 업무 문제도 AI로 개선할 수 있다"</strong></div>
+                            </div>
+                        </article>
+                        <article class="culture-spread-point">
+                            <div class="culture-spread-point__head">
+                                <span class="culture-spread-point__num">2</span>
+                                <h3 class="culture-spread-point__title">현업 문제 중심의 AI 활용 사례 제시</h3>
+                            </div>
+                            <div class="culture-spread-point__content">
+                                <p class="culture-spread-point__body">추상적 기술 소개가 아닌, <strong class="text-ink">실제 업무 불편함</strong>을 기반으로 한 PoC가 발표되었습니다.</p>
+                                <div class="culture-spread-chips">
+                                    <span>반복 자료 정리</span><span>견적 비교</span><span>회의 일정 조율</span>
+                                    <span>업무 현황 관리</span><span>정보 조사·검토</span><span>데이터 DB화·검색</span>
+                                </div>
+                                <p class="culture-spread-point__footer">AI를 <strong class="text-ink">"신기한 기술"</strong>이 아닌 <strong class="text-ink">업무 방식 개선 도구</strong>로 받아들이게 됨</p>
+                            </div>
+                        </article>
+                        <article class="culture-spread-point">
+                            <div class="culture-spread-point__head">
+                                <span class="culture-spread-point__num">3</span>
+                                <h3 class="culture-spread-point__title">부서 간 적용 가능성에 대한 공감 형성</h3>
+                            </div>
+                            <div class="culture-spread-point__content">
+                                <div class="culture-spread-feedback">
+                                    <span>"우리 부서에도 적용 가능"</span>
+                                    <span>"추가 논의 후 검토"</span>
+                                    <span>"바로 검토하고 싶다"</span>
+                                </div>
+                                <p class="culture-spread-point__body">특정 부서 사례가 <strong class="text-ink">유사 업무를 가진 다른 부서</strong>에서도 참고 가능한 사례로 확장되었습니다.</p>
+                                <p class="culture-spread-point__footer">Showcase가 PoC 공유를 넘어 <strong class="text-ink">부서 간 AI 활용 아이디어를 전파하는 장</strong>이 되었습니다.</p>
+                            </div>
+                        </article>
+                    </div>
                 </div>`
             }),
 
