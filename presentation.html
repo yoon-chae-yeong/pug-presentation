@@ -275,6 +275,8 @@
         .practice-exchange-col--discussion .practice-exchange-col__list { overflow-y: auto; }
         .practice-exchange-video { flex: 0 0 auto; margin-top: 0.35rem; border-radius: 10px; overflow: hidden; background: #1a1410; border: 1px solid #E5DFD5; height: min(150px, 20vh); line-height: 0; }
         .practice-exchange-video video { width: 100%; height: 100%; display: block; object-fit: contain; background: #1a1410; }
+        .practice-exchange-video-wrap { display: flex; flex-direction: column; min-height: 0; min-width: 0; }
+        .practice-exchange-video__caption { flex-shrink: 0; margin: 0; font-size: 0.58rem; font-weight: 700; text-align: center; padding: 0.38rem 0.45rem 0.42rem; color: #33271F; background: #FBF8F3; line-height: 1.35; border: 1px solid #E5DFD5; border-top: none; border-radius: 0 0 10px 10px; }
         .practice-exchange-item { background: #fff; border: 1px solid #F0EAE0; border-radius: 8px; padding: 0.38rem 0.45rem 0.36rem; min-width: 0; }
         .practice-exchange-col--question .practice-exchange-item { border-left: 3px solid #33271F; }
         .practice-exchange-col--discussion .practice-exchange-item { border-left: 3px solid #F5B041; }
@@ -294,7 +296,9 @@
         .slide-practice-qa .practice-exchange-col { position: relative; padding: 0.34rem; flex: 1 1 0; min-height: 0; }
         .slide-practice-qa .practice-exchange-col--question { flex: 1.6 1 0; }
         .slide-practice-qa .practice-exchange-col--discussion { flex: 1 1 0; }
-        .slide-practice-qa .practice-exchange-video { flex: 0 0 42%; width: 42%; height: 100%; min-height: 0; max-height: none; margin-top: 0; align-self: stretch; }
+        .slide-practice-qa .practice-exchange-video-wrap { flex: 0 0 42%; width: 42%; height: 100%; align-self: stretch; }
+        .slide-practice-qa .practice-exchange-video { flex: 1 1 0; width: 100%; height: auto; min-height: 0; max-height: none; margin-top: 0; border-radius: 10px 10px 0 0; border-bottom: none; }
+        .slide-practice-qa .practice-exchange-video__caption { font-size: 0.54rem; padding: 0.32rem 0.4rem 0.36rem; }
         .slide-practice-qa .practice-exchange-col--question .practice-exchange-col__list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.2rem; align-content: start; }
         .slide-practice-qa .practice-exchange-col--discussion .practice-exchange-col__list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.2rem; align-content: start; }
         .slide-practice-qa .practice-exchange-col__list { position: relative; }
@@ -926,9 +930,12 @@
                         <div class="practice-exchange-col__list">${PRACTICE_DISCUSSIONS.map(renderPracticeDiscussionItem).join('')}</div>
                     </section>
                 </div>
-                <div class="practice-exchange-video">
-                    <video src="assets/43-practice-exchange/질문토론.mp4" controls playsinline preload="metadata" loop muted aria-label="PUG 실습 중 질문과 토론 영상"></video>
-                </div>
+                <figure class="practice-exchange-video-wrap">
+                    <div class="practice-exchange-video">
+                        <video src="assets/43-practice-exchange/질문토론.mp4" controls playsinline preload="metadata" loop muted aria-label="PUG 실습 중 질문과 토론 영상"></video>
+                    </div>
+                    <figcaption class="practice-exchange-video__caption">PUG 집중반 실습 · 질문과 토론 현장</figcaption>
+                </figure>
             </div>`;
         }
 
