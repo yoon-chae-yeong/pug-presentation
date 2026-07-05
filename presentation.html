@@ -437,6 +437,13 @@
         .api-playground-repo__label { display: block; font-size: 0.6rem; font-weight: 700; color: #CBBBA8; letter-spacing: 0.05em; margin-bottom: 0.18rem; }
         .api-playground-repo a { color: #F5B041; font-size: 0.67rem; font-weight: 700; text-decoration: none; word-break: break-all; line-height: 1.4; }
         .api-playground-repo a:hover { color: #fff; text-decoration: underline; }
+        .tool-subscription-layout { display: flex; flex-direction: column; gap: 0.65rem; width: 100%; max-width: min(54rem, 92vw); margin: 0 auto; min-height: 0; }
+        .tool-subscription-layout__row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.65rem; }
+        .tool-subscription-card { display: flex; flex-direction: column; min-height: 0; border-radius: 9px; overflow: hidden; border: 1px solid #F0EAE0; box-shadow: 0 3px 12px rgba(51,39,31,.07); background: #fff; margin: 0; }
+        .tool-subscription-card__media { position: relative; width: 100%; height: min(10.5rem, 20vh); max-height: 10.5rem; background: #0f172a; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        .tool-subscription-card--wide .tool-subscription-card__media { height: min(12rem, 22vh); max-height: 12rem; background: #1a56db; }
+        .tool-subscription-card img { width: 100%; height: 100%; object-fit: contain; object-position: center; display: block; }
+        .tool-subscription-card figcaption { flex-shrink: 0; font-size: 0.78rem; font-weight: 700; text-align: center; padding: 0.48rem 0.6rem; color: #33271F; line-height: 1.32; background: #FBF8F3; border-top: 1px solid #F0EAE0; }
         .lecture-layout { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr); gap: 0.75rem; align-items: stretch; width: 100%; min-height: 0; height: min(520px, calc(100vh - 280px)); max-height: min(520px, calc(100vh - 280px)); overflow: hidden; }
         .lecture-layout__main { min-width: 0; min-height: 0; overflow-y: auto; overflow-x: hidden; padding-right: 2px; }
         .lecture-layout__side { min-width: 0; min-height: 0; display: flex; flex-direction: column; gap: 0.5rem; overflow: hidden; }
@@ -540,17 +547,19 @@
         .closing-photo img { width: 100%; flex: 1; min-height: 0; object-fit: cover; display: block; }
         .closing-photo figcaption { font-size: 0.72rem; font-weight: 700; text-align: center; padding: 0.5rem 0.65rem; color: #33271F; background: #FBF8F3; line-height: 1.3; }
         .showcase-layout { display: flex; flex-direction: column; gap: 1.15rem; width: 100%; }
-        .showcase-layout--split { flex-direction: row; gap: 0.75rem; align-items: stretch; height: min(520px, calc(100vh - 260px)); min-height: 0; }
-        .showcase-schedule-panel { flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 0.55rem; overflow-y: auto; padding: 0.65rem 0.75rem; border-radius: 10px; border: 1px solid #F0EAE0; box-shadow: 0 4px 16px rgba(51,39,31,.08); background: #fff; }
+        .showcase-layout--split { flex-direction: row; gap: 0.85rem; align-items: stretch; height: min(600px, calc(100vh - 240px)); min-height: 0; }
+        .showcase-schedule-panel { flex: 1 1 0; min-width: 0; max-width: 42%; display: flex; flex-direction: column; gap: 0.55rem; overflow-y: auto; padding: 0.65rem 0.75rem; border-radius: 10px; border: 1px solid #F0EAE0; box-shadow: 0 4px 16px rgba(51,39,31,.08); background: #fff; }
         .showcase-schedule-section { min-width: 0; }
         .showcase-schedule-section__title { font-size: 0.72rem; font-weight: 800; color: #33271F; margin: 0 0 0.35rem; padding-left: 0.45rem; border-left: 3px solid #F5B041; line-height: 1.3; }
         .showcase-schedule-tbl { font-size: 0.56rem; }
         .showcase-schedule-tbl thead th { font-size: 0.54rem; padding: 0.32rem 0.42rem; white-space: nowrap; }
         .showcase-schedule-tbl tbody td { font-size: 0.54rem; padding: 0.3rem 0.42rem; line-height: 1.35; vertical-align: top; }
         .showcase-schedule-tbl tbody td:first-child { white-space: nowrap; font-weight: 700; }
-        .showcase-photo-stack { flex: 0 0 38%; width: 38%; min-width: 0; display: flex; flex-direction: column; gap: 0.65rem; min-height: 0; }
+        .showcase-photo-stack { flex: 1 1 58%; width: 58%; min-width: 0; display: flex; flex-direction: column; gap: 0.75rem; min-height: 0; }
         .showcase-photo-stack__item { flex: 1 1 0; min-height: 0; border-radius: 10px; overflow: hidden; border: 1px solid #F0EAE0; box-shadow: 0 4px 16px rgba(51,39,31,.08); margin: 0; line-height: 0; background: #F0EAE0; }
         .showcase-photo-stack__item img { width: 100%; height: 100%; display: block; object-fit: cover; object-position: center center; }
+        .showcase-photo-stack__row { flex: 1 1 0; min-height: 0; display: flex; flex-direction: row; gap: 0.75rem; }
+        .showcase-photo-stack__row .showcase-photo-stack__item { flex: 1 1 0; min-width: 0; height: 100%; }
         .slide-showcase { justify-content: center !important; padding-top: 0 !important; padding-bottom: 4.5rem !important; }
         .slide-showcase > div > p.text-pug { margin-bottom: 0.5rem !important; }
         .slide-showcase > div > h2 { margin-bottom: 0.65rem !important; }
@@ -667,21 +676,25 @@
         .design-consult-photo-wrap { flex: 1; min-height: 0; display: flex; flex-direction: column; border-radius: 8px; overflow: hidden; background: #F0EAE0; }
         .design-consult-photo { flex: 1; min-height: 0; width: 100%; object-fit: cover; display: block; }
         .design-consult-photo-cap { padding: 8px 10px; font-size: 11px; font-weight: 700; text-align: center; background: #fff; color: #33271F; line-height: 1.35; }
-        .slide-toc { justify-content: center !important; padding-bottom: 4.5rem !important; }
-        .slide-toc .toc-wrap { max-width: 40rem; width: 100%; margin: 0 auto; }
-        .slide-toc .toc-eyebrow { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #F5B041; margin: 0 0 0.45rem; }
-        .slide-toc .toc-title { font-size: 2.5rem; font-weight: 800; line-height: 1.15; margin: 0 0 1.75rem; color: #33271F; }
-        .toc-tray { background: #F0EAE0; padding: 0.6rem; border-radius: 10px; }
-        .toc-panel { display: flex; flex-direction: column; background: #fff; border-radius: 8px; overflow: hidden; }
-        .toc-cell { display: flex; flex-direction: row; align-items: center; gap: 1rem; padding: 1.2rem 1.5rem; background: #fff; border: none; border-bottom: 1px solid #F0EAE0; cursor: pointer; transition: background 0.2s; font-family: inherit; text-align: left; min-height: 0; width: 100%; }
-        .toc-cell:last-child { border-bottom: none; }
-        .toc-cell:hover { background: #FBF8F3; }
-        .toc-cell:focus-visible { outline: 2px solid #F5B041; outline-offset: -2px; z-index: 1; }
-        .toc-cell__num { display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; min-width: 2rem; background: #33271F; color: #fff; font-size: 0.68rem; font-weight: 800; letter-spacing: 0.05em; padding: 0.28rem 0.5rem; border-radius: 4px; }
-        .toc-cell__label { font-size: 1.2rem; font-weight: 700; color: #33271F; line-height: 1.35; }
-        @media (max-width: 640px) {
-            .toc-cell { padding: 1rem 1.25rem; gap: 0.85rem; }
-            .toc-cell__label { font-size: 1.05rem; }
+        .slide-toc { justify-content: center !important; padding-bottom: 4.5rem !important; background: #FDFBF7 !important; }
+        .slide-toc .toc-wrap { max-width: 56rem; width: 100%; margin: 0 auto; }
+        .slide-toc .toc-eyebrow { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #8E8E8E; margin: 0 0 0.5rem; }
+        .slide-toc .toc-title { font-size: 2.75rem; font-weight: 800; line-height: 1.15; margin: 0 0 0.75rem; color: #2D2926; }
+        .slide-toc .toc-desc { font-size: 1rem; color: #8E8E8E; margin: 0 0 2.5rem; line-height: 1.5; }
+        .toc-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
+        .toc-card { display: flex; flex-direction: column; align-items: flex-start; text-align: left; padding: 1.75rem 1.75rem 1.5rem; background: #FFFFFF; border: none; border-radius: 10px; cursor: pointer; transition: box-shadow 0.2s, transform 0.2s; font-family: inherit; width: 100%; box-shadow: 0 1px 4px rgba(45, 41, 38, 0.06); min-height: 11rem; }
+        .toc-card:hover { box-shadow: 0 4px 16px rgba(45, 41, 38, 0.1); transform: translateY(-2px); }
+        .toc-card:focus-visible { outline: 2px solid #E5A024; outline-offset: 2px; }
+        .toc-card__badge { display: inline-block; font-size: 0.7rem; font-weight: 800; letter-spacing: 0.04em; color: #2D2926; background: #F2EEE9; padding: 0.35rem 0.65rem; border-radius: 6px; margin-bottom: 1rem; }
+        .toc-card__title { font-size: 1.15rem; font-weight: 700; color: #2D2926; line-height: 1.4; margin-bottom: 0.5rem; }
+        .toc-card__desc { font-size: 0.9rem; color: #8E8E8E; line-height: 1.5; margin-bottom: 1.25rem; flex: 1; }
+        .toc-card__link { font-size: 0.9rem; font-weight: 600; color: #E5A024; margin-top: auto; transition: color 0.2s; }
+        .toc-card:hover .toc-card__link { color: #D08E15; }
+        @media (max-width: 768px) {
+            .toc-grid { grid-template-columns: 1fr; }
+            .slide-toc .toc-title { font-size: 2.25rem; }
+            .toc-card { min-height: 0; padding: 1.35rem 1.35rem 1.2rem; }
+            .toc-card__title { font-size: 1.05rem; }
         }
         body.embed-mode .fixed.bottom-5,
         body.embed-mode .fixed.top-5.left-6,
@@ -744,26 +757,27 @@
 
         // ── Slide builders ──
         const PARTS = [
-            { id: 'part1', badge: 'PART 1', title: 'PUG 출범 · 2025 활동', subtitle: '어떻게 시작했고, 무엇이 부족했는가', tocLabel: 'PUG 출범과 2025년 회고' },
-            { id: 'part2', badge: 'PART 2', title: '인터뷰 · 커리큘럼 · 교육', subtitle: '업무 요구사항 파악부터 맞춤형 학습까지', tocLabel: '2026년 PUG 활동' },
-            { id: 'part3', badge: 'PART 3', title: '디지털전략센터 X PUG ', subtitle: '사내 전문가 연결과 운영 지원', tocLabel: '디지털전략센터 지원 전략' },
-            { id: 'part4', badge: 'PART 4', title: '활동 · 효과 · 변화', subtitle: '서로 얻어가는 성장과 조직에 남긴 변화', tocLabel: 'PUG 활동 성과와 변화' }
+            { id: 'part1', badge: 'PART 1', title: 'PUG 출범 · 2025 활동 · 회고', subtitle: '어떻게 시작했고, 무엇이 부족했는가' },
+            { id: 'part2', badge: 'PART 2', title: '인터뷰 · 커리큘럼 · 교육', subtitle: '업무 요구사항 파악부터 맞춤형 학습까지' },
+            { id: 'part3', badge: 'PART 3', title: '디지털전략센터 · PUG · 지원', subtitle: '사내 전문가 연결과 운영 지원' },
+            { id: 'part4', badge: 'PART 4', title: '활동 · 효과 · 변화', subtitle: '서로 얻어가는 성장과 조직에 남긴 변화' }
         ];
 
         function buildTocSlide() {
-            const items = PARTS.map((entry, i) =>
-                `<button type="button" class="toc-cell" data-part="${entry.id}" aria-label="${entry.tocLabel}로 이동">
-                    <span class="toc-cell__num">${String(i + 1).padStart(2, '0')}</span>
-                    <span class="toc-cell__label">${entry.tocLabel}</span>
+            const items = PARTS.map(entry =>
+                `<button type="button" class="toc-card" data-part="${entry.id}" aria-label="${entry.title}로 이동">
+                    <span class="toc-card__badge">${entry.badge}</span>
+                    <span class="toc-card__title">${entry.title}</span>
+                    <span class="toc-card__desc">${entry.subtitle}</span>
+                    <span class="toc-card__link">바로가기 →</span>
                 </button>`
             ).join('');
             return `<section class="slide slide-toc w-full h-screen flex-col px-8 lg:px-24" data-part="toc">
                 <div class="toc-wrap">
                     <p class="toc-eyebrow">Contents</p>
                     <h2 class="toc-title">목차</h2>
-                    <div class="toc-tray">
-                        <div class="toc-panel" id="toc-list">${items}</div>
-                    </div>
+                    <p class="toc-desc">각 파트를 선택하면 해당 섹션으로 이동합니다</p>
+                    <div class="toc-grid" id="toc-list">${items}</div>
                 </div>
             </section>`;
         }
@@ -1788,15 +1802,20 @@
                 wide: true,
                 slideClass: 'slide-showcase',
                 body: `<div class="showcase-layout showcase-layout--split">
-                    ${buildShowcaseSchedulePanel()}
                     <div class="showcase-photo-stack">
-                        <figure class="showcase-photo-stack__item">
-                            <img src="assets/49-showcase-poc/poc-present-02.png" alt="PoC 발표 슬라이드" loading="lazy">
-                        </figure>
+                        <div class="showcase-photo-stack__row">
+                            <figure class="showcase-photo-stack__item">
+                                <img src="assets/49-showcase-poc/showcase-slide-closeup.png" alt="PoC 발표 슬라이드 · Rubber Track Builder Pro" loading="lazy">
+                            </figure>
+                            <figure class="showcase-photo-stack__item">
+                                <img src="assets/49-showcase-poc/showcase-present-live.png" alt="PoC 발표 현장 · 모두 모여라 AI 회의 비서" loading="lazy">
+                            </figure>
+                        </div>
                         <figure class="showcase-photo-stack__item">
                             <img src="assets/49-showcase-poc/poc-present-03.png" alt="PoC 발표 현장" loading="lazy">
                         </figure>
                     </div>
+                    ${buildShowcaseSchedulePanel()}
                 </div>`
             })
         ];
@@ -1826,11 +1845,10 @@
                 { src: 'assets/32-online-lectures/lecture-vibe-coding.png', caption: '바이브 코딩 · 개념/툴/사용법 (MetaCode)' },
                 { src: 'assets/32-online-lectures/lecture-ai-concepts.png', caption: '인공지능 13가지 핵심개념 · AI·ML·DL (MetaCode)' }
             ]},
-            { icon: 'sparkles', title: '개발 환경 · AI 도구 구독 지원', desc: 'Google AI · OpenAI · SerpApi 등 PoC에 필요한 AI 도구를 탐색하고, 구독·API 키를 지원했습니다.', photoBanner: true, mainCaptionLarge: true, photos: [
-                { src: 'assets/33-google-subscription/google-ai-plans.png', caption: 'Google AI Pro 구독 지원' }
-            ], sidePhotos: [
-                { src: 'assets/33-google-subscription/openai-usage.png', caption: 'OpenAI API Key 발급 (AI Playground 활성화 전)' },
-                { src: 'assets/33-google-subscription/serpapi.png', caption: 'SerpApi - Google Search API' }
+            { icon: 'sparkles', title: '개발 환경 · AI 도구 구독 지원', desc: 'Google AI · OpenAI · SerpApi 등 PoC에 필요한 AI 도구를 탐색하고, 구독·API 키를 지원했습니다.', photoLayout: 'tool-subscription', photos: [
+                { src: 'assets/33-google-subscription/google-ai-logo.png', caption: 'Google AI Pro 구독 지원' },
+                { src: 'assets/33-google-subscription/openai-api-logo.png', caption: 'OpenAI API Key 발급' },
+                { src: 'assets/33-google-subscription/serpapi-banner.png', caption: 'SerpApi · Google Search API' }
             ]},
             { icon: 'github', title: '개발 환경 · GitHub Organization', video: 'assets/34-github-org/github-org.mp4' },
             { icon: 'book-open', title: '개발 환경 · 표준 기술스택 가이드', teamsPost: true },
@@ -2075,6 +2093,22 @@
             </div>`;
         }
 
+        function buildToolSubscriptionLayout({ photos }) {
+            const [top1, top2, bottom] = photos;
+            const card = (p, wide = false) => {
+                const cap = p.caption ? `<figcaption>${p.caption}</figcaption>` : '';
+                const cls = wide ? 'tool-subscription-card tool-subscription-card--wide' : 'tool-subscription-card';
+                return `<figure class="${cls}">
+                    <div class="tool-subscription-card__media">
+                        <img src="${p.src}" alt="${p.caption || ''}" loading="lazy">
+                    </div>${cap}</figure>`;
+            };
+            return `<div class="tool-subscription-layout">
+                <div class="tool-subscription-layout__row">${card(top1)}${card(top2)}</div>
+                ${card(bottom, true)}
+            </div>`;
+        }
+
         function buildLectureBannerLayout({ photos, sidePhotos, mainCaptionLarge }) {
             const banners = photos.map(p => {
                 const mainCap = (mainCaptionLarge && p.caption)
@@ -2266,6 +2300,16 @@
                     wide: true,
                     compact: true,
                     body: `${intro}${buildApiPlaygroundLayout(s.apiPlayground)}`
+                });
+            }
+            if (s.photoLayout === 'tool-subscription' && s.photos?.length >= 3) {
+                const intro = s.desc ? `<p class="text-sm text-ink/80 mb-3 leading-relaxed shrink-0">${s.desc}</p>` : '';
+                return contentSlide({
+                    label: 'Support · 디지털전략센터 × PUG',
+                    title: s.title,
+                    wide: true,
+                    compact: true,
+                    body: `${intro}${buildToolSubscriptionLayout(s)}`
                 });
             }
             if (s.photoBanner && s.sidePhotos) {
@@ -3288,7 +3332,7 @@
 
         function initTocNavigation() {
             document.getElementById('toc-list')?.addEventListener('click', e => {
-                const btn = e.target.closest('.toc-cell[data-part]');
+                const btn = e.target.closest('.toc-card[data-part]');
                 if (!btn) return;
                 goToPart(btn.dataset.part);
             });
