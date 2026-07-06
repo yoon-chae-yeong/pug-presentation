@@ -1,6 +1,7 @@
 /** slide-scripts.txt 로드 · 파싱 (presenter.html에서 initSlideScripts() 호출) */
 let SLIDE_TITLES = [];
 let SLIDE_SCRIPTS = [];
+let SLIDE_SCRIPTS_BUILD = '';
 
 function formatScriptMarkup(text) {
     return text
@@ -40,25 +41,56 @@ function parseSlideScriptsFile(raw) {
     return { titles, scripts };
 }
 
-async function loadSlideScriptsRaw() {
-    if (typeof window.SLIDE_SCRIPTS_RAW === 'string' && window.SLIDE_SCRIPTS_RAW.trim()) {
-        return window.SLIDE_SCRIPTS_RAW;
+function loadScript(url) {
+    return new Promise((resolve, reject) => {
+        const s = document.createElement('script');
+        s.src = url;
+        s.onload = () => resolve();
+        s.onerror = () => reject(new Error(`로드 실패: ${url}`));
+        document.head.appendChild(s);
+    });
+}
+
+async function loadSlideScriptsBundle() {
+    delete window.SLIDE_SCRIPTS_BUNDLE;
+    await loadScript(`slide-scripts.bundle.js?_${Date.now()}`);
+    const bundle = window.SLIDE_SCRIPTS_BUNDLE;
+    if (!bundle?.scripts?.length) {
+        throw new Error('slide-scripts.bundle.js가 비어 있습니다. node sync-scripts.mjs 실행');
     }
+    SLIDE_TITLES = bundle.titles;
+    SLIDE_SCRIPTS = bundle.scripts;
+    SLIDE_SCRIPTS_BUILD = bundle.buildLabel || '';
+    return { titles: SLIDE_TITLES, scripts: SLIDE_SCRIPTS };
+}
+
+async function loadSlideScriptsRawFallback() {
+    delete window.SLIDE_SCRIPTS_RAW;
 
     if (location.protocol !== 'file:') {
         try {
             const res = await fetch(`slide-scripts.txt?_${Date.now()}`);
             if (res.ok) return await res.text();
-        } catch (_) { /* file:// 또는 네트워크 오류 → raw.js fallback */ }
+        } catch (_) { /* raw.js fallback */ }
     }
 
+    await loadScript(`slide-scripts.raw.js?_${Date.now()}`);
+    if (typeof window.SLIDE_SCRIPTS_RAW === 'string' && window.SLIDE_SCRIPTS_RAW.trim()) {
+        return window.SLIDE_SCRIPTS_RAW;
+    }
     return null;
 }
 
 async function initSlideScripts() {
-    const raw = await loadSlideScriptsRaw();
+    try {
+        return await loadSlideScriptsBundle();
+    } catch (bundleErr) {
+        console.warn('[발표자] bundle 로드 실패, txt/raw 파싱 시도:', bundleErr.message);
+    }
+
+    const raw = await loadSlideScriptsRawFallback();
     if (!raw) {
-        throw new Error('slide-scripts.raw.js가 없습니다. slide-scripts.txt 수정 후 node sync-scripts.mjs 실행');
+        throw new Error('스크립트 파일이 없습니다. slide-scripts.txt 수정 후 node sync-scripts.mjs 실행');
     }
 
     const parsed = parseSlideScriptsFile(raw);
@@ -66,5 +98,6 @@ async function initSlideScripts() {
 
     SLIDE_TITLES = parsed.titles;
     SLIDE_SCRIPTS = parsed.scripts;
+    SLIDE_SCRIPTS_BUILD = '(txt 직접 파싱)';
     return parsed;
 }

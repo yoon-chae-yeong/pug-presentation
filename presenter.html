@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <title>AI PUG · 발표자 화면</title>
     <script src="https://unpkg.com/lucide@latest"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Noto+Sans+KR:wght@400;500;700;800&display=swap" rel="stylesheet">
@@ -105,6 +108,7 @@
         .script-body::-webkit-scrollbar-thumb:hover { background: rgba(245,176,65,.6); }
         .script-text { margin: 0; font-size: 1.15rem; line-height: 1.8; word-break: keep-all; }
         .script-text .script-em { color: var(--pug); font-weight: 600; }
+        .script-head__build { font-size: 0.62rem; font-weight: 600; color: rgba(255,255,255,.35); margin-left: auto; flex-shrink: 0; }
         .nav-bar {
             flex-shrink: 0; display: flex; align-items: center; justify-content: center;
             gap: 1rem; padding: 0.85rem 1.25rem; background: var(--panel);
@@ -138,6 +142,7 @@
             <div class="script-head">
                 <span class="script-head__label">발표 스크립트</span>
                 <span id="next-hint" class="script-head__next"></span>
+                <span id="script-build" class="script-head__build"></span>
             </div>
             <div class="script-body" id="script-body">
                 <p id="script-text" class="script-text"></p>
@@ -152,8 +157,7 @@
     </footer>
 
     <script src="presenter-sync.js"></script>
-    <script src="slide-scripts.raw.js"></script>
-    <script src="slide-scripts.js"></script>
+    <script src="slide-scripts.js?v=2"></script>
     <script>
         let total = 0;
         const PREVIEW_W = 1024;
@@ -182,6 +186,7 @@
             previewFrame: document.querySelector('.slide-preview__frame'),
             slidePreview: document.getElementById('slide-preview'),
             scriptText: document.getElementById('script-text'),
+            scriptBuild: document.getElementById('script-build'),
             scriptBody: document.getElementById('script-body'),
             nextHint: document.getElementById('next-hint'),
             navCount: document.getElementById('nav-count'),
@@ -424,6 +429,12 @@
 
             total = SLIDE_SCRIPTS.length;
             els.currentTotal.textContent = total;
+            if (els.scriptBuild) {
+                els.scriptBuild.textContent = SLIDE_SCRIPTS_BUILD
+                    ? `txt 반영 · ${SLIDE_SCRIPTS_BUILD}`
+                    : '';
+                els.scriptBuild.title = '스크립트 원본: slide-scripts.txt (raw.js 아님)';
+            }
 
             if (SLIDE_SCRIPTS.length !== SLIDE_TITLES.length) {
                 console.warn('[발표자] 스크립트와 제목 개수가 일치하지 않습니다.');
