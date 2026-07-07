@@ -373,6 +373,25 @@
             else startTimer();
         }
 
+        function isNavSkippedSlide(index) {
+            return SLIDE_NAV_SKIP[index] === true;
+        }
+
+        function getNavSlideIndex(from, dir) {
+            let next = from + dir;
+            while (next >= 0 && next < total && isNavSkippedSlide(next)) {
+                next += dir;
+            }
+            return next;
+        }
+
+        function getLastNavSlideIndex() {
+            for (let i = total - 1; i >= 0; i--) {
+                if (!isNavSkippedSlide(i)) return i;
+            }
+            return total - 1;
+        }
+
         function publishSlide() {
             if (syncFromExternal) return;
             PugDeckSync.publish(current);
@@ -386,18 +405,24 @@
         }
 
         function changeSlide(dir) {
-            goTo(current + dir);
+            goTo(getNavSlideIndex(current, dir));
         }
 
         function render() {
             els.currentNum.textContent = current + 1;
             els.currentTotal.textContent = total;
-            els.scriptText.innerHTML = SLIDE_SCRIPTS[current] || '스크립트 없음';
+            const script = SLIDE_SCRIPTS[current];
+            els.scriptText.innerHTML = script
+                || (isNavSkippedSlide(current)
+                    ? '<span style="opacity:.55">(참고용 화면 · 발표 스크립트 없음)</span>'
+                    : '스크립트 없음');
             els.navCount.innerHTML = `<span>${current + 1}</span> / ${total}`;
             els.prevBtn.disabled = current <= 0;
             els.nextBtn.disabled = current >= total - 1;
-            if (current < total - 1) {
-                els.nextHint.innerHTML = `다음 → <strong>${SLIDE_TITLES[current + 1]}</strong>`;
+            let nextIndex = current + 1;
+            while (nextIndex < total && isNavSkippedSlide(nextIndex)) nextIndex += 1;
+            if (nextIndex < total) {
+                els.nextHint.innerHTML = `다음 → <strong>${SLIDE_TITLES[nextIndex]}</strong>`;
             } else {
                 els.nextHint.textContent = '마지막 슬라이드';
             }
@@ -428,6 +453,7 @@
             }
 
             total = SLIDE_SCRIPTS.length;
+            if (!SLIDE_NAV_SKIP.length) SLIDE_NAV_SKIP = SLIDE_SCRIPTS.map(() => false);
             els.currentTotal.textContent = total;
             if (els.scriptBuild) {
                 els.scriptBuild.textContent = SLIDE_SCRIPTS_BUILD
@@ -476,7 +502,7 @@
                 e.preventDefault();
                 changeSlide(-1);
             } else if (e.key === 'Home') goTo(0);
-            else if (e.key === 'End') goTo(total - 1);
+            else if (e.key === 'End') goTo(getLastNavSlideIndex());
         });
 
         PugDeckSync.subscribe((slide) => {

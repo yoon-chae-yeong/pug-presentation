@@ -1,6 +1,7 @@
 /** slide-scripts.txt 로드 · 파싱 (presenter.html에서 initSlideScripts() 호출) */
 let SLIDE_TITLES = [];
 let SLIDE_SCRIPTS = [];
+let SLIDE_NAV_SKIP = [];
 let SLIDE_SCRIPTS_BUILD = '';
 
 function formatScriptMarkup(text) {
@@ -15,6 +16,7 @@ function formatScriptMarkup(text) {
 function parseSlideScriptsFile(raw) {
     const titles = [];
     const scripts = [];
+    const navSkip = [];
     const blocks = raw.split(/\r?\n-{3,}\r?\n/);
 
     for (const block of blocks) {
@@ -31,14 +33,25 @@ function parseSlideScriptsFile(raw) {
             bodyLines = lines.slice(1);
         }
 
-        const body = bodyLines.join('\n').trim();
+        let skipNav = false;
+        const contentLines = [];
+        for (const line of bodyLines) {
+            if (/^>\s*nav-skip\s*$/i.test(line.trim())) {
+                skipNav = true;
+                continue;
+            }
+            contentLines.push(line);
+        }
+
+        const body = contentLines.join('\n').trim();
         if (!body && !title) continue;
 
         titles.push(title || `슬라이드 ${titles.length + 1}`);
         scripts.push(formatScriptMarkup(body));
+        navSkip.push(skipNav);
     }
 
-    return { titles, scripts };
+    return { titles, scripts, navSkip };
 }
 
 function loadScript(url) {
@@ -60,8 +73,9 @@ async function loadSlideScriptsBundle() {
     }
     SLIDE_TITLES = bundle.titles;
     SLIDE_SCRIPTS = bundle.scripts;
+    SLIDE_NAV_SKIP = bundle.navSkip || [];
     SLIDE_SCRIPTS_BUILD = bundle.buildLabel || '';
-    return { titles: SLIDE_TITLES, scripts: SLIDE_SCRIPTS };
+    return { titles: SLIDE_TITLES, scripts: SLIDE_SCRIPTS, navSkip: SLIDE_NAV_SKIP };
 }
 
 async function loadSlideScriptsRawFallback() {
@@ -98,6 +112,7 @@ async function initSlideScripts() {
 
     SLIDE_TITLES = parsed.titles;
     SLIDE_SCRIPTS = parsed.scripts;
+    SLIDE_NAV_SKIP = parsed.navSkip || [];
     SLIDE_SCRIPTS_BUILD = '(txt 직접 파싱)';
     return parsed;
 }

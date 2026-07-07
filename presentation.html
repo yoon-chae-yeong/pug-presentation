@@ -81,6 +81,17 @@
         .curriculum-split .tbl-curriculum .cur-detail { gap: 0.28rem; }
         .curriculum-split .tbl-curriculum .cur-block ul { padding-left: 0.85rem; font-size: 0.62rem; line-height: 1.36; }
         .curriculum-split .tbl-curriculum .cur-block li { margin-bottom: 0.05rem; }
+        .slide-weekly-headers { justify-content: center !important; padding-top: 2.75rem !important; padding-bottom: 4.5rem !important; overflow: hidden; }
+        .slide-weekly-headers > div { display: flex; flex-direction: column; justify-content: center; min-height: 0; flex: 0 1 auto; max-height: calc(100vh - 5.25rem); }
+        .slide-weekly-headers > div > p.leading-relaxed { margin-bottom: 0.55rem !important; font-size: 0.8125rem; max-width: none !important; }
+        .slide-weekly-headers > div > h2 { margin-bottom: 0.4rem !important; }
+        .weekly-headers-panel { flex: 0 1 auto; min-height: 0; overflow: visible; padding: 0; }
+        .weekly-headers-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.45rem; align-content: start; }
+        .weekly-header-card { background: #fff; border: 1px solid #F0EAE0; border-left: 3px solid #F5B041; border-radius: 8px; padding: 0.45rem 0.5rem 0.42rem; min-width: 0; box-shadow: 0 1px 4px rgba(51,39,31,.05); }
+        .weekly-header-card__week { margin: 0 0 0.18rem; font-size: 0.58rem; font-weight: 800; color: #8A7B6E; letter-spacing: 0.01em; }
+        .weekly-header-card__title { margin: 0 0 0.28rem; font-size: 0.72rem; font-weight: 800; color: #33271F; line-height: 1.32; word-break: keep-all; }
+        .weekly-header-card__topics { display: flex; flex-wrap: wrap; gap: 0.18rem; }
+        .weekly-header-card__chip { font-size: 0.5rem; font-weight: 600; color: #4A3C33; background: #F0EAE0; border-radius: 999px; padding: 0.08rem 0.34rem; line-height: 1.3; word-break: keep-all; }
         .col-2026 { color: #33271F !important; font-weight: 600 !important; }
         .perspective-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; align-items: stretch; }
         .perspective-panel { display: flex; flex-direction: column; min-height: 0; height: 100%; padding: 1.35rem 1.25rem !important; }
@@ -493,13 +504,27 @@
         .meeting-reveal-btn:hover { background: #E8E2D8; color: #33271F; }
         .meeting-reveal-btn.is-hidden { display: none; }
         .slide-member-radar { justify-content: flex-start !important; padding-top: 2.5rem !important; padding-bottom: 4.75rem !important; overflow: hidden; }
-        .slide-member-radar > div { flex: 1; min-height: 0; display: flex; flex-direction: column; max-height: calc(100vh - 8.75rem); }
-        .slide-member-radar > div > p.leading-relaxed { margin-bottom: 0.5rem !important; font-size: 0.8125rem; max-width: none; flex-shrink: 0; }
-        .slide-member-radar > div > h2 { margin-bottom: 0.4rem !important; flex-shrink: 0; }
-        .slide-member-radar > div > p.text-sm.font-bold { flex-shrink: 0; }
-        .slide-member-radar > div > div:last-child { flex: 1; min-height: 0; display: flex; flex-direction: column; overflow: hidden; }
+        .slide-member-radar-avg { justify-content: flex-start !important; padding-top: 2.5rem !important; padding-bottom: 4.75rem !important; overflow: hidden; }
+        .slide-member-radar > div,
+        .slide-member-radar-avg > div { flex: 1; min-height: 0; display: flex; flex-direction: column; max-height: calc(100vh - 8.75rem); }
+        .slide-member-radar > div > p.leading-relaxed,
+        .slide-member-radar-avg > div > p.leading-relaxed { margin-bottom: 0.5rem !important; font-size: 0.8125rem; max-width: none; flex-shrink: 0; }
+        .slide-member-radar > div > h2,
+        .slide-member-radar-avg > div > h2,
+        .slide-member-radar > div > .slide-title-row,
+        .slide-member-radar-avg > div > .slide-title-row { margin-bottom: 0.4rem !important; flex-shrink: 0; }
+        .slide-member-radar > div > p.text-sm.font-bold,
+        .slide-member-radar-avg > div > p.text-sm.font-bold { flex-shrink: 0; }
+        .slide-member-radar > div > div:last-child,
+        .slide-member-radar-avg > div > div:last-child { flex: 1; min-height: 0; display: flex; flex-direction: column; overflow: hidden; }
         .member-radar-wrap { width: 100%; flex: 1; min-height: 0; display: flex; flex-direction: column; gap: 0.55rem; }
-        .member-radar-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-template-rows: repeat(2, minmax(0, 1fr)); gap: 0.45rem; width: 100%; flex: 1; min-height: 0; max-height: calc(100vh - 10rem); }
+        .member-radar-main { flex: 1; min-height: 0; display: flex; align-items: stretch; justify-content: center; }
+        .member-radar-avg { background: #fff; border: 1px solid #F0EAE0; border-radius: 12px; padding: 0.55rem 0.75rem 0.5rem; display: flex; flex-direction: column; align-items: center; min-width: 0; width: min(100%, 560px); max-height: calc(100vh - 13.5rem); box-shadow: 0 2px 12px rgba(51,39,31,.06); }
+        .member-radar-avg__title { font-size: 0.78rem; font-weight: 800; color: #33271F; margin: 0; background: #F0EAE0; border-radius: 9999px; padding: 0.12rem 0.65rem; line-height: 1.35; }
+        .member-radar-avg__delta { font-size: 0.72rem; font-weight: 700; color: #8A7B6E; margin: 0.2rem 0 0.15rem; font-variant-numeric: tabular-nums; }
+        .member-radar-avg__delta span { color: #33271F; font-weight: 800; }
+        .member-radar-canvas-wrap--avg { flex: 1; min-height: 200px; max-height: min(54vh, 440px); width: 100%; }
+        .member-radar-grid--members { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-template-rows: repeat(2, minmax(0, 1fr)); gap: 0.45rem; width: 100%; flex: 1; min-height: 0; max-height: calc(100vh - 10rem); }
         .member-radar-footer { display: flex; align-items: stretch; justify-content: space-between; gap: 0.65rem; flex-shrink: 0; }
         .member-radar-legend { display: flex; align-items: center; gap: 0.85rem; font-size: 0.68rem; font-weight: 700; background: #fff; border: 1px solid #F0EAE0; border-radius: 8px; padding: 0.45rem 0.75rem; white-space: nowrap; }
         .member-radar-legend-item { display: inline-flex; align-items: center; gap: 0.35rem; }
@@ -799,7 +824,7 @@
             </section>`;
         }
 
-        function contentSlide({ label, title, message, body, scroll = false, wide = false, alignTop = false, compact = false, titleExtra, slideClass = '', partId = '' }) {
+        function contentSlide({ label, title, message, body, scroll = false, wide = false, alignTop = false, compact = false, titleExtra, slideClass = '', partId = '', navSkip = false }) {
             const scrollCls = scroll ? ' py-12 overflow-y-auto' : '';
             const alignCls = alignTop ? ' justify-start pt-6 pb-16 overflow-hidden' : ' justify-center pb-14';
             const maxW = wide ? 'max-w-6xl' : 'max-w-5xl';
@@ -810,7 +835,8 @@
                 : `<h2 class="${titleCls} shrink-0">${title}</h2>`;
             const slideExtraCls = slideClass ? ` ${slideClass}` : '';
             const partAttr = partId ? ` data-part="${partId}"` : '';
-            return `<section class="slide w-full h-screen flex-col${alignCls} px-8 lg:px-24${scrollCls}${slideExtraCls}"${partAttr}>
+            const navSkipAttr = navSkip ? ' data-nav-skip="true"' : '';
+            return `<section class="slide w-full h-screen flex-col${alignCls} px-8 lg:px-24${scrollCls}${slideExtraCls}"${partAttr}${navSkipAttr}>
                 <div class="${maxW} w-full mx-auto min-h-0${alignTop ? ' flex flex-col flex-1 overflow-hidden' : ''}">
                     <p class="text-sm font-bold text-pug mb-2 uppercase tracking-wider shrink-0">${label}</p>
                     ${titleBlock}
@@ -1299,6 +1325,30 @@
                 alignTop: false,
                 scroll: false,
                 body
+            });
+        }
+
+        function buildWeeklyHeaderCard(w) {
+            const chips = (w.topics || []).map(t => `<span class="weekly-header-card__chip">${t}</span>`).join('');
+            return `<article class="weekly-header-card">
+                <p class="weekly-header-card__week">${w.week}</p>
+                <h3 class="weekly-header-card__title">${w.title}</h3>
+                ${chips ? `<div class="weekly-header-card__topics">${chips}</div>` : ''}
+            </article>`;
+        }
+
+        function buildWeeklyHeadersSlide() {
+            return contentSlide({
+                label: 'Education · 주차별 학습',
+                title: '주차별 학습 일정',
+                message: '맞춤형 커리큘럼에 따라 진행한 <strong class="text-ink">주차별 교육 주제</strong>를 한눈에 정리했습니다.',
+                compact: true,
+                wide: true,
+                alignTop: false,
+                slideClass: 'slide-weekly-headers',
+                body: `<div class="weekly-headers-panel" id="weekly-headers-panel">
+                    <div class="weekly-headers-grid">${WEEKLY.map(buildWeeklyHeaderCard).join('')}</div>
+                </div>`
             });
         }
 
@@ -1810,6 +1860,8 @@
                 </table></div></div>
                 </div>`
             }),
+
+            buildWeeklyHeadersSlide(),
 
             ...WEEKLY.map(w => weekSlide(w)),
 
@@ -2414,26 +2466,37 @@
             return Math.round(values.reduce((sum, v) => sum + v, 0) / values.length);
         }
 
-        function buildMemberRadarSlide() {
-            const cells = MEMBER_GROWTH.map((m, i) => {
-                const avgB = memberAvg(m.before);
-                const avgA = memberAvg(m.after);
-                return `<div class="member-radar-cell">
-                    <p class="member-radar-name">${m.name}</p>
-                    <p class="member-radar-delta">${avgB}% → <span>${avgA}%</span></p>
-                    <div class="member-radar-canvas-wrap"><canvas id="memberRadar${i}"></canvas></div>
-                </div>`;
-            }).join('');
+        function computeAvgRadar(field) {
+            return MEMBER_RADAR_LABELS.map((_, j) =>
+                Math.round(MEMBER_GROWTH.reduce((sum, m) => sum + m[field][j], 0) / MEMBER_GROWTH.length)
+            );
+        }
+
+        const MEMBER_AVG = {
+            before: computeAvgRadar('before'),
+            after: computeAvgRadar('after')
+        };
+
+        function buildMemberAvgRadarSlide() {
+            const avgB = memberAvg(MEMBER_AVG.before);
+            const avgA = memberAvg(MEMBER_AVG.after);
             return contentSlide({
                 label: 'Effect · 역량 강화',
                 title: '멤버별 역량 성장',
-                message: '같은 40문항 기준으로 멤버별 <strong class="text-ink">Before(회색) → After(주황)</strong> 변화를 확인했습니다.',
+                message: '같은 40문항 기준으로 <strong class="text-ink">전체 평균 Before(회색) → After(주황)</strong> 변화를 확인했습니다.',
                 compact: true,
                 wide: true,
                 alignTop: true,
-                slideClass: 'slide-member-radar',
-                body: `<div class="member-radar-wrap">
-                    <div id="member-radar-grid" class="member-radar-grid">${cells}</div>
+                slideClass: 'slide-member-radar-avg',
+                titleExtra: '<button type="button" id="member-radar-detail-btn" class="case-demo-btn">멤버별 그래프 보기</button>',
+                body: `<div class="member-radar-wrap" id="member-radar-avg-panel">
+                    <div class="member-radar-main">
+                        <div class="member-radar-avg">
+                            <p class="member-radar-avg__title">전체 평균</p>
+                            <p class="member-radar-avg__delta">${avgB}% → <span>${avgA}%</span></p>
+                            <div class="member-radar-canvas-wrap member-radar-canvas-wrap--avg"><canvas id="memberRadarAvg"></canvas></div>
+                        </div>
+                    </div>
                     <div class="member-radar-footer">
                         <div class="member-radar-legend">
                             <span class="member-radar-legend-item member-radar-legend-item--before">Before</span>
@@ -2452,6 +2515,37 @@
                                 <p class="checklist-stat__label">전체 변화</p>
                                 <p class="checklist-stat__value text-pug">+61%p</p>
                             </div>
+                        </div>
+                    </div>
+                </div>`
+            });
+        }
+
+        function buildMemberDetailRadarSlide() {
+            const cells = MEMBER_GROWTH.map((m, i) => {
+                const mAvgB = memberAvg(m.before);
+                const mAvgA = memberAvg(m.after);
+                return `<div class="member-radar-cell">
+                    <p class="member-radar-name">${m.name}</p>
+                    <p class="member-radar-delta">${mAvgB}% → <span>${mAvgA}%</span></p>
+                    <div class="member-radar-canvas-wrap"><canvas id="memberRadar${i}"></canvas></div>
+                </div>`;
+            }).join('');
+            return contentSlide({
+                label: 'Effect · 역량 강화',
+                title: '멤버별 역량 성장',
+                message: '멤버별 <strong class="text-ink">Before(회색) → After(주황)</strong> 변화입니다.',
+                compact: true,
+                wide: true,
+                alignTop: true,
+                slideClass: 'slide-member-radar',
+                navSkip: true,
+                body: `<div class="member-radar-wrap">
+                    <div id="member-radar-grid" class="member-radar-grid member-radar-grid--members">${cells}</div>
+                    <div class="member-radar-footer">
+                        <div class="member-radar-legend">
+                            <span class="member-radar-legend-item member-radar-legend-item--before">Before</span>
+                            <span class="member-radar-legend-item member-radar-legend-item--after">After</span>
                         </div>
                     </div>
                 </div>`
@@ -2485,7 +2579,9 @@
                 </div>`
             }),
 
-            buildMemberRadarSlide(),
+            buildMemberAvgRadarSlide(),
+
+            buildMemberDetailRadarSlide(),
 
             contentSlide({
                 label: 'Effect · Closing',
@@ -2702,6 +2798,7 @@
         function initChecklistInteractive() {
             renderChecklistBody();
         }
+        let avgRadarInstance = null;
         let memberRadarInstances = [];
         let memberRadarAutoTimer = null;
         let memberRadarAnimFrame = null;
@@ -2710,18 +2807,93 @@
         const RADAR_HOLD_AFTER = 1800;
         const RADAR_GROWTH_DURATION = 1800;
 
+        function getMemberDetailSlideIndex() {
+            return slides.findIndex(s => s.querySelector('#member-radar-grid.member-radar-grid--members'));
+        }
+
+        function goToMemberDetailSlide() {
+            const idx = getMemberDetailSlideIndex();
+            if (idx >= 0) goToSlideIndex(idx);
+        }
+
+        function getRadarChartOptions(pointLabelSize = 8) {
+            return {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        backgroundColor: '#33271F',
+                        titleColor: '#FFFFFF',
+                        bodyColor: '#F0EAE0',
+                        padding: 10,
+                        callbacks: {
+                            title(items) {
+                                const idx = items[0]?.dataIndex;
+                                return idx != null ? MEMBER_RADAR_LABELS[idx].replace('\n', ' ') : '';
+                            },
+                            label(ctx) { return `${ctx.dataset.label}: ${ctx.raw}%`; },
+                            afterBody(items) {
+                                const before = items.find(i => i.dataset.label === 'Before');
+                                const after = items.find(i => i.dataset.label === 'After');
+                                if (before && after) return [`변화: ${after.raw - before.raw >= 0 ? '+' : ''}${after.raw - before.raw}%`];
+                                return [];
+                            }
+                        }
+                    }
+                },
+                layout: { padding: 4 },
+                scales: {
+                    r: {
+                        min: 0, max: 100,
+                        ticks: { display: false, stepSize: 25 },
+                        angleLines: { color: 'rgba(51,39,31,0.08)' },
+                        grid: { color: 'rgba(51,39,31,0.08)' },
+                        pointLabels: {
+                            color: '#33271F',
+                            font: { family: 'Noto Sans KR', size: pointLabelSize, weight: '600' },
+                            padding: 3
+                        }
+                    }
+                }
+            };
+        }
+
+        function createRadarChart(canvas, before, after, pointLabelSize = 8) {
+            return new Chart(canvas.getContext('2d'), {
+                type: 'radar',
+                data: {
+                    labels: MEMBER_RADAR_LABELS,
+                    datasets: [
+                        { label: 'Before', data: before, fill: true, backgroundColor: 'rgba(51,39,31,0.10)', borderColor: 'rgba(51,39,31,0.75)', pointBackgroundColor: 'rgba(51,39,31,1)', pointBorderColor: '#FFF', borderWidth: 1.5, pointRadius: 2, pointHoverRadius: 4 },
+                        { label: 'After', data: [...before], hidden: true, fill: true, backgroundColor: 'rgba(245,176,65,0.40)', borderColor: 'rgba(245,176,65,1)', pointBackgroundColor: 'rgba(245,176,65,1)', pointBorderColor: '#33271F', borderWidth: 2, pointRadius: 2, pointHoverRadius: 4 }
+                    ]
+                },
+                options: getRadarChartOptions(pointLabelSize)
+            });
+        }
+
         function destroyMemberRadars() {
             stopMemberRadarSlide();
+            if (avgRadarInstance) {
+                avgRadarInstance.destroy();
+                avgRadarInstance = null;
+            }
             memberRadarInstances.forEach(c => c.destroy());
             memberRadarInstances = [];
         }
 
+        function resetRadarToBefore(chart, before) {
+            if (!chart) return;
+            chart.data.datasets[0].hidden = false;
+            chart.data.datasets[1].hidden = true;
+            chart.data.datasets[1].data = [...before];
+            chart.update();
+        }
+
         function resetMemberRadarsToBefore() {
             memberRadarInstances.forEach((chart, i) => {
-                chart.data.datasets[0].hidden = false;
-                chart.data.datasets[1].hidden = true;
-                chart.data.datasets[1].data = [...MEMBER_GROWTH[i].before];
-                chart.update();
+                resetRadarToBefore(chart, MEMBER_GROWTH[i].before);
             });
         }
 
@@ -2745,7 +2917,36 @@
             stopMemberRadarAnimation();
         }
 
-        function playMemberRadarAnimation(onComplete) {
+        function playRadarAnimation(chart, before, after, onComplete) {
+            if (!chart || memberRadarAnimating) return;
+            stopMemberRadarAnimation();
+
+            chart.data.datasets[0].hidden = false;
+            chart.data.datasets[1].hidden = false;
+            chart.data.datasets[1].data = [...before];
+            chart.update('none');
+
+            const start = performance.now();
+            memberRadarAnimating = true;
+
+            function frame(now) {
+                const t = Math.min(1, (now - start) / RADAR_GROWTH_DURATION);
+                const eased = 1 - Math.pow(1 - t, 3);
+                chart.data.datasets[1].data = before.map((b, j) => Math.round(b + (after[j] - b) * eased));
+                chart.update('none');
+                if (t < 1) {
+                    memberRadarAnimFrame = requestAnimationFrame(frame);
+                } else {
+                    chart.data.datasets[1].data = [...after];
+                    chart.update();
+                    memberRadarAnimating = false;
+                    onComplete?.();
+                }
+            }
+            memberRadarAnimFrame = requestAnimationFrame(frame);
+        }
+
+        function playMemberDetailRadarAnimation(onComplete) {
             if (!memberRadarInstances.length || memberRadarAnimating) return;
             stopMemberRadarAnimation();
 
@@ -2782,12 +2983,30 @@
             memberRadarAnimFrame = requestAnimationFrame(frame);
         }
 
-        function startMemberRadarAutoLoop() {
+        function startAvgRadarAutoLoop() {
+            stopMemberRadarAutoLoop();
+            resetRadarToBefore(avgRadarInstance, MEMBER_AVG.before);
+
+            function showAfter() {
+                playRadarAnimation(avgRadarInstance, MEMBER_AVG.before, MEMBER_AVG.after, () => {
+                    memberRadarAutoTimer = setTimeout(showBefore, RADAR_HOLD_AFTER);
+                });
+            }
+
+            function showBefore() {
+                resetRadarToBefore(avgRadarInstance, MEMBER_AVG.before);
+                memberRadarAutoTimer = setTimeout(showAfter, RADAR_HOLD_BEFORE);
+            }
+
+            memberRadarAutoTimer = setTimeout(showAfter, RADAR_HOLD_BEFORE);
+        }
+
+        function startMemberDetailRadarAutoLoop() {
             stopMemberRadarAutoLoop();
             resetMemberRadarsToBefore();
 
             function showAfter() {
-                playMemberRadarAnimation(() => {
+                playMemberDetailRadarAnimation(() => {
                     memberRadarAutoTimer = setTimeout(showBefore, RADAR_HOLD_AFTER);
                 });
             }
@@ -2800,7 +3019,23 @@
             memberRadarAutoTimer = setTimeout(showAfter, RADAR_HOLD_BEFORE);
         }
 
-        function renderMemberRadars() {
+        function renderAvgRadar() {
+            const panel = document.getElementById('member-radar-avg-panel');
+            if (!panel || typeof Chart === 'undefined') return;
+
+            const canvas = document.getElementById('memberRadarAvg');
+            if (!canvas) return;
+
+            if (avgRadarInstance) {
+                avgRadarInstance.resize();
+                resetRadarToBefore(avgRadarInstance, MEMBER_AVG.before);
+                return;
+            }
+
+            avgRadarInstance = createRadarChart(canvas, MEMBER_AVG.before, MEMBER_AVG.after, 10);
+        }
+
+        function renderMemberDetailRadars() {
             const grid = document.getElementById('member-radar-grid');
             if (!grid || typeof Chart === 'undefined') return;
 
@@ -2810,64 +3045,26 @@
                 return;
             }
 
-            destroyMemberRadars();
-
-            const radarOpts = {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: { display: false },
-                    tooltip: {
-                        backgroundColor: '#33271F',
-                        titleColor: '#FFFFFF',
-                        bodyColor: '#F0EAE0',
-                        padding: 10,
-                        callbacks: {
-                            title(items) {
-                                const idx = items[0]?.dataIndex;
-                                return idx != null ? MEMBER_RADAR_LABELS[idx].replace('\n', ' ') : '';
-                            },
-                            label(ctx) { return `${ctx.dataset.label}: ${ctx.raw}%`; },
-                            afterBody(items) {
-                                const before = items.find(i => i.dataset.label === 'Before');
-                                const after = items.find(i => i.dataset.label === 'After');
-                                if (before && after) return [`변화: ${after.raw - before.raw >= 0 ? '+' : ''}${after.raw - before.raw}%`];
-                                return [];
-                            }
-                        }
-                    }
-                },
-                layout: { padding: 2 },
-                scales: {
-                    r: {
-                        min: 0, max: 100,
-                        ticks: { display: false, stepSize: 25 },
-                        angleLines: { color: 'rgba(51,39,31,0.08)' },
-                        grid: { color: 'rgba(51,39,31,0.08)' },
-                        pointLabels: {
-                            color: '#33271F',
-                            font: { family: 'Noto Sans KR', size: 8, weight: '600' },
-                            padding: 2
-                        }
-                    }
-                }
-            };
+            memberRadarInstances.forEach(c => c.destroy());
+            memberRadarInstances = [];
 
             MEMBER_GROWTH.forEach((m, i) => {
                 const canvas = document.getElementById(`memberRadar${i}`);
                 if (!canvas) return;
-                memberRadarInstances.push(new Chart(canvas.getContext('2d'), {
-                    type: 'radar',
-                    data: {
-                        labels: MEMBER_RADAR_LABELS,
-                        datasets: [
-                            { label: 'Before', data: m.before, fill: true, backgroundColor: 'rgba(51,39,31,0.10)', borderColor: 'rgba(51,39,31,0.75)', pointBackgroundColor: 'rgba(51,39,31,1)', pointBorderColor: '#FFF', borderWidth: 1.5, pointRadius: 1.5, pointHoverRadius: 3 },
-                            { label: 'After', data: [...m.before], hidden: true, fill: true, backgroundColor: 'rgba(245,176,65,0.40)', borderColor: 'rgba(245,176,65,1)', pointBackgroundColor: 'rgba(245,176,65,1)', pointBorderColor: '#33271F', borderWidth: 2, pointRadius: 1.5, pointHoverRadius: 3 }
-                        ]
-                    },
-                    options: radarOpts
-                }));
+                memberRadarInstances.push(createRadarChart(canvas, m.before, m.after, 8));
             });
+        }
+
+        function initMemberRadarDetailBtn() {
+            const btn = document.getElementById('member-radar-detail-btn');
+            if (!btn || btn.dataset.bound) return;
+            btn.dataset.bound = '1';
+            btn.addEventListener('click', goToMemberDetailSlide);
+        }
+
+        function resetMemberRadarDetailBtn() {
+            const btn = document.getElementById('member-radar-detail-btn');
+            if (btn) delete btn.dataset.bound;
         }
 
         function showMeetingReveal() {
@@ -3319,7 +3516,10 @@
             if (!slides[current]?.querySelector('#pain-review-grid')) resetPainReveal();
             if (!slides[current]?.querySelector('#meeting-reveal')) resetMeetingReveal();
             if (!slides[current]?.querySelector('#case-demo-btn')) resetCaseDemoModal();
-            if (!slides[current]?.querySelector('#member-radar-grid')) destroyMemberRadars();
+            if (!slides[current]?.querySelector('#member-radar-avg-panel') && !slides[current]?.querySelector('#member-radar-grid.member-radar-grid--members')) {
+                resetMemberRadarDetailBtn();
+                destroyMemberRadars();
+            }
             if (!slides[current]?.querySelector('#checklist-panel')) stopChecklistAutoLoop();
             if (!slides[current]?.querySelector(CONVENTION_GUIDE_SELECTOR)) stopConventionTabLoop();
             document.getElementById('cur').innerText = current + 1;
@@ -3337,9 +3537,13 @@
                 initMeetingReveal();
             } else if (slides[current]?.querySelector('#case-demo-btn')) {
                 initCaseDemoModal();
-            } else if (slides[current]?.querySelector('#member-radar-grid')) {
-                renderMemberRadars();
-                startMemberRadarAutoLoop();
+            } else if (slides[current]?.querySelector('#member-radar-avg-panel')) {
+                renderAvgRadar();
+                initMemberRadarDetailBtn();
+                startAvgRadarAutoLoop();
+            } else if (slides[current]?.querySelector('#member-radar-grid.member-radar-grid--members')) {
+                renderMemberDetailRadars();
+                startMemberDetailRadarAutoLoop();
             } else if (slides[current]?.querySelector(CONVENTION_GUIDE_SELECTOR)) {
                 initConventionGuideTab();
             } else if (slides[current]?.querySelector('#practice-exchange-panel')) {
@@ -3372,10 +3576,23 @@
             });
         }
 
+        function isNavSkippedSlide(index) {
+            return slides[index]?.dataset.navSkip === 'true';
+        }
+
+        function getNavSlideIndex(from, dir) {
+            let next = from + dir;
+            while (next >= 0 && next < slides.length && isNavSkippedSlide(next)) {
+                next += dir;
+            }
+            return next;
+        }
+
         function changeSlide(dir) {
-            const next = current + dir;
+            const next = getNavSlideIndex(current, dir);
             if (next < 0 || next >= slides.length) return;
-            current = next; render();
+            current = next;
+            render();
         }
         window.goToPart = goToPart;
         window.changeSlide = changeSlide;
