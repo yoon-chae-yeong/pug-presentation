@@ -52,7 +52,9 @@
         .slide-curriculum { justify-content: center !important; padding-top: 2.75rem !important; padding-bottom: 4.25rem !important; overflow: hidden; }
         .slide-curriculum > div { display: flex; flex-direction: column; justify-content: center; min-height: 0; width: 100%; max-height: calc(100vh - 5.5rem); gap: 0.15rem; }
         .slide-curriculum > div > p.text-pug { margin-bottom: 0.25rem !important; }
-        .slide-curriculum > div > p.leading-relaxed { margin-bottom: 0.55rem !important; font-size: 0.875rem; max-width: none !important; line-height: 1.55; }
+        .slide-msg { max-width: none; word-break: keep-all; overflow-wrap: break-word; line-break: strict; }
+        .slide-msg .nb { white-space: nowrap; }
+        .slide-curriculum > div > p.leading-relaxed { margin-bottom: 0.55rem !important; font-size: 0.875rem; max-width: none !important; line-height: 1.55; word-break: keep-all; overflow-wrap: break-word; }
         .slide-curriculum > div > h2 { margin-bottom: 0.45rem !important; }
         .slide-curriculum > div > .slide-title-row { margin-bottom: 0.45rem !important; }
         .slide-curriculum > div > div:last-child { display: flex; flex-direction: column; min-height: 0; flex: 0 1 auto; }
@@ -73,15 +75,15 @@
         .curriculum-split .tbl-curriculum thead th:nth-child(1) { width: 16%; padding-left: 0.55rem; padding-right: 0.3rem; }
         .curriculum-split .tbl-curriculum thead th:nth-child(2) { width: 38%; }
         .curriculum-split .tbl-curriculum thead th:nth-child(3) { width: 46%; padding-right: 0.55rem; }
-        .curriculum-split .tbl-curriculum tbody td { font-size: 0.65rem; line-height: 1.4; padding: 0.42rem 0.55rem; vertical-align: top; }
-        .curriculum-split .tbl-curriculum tbody td:first-child { min-width: 0; max-width: none; width: 16%; padding-left: 0.55rem; padding-right: 0.3rem; font-size: 0.64rem; line-height: 1.35; word-break: keep-all; }
+        .curriculum-split .tbl-curriculum tbody td { font-size: 0.65rem; line-height: 1.4; padding: 0.42rem 0.55rem; vertical-align: top; word-break: keep-all; overflow-wrap: break-word; }
+        .curriculum-split .tbl-curriculum tbody td:first-child { min-width: 0; max-width: none; width: 16%; padding-left: 0.55rem; padding-right: 0.3rem; font-size: 0.64rem; line-height: 1.35; }
         .curriculum-split .tbl-curriculum tbody td:nth-child(2) { width: 38%; }
         .curriculum-split .tbl-curriculum tbody td:nth-child(3) { width: 46%; padding: 0.28rem 0.55rem 0.28rem 0.45rem; }
-        .curriculum-split .tbl-curriculum .cur-main { font-size: 0.65rem; line-height: 1.38; }
-        .curriculum-split .tbl-curriculum .cur-block-title { font-size: 0.62rem; margin-bottom: 0.04rem; }
+        .curriculum-split .tbl-curriculum .cur-main { font-size: 0.65rem; line-height: 1.38; word-break: keep-all; overflow-wrap: break-word; }
+        .curriculum-split .tbl-curriculum .cur-block-title { font-size: 0.62rem; margin-bottom: 0.04rem; word-break: keep-all; }
         .curriculum-split .tbl-curriculum .cur-detail { gap: 0.16rem; }
         .curriculum-split .tbl-curriculum .cur-block ul { padding-left: 0.85rem; font-size: 0.62rem; line-height: 1.3; margin: 0; }
-        .curriculum-split .tbl-curriculum .cur-block li { margin-bottom: 0.02rem; }
+        .curriculum-split .tbl-curriculum .cur-block li { margin-bottom: 0.02rem; word-break: keep-all; overflow-wrap: break-word; }
         .col-2026 { color: #33271F !important; font-weight: 600 !important; }
         .perspective-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.85rem; align-items: stretch; }
         .perspective-panel { display: flex; flex-direction: column; min-height: 0; height: auto; padding: 1.1rem 1.15rem !important; }
@@ -116,21 +118,9 @@
         .review-activities-photo img { width: 100%; flex: 1; min-height: 0; object-fit: cover; object-position: center; display: block; background: #F0EAE0; }
         .review-activities-photo figcaption { flex-shrink: 0; font-size: 0.68rem; font-weight: 700; text-align: center; padding: 0.32rem 0.5rem; color: #33271F; background: #FBF8F3; line-height: 1.25; }
         .review-activities-summary { flex-shrink: 0; font-size: 0.72rem; line-height: 1.45; padding: 0.5rem 0.75rem !important; margin-top: 0 !important; }
-        .review-activities-case-bar { display: flex; justify-content: center; flex-shrink: 0; margin-top: 0.15rem; }
-        .case-demo-btn { display: inline-flex; align-items: center; gap: 0.35rem; padding: 0.45rem 1.1rem; border-radius: 9999px; font-size: 0.72rem; font-weight: 700; color: #33271F; background: #F5B041; border: none; cursor: pointer; transition: background 0.2s; font-family: inherit; }
-        .case-demo-btn:hover { background: #E5A030; }
-        .case-demo-modal { position: fixed; inset: 0; z-index: 100; background: rgba(51,39,31,.58); display: flex; align-items: center; justify-content: center; padding: 1.25rem; opacity: 0; pointer-events: none; transition: opacity 0.28s ease; }
-        .case-demo-modal.is-open { opacity: 1; pointer-events: auto; }
-        .case-demo-modal__panel { width: min(1120px, 96vw); height: min(760px, 92vh); background: #fff; border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 16px 48px rgba(51,39,31,.22); border: 1px solid #F0EAE0; transform: scale(0.98); transition: transform 0.28s ease; }
-        .case-demo-modal.is-open .case-demo-modal__panel { transform: scale(1); }
-        .case-demo-modal__head { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; padding: 0.65rem 0.9rem; background: #FBF8F3; border-bottom: 1px solid #F0EAE0; flex-shrink: 0; }
-        .case-demo-modal__title { font-size: 0.82rem; font-weight: 700; color: #33271F; }
-        .case-demo-modal__close { padding: 0.35rem 0.75rem; border-radius: 9999px; border: 1px solid #E5DFD5; background: #fff; color: #33271F; font-size: 0.72rem; font-weight: 700; cursor: pointer; font-family: inherit; }
-        .case-demo-modal__close:hover { background: #F0EAE0; }
-        .case-demo-modal__media { flex: 1; min-height: 0; display: flex; align-items: center; justify-content: center; background: #f8fafc; padding: 0.75rem; overflow: auto; }
-        .case-demo-modal__img { width: 100%; height: 100%; object-fit: contain; display: block; border-radius: 6px; }
         .pain-merge { display: flex; flex-direction: column; gap: 0; }
-        .pain-merge .opening-tray { margin: 0; }
+        .pain-merge .opening-tray { margin: 0; background: transparent; padding: 0; }
+        .pain-merge .opening-tray__panel { border-radius: 10px; }
         .tbl-pain-compare { width: 100%; margin: 0; }
         .tbl-pain-compare thead th { font-size: 0.88rem; padding: 0.75rem 1rem; }
         .tbl-pain-compare tbody td { font-size: 0.9rem; line-height: 1.45; padding: 0.9rem 1rem; vertical-align: top; word-break: keep-all; font-weight: 700; color: #33271F; }
@@ -155,6 +145,7 @@
         }
         .week-photo-layout { display: grid; grid-template-columns: 1.55fr 1fr; gap: 0.75rem; height: min(420px, calc(100vh - 300px)); max-height: 420px; margin-top: 0.75rem; }
         .week-photo-layout--equal { grid-template-columns: 1fr 1fr; }
+        .week-photo-layout--feb-python { grid-template-columns: minmax(0, 1.72fr) minmax(0, 1fr); }
         .week-photo-layout--quiz-race { grid-template-columns: minmax(0, 1.14fr) minmax(0, 1.36fr); }
         .week-photo-layout--convention { grid-template-columns: minmax(0, 0.88fr) minmax(0, 1.52fr); }
         .week-photo-layout--uiux { grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); }
@@ -180,7 +171,7 @@
         .week-photo-main-stack .week-photo-sub { flex: 1; min-height: 0; }
         .week-photo-main-stack--focus { gap: 0.4rem; }
         .week-photo-main-stack--focus .week-photo-main--hero { flex: 1 1 auto; min-height: 0; }
-        .week-photo-layout--session-focus { grid-template-columns: 1.62fr 1fr; }
+        .week-photo-layout--session-focus { grid-template-columns: minmax(0, 1.2fr) minmax(0, 1.25fr); }
         .week-photo-layout--cover-fill .week-photo-main img { object-fit: cover; object-position: center; padding: 0; background: #F0EAE0; }
         .week-photo-layout--uiux .week-photo-sub img { object-fit: contain; object-position: top center; padding: 4px 6px; background: #fff; }
         .week-photo-layout--llm-api .week-photo-sub img { object-fit: contain; object-position: top center; padding: 2px 3px; background: #fff; }
@@ -195,16 +186,16 @@
         .week-terms-strip { flex-shrink: 0; background: #FBF8F3; border: 1px solid #F0EAE0; border-radius: 8px; padding: 0.4rem 0.5rem 0.45rem; }
         .week-terms-strip__head { margin: 0 0 0.32rem; font-size: 0.56rem; font-weight: 700; color: #8A7B6E; letter-spacing: 0.01em; }
         .week-terms-strip__grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0.32rem; }
-        .week-terms-strip__col { min-width: 0; background: #fff; border: 1px solid #F0EAE0; border-radius: 6px; padding: 0.28rem 0.32rem 0.3rem; }
-        .week-terms-strip__title { font-size: 0.5rem; font-weight: 800; color: #33271F; margin-bottom: 0.18rem; padding-bottom: 0.12rem; border-bottom: 2px solid #F5B041; line-height: 1.25; }
-        .week-terms-strip__col ul { margin: 0; padding: 0; list-style: none; }
-        .week-terms-strip__col li { font-size: 0.46rem; line-height: 1.32; color: #4A3C33; padding: 0.04rem 0; }
+        .week-terms-strip__col { min-width: 0; background: #fff; border: 1px solid #F0EAE0; border-radius: 6px; padding: 0.28rem 0.32rem 0.32rem; display: flex; flex-direction: column; gap: 0.28rem; }
+        .week-terms-strip__title { font-size: 0.5rem; font-weight: 800; color: #33271F; margin: 0; padding-bottom: 0.14rem; border-bottom: 2px solid #F5B041; line-height: 1.25; }
+        .week-terms-strip__chips { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.22rem; }
+        .week-terms-strip__chip { display: flex; align-items: center; justify-content: center; text-align: center; min-height: 1.55rem; padding: 0.22rem 0.28rem; background: #F0EAE0; border-radius: 6px; font-size: 0.48rem; font-weight: 700; color: #33271F; line-height: 1.2; word-break: keep-all; }
         .slide-term-notes { flex-shrink: 0; margin-top: 0.45rem; padding: 0.45rem 0.55rem; background: #FBF8F3; border: 1px solid #F0EAE0; border-radius: 8px; }
         .slide-term-notes__item { margin: 0; font-size: 0.58rem; line-height: 1.45; color: #4A3C33; }
         .slide-term-notes__item + .slide-term-notes__item { margin-top: 0.14rem; }
         .slide-term-notes__term { font-weight: 800; color: #33271F; }
         .slide-term-notes__term::before { content: '* '; color: #8A7B6E; font-weight: 800; }
-        .week-topics { display: flex; align-items: center; gap: 0.65rem; flex-wrap: wrap; margin: 0 0 0.65rem; padding: 0.5rem 0.75rem; background: #F0EAE0; border-radius: 8px; }
+        .week-topics { display: flex; align-items: center; gap: 0.65rem; flex-wrap: wrap; margin: 0 0 0.65rem; padding: 0.5rem 0.75rem; background: #F0EAE0; border-radius: 8px; flex-shrink: 0; }
         .week-topics__label { flex-shrink: 0; font-size: 0.72rem; font-weight: 800; color: #8A7B6E; letter-spacing: -0.01em; line-height: 1.2; }
         .week-topics__list { display: flex; flex-wrap: wrap; align-items: center; gap: 0.35rem; min-width: 0; }
         .week-topics__chip { display: inline-flex; align-items: center; font-size: 0.78rem; font-weight: 700; color: #33271F; background: #fff; border-radius: 6px; padding: 0.28rem 0.65rem; line-height: 1.3; word-break: keep-all; }
@@ -218,6 +209,7 @@
         .week-guide-embed__scaler::-webkit-scrollbar { display: none; }
         .week-guide-embed--agent .week-guide-iframe { zoom: 0.54; }
         .week-guide-embed--convention .week-guide-iframe { zoom: 0.63; }
+        .week-guide-embed--fastapi .week-guide-iframe { zoom: 0.52; }
         .week-guide-iframe { width: 100%; height: 100%; border: 0; display: block; background: #fff; zoom: 0.58; }
         .week-photo-sub { flex: 1; min-height: 0; border-radius: 8px; overflow: hidden; background: #fff; border: 1px solid #F0EAE0; display: flex; flex-direction: column; }
         .week-photo-sub img { width: 100%; flex: 1; min-height: 0; object-fit: contain; display: block; background: #fff; padding: 6px; }
@@ -227,25 +219,32 @@
         .week-photo-sub--stacked img.week-photo-sub__header { flex: 0 0 auto; max-height: 48px; object-fit: contain; padding: 5px 8px 2px; background: #fff; }
         .week-photo-sub--stacked img.week-photo-sub__body { flex: 1; min-height: 0; }
         .week-present-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-template-rows: repeat(2, minmax(0, 1fr)); gap: 0.5rem; margin-top: 0.75rem; height: min(500px, calc(100vh - 230px)); max-height: 520px; }
-        .slide-poc-present .week-present-grid { margin-top: 0.5rem; height: min(540px, calc(100vh - 260px)); max-height: 560px; width: 100%; }
+        .slide-poc-present .week-present-grid { margin-top: 0; height: min(500px, calc(100vh - 300px)); max-height: 520px; width: 100%; }
+        .slide-poc-present > div > p.leading-relaxed { margin-bottom: 0.55rem !important; }
         .list-slide-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.45rem 0.85rem; }
         @media (min-width: 1024px) { .list-slide-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
-        .slide-interview > div > p.leading-relaxed { margin-bottom: 0.85rem !important; max-width: none !important; }
-        .interview-merge { display: flex; flex-direction: column; gap: 0; }
-        .interview-merge .opening-tray { margin: 0; height: auto; }
+        .slide-interview > div > p.leading-relaxed { margin-bottom: 0.75rem !important; max-width: none !important; }
+        .interview-merge { display: flex; flex-direction: column; gap: 0.75rem; }
+        .interview-merge .opening-tray { margin: 0; height: auto; background: transparent; padding: 0; }
+        .interview-panel { background: #fff; border-radius: 8px; padding: 0.85rem 1rem 0.95rem; min-width: 0; }
+        .interview-panel__head { display: flex; align-items: baseline; gap: 0.55rem; margin: 0 0 0.65rem; padding-bottom: 0.45rem; border-bottom: 2px solid #F5B041; }
+        .interview-panel__eyebrow { flex-shrink: 0; font-size: 0.68rem; font-weight: 800; color: #8A7B6E; letter-spacing: 0.02em; }
+        .interview-panel__title { margin: 0; font-size: 0.95rem; font-weight: 800; color: #33271F; line-height: 1.3; }
+        .interview-panel__title span { color: #C8860A; }
         .tbl-interview-compare { width: 100%; margin: 0; }
-        .tbl-interview-compare thead th { font-size: 0.88rem; padding: 0.75rem 1rem; }
-        .tbl-interview-compare tbody td { font-size: 0.9rem; line-height: 1.45; padding: 0.9rem 1rem; vertical-align: middle; word-break: keep-all; }
-        .tbl-interview-compare tbody td:first-child { width: 14%; font-weight: 800; color: #33271F; white-space: nowrap; }
-        .tbl-interview-compare tbody td:nth-child(2) { width: 28%; font-weight: 700; color: #33271F; }
+        .tbl-interview-compare thead th { font-size: 0.82rem; padding: 0.55rem 0.85rem; background: #F0EAE0; color: #33271F; }
+        .tbl-interview-compare tbody td { font-size: 0.86rem; line-height: 1.45; padding: 0.72rem 0.85rem; vertical-align: middle; word-break: keep-all; }
+        .tbl-interview-compare tbody td:first-child { width: 12%; font-weight: 800; color: #33271F; white-space: nowrap; background: #FBF8F3; }
+        .tbl-interview-compare tbody td:nth-child(2) { width: 26%; font-weight: 700; color: #33271F; }
         .tbl-interview-compare tbody td:last-child { vertical-align: top; }
-        .tbl-interview-compare .interview-sub { display: block; margin-top: 0.28rem; font-size: 0.78rem; font-weight: 500; color: #8A7B6E; line-height: 1.4; }
-        .interview-common-block { margin-top: 0.85rem; padding-top: 0.85rem; border-top: 1px solid #F0EAE0; }
-        .interview-common-block__title { margin: 0 0 0.55rem; font-size: 0.82rem; font-weight: 800; color: #33271F; line-height: 1.3; }
-        .interview-common-block__title span { color: #C8860A; }
-        .interview-common-block__grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.4rem; }
-        .interview-common-block__grid .member-dept-block { min-height: 2.4rem; padding: 0.45rem 0.4rem; background: #FBF8F3; border: 1px solid #E8DFD0; }
-        .interview-common-block__grid .member-dept-block__label { font-size: 0.78rem; }
+        .tbl-interview-compare .interview-sub { display: block; margin-top: 0.22rem; font-size: 0.74rem; font-weight: 500; color: #8A7B6E; line-height: 1.4; }
+        .interview-common-panel { background: #F0EAE0; border-radius: 8px; padding: 0.7rem 0.85rem 0.8rem; }
+        .interview-common-panel .interview-panel__head { border-bottom-color: #F5B041; margin-bottom: 0.55rem; padding-bottom: 0.4rem; }
+        .interview-common-panel .interview-panel__title { font-size: 0.9rem; }
+        .interview-common-block__grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.45rem; }
+        .interview-common-chip { display: flex; align-items: center; gap: 0.45rem; min-height: 2.55rem; padding: 0.45rem 0.55rem; background: #fff; border-radius: 8px; }
+        .interview-common-chip__num { flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center; width: 1.35rem; height: 1.35rem; border-radius: 4px; background: #33271F; color: #fff; font-size: 0.65rem; font-weight: 800; line-height: 1; }
+        .interview-common-chip__label { font-size: 0.8rem; font-weight: 700; color: #33271F; line-height: 1.3; word-break: keep-all; }
         @media (max-width: 900px) {
             .interview-common-block__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
         }
@@ -378,6 +377,7 @@
         ::-webkit-scrollbar-thumb { background: #CBBBA8; border-radius: 4px; }
         .slide-media { width: 100%; max-height: 420px; display: block; background: #F0EAE0; object-fit: contain; }
         .slide-media-tall { width: 100%; max-height: calc(100vh - 140px); min-height: 560px; display: block; background: #F0EAE0; object-fit: contain; }
+        .slide-media-tall--sm { max-height: calc(100vh - 185px); min-height: 500px; }
         .slide-photo { width: 100%; height: 220px; display: block; object-fit: cover; background: #F0EAE0; }
         .support-photo-contain { width: 100%; height: min(320px, 42vh); display: block; object-fit: contain; background: #fff; padding: 6px; }
         .photo-banner-grid { display: flex; flex-direction: column; gap: 0.5rem; max-width: 38rem; width: 100%; }
@@ -440,15 +440,18 @@
         .llm-predict-list li.is-top { font-weight: 800; color: #33271F; }
         .llm-predict-list li.is-top .llm-predict-prob { color: #C8860A; }
         .llm-predict-prob { font-variant-numeric: tabular-nums; color: #8A7B6E; }
-        .lecture-main-photo { display: flex; flex-direction: column; flex: 1; min-height: 0; background: #fff; border: 1px solid #F0EAE0; box-shadow: 0 1px 3px rgba(51,39,31,.08); border-radius: 8px; overflow: hidden; }
-        .lecture-main-photo img { width: 100%; flex: 1; min-height: 0; object-fit: contain; background: #fff; padding: 10px; display: block; }
-        .lecture-main-caption { flex-shrink: 0; font-size: 1.05rem; font-weight: 800; text-align: center; padding: 0.65rem 0.75rem 0.75rem; color: #33271F; line-height: 1.35; background: #FBF8F3; border-top: 1px solid #F0EAE0; }
-        .lecture-layout__main:has(.lecture-main-photo) { display: flex; flex-direction: column; min-height: 0; }
-        .lecture-layout__main:has(.lecture-main-photo) .photo-banner-grid--in-layout { flex: 1; min-height: 0; display: flex; flex-direction: column; }
+        .lecture-main-photo { display: flex; flex-direction: column; flex: 1; min-height: 0; height: 100%; background: #0b0b0b; border: 1px solid #F0EAE0; box-shadow: 0 1px 3px rgba(51,39,31,.08); border-radius: 8px; overflow: hidden; }
+        .lecture-main-photo img { width: 100%; flex: 1 1 auto; min-height: 0; height: 100%; object-fit: contain; object-position: center; background: #0b0b0b; padding: 4px; display: block; }
+        .lecture-main-caption { flex-shrink: 0; font-size: 9.5px; font-weight: 700; text-align: center; padding: 5px 6px 7px; color: #33271F; line-height: 1.3; background: #FBF8F3; border-top: 1px solid #F0EAE0; }
+        .lecture-layout__main:has(.lecture-main-photo) { display: flex; flex-direction: column; min-height: 0; height: 100%; overflow: hidden; }
+        .lecture-layout__main:has(.lecture-main-photo) .photo-banner-grid--in-layout { flex: 1; min-height: 0; height: 100%; display: flex; flex-direction: column; }
         .photo-banner-grid--in-layout { max-width: none; gap: 0.4rem; }
         .photo-banner-grid--in-layout .slide-photo-banner { width: 100%; max-width: 100%; height: auto; }
-        .photo-grid--dense .slide-photo { height: 186px; }
+        .lecture-layout__main:has(.lecture-main-photo) .photo-banner-grid--in-layout .slide-photo-banner { height: 100%; flex: 1; min-height: 0; object-fit: contain; }
+        .photo-grid--dense .slide-photo { height: 215px; }
         .photo-grid--dense figcaption { padding-top: 0.4rem; padding-bottom: 0.55rem; }
+        .slide-book-dist > div { max-width: 72rem !important; }
+        .slide-book-dist > div > p.slide-msg { margin-bottom: 0.75rem !important; }
         .photo-grid--quad { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: repeat(2, minmax(0, 1fr)); gap: 0.5rem; height: min(580px, calc(100vh - 240px)); max-height: min(580px, calc(100vh - 240px)); width: 100%; }
         .photo-grid--quad figure { min-height: 0; display: flex; flex-direction: column; overflow: hidden; margin: 0; }
         .photo-grid--quad .support-photo-contain { flex: 1; min-height: 0; height: auto; max-height: none; object-fit: cover; object-position: center; padding: 0; background: #F0EAE0; }
@@ -470,14 +473,14 @@
         .meeting-reveal-btn { display: inline-flex; align-items: center; padding: 0.28rem 0.65rem; border-radius: 9999px; font-size: 0.68rem; font-weight: 600; color: #8A7B6E; background: #F0EAE0; border: 1px solid #E5DFD5; cursor: pointer; transition: background 0.2s, color 0.2s; font-family: inherit; white-space: nowrap; flex-shrink: 0; }
         .meeting-reveal-btn:hover { background: #E8E2D8; color: #33271F; }
         .meeting-reveal-btn.is-hidden { display: none; }
-        .slide-member-radar { justify-content: flex-start !important; padding-top: 2.5rem !important; padding-bottom: 4.75rem !important; overflow: hidden; }
-        .slide-member-radar > div { flex: 1; min-height: 0; display: flex; flex-direction: column; max-height: calc(100vh - 8.75rem); }
-        .slide-member-radar > div > p.leading-relaxed { margin-bottom: 0.5rem !important; font-size: 0.8125rem; max-width: none; flex-shrink: 0; }
-        .slide-member-radar > div > h2 { margin-bottom: 0.4rem !important; flex-shrink: 0; }
+        .slide-member-radar { justify-content: center !important; padding-top: 2.25rem !important; padding-bottom: 4.25rem !important; overflow: hidden; }
+        .slide-member-radar > div { flex: 1; min-height: 0; display: flex; flex-direction: column; justify-content: center; max-height: calc(100vh - 7.75rem); }
+        .slide-member-radar > div > p.leading-relaxed { margin-bottom: 0.45rem !important; font-size: 0.8125rem; max-width: none; flex-shrink: 0; }
+        .slide-member-radar > div > h2 { margin-bottom: 0.35rem !important; flex-shrink: 0; }
         .slide-member-radar > div > p.text-sm.font-bold { flex-shrink: 0; }
-        .slide-member-radar > div > div:last-child { flex: 1; min-height: 0; display: flex; flex-direction: column; overflow: hidden; }
-        .member-radar-wrap { width: 100%; flex: 1; min-height: 0; display: flex; flex-direction: column; gap: 0.55rem; }
-        .member-radar-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-template-rows: repeat(2, minmax(0, 1fr)); gap: 0.45rem; width: 100%; flex: 1; min-height: 0; max-height: calc(100vh - 10rem); }
+        .slide-member-radar > div > div:last-child { flex: 0 1 auto; min-height: 0; display: flex; flex-direction: column; overflow: visible; }
+        .member-radar-wrap { width: 100%; flex: 0 1 auto; min-height: 0; display: flex; flex-direction: column; gap: 0.55rem; }
+        .member-radar-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-template-rows: auto auto; gap: 0.55rem; width: 100%; height: auto; flex: 0 0 auto; align-content: start; }
         .member-radar-footer { display: flex; align-items: stretch; justify-content: space-between; gap: 0.65rem; flex-shrink: 0; }
         .member-radar-legend { display: flex; align-items: center; gap: 0.85rem; font-size: 0.68rem; font-weight: 700; background: #fff; border: 1px solid #F0EAE0; border-radius: 8px; padding: 0.45rem 0.75rem; white-space: nowrap; }
         .member-radar-legend-item { display: inline-flex; align-items: center; gap: 0.35rem; }
@@ -487,12 +490,12 @@
         .member-radar-legend-item--after { color: #33271F; }
         .member-radar-legend-item--after::before { background: #F5B041; }
         .member-radar-summary { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.5rem; flex: 1; min-width: 0; }
-        .member-radar-cell { background: #fff; border: 1px solid #F0EAE0; border-radius: 10px; padding: 0.28rem 0.3rem 0.25rem; display: flex; flex-direction: column; align-items: stretch; min-width: 0; min-height: 0; box-shadow: 0 1px 4px rgba(51,39,31,.05); }
-        .member-radar-name { font-size: 0.65rem; font-weight: 800; text-align: center; color: #33271F; margin: 0; flex-shrink: 0; align-self: center; background: #F0EAE0; border-radius: 9999px; padding: 0.1rem 0.55rem; line-height: 1.35; }
-        .member-radar-delta { font-size: 0.58rem; font-weight: 700; color: #8A7B6E; margin: 0.12rem 0 0.08rem; flex-shrink: 0; tabular-nums; text-align: center; align-self: center; }
+        .member-radar-cell { background: #fff; border: 1px solid #F0EAE0; border-radius: 10px; padding: 0.45rem 0.35rem 0.4rem; display: flex; flex-direction: column; align-items: center; min-width: 0; height: auto; box-shadow: 0 1px 4px rgba(51,39,31,.05); overflow: hidden; }
+        .member-radar-name { font-size: 0.65rem; font-weight: 800; text-align: center; color: #33271F; margin: 0; flex-shrink: 0; background: #F0EAE0; border-radius: 9999px; padding: 0.12rem 0.55rem; line-height: 1.3; }
+        .member-radar-delta { font-size: 0.58rem; font-weight: 700; color: #8A7B6E; margin: 0.18rem 0 0.2rem; flex-shrink: 0; tabular-nums; text-align: center; }
         .member-radar-delta span { color: #33271F; font-weight: 800; }
-        .member-radar-canvas-wrap { flex: 1; min-height: 0; width: 100%; position: relative; }
-        .member-radar-canvas-wrap canvas { position: absolute; top: 0; left: 50%; transform: translateX(-50%); height: 100% !important; width: auto !important; max-width: 100% !important; aspect-ratio: 1; }
+        .member-radar-canvas-wrap { flex: 0 0 auto; width: min(100%, 232px); aspect-ratio: 1 / 1; height: auto; position: relative; overflow: hidden; margin: 0 auto; }
+        .member-radar-canvas-wrap canvas { display: block !important; position: absolute !important; inset: 0 !important; width: 100% !important; height: 100% !important; max-width: none !important; max-height: none !important; }
         .checklist-slide-body { width: 100%; flex: 0 0 auto; display: flex; flex-direction: column; }
         .slide-checklist-full { justify-content: center !important; padding-bottom: 5rem !important; }
         .slide-checklist-full > div { display: flex; flex-direction: column; justify-content: flex-start; flex: 0 1 auto; min-height: 0; }
@@ -605,7 +608,7 @@
         .tech-stack-main .teams-channel { flex: 1; width: 100%; }
         .tech-stack-side { display: flex; }
         .tech-stack-side .stack-panel { flex: 1; width: 100%; }
-        .design-consult-layout { height: min(640px, calc(100vh - 280px)); max-height: min(640px, calc(100vh - 280px)); width: 100%; }
+        .design-consult-layout { display: grid; grid-template-columns: minmax(0, 1.9fr) minmax(0, 1.1fr); gap: 1rem; align-items: stretch; height: min(520px, calc(100vh - 350px)); max-height: min(520px, calc(100vh - 350px)); width: 100%; }
         .design-guide-wrap { min-height: 0; height: 100%; overflow: hidden; }
         .design-guide-scaler { width: 100%; height: 100%; overflow-x: hidden; overflow-y: auto; position: relative; scrollbar-width: none; }
         .design-guide-scaler::-webkit-scrollbar { display: none; }
@@ -619,7 +622,7 @@
         .slide-notion-embed > div > p.text-sm.font-bold { margin-bottom: 0.35rem; }
         .slide-notion-embed > div > h2 { margin-bottom: 0.2rem !important; }
         .slide-notion-embed > div > p.leading-relaxed { margin-bottom: 0.75rem !important; font-size: 0.875rem; }
-        .design-consult-photos { height: 100%; min-height: 0; }
+        .design-consult-photos { height: 100%; min-height: 0; display: flex; flex-direction: column; gap: 0.65rem; }
         .design-consult-photo-wrap { flex: 1; min-height: 0; display: flex; flex-direction: column; border-radius: 8px; overflow: hidden; background: #F0EAE0; }
         .design-consult-photo { flex: 1; min-height: 0; width: 100%; object-fit: cover; display: block; }
         .design-consult-photo-cap { padding: 8px 10px; font-size: 11px; font-weight: 700; text-align: center; background: #fff; color: #33271F; line-height: 1.35; }
@@ -655,18 +658,6 @@
     </div>
 
     <main id="deck" class="w-full h-screen"></main>
-
-    <div id="case-demo-modal" class="case-demo-modal" aria-hidden="true">
-        <div class="case-demo-modal__panel" role="dialog" aria-modal="true" aria-labelledby="case-demo-title">
-            <div class="case-demo-modal__head">
-                <span id="case-demo-title" class="case-demo-modal__title">실무 사례 · DRB 핵심가치 체험 게임</span>
-                <button type="button" id="case-demo-close" class="case-demo-modal__close">닫기</button>
-            </div>
-            <div class="case-demo-modal__media">
-                <img src="assets/05-2025-activities/drb-core-value-game.png" alt="DRB 핵심가치 체험 게임" class="case-demo-modal__img" loading="lazy">
-            </div>
-        </div>
-    </div>
 
     <div class="fixed bottom-5 left-1/2 -translate-x-1/2 z-50 flex items-center gap-3 bg-card rounded-full px-3 py-2">
         <button onclick="goToPart('toc')" class="p-2 rounded-full hover:bg-beige text-ink transition" aria-label="목차" title="목차 (T)">
@@ -750,7 +741,7 @@
                 <div class="${maxW} w-full mx-auto min-h-0${alignTop ? ' flex flex-col flex-1 overflow-hidden' : ''}">
                     <p class="text-sm font-bold text-pug mb-2 uppercase tracking-wider shrink-0">${label}</p>
                     ${titleBlock}
-                    ${message ? `<p class="text-sm text-ink/80 leading-relaxed ${msgMb} max-w-3xl shrink-0">${message}</p>` : ''}
+                    ${message ? `<p class="slide-msg text-sm text-ink/80 leading-relaxed ${msgMb} shrink-0">${message}</p>` : ''}
                     <div class="${alignTop ? 'min-h-0 flex-1 overflow-hidden flex flex-col' : ''}">${body}</div>
                 </div>
             </section>`;
@@ -933,13 +924,8 @@
         }
 
         function buildPracticeExchangeBody() {
-            const topicTags = [...new Set([
-                ...PRACTICE_QUESTIONS.map(q => q.tag),
-                ...PRACTICE_DISCUSSIONS.map(d => d.tag)
-            ])];
-            const topics = `<div class="practice-exchange-topics">${topicTags.map(t => `<span class="practice-exchange-topics__chip">${t}</span>`).join('')}</div>`;
             return `<div class="practice-exchange-layout" id="practice-exchange-panel">
-                ${topics}
+                ${buildKeywordTopics(['질문·토론', 'API · DB', 'LLM · RAG', '바이브 코딩', '역할·성장'])}
                 <div class="practice-exchange-columns">
                     <section class="practice-exchange-col practice-exchange-col--question">
                         <header class="practice-exchange-col__head">
@@ -978,8 +964,8 @@
                 '기술 전문가 협업',
                 '실제 산출물 중심 활동'
             ];
-            const commonBlocks = common.map(c =>
-                `<div class="member-dept-block"><span class="member-dept-block__label">${c}</span></div>`
+            const commonBlocks = common.map((c, i) =>
+                `<div class="interview-common-chip"><span class="interview-common-chip__num">${i + 1}</span><span class="interview-common-chip__label">${c}</span></div>`
             ).join('');
             return contentSlide({
                 label: 'Interview · 사전 인터뷰',
@@ -990,43 +976,48 @@
                 alignTop: false,
                 slideClass: 'slide-interview',
                 body: `<div class="interview-merge">
-                    <div class="opening-tray">
-                        <div class="opening-tray__panel">
-                            <table class="tbl tbl-interview-compare nowrap-first">
-                                <thead>
-                                    <tr>
-                                        <th>관점</th>
-                                        <th>확인 영역</th>
-                                        <th>인터뷰 포인트</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td rowspan="2">기술관점</td>
-                                        <td>AI 활용 기술 수준</td>
-                                        <td>경험 수준 · 사용 도구 파악<span class="interview-sub">자동화·바이브코딩 · Cursor/Copilot/ChatGPT · 실무 적용 범위</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>AI 적용 프로젝트 니즈</td>
-                                        <td>적용 영역 · 아이디어 확인<span class="interview-sub">직무별 AI 필요 영역 · 보유 아이디어 · 단기 PoC 우선순위</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td rowspan="2">운영관점</td>
-                                        <td>학습 · 성장 방향</td>
-                                        <td>희망 주제 · 목표 수준 파악<span class="interview-sub">교육 주제·난이도 · 활용·개발·설계 · 비전공자 우선순위</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>참여 가능 조건 · 제약</td>
-                                        <td>시간 투자 · 일정 제약 조율<span class="interview-sub">주간 투자 밀도 · 업무 밀집 기간 · 정기 모임 시간대</span></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <div class="interview-common-block">
-                                <p class="interview-common-block__title">공통 요구사항 · <span>4가지</span></p>
-                                <div class="interview-common-block__grid">${commonBlocks}</div>
-                            </div>
-                        </div>
-                    </div>
+                    <section class="interview-panel">
+                        <header class="interview-panel__head">
+                            <span class="interview-panel__eyebrow">AREA</span>
+                            <h3 class="interview-panel__title">인터뷰 확인 영역</h3>
+                        </header>
+                        <table class="tbl tbl-interview-compare nowrap-first">
+                            <thead>
+                                <tr>
+                                    <th>관점</th>
+                                    <th>확인 영역</th>
+                                    <th>인터뷰 포인트</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td rowspan="2">기술관점</td>
+                                    <td>AI 활용 기술 수준</td>
+                                    <td>경험 수준 · 사용 도구 파악<span class="interview-sub">자동화·바이브코딩 · Cursor/Copilot/ChatGPT · 실무 적용 범위</span></td>
+                                </tr>
+                                <tr>
+                                    <td>AI 적용 프로젝트 니즈</td>
+                                    <td>적용 영역 · 아이디어 확인<span class="interview-sub">직무별 AI 필요 영역 · 보유 아이디어 · 단기 PoC 우선순위</span></td>
+                                </tr>
+                                <tr>
+                                    <td rowspan="2">운영관점</td>
+                                    <td>학습 · 성장 방향</td>
+                                    <td>희망 주제 · 목표 수준 파악<span class="interview-sub">교육 주제·난이도 · 활용·개발·설계 · 비전공자 우선순위</span></td>
+                                </tr>
+                                <tr>
+                                    <td>참여 가능 조건 · 제약</td>
+                                    <td>시간 투자 · 일정 제약 조율<span class="interview-sub">주간 투자 밀도 · 업무 밀집 기간 · 정기 모임 시간대</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </section>
+                    <section class="interview-common-panel">
+                        <header class="interview-panel__head">
+                            <span class="interview-panel__eyebrow">COMMON</span>
+                            <h3 class="interview-panel__title">공통 요구사항 · <span>4가지</span></h3>
+                        </header>
+                        <div class="interview-common-block__grid">${commonBlocks}</div>
+                    </section>
                 </div>`
             });
         }
@@ -1111,6 +1102,14 @@
             ).join('')}</div>`;
         }
 
+        function buildKeywordTopics(topics) {
+            if (!topics?.length) return '';
+            return `<div class="week-topics">
+                <span class="week-topics__label">키워드</span>
+                <div class="week-topics__list">${topics.map(t => `<span class="week-topics__chip">${t}</span>`).join('')}</div>
+            </div>`;
+        }
+
         function weekSlide({ week, title, topics, message, goals, goalsMaterials, mainImage, mainImages, mainExtra, subImages, photoLayout, photoFit, photoTall, photoGrid, goalsLeft, goalsLayout, embedGuide, embedGuideImage, embedGuideVariant, embedGuideTitle, embedGuideScroll = true, termNotes }) {
             const renderPhotoSub = (p, altFallback = '') => {
                 const stacked = !!p.headerSrc;
@@ -1122,12 +1121,7 @@
                     ${p.caption ? `<figcaption>${p.caption}</figcaption>` : ''}
                 </figure>`;
             };
-            const chips = (topics || []).length
-                ? `<div class="week-topics">
-                    <span class="week-topics__label">키워드</span>
-                    <div class="week-topics__list">${topics.map(t => `<span class="week-topics__chip">${t}</span>`).join('')}</div>
-                </div>`
-                : '';
+            const chips = buildKeywordTopics(topics);
             const goalsList = goals && goals.length
                 ? `<p class="week-goals-title">🎯 목표</p><ul>${goals.map(g => `<li class="flex items-start gap-2 text-ink/85"><span class="text-pug shrink-0 mt-0.5">•</span><span>${g}</span></li>`).join('')}</ul>`
                 : '';
@@ -1175,7 +1169,7 @@
                 }
             } else if (mainImage || mainImages?.length) {
                 const hasMeta = !!(message || (goals && goals.length));
-                const layoutCls = ['week-photo-layout', photoLayout === 'equal' && 'week-photo-layout--equal', photoLayout === 'quiz-race' && 'week-photo-layout--quiz-race', photoLayout === 'convention' && 'week-photo-layout--convention', photoLayout === 'uiux' && 'week-photo-layout--uiux', photoLayout === 'llm-api' && 'week-photo-layout--llm-api', photoLayout === 'session-focus' && 'week-photo-layout--session-focus', photoFit === 'cover' && 'week-photo-layout--cover-fill', mainExtra && 'week-photo-layout--session-focus', photoTall && hasMeta && 'week-photo-layout--tall-meta', photoTall && !hasMeta && 'week-photo-layout--tall', hasMeta && !photoTall && 'week-photo-layout--compact'].filter(Boolean).join(' ');
+                const layoutCls = ['week-photo-layout', photoLayout === 'equal' && 'week-photo-layout--equal', photoLayout === 'feb-python' && 'week-photo-layout--feb-python', photoLayout === 'quiz-race' && 'week-photo-layout--quiz-race', photoLayout === 'convention' && 'week-photo-layout--convention', photoLayout === 'uiux' && 'week-photo-layout--uiux', photoLayout === 'llm-api' && 'week-photo-layout--llm-api', photoLayout === 'session-focus' && 'week-photo-layout--session-focus', photoFit === 'cover' && 'week-photo-layout--cover-fill', mainExtra && 'week-photo-layout--session-focus', photoTall && hasMeta && 'week-photo-layout--tall-meta', photoTall && !hasMeta && 'week-photo-layout--tall', hasMeta && !photoTall && 'week-photo-layout--compact'].filter(Boolean).join(' ');
                 const isManualScroll = embedGuideScroll === 'manual';
                 const iframeScrollCls = embedGuideScroll === false ? '' : ' embed-scroll-iframe';
                 const manualAttr = isManualScroll ? ' data-embed-scroll-manual="1"' : '';
@@ -1233,12 +1227,9 @@
                 ? `<div class="bg-beige rounded-lg p-4 mb-3">${goalsList}</div>`
                 : '';
             const isPocWorkshop = goalsLayout === 'poc-workshop';
-            const isDesignConsult = photoLayout === 'design-consult';
             const termNotesBlock = buildTermNotes(termNotes);
             const bodyCore = isPocWorkshop
                 ? `${chips}<div class="slide-body-poc-workshop">${photos}</div>`
-                : isDesignConsult
-                    ? photos
                 : `${chips}${goalsBlock}${photos}`;
             const body = `${bodyCore}${termNotesBlock}`;
             return contentSlide({
@@ -1271,7 +1262,7 @@
             contentSlide({
                 label: 'PUG 소개 · Opening',
                 title: 'AI PUG의 시작 - AI 활용과 문화 확산',
-                message: 'AI 활용에 대한 관심은 높아졌지만, 실제 업무에 어떻게 적용할지는 각자 막막한 상황이었습니다. AI PUG는 이런 고민을 함께 풀어가기 위해 시작된 <strong class="text-ink">자발적 학습·공유 그룹</strong>이었습니다.',
+                message: 'AI 활용 관심은 높았지만 업무 적용은 막막했습니다. AI PUG는 그 고민을 함께 풀어가기 위한 <strong class="text-ink">자발적 학습·공유 그룹</strong>이었습니다.',
                 body: `<div class="opening-split grid lg:grid-cols-5 gap-6 items-stretch">
                     <div class="lg:col-span-3 opening-tray">
                         <div class="opening-split__table"><table class="tbl nowrap-first opening-split__tbl"><tbody>
@@ -1296,7 +1287,6 @@
             contentSlide({
                 label: '2025 Review · 활동',
                 title: '2025년 주요 활동',
-                message: '최신 도구를 직접 실습하고 활용 경험을 공유하는 방식으로 운영되었습니다.',
                 compact: true,
                 slideClass: 'slide-review-activities',
                 body: `<div class="review-activities-layout">
@@ -1322,16 +1312,13 @@
                 </div>
                 <div class="bg-beige rounded-lg review-activities-summary">주요 성과: AI 도구 활용 경험 공유, 바이브 코딩·LLM API 실습, RPA·AI 시스템 아이디어 발굴, 협업 네트워크 형성
                 </div>
-                <div class="review-activities-case-bar">
-                    <button type="button" id="case-demo-btn" class="case-demo-btn">실무 사례 클릭하기</button>
-                </div>
                 </div>`
             }),
 
             contentSlide({
                 label: '2025 → 2026 · 회고와 전환',
                 title: '무엇이 아쉬웠고, 어떻게 바꿨나',
-                message: 'AI 학습·공유 문화는 만들었지만 한계가 있었습니다. 2026년에는 <strong class="text-ink">8개 부문 집중반</strong>으로 인원을 구체화하고, <strong class="text-ink">업무 문제 해결(PoC)</strong> 중심으로 전환했습니다.',
+                message: 'AI 학습·공유 문화는 만들었지만 한계가 있었습니다. 2026년에는 <strong class="text-ink">8개 부문 집중반</strong>으로 구체화하고, <strong class="text-ink">업무 문제 해결(PoC)</strong> 중심으로 전환했습니다.',
                 compact: true,
                 wide: true,
                 slideClass: 'slide-perspective slide-pain-merge',
@@ -1348,47 +1335,49 @@
                     { src: 'assets/11-feb-python/inflearn-courses.png', caption: '인프런 · 파이썬 입문·중급 (Inflearn Original)' },
                     { src: 'assets/11-feb-python/inflearn-curriculum.png', caption: '인프런 · 파이썬 기초 강의 커리큘럼' }
                 ],
+                photoLayout: 'feb-python',
                 photoTall: true
             },
             { week: '3월 1주차', title: '바이브 코딩 · 웹·시스템 구조', topics: ['프론트엔드·백엔드(FE/BE) 역할 구분', 'REST API 흐름', 'AI 협업 코딩 방식', '요구사항 정의·단계적 확장'],
+                message: '<strong class="text-ink">바이브 코딩</strong>과 <strong class="text-ink">웹·시스템 구조</strong>를 주제로, FE/BE 역할·클라이언트–서버·API 흐름과 개발 기초 용어를 함께 맞춰 봤습니다.',
                 mainImage: { src: 'assets/12-vibe-coding/main-session.jpg', caption: '바이브 코딩 · 웹·시스템 구조 교육 세션' },
                 mainExtra: `<div class="week-terms-strip">
                     <div class="week-terms-strip__grid">
-                        <div class="week-terms-strip__col"><div class="week-terms-strip__title">A. 환경</div><ul>
-                            <li>IDE</li><li>CLI / Terminal</li><li>Model</li>
-                        </ul></div>
-                        <div class="week-terms-strip__col"><div class="week-terms-strip__title">B. AI 기초</div><ul>
-                            <li>Prompt</li><li>Context Window</li><li>Token</li><li>Hallucination</li>
-                        </ul></div>
-                        <div class="week-terms-strip__col"><div class="week-terms-strip__title">C. 프로젝트 설정</div><ul>
-                            <li>PRD</li><li>Rule File</li><li>API</li><li>MCP</li>
-                        </ul></div>
-                        <div class="week-terms-strip__col"><div class="week-terms-strip__title">D. 에이전트</div><ul>
-                            <li>Agent</li><li>Skill</li><li>Hook</li><li>Orchestration</li><li>Multi-Agent</li>
-                        </ul></div>
-                        <div class="week-terms-strip__col"><div class="week-terms-strip__title">E. 코드 관리</div><ul>
-                            <li>Debug</li><li>Git</li><li>Deploy</li><li>Sandbox</li>
-                        </ul></div>
+                        <div class="week-terms-strip__col"><div class="week-terms-strip__title">A. 환경</div><div class="week-terms-strip__chips">
+                            <span class="week-terms-strip__chip">IDE</span><span class="week-terms-strip__chip">CLI / Terminal</span><span class="week-terms-strip__chip">Model</span><span class="week-terms-strip__chip">Workspace</span>
+                        </div></div>
+                        <div class="week-terms-strip__col"><div class="week-terms-strip__title">B. AI 기초</div><div class="week-terms-strip__chips">
+                            <span class="week-terms-strip__chip">Prompt</span><span class="week-terms-strip__chip">Context Window</span><span class="week-terms-strip__chip">Token</span><span class="week-terms-strip__chip">Hallucination</span>
+                        </div></div>
+                        <div class="week-terms-strip__col"><div class="week-terms-strip__title">C. 프로젝트 설정</div><div class="week-terms-strip__chips">
+                            <span class="week-terms-strip__chip">PRD</span><span class="week-terms-strip__chip">Rule File</span><span class="week-terms-strip__chip">API</span><span class="week-terms-strip__chip">MCP</span>
+                        </div></div>
+                        <div class="week-terms-strip__col"><div class="week-terms-strip__title">D. 에이전트</div><div class="week-terms-strip__chips">
+                            <span class="week-terms-strip__chip">Agent</span><span class="week-terms-strip__chip">Skill</span><span class="week-terms-strip__chip">Hook</span><span class="week-terms-strip__chip">Multi-Agent</span>
+                        </div></div>
+                        <div class="week-terms-strip__col"><div class="week-terms-strip__title">E. 코드 관리</div><div class="week-terms-strip__chips">
+                            <span class="week-terms-strip__chip">Debug</span><span class="week-terms-strip__chip">Git</span><span class="week-terms-strip__chip">Deploy</span><span class="week-terms-strip__chip">Sandbox</span>
+                        </div></div>
                     </div>
                 </div>`,
                 subImages: [
-                    { src: 'assets/12-vibe-coding/sub-it-fields.png', caption: 'IT 개발 분야 — 프론트·백·데이터·임베디드·보안' },
-                    { src: 'assets/12-vibe-coding/sub-fe-be-meme.png', caption: 'Frontend vs Backend — 겉과 속' }
+                    { src: 'assets/12-vibe-coding/sub-it-fields.png', caption: 'IT 개발 개념  프론트·백·데이터·임베디드·보안' },
+                    { src: 'assets/12-vibe-coding/sub-fe-be-meme.png', caption: 'Frontend vs Backend - 웹 시스템의 겉과 속' }
                 ],
                 photoTall: true
             },
             { week: '3월 2주차', title: 'API · SQL · CRUD 실습', topics: ['Flask 기초', 'SQL 개념', '테이블/행/컬럼', '데이터 CRUD 실습'],
+                message: 'PoC에서 자주 다루는 <strong class="text-ink">API</strong>와 <strong class="text-ink">SQL CRUD</strong>를 중심으로, Flask로 요청·응답을 구현하고 DB 연동 실습까지 진행했습니다.',
                 mainImage: { src: 'assets/13-flask-sql/rest-api-diagram.png', caption: 'REST API — Client · Server · HTTP · JSON' },
                 embedGuideImage: { src: 'assets/13-flask-sql/sql-rdb-diagram.png', caption: 'SQL · 관계형 데이터베이스(RDB)' },
                 embedGuide: 'assets/13-flask-sql/rdb-guide.html',
-                embedGuideScroll: 'manual',
                 photoTall: true,
                 termNotes: [
                     ['Flask', 'Python으로 웹·API를 만드는 가벼운 도구(학습·프로토타입용)']
                 ]
             },
             { week: '3월 3주차', title: '생성형 AI · LLM · RAG', topics: ['인공지능의 의미·핵심 개념', 'NLP · LLM · 생성형 AI 동작', 'LLM 강점/한계', 'Temperature·프롬프트', 'LLM API 호출', '사전학습·파인튜닝·RAG 차이', 'LangChain·RAG 관계' ],
-                message: 'AI·NLP·LLM의 기본 개념부터 <strong class="text-ink">사전학습·파인튜닝·RAG</strong>의 차이, LangChain과 RAG의 관계까지 학습했습니다. Temperature 등 출력 파라미터 조정·API 호출·벡터 임베딩 실습 후, <strong class="text-ink">슬기로운 DRB 생활</strong> 데이터로 복지 검색 RAG 챗봇을 만들어 봤습니다.',
+                message: 'AI·NLP·LLM 개념부터 <strong class="text-ink">사전학습·파인튜닝·RAG</strong> 차이까지 학습하고, API·임베딩 실습 후 <strong class="text-ink">슬기로운 DRB 생활</strong> 데이터로 RAG 챗봇을 만들어 봤습니다.',
                 mainImage: { src: 'assets/14-llm-rag/main-llm-session.png', caption: 'LLM·RAG 교육 세션' },
                 subImages: [
                     { src: 'assets/14-llm-rag/sub-rag-diagram.png', caption: 'RAG 개념 설명' },
@@ -1397,7 +1386,7 @@
                 photoTall: true
             },
             { week: '3월 4주차', title: 'RAG 챗봇 · 개인 발표', topics: ['RAG 챗봇 구현', '개인 발표', 'PoC 챗봇 사례 공유'],
-                message: '3월 3주차 RAG 학습을 바탕으로, 멤버별 PoC 챗봇을 구현하고 발표했습니다.',
+                message: '3월 3주차 RAG 학습을 바탕으로, 멤버별 <strong class="text-ink">PoC 챗봇</strong>을 구현하고 <strong class="text-ink">개인 발표</strong>로 공유했습니다.',
                 photoGrid: [
                     { src: 'assets/15-rag-chatbot/present-1-vscode.png', caption: '강응준님 발표: PoC 챗봇 사례' },
                     { src: 'assets/15-rag-chatbot/present-2-webapp.png', caption: '강주혁님 발표: PoC 챗봇 사례' },
@@ -1408,7 +1397,7 @@
                 ]
             },
             { week: '3월 4주차', title: 'RPA 자동화', topics: ['n8n 워크플로 구성', '사내 Teams OAuth 연동', '실습1 · 키워드 뉴스 요약', '실습2 · 랜덤 발표 순서'],
-                message: '일반 공개 튜토리얼과 달리, 교육용 <strong class="text-ink">사내 Microsoft Teams·클라우드 OAuth</strong> 연결 환경을 구성해 실습했습니다. RSS → ChatGPT 요약 → <strong class="text-ink">실제 Teams 메시지 전송</strong>과 엑셀 기반 랜덤 발표 순서 자동화까지 진행했습니다.',
+                message: '공개 튜토리얼과 달리, 교육용 <strong class="text-ink">사내 Teams·OAuth</strong>로 실습했습니다. <span class="nb">RSS → ChatGPT 요약 → Teams 전송</span>과 엑셀 랜덤 발표 자동화까지 진행했습니다.',
                 mainImage: { src: 'assets/15-n8n/n8n-session.png', caption: 'n8n 자동화 교육 세션' },
                 subImages: [
                     { src: 'assets/15-n8n/n8n-practice-1-news-summary.png', caption: '실습1 · 매일 저녁 키워드 뉴스 요약 → Teams 메시지' },
@@ -1419,7 +1408,7 @@
                 photoTall: true
             },
             { week: '4월 1주차', title: 'PoC 기획 · 아이디어 워크숍', topics: ['업무 과제 도출', '현재 업무 현황(AS-IS) 정리', 'PoC 목표·범위 설정', '기술 스택 선정'],
-                message: '이번 활동을 통해 각자의 업무 문제를 AI로 어떻게 풀 수 있을지 구체적으로 고민하고, 실행 가능한 수준까지 정리했습니다.',
+                message: '각자의 업무 문제를 AI로 어떻게 풀지 구체적으로 고민하고, <strong class="text-ink">실행 가능한 PoC 설계 초안</strong>까지 정리했습니다.',
                 goals: [
                     '각 참여자가 <strong class="text-ink">실제 해결 가능한 문제 1개</strong>를 정의',
                     '해당 문제에 대해 <strong class="text-ink">PoC 수준의 AI 활용 솔루션 기획 초안</strong> 도출',
@@ -1437,17 +1426,17 @@
                 ]
             },
             { week: '4월 3주차', title: 'API 개발 심화 · 사내 LLM 연동', topics: ['FastAPI · 온프레미스 LLM', 'Request/Response·파라미터', 'AI 도구 API 설계·구현', 'Swagger UI'],
-                message: 'FastAPI로 <strong class="text-ink">사내 구축(On-premise) LLM</strong>에 연동해 보았습니다. Request/Response 구조와 필수·선택 파라미터를 파악하고, AI 도구에 API 설계·구현을 요청하는 방식으로 진행했으며 <strong class="text-ink">Swagger UI</strong>로 엔드포인트를 확인했습니다.',
+                message: 'FastAPI로 <strong class="text-ink">사내 구축(On-premise) LLM</strong>에 연동했습니다. Request/Response·파라미터를 파악하고 AI 도구로 API를 설계·구현했으며, <strong class="text-ink">Swagger UI</strong>로 엔드포인트를 확인했습니다.',
                 mainImage: { src: 'assets/26-web-dev-lecture/lecture-onprem-llm.png', caption: 'API 개발 심화 (FastAPI)' },
-                subImages: [
-                    { src: 'assets/17-fastapi-git/sub-fastapi-guide.png', caption: 'FastAPI 코드 구조 · Swagger UI', fit: 'contain' }
-                ],
+                embedGuide: 'assets/17-fastapi-git/fastapi-guide.html',
+                embedGuideVariant: 'fastapi',
+                embedGuideTitle: 'FastAPI 코드 구조 · Swagger UI',
                 photoLayout: 'llm-api',
                 photoFit: 'cover',
                 photoTall: true
             },
             { week: '4월 3주차', title: 'Git · GitHub', topics: ['Git 개념·Repository', 'Commit / Push / Pull', 'GitHub Flow', 'PoC 코드 버전 관리'],
-                message: 'FastAPI 실습 코드를 <strong class="text-ink">Git 저장소</strong>로 관리하고, Commit·Push·Pull 흐름을 익혔습니다. <strong class="text-ink">GitHub Flow</strong>로 브랜치·코드 리뷰·병합까지 PoC 개발에 맞게 연습했습니다.',
+                message: 'FastAPI 실습 코드를 <strong class="text-ink">Git 저장소</strong>로 관리하며 Commit·Push·Pull을 익혔습니다. <strong class="text-ink">GitHub Flow</strong>로 브랜치·리뷰·병합까지 PoC에 맞게 연습했습니다.',
                 mainImage: { src: 'assets/17-fastapi-git/sub-git-distributed-vcs.png', caption: 'Distributed Version Control · Commit / Push / Pull' },
                 subImages: [
                     { src: 'assets/17-fastapi-git/sub-github-flow.png', caption: 'GitHub Flow · branch → code review → merge' },
@@ -1459,7 +1448,7 @@
                 ]
             },
             { week: '4월 4주차', title: 'Webhook · 배포 흐름', topics: ['Webhook API', 'FastAPI', 'POST 요청 처리', 'n8n·Teams 연동', '빌드→배포→실행'],
-                message: 'FastAPI로 웹훅 서버 구현 및 POST 요청 처리 경험. 프론트엔드 → 서버 → 메시지 전송까지 전체 흐름 실습.',
+                message: 'FastAPI로 <strong class="text-ink">웹훅 서버</strong>를 구현하고, <span class="nb">프론트엔드 → 서버 → 메시지 전송</span>까지 <strong class="text-ink">전체 배포 흐름</strong>을 실습했습니다.',
                 mainImage: { src: 'assets/18-webhook-api/main-activity.png', caption: 'Webhook·배포 실습 세션' },
                 subImages: [
                     { src: 'assets/18-webhook-api/main-n8n-flow.png', caption: 'Webhook → Teams 메시지 전송 흐름' },
@@ -1468,6 +1457,7 @@
                 photoTall: true
             },
             { week: '4월 4주차', title: 'UI/UX 기초', topics: ['Design vs UX', 'UI 컴포넌트', '디자인 시스템', 'AI 디자인 도구'],
+                message: '<strong class="text-ink">Design vs UX</strong> 개념과 UI 컴포넌트·디자인 시스템을 학습하고, <strong class="text-ink">AI 디자인 도구</strong>로 화면 시안을 만들어 봤습니다.',
                 mainImage: { src: 'assets/19-uiux-basics/uiux-v0-design.png', caption: 'Google stitch AI 디자인 - Pastel Modernism 적용' },
                 subImages: [
                     { src: 'assets/19-uiux-basics/uiux-components.png', caption: 'UI/UX 핵심 컴포넌트 42가지' },
@@ -1477,13 +1467,14 @@
                 photoTall: true
             },
             { week: '4월 5주차', title: 'AI 에이전트 · 멀티에이전트', topics: ['에이전트 역할·입출력', 'LLM과 에이전트 차이', 'Multi-Agent 패턴', 'MVP 구조 설계'],
-                message: 'PUG GitHub Organization에 <strong class="text-ink">market-research-crew</strong> 실습 레포를 공유하고, CrewAI 기반 멀티에이전트 가이드를 함께 제공했습니다.',
+                message: 'PUG GitHub에 <strong class="text-ink">market-research-crew</strong> 실습 레포와 CrewAI 멀티에이전트 가이드를 공유했습니다.',
                 mainImage: { src: 'assets/20-agent/github-repo.png', caption: 'PUG GitHub · market-research-crew 실습' },
                 embedGuide: 'assets/20-agent/agent-guide.html',
                 embedGuideVariant: 'agent',
                 photoTall: true
             },
             { week: '5월 1주차', title: 'Quiz Race · IT 지식 · 개발 개념', topics: ['Quiz Race', 'IT 기초 지식', '비전공자'],
+                message: '「비전공자를 위한 이해할 수 있는 IT 지식」 교재로 <strong class="text-ink">Quiz Race</strong>를 진행하며, 개발 기초 개념을 게임형으로 점검했습니다.',
                 mainImages: [
                     { src: 'assets/21-quiz-race/quiz-lap3-get-post.png', caption: '「비전공자를 위한 이해할 수 있는 IT 지식」 · Quiz Race 교재' },
                     { src: 'assets/21-quiz-race/quiz-lap4-404.png', caption: 'Quiz Race - LAP 4 · 404 에러' }
@@ -1495,6 +1486,7 @@
                 photoLayout: 'quiz-race'
             },
             { week: '5월 4주차', title: '개발 컨벤션 가이드', topics: ['코딩 컨벤션', '개발 가이드', '협업 규칙', 'PoC 품질'],
+                message: 'PoC 코드 품질과 협업을 위해 <strong class="text-ink">개발 컨벤션 가이드</strong>를 학습하고, GitHub에 공유된 가이드를 함께 확인했습니다.',
                 mainImage: { src: 'assets/22-dev-convention/main-session.png', caption: '개발 컨벤션 가이드 교육 세션' },
                 subImages: [
                     { src: 'assets/22-dev-convention/github-readme.png', caption: 'pug-convention-guide · GitHub README', fit: 'contain' }
@@ -1507,6 +1499,7 @@
                 photoTall: true
             },
             { week: '6월 3주차', title: 'PoC UI/UX · 디자인 가이드',
+                topics: ['UI/UX 강의', '1:1 디자인 피드백', '바이브 코딩 디자인 가이드', 'PoC 화면 개선'],
                 message: '디지털진화팀 심수정님과 <strong class="text-ink">UI/UX 강의·1:1 피드백</strong>을 진행하고, 바이브 코딩 디자인 가이드를 공유했습니다.',
                 embedGuide: 'assets/27-design-consulting/vibe-coding-design-guide.html',
                 embedGuideTitle: '바이브 코딩 디자인 가이드',
@@ -1530,7 +1523,7 @@
                 compact: true,
                 wide: true,
                 slideClass: 'slide-poc-present',
-                body: `<div class="week-present-grid">
+                body: `${buildKeywordTopics(['킥오프', 'PoC 주제', '부서 문제', '멤버 발표', '실제 문제'])}<div class="week-present-grid">
                     <figure class="week-present-cell">
                         <img src="assets/10-poc-fields/poc-kickoff.png" alt="PUG 집중반 킥오프 미팅" loading="lazy">
                         <figcaption>PUG 집중반 킥오프 미팅</figcaption>
@@ -1706,22 +1699,30 @@
 
         // ── PART 3: 디지털전략센터 × PUG ──
         const SUPPORT = [
-            { icon: 'presentation', title: '디지털전략센터 실무진 연결 · AI/Dev/Data/UI&UX 실무', desc: '도메인 특성을 이해한 실무형 강의 및 코칭', photoLayout: 'quad', photoFit: 'contain', photos: [
+            { icon: 'presentation', title: '디지털전략센터 실무진 연결 · AI/Dev/Data/UI&UX 실무',
+                topics: ['실무 강의', 'AI', 'Dev', 'Data', 'UI/UX', '실무 코칭'],
+                photoLayout: 'quad', photoFit: 'contain', photos: [
                 { src: 'assets/26-web-dev-lecture/lecture-code-review.png', caption: '실습 코드 리뷰 · 화면 공유 강의(디지털진화팀 송영복)' },
                 { src: 'assets/26-web-dev-lecture/lecture-onprem-llm.png', caption: '머신러닝 · 자연어처리 강의(AI솔루션팀 윤채영)' },
                 { src: 'assets/26-web-dev-lecture/lecture-ai-dev-connect.png', caption: '사내 LLM 활용 관련 Q&A (AI솔루션팀 진완혁)' },
                 { src: 'assets/26-web-dev-lecture/lecture-uiux-design.png', caption: 'UI/UX 디자인 강의(디지털진화팀 심수정)' }
             ]},
-            { icon: 'users', title: '디지털전략센터 · Leader\'s Talk', meetingReveal: true, photos: [
+            { icon: 'users', title: '디지털전략센터 · Leader\'s Talk',
+                topics: ['Leader\'s Talk', 'AI 시대', 'AI Playground', '간담회'],
+                meetingReveal: true, photos: [
                 { src: 'assets/28-meeting/meeting-reflection.png', caption: 'AI 시대에 대한 고찰 (정민석님)' },
                 { src: 'assets/28-meeting/meeting-playground.png', caption: 'AI Playground 소개 (신민규님)' }
             ], overlayPhoto: { src: 'assets/28-meeting/meeting-dinner.png', caption: '간담회 식사', note: 'Power User Group의 P를 나타낸 포즈입니다 ^^' }},
-            { icon: 'message-square', title: '운영 지원 · 게시판 · 실습자료 · 미팅노트', desc: '주차별 실습자료 공유, Teams 채널 활동 요약, 미팅노트 아카이빙으로 운영·회고를 지속했습니다.', opsSupportTriple: {
+            { icon: 'message-square', title: '운영 지원 · 게시판 · 실습자료 · 미팅노트',
+                topics: ['Teams 게시판', '실습자료', '미팅노트', '아카이빙'],
+                opsSupportTriple: {
                 video: { src: 'assets/29-teams-channel/teams-channel.mp4', rate: 1.5, label: 'Teams 게시판 활동 요약' },
                 materials: { src: 'assets/30-weekly-materials/weekly-materials-folders.png', label: '주차별 실습자료 공유' },
                 notion: { src: 'assets/31-meeting-notes/meeting-notes-list.png', label: 'PUG Meeting Notes 아카이빙' }
             }},
-            { icon: 'graduation-cap', title: '개발 환경 · 온라인 강의 선별', desc: 'PoC 수행에 필요한 AI·개발 역량 강화를 위해 인프런 등 온라인 강의를 선별·추천했습니다.', photoBanner: true, photos: [
+            { icon: 'graduation-cap', title: '개발 환경 · 온라인 강의 선별',
+                topics: ['인프런', 'LLM', 'GitHub', 'n8n', '바이브 코딩'],
+                desc: 'PoC 수행에 필요한 AI·개발 역량 강화를 위해 인프런 등 온라인 강의를 선별·추천했습니다.', photoBanner: true, photos: [
                 { src: 'assets/32-online-lectures/lecture-llm.png', caption: 'LLM 핵심 이론, 구조로 이해하기' },
                 { src: 'assets/32-online-lectures/lecture-github.png', caption: '우주에서 가장 쉬운 GitHub 베이스캠프' },
                 { src: 'assets/32-online-lectures/lecture-n8n.png', caption: 'n8n 업무자동화 (왕초보편)' }
@@ -1729,15 +1730,24 @@
                 { src: 'assets/32-online-lectures/lecture-vibe-coding.png', caption: '바이브 코딩 · 개념/툴/사용법 (MetaCode)' },
                 { src: 'assets/32-online-lectures/lecture-ai-concepts.png', caption: '인공지능 13가지 핵심개념 · AI·ML·DL (MetaCode)' }
             ]},
-            { icon: 'sparkles', title: '개발 환경 · AI 도구 구독 지원', desc: 'Google AI · OpenAI · SerpApi 등 PoC에 필요한 AI 도구를 탐색하고, 구독·API 키를 지원했습니다.', photoBanner: true, mainCaptionLarge: true, photos: [
+            { icon: 'sparkles', title: '개발 환경 · AI 도구 구독 지원',
+                topics: ['Google AI Pro', 'OpenAI', 'SerpApi', 'API Key'],
+                desc: 'Google AI · OpenAI · SerpApi 등 PoC에 필요한 AI 도구를 탐색하고, 구독·API 키를 지원했습니다.', photoBanner: true, mainCaptionLarge: true, photos: [
                 { src: 'assets/33-google-subscription/google-ai-plans.png', caption: 'Google AI Pro 구독 지원' }
             ], sidePhotos: [
                 { src: 'assets/33-google-subscription/openai-usage.png', caption: 'OpenAI API Key 발급 (AI Playground 활성화 전)' },
                 { src: 'assets/33-google-subscription/serpapi.png', caption: 'SerpApi - Google Search API' }
             ]},
-            { icon: 'github', title: '개발 환경 · GitHub Organization', video: 'assets/34-github-org/github-org.mp4' },
-            { icon: 'book-open', title: '개발 환경 · 표준 기술스택 가이드', teamsPost: true },
-            { icon: 'book', title: '개발 환경 · IT 기초 서적 배부', desc: '「<strong>비전공자를 위한 이해할 수 있는 IT 지식</strong>」 -  프로그래밍 언어, 운영체제, 네트워크, API, JSON, 데이터베이스, 깃(Git)', photos: [
+            { icon: 'github', title: '개발 환경 · GitHub Organization',
+                topics: ['GitHub Organization', '코드 공유', '협업', '버전 관리'],
+                video: 'assets/34-github-org/github-org.mp4', videoCompact: true },
+            { icon: 'book-open', title: '개발 환경 · 표준 기술스택 가이드',
+                topics: ['표준 기술스택', 'Front / Back', 'DB', 'AI / ML'],
+                teamsPost: true },
+            { icon: 'book', title: '개발 환경 · IT 기초 서적 배부',
+                topics: ['IT 기초', '비전공자', '서적 배부', '공통 언어'],
+                slideClass: 'slide-book-dist',
+                desc: '「<strong>비전공자를 위한 이해할 수 있는 IT 지식</strong>」 -  프로그래밍 언어, 운영체제, 네트워크, API, JSON, 데이터베이스, 깃(Git)', photos: [
                 { src: 'assets/36-book/book-distribution.png', caption: '서적 배부 준비' },
                 { src: 'assets/36-book/book-group.png', caption: 'PUG 멤버 전원 수령' },
                 { src: 'assets/36-book/book-members-1.png', caption: '박다솜님 & 윤성수님' },
@@ -1745,8 +1755,12 @@
                 { src: 'assets/36-book/book-members-3.png', caption: '현재호님 & 김보근님' },
                 { src: 'assets/36-book/book-members-4.png', caption: '강응준님 & 박지훈님' }
             ]},
-            { icon: 'flask-conical', title: '개발 환경 · AI Playground 안내', video: 'assets/37-ai-playground/ai-playground.mp4' },
-            { icon: 'code-2', title: '개발 환경 · API 개발 지원', desc: 'PoC 구현 과정의 Outlook·Teams API 연동 등 API 개발 기술 지원', apiPlayground: {
+            { icon: 'flask-conical', title: '개발 환경 · AI Playground 안내',
+                topics: ['AI Playground', '사내 LLM', '실습 환경', '보안'],
+                video: 'assets/37-ai-playground/ai-playground.mp4' },
+            { icon: 'code-2', title: '개발 환경 · API 개발 지원',
+                topics: ['API Playground', 'Power Automate', 'Graph API', 'Outlook · Teams'],
+                desc: 'PoC 구현 과정의 Outlook·Teams API 연동 등 API 개발 기술 지원', apiPlayground: {
                 serviceName: 'PUG API Playground',
                 image: { src: 'assets/38-api-playground/api-playground.png', caption: 'PUG API Playground — Power Automate · Graph API' },
                 repoUrl: 'https://github.com/drb-ai-pug/pug-api-playground',
@@ -1947,13 +1961,13 @@
                 const cap = p.caption ? `<figcaption class="design-consult-photo-cap">${p.caption}</figcaption>` : '';
                 return `<figure class="design-consult-photo-wrap"><img src="${p.src}" alt="${p.caption || '디자인 피드백'}" class="design-consult-photo">${cap}</figure>`;
             }).join('');
-            return `<div class="design-consult-layout grid lg:grid-cols-3 gap-4 items-stretch">
-                <div class="lg:col-span-2 design-guide-wrap bg-card rounded-lg border border-beige">
+            return `<div class="design-consult-layout">
+                <div class="design-guide-wrap bg-card rounded-lg border border-beige">
                     <div class="design-guide-scaler">
                         <iframe src="${embedGuide}" title="바이브 코딩 디자인 가이드" class="design-guide-iframe embed-scroll-iframe"></iframe>
                     </div>
                 </div>
-                <div class="design-consult-photos flex flex-col gap-3">${photoHtml}</div>
+                <div class="design-consult-photos">${photoHtml}</div>
             </div>`;
         }
 
@@ -2105,32 +2119,34 @@
         const MEETING_REVEAL_BTN = '<button type="button" id="meeting-reveal-btn" class="meeting-reveal-btn">간담회 사진 보기</button>';
 
         function supportSlide(s) {
+            const kw = buildKeywordTopics(s.topics);
             if (s.embedGuide) {
                 return contentSlide({
                     label: 'Support · 디지털전략센터 × PUG',
                     title: s.title,
+                    message: s.desc,
                     wide: true,
-                    body: buildDesignConsultLayout(s)
+                    body: `${kw}${buildDesignConsultLayout(s)}`
                 });
             }
             if (s.opsSupportTriple) {
-                const intro = s.desc ? `<p class="text-sm text-ink/80 mb-3 leading-relaxed shrink-0">${s.desc}</p>` : '';
                 return contentSlide({
                     label: 'Support · 디지털전략센터 × PUG',
                     title: s.title,
+                    message: s.desc,
                     wide: true,
                     compact: true,
-                    body: `${intro}${buildOpsSupportTripleLayout(s.opsSupportTriple)}`
+                    body: `${kw}${buildOpsSupportTripleLayout(s.opsSupportTriple)}`
                 });
             }
             if (s.materialShare) {
-                const intro = s.desc ? `<p class="text-sm text-ink/80 mb-3 leading-relaxed shrink-0">${s.desc}</p>` : '';
                 return contentSlide({
                     label: 'Support · 디지털전략센터 × PUG',
                     title: s.title,
+                    message: s.desc,
                     wide: true,
                     compact: true,
-                    body: `${intro}${buildMaterialShareLayout(s.materialShare)}`
+                    body: `${kw}${buildMaterialShareLayout(s.materialShare)}`
                 });
             }
             if (s.notionEmbed) {
@@ -2141,48 +2157,49 @@
                     wide: true,
                     compact: true,
                     slideClass: 'slide-notion-embed',
-                    body: buildNotionEmbedLayout(s.notionEmbed)
+                    body: `${kw}${buildNotionEmbedLayout(s.notionEmbed)}`
                 });
             }
             if (s.meetingReveal) {
                 return contentSlide({
                     label: 'Support · 디지털전략센터 × PUG',
                     title: s.title,
+                    message: s.desc,
                     wide: true,
                     compact: true,
-                    body: `${buildMeetingRevealLayout(s)}<div class="meeting-reveal-bar">${MEETING_REVEAL_BTN}</div>`
+                    body: `${kw}${buildMeetingRevealLayout(s)}<div class="meeting-reveal-bar">${MEETING_REVEAL_BTN}</div>`
                 });
             }
             if (s.teamsPost) {
                 return contentSlide({
                     label: 'Support · 디지털전략센터 × PUG',
                     title: s.title,
+                    message: s.desc,
                     wide: true,
-                    body: buildTechStackTeamsPost()
+                    body: `${kw}${buildTechStackTeamsPost()}`
                 });
             }
             if (s.apiPlayground) {
-                const intro = s.desc ? `<p class="text-sm text-ink/80 mb-3 leading-relaxed shrink-0">${s.desc}</p>` : '';
                 return contentSlide({
                     label: 'Support · 디지털전략센터 × PUG',
                     title: s.title,
+                    message: s.desc,
                     wide: true,
                     compact: true,
-                    body: `${intro}${buildApiPlaygroundLayout(s.apiPlayground)}`
+                    body: `${kw}${buildApiPlaygroundLayout(s.apiPlayground)}`
                 });
             }
             if (s.photoBanner && s.sidePhotos) {
-                const intro = s.desc ? `<p class="text-sm text-ink/80 mb-3 leading-relaxed shrink-0">${s.desc}</p>` : '';
                 return contentSlide({
                     label: 'Support · 디지털전략센터 × PUG',
                     title: s.title,
+                    message: s.desc,
                     wide: true,
                     compact: true,
-                    body: `${intro}${buildLectureBannerLayout(s)}`
+                    body: `${kw}${buildLectureBannerLayout(s)}`
                 });
             }
             if (s.photos) {
-                const intro = s.desc ? `<p class="text-base text-ink/85 mb-4 leading-relaxed">${s.desc}</p>` : '';
                 const dense = !s.photoBanner && s.photos.length > 3 ? ' photo-grid--dense' : '';
                 const gridCls = s.photoLayout === 'quad' ? 'photo-grid--quad'
                     : s.photoBanner ? 'photo-banner-grid'
@@ -2199,36 +2216,39 @@
                 return contentSlide({
                     label: 'Support · 디지털전략센터 × PUG',
                     title: s.title,
-                    wide: !!(s.photoFit || s.photoLayout === 'quad'),
-                    compact: !!(s.photoFit || s.photoLayout === 'quad'),
+                    message: s.desc,
+                    wide: !!(s.photoFit || s.photoLayout === 'quad' || dense),
+                    compact: !!(s.photoFit || s.photoLayout === 'quad' || dense || s.desc),
                     scroll: s.photoBanner ? false : s.photoLayout !== 'quad',
-                    body: `${intro}<div class="${gridCls}">${photoGrid}</div>`
+                    slideClass: s.slideClass || '',
+                    body: `${kw}<div class="${gridCls}">${photoGrid}</div>`
                 });
             }
             if (s.image) {
                 return contentSlide({
                     label: 'Support · 디지털전략센터 × PUG',
                     title: s.title,
+                    message: s.desc,
                     scroll: true,
-                    body: `<div class="bg-card rounded-lg overflow-hidden">
+                    body: `${kw}<div class="bg-card rounded-lg overflow-hidden">
                         <img src="${s.image}" alt="${s.title}" class="slide-media-tall">
                     </div>`
                 });
             }
             const videoOnly = s.video && !s.desc;
             const videoRateAttr = s.videoRate ? ` data-playback-rate="${s.videoRate}"` : '';
-            const videoBlock = s.video ? `<div class="bg-card rounded-lg overflow-hidden${videoOnly ? '' : ' mt-5'}">
-                    <video src="${s.video}" controls playsinline muted loop preload="auto" class="${videoOnly ? 'slide-media-tall' : 'slide-media'}"${videoRateAttr}></video>
-                </div>` : '';
-            const descBlock = s.desc ? `<div class="bg-card rounded-lg p-8 flex items-start gap-5">
-                    <div class="p-4 bg-pug text-ink rounded-lg shrink-0"><i data-lucide="${s.icon}" class="w-8 h-8"></i></div>
-                    <p class="text-lg text-ink/85 leading-relaxed pt-2">${s.desc}</p>
+            const videoCls = videoOnly
+                ? (s.videoCompact ? 'slide-media-tall slide-media-tall--sm' : 'slide-media-tall')
+                : 'slide-media';
+            const videoBlock = s.video ? `<div class="bg-card rounded-lg overflow-hidden">
+                    <video src="${s.video}" controls playsinline muted loop preload="auto" class="${videoCls}"${videoRateAttr}></video>
                 </div>` : '';
             return contentSlide({
                 label: 'Support · 디지털전략센터 × PUG',
                 title: s.title,
+                message: s.desc,
                 scroll: !!s.video,
-                body: `${descBlock}${videoBlock}`
+                body: `${kw}${videoBlock}`
             });
         }
 
@@ -2318,7 +2338,7 @@
                 compact: true,
                 wide: true,
                 slideClass: 'slide-checklist-full',
-                body: `<div class="checklist-slide-body">
+                body: `${buildKeywordTopics(['40문항', 'Before / After', '7개 역량', '자기점검'])}<div class="checklist-slide-body">
                     <div class="checklist-overview-panel" id="checklist-panel">
                         <div class="checklist-overview-grid" id="checklist-overview"></div>
                     </div>
@@ -2330,7 +2350,7 @@
             contentSlide({
                 label: 'Effect · Closing',
                 title: 'AI 활용 문화, 조직에 뿌리내리다',
-                message: 'PUG의 성장은 AI 도구를 더 잘 쓰게 된 것이 아니라, 현업 문제를 AI 관점으로 다시 정의하고 해결 가능성을 검증하는 방식의 성장입니다.',
+                message: 'PUG의 성장은 도구 숙련이 아니라, 현업 문제를 AI 관점으로 다시 정의하고 해결 가능성을 검증하는 방식의 성장입니다.',
                 wide: true,
                 compact: true,
                 body: `<div class="culture-split">
@@ -2622,17 +2642,22 @@
             memberRadarAutoTimer = setTimeout(showAfter, RADAR_HOLD_BEFORE);
         }
 
+        function syncMemberRadarSquares() {
+            document.querySelectorAll('.member-radar-canvas-wrap').forEach(wrap => {
+                const size = Math.max(1, Math.round(wrap.getBoundingClientRect().width || wrap.clientWidth || 0));
+                if (!size) return;
+                wrap.style.width = `${size}px`;
+                wrap.style.height = `${size}px`;
+                wrap.style.aspectRatio = '1 / 1';
+            });
+        }
+
         function renderMemberRadars() {
             const grid = document.getElementById('member-radar-grid');
             if (!grid || typeof Chart === 'undefined') return;
 
-            if (memberRadarInstances.length === MEMBER_GROWTH.length) {
-                memberRadarInstances.forEach(c => c.resize());
-                resetMemberRadarsToBefore();
-                return;
-            }
-
             destroyMemberRadars();
+            syncMemberRadarSquares();
 
             const radarOpts = {
                 responsive: true,
@@ -2659,7 +2684,7 @@
                         }
                     }
                 },
-                layout: { padding: 2 },
+                layout: { padding: 4 },
                 scales: {
                     r: {
                         min: 0, max: 100,
@@ -2690,6 +2715,10 @@
                     options: radarOpts
                 }));
             });
+            requestAnimationFrame(() => {
+                syncMemberRadarSquares();
+                memberRadarInstances.forEach(c => c.resize());
+            });
         }
 
         function initMeetingReveal() {
@@ -2718,35 +2747,6 @@
             }
             const btn = document.getElementById('meeting-reveal-btn');
             if (btn) btn.classList.remove('is-hidden');
-        }
-
-        function closeCaseDemoModal() {
-            const modal = document.getElementById('case-demo-modal');
-            if (!modal) return;
-            modal.classList.remove('is-open');
-            modal.setAttribute('aria-hidden', 'true');
-        }
-
-        function initCaseDemoModal() {
-            const btn = document.getElementById('case-demo-btn');
-            const modal = document.getElementById('case-demo-modal');
-            const close = document.getElementById('case-demo-close');
-            if (!btn || !modal || btn.dataset.bound) return;
-            btn.dataset.bound = '1';
-            btn.addEventListener('click', () => {
-                modal.classList.add('is-open');
-                modal.setAttribute('aria-hidden', 'false');
-            });
-            close?.addEventListener('click', closeCaseDemoModal);
-            modal.addEventListener('click', (e) => {
-                if (e.target === modal) closeCaseDemoModal();
-            });
-        }
-
-        function resetCaseDemoModal() {
-            closeCaseDemoModal();
-            const btn = document.getElementById('case-demo-btn');
-            if (btn) delete btn.dataset.bound;
         }
 
         // ── Navigation ──
@@ -2783,12 +2783,12 @@
         const CONVENTION_TAB_INTERVAL_MS = 2500;
         let conventionTabTimer = null;
         let conventionTabIndex = 0;
-        const EMBED_SCROLL_SPEED = 170;
+        const EMBED_SCROLL_SPEED = 125;
         const EMBED_SCROLL_START_PAUSE_MS = 80;
         const EMBED_SCROLL_SETTLE_MS = 320;
         const EMBED_SCROLL_STEP_PX = 240;
-        const EMBED_SCROLL_STEP_PAUSE_MS = 560;
-        const EMBED_SCROLL_TURN_PAUSE_MS = 780;
+        const EMBED_SCROLL_STEP_PAUSE_MS = 1100;
+        const EMBED_SCROLL_TURN_PAUSE_MS = 900;
         const EMBED_SCROLL_READY_TIMEOUT_MS = 4000;
         let embedScrollRaf = null;
         let embedScrollState = null;
@@ -2797,6 +2797,7 @@
         let activeEmbedIframe = null;
         let embedScrollMode = null;
         let embedScrollMessageHandler = null;
+        let embedScrollStops = null;
 
         function getEmbedScrollContainer(iframe) {
             return iframe.closest('.week-guide-embed__scaler, .design-guide-scaler, .notion-embed-wrap') || iframe.parentElement;
@@ -2812,9 +2813,110 @@
                     pause: EMBED_SCROLL_TURN_PAUSE_MS,
                     startPause: EMBED_SCROLL_START_PAUSE_MS,
                     stepPx: EMBED_SCROLL_STEP_PX,
-                    stepPause: EMBED_SCROLL_STEP_PAUSE_MS
+                    stepPause: EMBED_SCROLL_STEP_PAUSE_MS,
+                    stops: embedScrollStops
                 }, '*');
             } catch (_) {}
+        }
+
+        function scaleEmbedStops(stops, zoom, maxScroll) {
+            if (!Array.isArray(stops) || !stops.length) return null;
+            const z = zoom > 0 ? zoom : 1;
+            const scaled = stops
+                .map(v => Math.max(0, Math.min(maxScroll, Math.round(Number(v) * z))))
+                .filter((y, i, arr) => y > 16 && (i === 0 || y > arr[i - 1] + 24));
+            if (maxScroll > 0 && (scaled.length === 0 || scaled[scaled.length - 1] < maxScroll - 24)) {
+                scaled.push(maxScroll);
+            }
+            return scaled.length ? scaled : null;
+        }
+
+        function nextEmbedStepTarget(pos, maxScroll, stepPx, stops, stopIndex) {
+            if (stops && stopIndex < stops.length) return stops[stopIndex];
+            return Math.min(maxScroll, pos + stepPx);
+        }
+
+        function runEmbedStepScrollTick(s, ts, maxScroll, applyPos) {
+            if (ts < s.pauseUntil) return;
+
+            if (s.resetPending) {
+                s.resetPending = false;
+                s.pos = 0;
+                applyPos(0);
+                s.stopIndex = 0;
+                s.stepTarget = nextEmbedStepTarget(0, maxScroll, s.stepPx, s.stops, 0);
+                s.lastTs = ts;
+                return;
+            }
+
+            const dt = Math.min(ts - s.lastTs, 48) / 1000;
+            s.lastTs = ts;
+            s.pos += EMBED_SCROLL_SPEED * dt;
+
+            if (s.pos < s.stepTarget) {
+                applyPos(s.pos);
+                return;
+            }
+
+            s.pos = Math.min(s.pos, s.stepTarget);
+            applyPos(s.pos);
+
+            if (s.pos >= maxScroll - 0.5) {
+                s.pos = maxScroll;
+                applyPos(s.pos);
+                s.resetPending = true;
+                s.pauseUntil = ts + EMBED_SCROLL_TURN_PAUSE_MS;
+            } else {
+                s.stopIndex += 1;
+                s.stepTarget = nextEmbedStepTarget(s.pos, maxScroll, s.stepPx, s.stops, s.stopIndex);
+                s.pauseUntil = ts + s.stepPause;
+            }
+        }
+
+        function startParentEmbedScroll(iframe, contentHeight, stops) {
+            stopParentEmbedScrollLoop();
+            const prep = layoutEmbedFromReport(iframe, contentHeight);
+            if (!prep) return false;
+
+            const zoom = getIframeZoom(iframe);
+            const stopList = scaleEmbedStops(stops, zoom, prep.maxScroll);
+
+            prep.container.scrollTop = 0;
+            activeEmbedIframe = iframe;
+            embedScrollMode = 'parent';
+
+            embedScrollState = {
+                prep,
+                maxScroll: prep.maxScroll,
+                pos: 0,
+                resetPending: false,
+                stepPx: EMBED_SCROLL_STEP_PX,
+                stepPause: EMBED_SCROLL_STEP_PAUSE_MS,
+                stops: stopList,
+                stopIndex: 0,
+                stepTarget: nextEmbedStepTarget(0, prep.maxScroll, EMBED_SCROLL_STEP_PX, stopList, 0),
+                pauseUntil: performance.now() + EMBED_SCROLL_START_PAUSE_MS,
+                lastTs: performance.now()
+            };
+
+            const tick = (ts) => {
+                const s = embedScrollState;
+                if (!s || s.prep.iframe !== iframe || embedScrollMode !== 'parent') return;
+                if (s.maxScroll < 16) return;
+
+                runEmbedStepScrollTick(s, ts, s.maxScroll, (pos) => setEmbedScrollPosition(s.prep, pos));
+                embedScrollRaf = requestAnimationFrame(tick);
+            };
+
+            embedScrollRaf = requestAnimationFrame(tick);
+            return true;
+        }
+
+        function beginEmbedAutoScroll(iframe, contentHeight, stops) {
+            if (!slides[current]?.contains(iframe)) return false;
+            embedScrollStops = Array.isArray(stops) ? stops : null;
+            if (startParentEmbedScroll(iframe, contentHeight, embedScrollStops)) return true;
+            return startIframeEmbedScroll(iframe);
         }
 
         function getIframeZoom(iframe) {
@@ -2884,85 +2986,6 @@
             embedScrollMode = 'iframe';
             postEmbedScrollMessage(iframe, 'start');
             return true;
-        }
-
-        function nextEmbedStepTarget(pos, maxScroll, stepPx) {
-            return Math.min(maxScroll, pos + stepPx);
-        }
-
-        function runEmbedStepScrollTick(s, ts, maxScroll, applyPos) {
-            if (ts < s.pauseUntil) return;
-
-            if (s.resetPending) {
-                s.resetPending = false;
-                s.pos = 0;
-                applyPos(0);
-                s.stepTarget = Math.min(s.stepPx, maxScroll);
-                s.lastTs = ts;
-                return;
-            }
-
-            const dt = Math.min(ts - s.lastTs, 48) / 1000;
-            s.lastTs = ts;
-            s.pos += EMBED_SCROLL_SPEED * dt;
-
-            if (s.pos < s.stepTarget) {
-                applyPos(s.pos);
-                return;
-            }
-
-            s.pos = Math.min(s.pos, s.stepTarget);
-            applyPos(s.pos);
-
-            if (s.pos >= maxScroll - 0.5) {
-                s.pos = maxScroll;
-                applyPos(s.pos);
-                s.resetPending = true;
-                s.pauseUntil = ts + EMBED_SCROLL_TURN_PAUSE_MS;
-            } else {
-                s.stepTarget = nextEmbedStepTarget(s.pos, maxScroll, s.stepPx);
-                s.pauseUntil = ts + s.stepPause;
-            }
-        }
-
-        function startParentEmbedScroll(iframe, contentHeight) {
-            stopParentEmbedScrollLoop();
-            const prep = layoutEmbedFromReport(iframe, contentHeight);
-            if (!prep) return false;
-
-            prep.container.scrollTop = 0;
-            activeEmbedIframe = iframe;
-            embedScrollMode = 'parent';
-
-            embedScrollState = {
-                prep,
-                maxScroll: prep.maxScroll,
-                pos: 0,
-                resetPending: false,
-                stepPx: EMBED_SCROLL_STEP_PX,
-                stepPause: EMBED_SCROLL_STEP_PAUSE_MS,
-                stepTarget: Math.min(EMBED_SCROLL_STEP_PX, prep.maxScroll),
-                pauseUntil: performance.now() + EMBED_SCROLL_START_PAUSE_MS,
-                lastTs: performance.now()
-            };
-
-            const tick = (ts) => {
-                const s = embedScrollState;
-                if (!s || s.prep.iframe !== iframe || embedScrollMode !== 'parent') return;
-                if (s.maxScroll < 16) return;
-
-                runEmbedStepScrollTick(s, ts, s.maxScroll, (pos) => setEmbedScrollPosition(s.prep, pos));
-                embedScrollRaf = requestAnimationFrame(tick);
-            };
-
-            embedScrollRaf = requestAnimationFrame(tick);
-            return true;
-        }
-
-        function beginEmbedAutoScroll(iframe, contentHeight) {
-            if (!slides[current]?.contains(iframe)) return false;
-            if (startParentEmbedScroll(iframe, contentHeight)) return true;
-            return startIframeEmbedScroll(iframe);
         }
 
         function postConventionTab(iframe, tab) {
@@ -3053,7 +3076,7 @@
             stopEmbedAutoScroll();
 
             let started = false;
-            const startOnce = (contentHeight) => {
+            const startOnce = (contentHeight, stops) => {
                 if (started || !slides[current]?.contains(iframe)) return;
                 started = true;
                 if (embedScrollReadyTimer) {
@@ -3064,7 +3087,7 @@
                     embedScrollStartTimer = null;
                     requestAnimationFrame(() => {
                         requestAnimationFrame(() => {
-                            beginEmbedAutoScroll(iframe, contentHeight);
+                            beginEmbedAutoScroll(iframe, contentHeight, stops);
                         });
                     });
                 }, EMBED_SCROLL_SETTLE_MS);
@@ -3074,7 +3097,7 @@
                 const d = e.data;
                 if (!d || d.type !== 'pug-embed-scroll' || d.action !== 'ready') return;
                 if (e.source !== iframe.contentWindow) return;
-                startOnce(d.contentHeight);
+                startOnce(d.contentHeight, d.stops);
             };
             window.addEventListener('message', embedScrollMessageHandler);
 
@@ -3103,7 +3126,6 @@
             manageSlideVideos();
             if (!slides[current]?.querySelector('#tech-stack-panel')) stopStackAutoLoop();
             if (!slides[current]?.querySelector('#meeting-reveal')) resetMeetingReveal();
-            if (!slides[current]?.querySelector('#case-demo-btn')) resetCaseDemoModal();
             if (!slides[current]?.querySelector('#member-radar-grid')) destroyMemberRadars();
             if (!slides[current]?.querySelector('#checklist-panel')) stopChecklistAutoLoop();
             if (!slides[current]?.querySelector(CONVENTION_GUIDE_SELECTOR)) stopConventionTabLoop();
@@ -3118,8 +3140,6 @@
                 initTechStackInteractive();
             } else if (slides[current]?.querySelector('#meeting-reveal')) {
                 initMeetingReveal();
-            } else if (slides[current]?.querySelector('#case-demo-btn')) {
-                initCaseDemoModal();
             } else if (slides[current]?.querySelector('#member-radar-grid')) {
                 renderMemberRadars();
                 startMemberRadarAutoLoop();
@@ -3163,10 +3183,6 @@
         window.goToPart = goToPart;
         window.changeSlide = changeSlide;
         if (!IS_EMBED) document.addEventListener('keydown', e => {
-            if (document.getElementById('case-demo-modal')?.classList.contains('is-open')) {
-                if (e.key === 'Escape') { e.preventDefault(); closeCaseDemoModal(); }
-                return;
-            }
             if (['ArrowRight','PageDown',' '].includes(e.key)) { e.preventDefault(); changeSlide(1); }
             else if (['ArrowLeft','PageUp'].includes(e.key)) { e.preventDefault(); changeSlide(-1); }
             else if (e.key === 'Home') { current = 0; render(); }

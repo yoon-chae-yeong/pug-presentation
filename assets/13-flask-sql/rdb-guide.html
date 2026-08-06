@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JSONPlaceholder로 배우는 RDB 관계 가이드</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+KR:wght@300;400;500;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary-color: #2563eb;
@@ -15,7 +16,7 @@
         }
 
         body {
-            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+            font-family: 'Inter', 'Noto Sans KR', sans-serif;
             background-color: var(--bg-color);
             color: var(--text-color);
             line-height: 1.6;
@@ -171,7 +172,7 @@
     </header>
 
     <!-- 1. 관계도 -->
-    <section class="section">
+    <section class="section" data-scroll-stop>
         <h2>1. 전체 관계도 (ERD 개념)</h2>
         <p>시스템의 중심인 <code>Users</code>를 기준으로 모든 데이터가 연결됩니다.</p>
         <div class="erd-view">
@@ -191,7 +192,7 @@
     </section>
 
     <!-- 2. 주요 관계 -->
-    <section class="section">
+    <section class="section" data-scroll-stop>
         <h2>2. 1:N (One-to-Many) 관계 설명</h2>
         <div class="relation-grid">
             <div class="relation-card">
@@ -216,7 +217,7 @@
     </section>
 
     <!-- 3. 핵심 용어 -->
-    <section class="section">
+    <section class="section" data-scroll-stop>
         <h2>3. 핵심 용어 정리</h2>
         <ul>
             <li><strong>PK (Primary Key, 기본 키):</strong> 각 데이터를 유일하게 식별하는 신분증 (예: <code>user.id</code>)</li>
@@ -225,7 +226,7 @@
     </section>
 
     <!-- 4. SQL vs API -->
-    <section class="section">
+    <section class="section" data-scroll-stop>
         <h2>4. 데이터 조회 방식 비교</h2>
         <p>특정 게시물(ID: 1)의 모든 댓글을 가져오는 방법</p>
         <div class="comparison">

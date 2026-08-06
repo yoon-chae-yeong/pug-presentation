@@ -16,6 +16,21 @@
         };
     }
 
+    function getScrollStops(maxScroll) {
+        const nodes = Array.from(document.querySelectorAll('[data-scroll-stop]'));
+        if (!nodes.length) return null;
+        const tops = nodes
+            .map(el => {
+                const y = el.getBoundingClientRect().top + (window.scrollY || document.documentElement.scrollTop || 0);
+                return Math.max(0, Math.min(maxScroll, Math.round(y - 8)));
+            })
+            .filter((y, i, arr) => y > 24 && (i === 0 || y > arr[i - 1] + 48));
+        if (maxScroll > 0 && (tops.length === 0 || tops[tops.length - 1] < maxScroll - 24)) {
+            tops.push(maxScroll);
+        }
+        return tops.length ? tops : null;
+    }
+
     function setScroll(y) {
         const top = Math.round(y);
         window.scrollTo(0, top);
@@ -23,7 +38,8 @@
         document.body.scrollTop = top;
     }
 
-    function nextStepTarget(pos, maxScroll, stepPx) {
+    function nextStepTarget(pos, maxScroll, stepPx, stops, stopIndex) {
+        if (stops && stopIndex < stops.length) return stops[stopIndex];
         return Math.min(maxScroll, pos + stepPx);
     }
 
@@ -44,13 +60,15 @@
     function publishReady() {
         const { contentHeight, viewHeight, maxScroll } = getMetrics();
         if (contentHeight < 80) return false;
+        const stops = getScrollStops(maxScroll);
         try {
             window.parent.postMessage({
                 type: 'pug-embed-scroll',
                 action: 'ready',
                 contentHeight,
                 viewHeight,
-                maxScroll
+                maxScroll,
+                stops
             }, '*');
         } catch (_) {}
         return maxScroll >= 16;
@@ -83,7 +101,8 @@
             state.resetPending = false;
             state.pos = 0;
             setScroll(0);
-            state.stepTarget = Math.min(state.stepPx, maxScroll);
+            state.stopIndex = 0;
+            state.stepTarget = nextStepTarget(0, maxScroll, state.stepPx, state.stops, 0);
             state.lastTs = ts;
             raf = requestAnimationFrame(tick);
             return;
@@ -108,14 +127,15 @@
             state.resetPending = true;
             state.pauseUntil = ts + state.turnPause;
         } else {
-            state.stepTarget = nextStepTarget(state.pos, maxScroll, state.stepPx);
+            state.stopIndex += 1;
+            state.stepTarget = nextStepTarget(state.pos, maxScroll, state.stepPx, state.stops, state.stopIndex);
             state.pauseUntil = ts + state.stepPause;
         }
 
         raf = requestAnimationFrame(tick);
     }
 
-    function start(speed, turnPause, startPause, stepPx, stepPause) {
+    function start(speed, turnPause, startPause, stepPx, stepPause, stops) {
         stop();
         const { maxScroll } = getMetrics();
         if (maxScroll < 16) return false;
@@ -124,6 +144,9 @@
         const midPause = stepPause ?? 480;
         const turn = turnPause ?? 650;
         const startDelay = startPause ?? 80;
+        const stopList = (Array.isArray(stops) && stops.length)
+            ? stops.map(v => Math.max(0, Math.min(maxScroll, Math.round(v)))).filter((y, i, arr) => i === 0 || y > arr[i - 1] + 24)
+            : getScrollStops(maxScroll);
 
         setScroll(0);
         state = {
@@ -134,7 +157,9 @@
             turnPause: turn,
             stepPx: step,
             stepPause: midPause,
-            stepTarget: Math.min(step, maxScroll),
+            stops: stopList,
+            stopIndex: 0,
+            stepTarget: nextStepTarget(0, maxScroll, step, stopList, 0),
             pauseUntil: performance.now() + startDelay,
             lastTs: performance.now()
         };
@@ -142,11 +167,11 @@
         return true;
     }
 
-    function startWithRetry(speed, turnPause, startPause, stepPx, stepPause, attempt) {
-        if (start(speed, turnPause, startPause, stepPx, stepPause)) return;
+    function startWithRetry(speed, turnPause, startPause, stepPx, stepPause, stops, attempt) {
+        if (start(speed, turnPause, startPause, stepPx, stepPause, stops)) return;
         if ((attempt || 0) >= 80) return;
         retryTimer = setTimeout(
-            () => startWithRetry(speed, turnPause, startPause, stepPx, stepPause, (attempt || 0) + 1),
+            () => startWithRetry(speed, turnPause, startPause, stepPx, stepPause, stops, (attempt || 0) + 1),
             (attempt || 0) === 0 ? 0 : 80
         );
     }
@@ -156,7 +181,7 @@
         if (!d || d.type !== 'pug-embed-scroll') return;
         if (d.action === 'stop') stop();
         else if (d.action === 'start') {
-            startWithRetry(d.speed, d.pause, d.startPause, d.stepPx, d.stepPause, 0);
+            startWithRetry(d.speed, d.pause, d.startPause, d.stepPx, d.stepPause, d.stops, 0);
         } else if (d.action === 'request-ready') {
             scheduleReadyAnnounce(0);
         }
@@ -165,5 +190,5 @@
     scheduleReadyAnnounce(0);
     window.addEventListener('load', () => scheduleReadyAnnounce(0));
 
-    window.__pugEmbedScroll = { start, stop, getMetrics, publishReady };
+    window.__pugEmbedScroll = { start, stop, getMetrics, publishReady, getScrollStops };
 })();

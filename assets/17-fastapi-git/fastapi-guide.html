@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Dev & API Basics - FastAPI & LLM</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap');
+        
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            scroll-behavior: smooth;
+            font-size: 1.1rem; /* 폰트 크기 소폭 추가 상향 */
+            color: #1a1a1a; /* 더 진한 텍스트 색상 */
+            line-height: 1.7;
+        }
+
+        .sidebar-link {
+            color: #4b5563;
+            font-weight: 500;
+        }
+
+        .sidebar-link.active {
+            background-color: #eff6ff;
+            color: #1d4ed8;
+            border-right: 4px solid #1d4ed8;
+            font-weight: 700;
+        }
+
+        pre {
+            background-color: #0f172a; /* 더 깊은 배경색으로 코드 대비 강화 */
+            color: #e2e8f0;
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            overflow-x: auto;
+            font-family: 'ui-monospace', 'SFMono-Regular', Menlo, Monaco, Consolas, monospace;
+            font-size: 1rem;
+            line-height: 1.6;
+            border: 1px solid #334155;
+        }
+
+        .code-keyword { color: #f472b6; font-weight: 700; }
+        .code-string { color: #4ade80; }
+        .code-comment { color: #94a3b8; font-style: italic; }
+        .code-func { color: #38bdf8; font-weight: 600; }
+        .code-decorator { color: #fbbf24; font-weight: 600; }
+
+        .check-item:checked + label {
+            text-decoration: line-through;
+            color: #64748b;
+        }
+
+        .status-badge {
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 800; /* 배지 볼드 강조 */
+            letter-spacing: -0.02em;
+        }
+
+        .explanation-box {
+            border-left: 5px solid #e5e7eb;
+            padding-left: 1.25rem;
+            margin-top: 0.75rem;
+            background-color: #f9fafb;
+        }
+
+        .pydantic-role-card {
+            background: #ffffff;
+            border: 2px solid #f1f5f9;
+            padding: 1.5rem;
+            border-radius: 1rem;
+            transition: border-color 0.2s;
+        }
+        
+        .pydantic-role-card:hover {
+            border-color: #3b82f6;
+        }
+
+        .swagger-feature-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 1rem;
+            border: 1px solid #e2e8f0;
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05);
+        }
+
+        /* 툴팁 스타일 강화 */
+        .info-tooltip {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            cursor: help;
+            border-bottom: 2px dashed #2563eb;
+            font-weight: 700;
+            color: #1e40af;
+        }
+
+        .info-tooltip .tooltip-box {
+            visibility: hidden;
+            width: 300px;
+            background-color: #ffffff;
+            color: #1e293b;
+            text-align: left;
+            border-radius: 12px;
+            padding: 16px;
+            position: absolute;
+            z-index: 50;
+            bottom: 140%;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.2);
+            border: 1px solid #d1d5db;
+            opacity: 0;
+            transition: all 0.2s ease-in-out;
+        }
+
+        .info-tooltip:hover .tooltip-box {
+            visibility: visible;
+            opacity: 1;
+            transform: translateX(-50%) translateY(-10px);
+        }
+
+        .tooltip-table {
+            width: 100%;
+            font-size: 13px;
+            border-collapse: collapse;
+        }
+
+        .tooltip-table td {
+            padding: 8px 4px;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .type-code {
+            font-family: monospace;
+            background: #f8fafc;
+            padding: 3px 6px;
+            border-radius: 4px;
+            color: #dc2626;
+            font-weight: 800;
+        }
+
+        h1, h2, h3, h4 {
+            color: #111827;
+            letter-spacing: -0.025em;
+        }
+        
+        strong {
+            font-weight: 700;
+            color: #000000;
+        }
+    </style>
+    <script>try{if(window.self!==window.top)document.documentElement.classList.add('iframe-embed');}catch(e){}</script>
+    <style>
+        html.iframe-embed aside { display: none !important; }
+        html.iframe-embed body > .flex { display: block !important; }
+        html.iframe-embed main {
+            overflow: visible !important;
+            padding: 1rem 1.15rem !important;
+            max-width: none;
+        }
+        html.iframe-embed #intro .rounded-3xl { padding: 1.5rem !important; border-radius: 1rem !important; }
+        html.iframe-embed #intro h2 { font-size: 1.65rem !important; margin-bottom: 0.65rem !important; }
+        html.iframe-embed #intro p { font-size: 1rem !important; margin-bottom: 0.85rem !important; }
+        html.iframe-embed section.mb-24 { margin-bottom: 2.5rem !important; }
+        html.iframe-embed section.mb-20 { margin-bottom: 1.75rem !important; }
+        html.iframe-embed section.mb-40 { margin-bottom: 2.5rem !important; }
+        html.iframe-embed h3.text-3xl { font-size: 1.35rem !important; }
+        html.iframe-embed .bg-white.p-12 { padding: 1.25rem !important; }
+        html.iframe-embed pre { font-size: 0.82rem !important; padding: 1rem !important; }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900">
+
+    <div class="flex flex-col md:flex-row min-h-screen">
+        <!-- Sidebar -->
+        <aside class="w-full md:w-72 bg-white border-r border-gray-200 sticky top-0 h-auto md:h-screen overflow-y-auto z-50">
+            <div class="p-8">
+                <h1 class="text-2xl font-black text-blue-700 flex items-center gap-2">
+                    <i class="fas fa-code"></i> API & LLM 기초
+                </h1>
+                <p class="text-xs text-gray-600 mt-2 font-bold uppercase tracking-widest">FastAPI & On-Premise</p>
+            </div>
+            <nav class="mt-2 text-[15px]">
+                <a href="#intro" class="sidebar-link block py-4 px-8 hover:bg-gray-50 flex items-center gap-3">
+                    <i class="fas fa-home w-5"></i> 시작하며
+                </a>
+                <a href="#section1" class="sidebar-link block py-4 px-8 hover:bg-gray-50 flex items-center gap-3">
+                    <i class="fas fa-exchange-alt w-5"></i> 1. 역할과 흐름
+                </a>
+                <a href="#section-method" class="sidebar-link block py-4 px-8 hover:bg-gray-50 flex items-center gap-3">
+                    <i class="fas fa-arrows-alt-h w-5"></i> 2. GET vs POST
+                </a>
+                <a href="#section-what-is" class="sidebar-link block py-4 px-8 hover:bg-gray-50 flex items-center gap-3 font-bold text-blue-600">
+                    <i class="fas fa-question-circle w-5"></i> 3. FastAPI란 무엇인가
+                </a>
+                <a href="#section-code" class="sidebar-link block py-4 px-8 hover:bg-gray-50 flex items-center gap-3">
+                    <i class="fas fa-microchip w-5"></i> 4. 코드 구조 이해
+                </a>
+                <a href="#section-swagger" class="sidebar-link block py-4 px-8 hover:bg-gray-50 flex items-center gap-3">
+                    <i class="fas fa-file-contract w-5"></i> 5. Swagger UI 활용
+                </a>
+                <a href="#section-response" class="sidebar-link block py-4 px-8 hover:bg-gray-50 flex items-center gap-3">
+                    <i class="fas fa-reply w-5"></i> 6. 응답의 구성요소
+                </a>
+                <a href="#section-pydantic" class="sidebar-link block py-4 px-8 hover:bg-gray-50 flex items-center gap-3">
+                    <i class="fas fa-check-circle w-5"></i> 7. Pydantic의 역할
+                </a>
+                <a href="#section-llm" class="sidebar-link block py-4 px-8 hover:bg-gray-50 flex items-center gap-3 text-red-600">
+                    <i class="fas fa-key w-5"></i> 8. LLM 연동
+                </a>
+                <a href="#section-run" class="sidebar-link block py-4 px-8 hover:bg-gray-50 flex items-center gap-3 font-black text-orange-600">
+                    <i class="fas fa-terminal w-5"></i> 9. 실습: 서버 실행
+                </a>
+                <a href="#section-checklist" class="sidebar-link block py-4 px-8 hover:bg-gray-50 flex items-center gap-3">
+                    <i class="fas fa-list-check w-5"></i> 10. 마무리 체크
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 p-6 md:p-16 overflow-y-auto">
+            <!-- Intro -->
+            <section id="intro" class="mb-20">
+                <div class="bg-gradient-to-br from-blue-700 via-blue-800 to-indigo-900 rounded-3xl p-12 text-white shadow-2xl">
+                    <h2 class="text-5xl font-black mb-6 leading-tight">웹 개발 및 API 기초 강의자료</h2>
+                    <p class="text-blue-100 mb-8 text-2xl font-medium">FastAPI와 온프레미스 LLM 연동 실습</p>
+                    <div class="flex flex-wrap gap-4 text-base">
+                        <span class="bg-white/10 px-5 py-2 rounded-xl border border-white/20 font-bold backdrop-blur-sm">대상: 웹 개발 입문자</span>
+                        <span class="bg-white/10 px-5 py-2 rounded-xl border border-white/20 font-bold backdrop-blur-sm">도구: Python, FastAPI, uv</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 1: Flow -->
+            <section id="section1" class="mb-24" data-scroll-stop>
+                <div class="flex items-center gap-4 mb-8">
+                    <span class="bg-blue-600 text-white w-12 h-12 rounded-2xl flex items-center justify-center font-black text-xl shadow-lg">1</span>
+                    <h3 class="text-3xl font-black">프론트엔드·백엔드 역할과 데이터 통신 흐름</h3>
+                </div>
+
+                <div class="bg-white p-12 rounded-3xl border border-gray-200 shadow-xl">
+                    <p class="text-xs font-black text-blue-600 mb-10 uppercase tracking-[0.3em] text-center">Data Communication Flow</p>
+                    <div class="flex flex-col lg:flex-row items-center gap-12 w-full max-w-5xl mx-auto">
+                        <div class="flex-1 bg-blue-50 p-10 rounded-2xl border-2 border-blue-100 text-center w-full shadow-sm">
+                            <i class="fas fa-laptop-code text-blue-600 text-5xl mb-4"></i>
+                            <div class="font-black text-xl text-blue-900">Browser (FE)</div>
+                        </div>
+
+                        <div class="flex flex-col items-center justify-center gap-8 py-6 lg:py-0 min-w-[280px]">
+                            <div class="flex flex-col items-center w-full">
+                                <div class="text-sm text-blue-700 font-black mb-2 italic">HTTP Request</div>
+                                <div class="bg-blue-600 text-white px-4 py-2 rounded-lg text-xs font-bold shadow-md">Method + URL + Body(JSON)</div>
+                                <i class="fas fa-long-arrow-alt-right text-blue-500 text-5xl hidden lg:block mt-2"></i>
+                                <i class="fas fa-long-arrow-alt-down text-blue-500 text-5xl lg:hidden mt-2"></i>
+                            </div>
+                            
+                            <div class="flex flex-col items-center w-full">
+                                <i class="fas fa-long-arrow-alt-left text-green-500 text-5xl hidden lg:block mb-2"></i>
+                                <i class="fas fa-long-arrow-alt-up text-green-500 text-5xl lg:hidden mb-2"></i>
+                                <div class="bg-green-600 text-white px-4 py-2 rounded-lg text-xs font-bold shadow-md">Status Code + Response Body</div>
+                                <div class="text-sm text-green-700 font-black mt-2 italic">HTTP Response</div>
+                            </div>
+                        </div>
+
+                        <div class="flex-1 bg-indigo-50 p-10 rounded-2xl border-2 border-indigo-100 text-center w-full shadow-sm">
+                            <i class="fas fa-server text-indigo-600 text-5xl mb-4"></i>
+                            <div class="font-black text-xl text-indigo-900">FastAPI (BE)</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 2: GET vs POST -->
+            <section id="section-method" class="mb-24" data-scroll-stop>
+                <div class="flex items-center gap-4 mb-8">
+                    <span class="bg-blue-600 text-white w-12 h-12 rounded-2xl flex items-center justify-center font-black text-xl shadow-lg">2</span>
+                    <h3 class="text-3xl font-black">REST API: GET과 POST의 차이</h3>
+                </div>
+                <div class="grid md:grid-cols-2 gap-10">
+                    <div class="bg-blue-50 p-10 rounded-3xl border-2 border-blue-100 shadow-md">
+                        <h4 class="font-black text-blue-800 flex items-center gap-3 mb-6 text-2xl">
+                            <i class="fas fa-search"></i> GET: 가져오기 (엽서)
+                        </h4>
+                        <ul class="text-[17px] text-blue-900 space-y-4 font-medium">
+                            <li class="flex items-start gap-2">• <span>주소창에 데이터가 보임 (엽서처럼 공개)</span></li>
+                            <li class="flex items-start gap-2">• <span><strong>Request Body</strong>를 쓰지 않음</span></li>
+                            <li class="flex items-start gap-2">• <span>검색, 단순 페이지 이동, 정보 조회에 사용</span></li>
+                        </ul>
+                    </div>
+                    <div class="bg-green-50 p-10 rounded-3xl border-2 border-green-100 shadow-md">
+                        <h4 class="font-black text-green-800 flex items-center gap-3 mb-6 text-2xl">
+                            <i class="fas fa-paper-plane"></i> POST: 제출하기 (봉투)
+                        </h4>
+                        <ul class="text-[17px] text-green-900 space-y-4 font-medium">
+                            <li class="flex items-start gap-2">• <span>데이터가 봉투(Body) 안에 숨겨짐 (보안성)</span></li>
+                            <li class="flex items-start gap-2">• <span><strong>Request Body</strong>에 큰 JSON 데이터를 담음</span></li>
+                            <li class="flex items-start gap-2">• <span>글쓰기, 결제, LLM 채팅 프롬프트 전송에 사용</span></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="mt-8 p-6 bg-amber-50 border-l-8 border-amber-400 rounded-r-2xl shadow-sm">
+                    <p class="text-base text-amber-900 leading-relaxed font-bold">
+                        <i class="fas fa-lightbulb mr-3 text-amber-600 text-xl"></i>
+                        <strong>중요:</strong> 두 비유는 데이터의 <strong>'시각적 노출 차이'</strong>를 설명하기 위함입니다. 
+                        API 요청 시에는 <strong>GET과 POST 중 하나만 선택</strong>하여 사용하며, POST가 GET을 '포함'하지 않습니다.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Section 3: What is FastAPI -->
+            <section id="section-what-is" class="mb-24" data-scroll-stop>
+                <div class="flex items-center gap-4 mb-8">
+                    <span class="bg-blue-600 text-white w-12 h-12 rounded-2xl flex items-center justify-center font-black text-xl shadow-lg">3</span>
+                    <h3 class="text-3xl font-black">FastAPI란 무엇인가</h3>
+                </div>
+                <div class="bg-white p-10 rounded-3xl border border-gray-200 shadow-xl space-y-8">
+                    <p class="text-2xl text-gray-800 leading-relaxed font-bold">
+                        <span class="text-blue-700">FastAPI</span>는 파이썬(Python)으로 웹 API를 만들기 위한 현대적이고 아주 빠른 웹 프레임워크입니다.
+                    </p>
+                    <div class="bg-indigo-900 p-8 rounded-2xl text-white shadow-inner">
+                        <h4 class="font-black text-indigo-300 mb-4 text-xl flex items-center gap-2">
+                            <i class="fas fa-bolt"></i> REST API와의 결정적 차이
+                        </h4>
+                        <p class="text-lg leading-relaxed font-medium">
+                            <strong>REST API</strong>가 통신을 위한 약속이자 <strong>'설계 방식(건축 도면)'</strong>이라면, 
+                            <strong>FastAPI</strong>는 그 설계를 바탕으로 실제 집을 아주 쉽고 빠르게 지어주는 <strong>'최신식 공구세트(엔진)'</strong>입니다.
+                        </p>
+                    </div>
+                    <ul class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                        <li class="flex items-center gap-4 p-6 bg-gray-100 rounded-2xl border-2 border-transparent hover:border-blue-400 transition-all">
+                            <i class="fas fa-magic text-blue-600 text-3xl"></i>
+                            <span class="font-black text-gray-900 text-lg">Interactive API 문서 자동 생성</span>
+                        </li>
+                        <li class="flex items-center gap-4 p-6 bg-gray-100 rounded-2xl border-2 border-transparent hover:border-blue-400 transition-all">
+                            <i class="fas fa-tachometer-alt text-blue-600 text-3xl"></i>
+                            <span class="font-black text-gray-900 text-lg">파이썬 생태계에서 가장 빠른 프레임워크</span>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Section 4: Code Structure -->
+            <section id="section-code" class="mb-24" data-scroll-stop>
+                <div class="flex items-center gap-4 mb-8">
+                    <span class="bg-blue-600 text-white w-12 h-12 rounded-2xl flex items-center justify-center font-black text-xl shadow-lg">4</span>
+                    <h3 class="text-3xl font-black">FastAPI 코드 구조 이해</h3>
+                </div>
+                <div class="bg-white p-10 rounded-3xl border border-gray-200 shadow-xl space-y-8 text-sm">
+                    <pre><code><span class="code-keyword">from</span> fastapi <span class="code-keyword">import</span> FastAPI <span class="code-comment"> # [1] 설계도(클래스) 가져오기</span>
+
+app = <span class="code-func">FastAPI</span>() <span class="code-comment"># [2] 인스턴스: 설계도에서 찍어낸 진짜 실체(서버 객체)</span>
+
+<span class="code-decorator">@app.post</span>(<span class="code-string">"/api/chat"</span>) <span class="code-comment"># [3] 데코레이터: 길(Path)과 방식(Method)을 연결</span>
+<span class="code-keyword">async def</span> <span class="code-func">chat</span>(request: ChatRequest): <span class="code-comment"># [4] 비동기 함수: 실제 처리 로직</span>
+    result = <span class="code-keyword">await</span> call_llm(request.prompt)
+    <span class="code-keyword">return</span> {<span class="code-string">"answer"</span>: result} <span class="code-comment"># [5] 리턴: 브라우저로 보낼 결과 (자동 JSON 변환)</span></code></pre>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-6">
+                        <div class="explanation-box border-blue-600">
+                            <h4 class="font-black text-xl text-blue-800 mb-2">인스턴스(Instance)</h4>
+                            <p class="text-base text-gray-800 leading-relaxed font-medium italic">FastAPI라는 틀에서 찍어낸 <strong>'진짜 실체'</strong>입니다. 이 `app`이 실제로 메모리에 올라가서 요청을 기다립니다.</p>
+                        </div>
+                        <div class="explanation-box border-indigo-600">
+                            <h4 class="font-black text-xl text-indigo-800 mb-2">데코레이터(Decorator)</h4>
+                            <p class="text-base text-gray-800 leading-relaxed font-medium italic">함수 위에 `@`를 붙여 기능을 덧씌웁니다. <strong>"이 함수는 특정 주소와 연결해!"</strong>라고 지정하는 역할입니다.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 5: Swagger UI -->
+            <section id="section-swagger" class="mb-24" data-scroll-stop>
+                <div class="flex items-center gap-4 mb-8">
+                    <span class="bg-blue-600 text-white w-12 h-12 rounded-2xl flex items-center justify-center font-black text-xl shadow-lg">5</span>
+                    <h3 class="text-3xl font-black">FastAPI Swagger UI 활용</h3>
+                </div>
+                
+                <p class="text-lg text-gray-800 mb-10 leading-relaxed font-medium">
+                    FastAPI는 별도의 도구 없이도 코드만 작성하면 실시간으로 <strong>상호작용 가능한 API 명세서</strong>를 생성합니다. 
+                    프론트엔드 개발자와 소통할 때 가장 핵심이 되는 도구입니다.
+                </p>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
+                    <div class="swagger-feature-card">
+                        <div class="bg-blue-600 p-4 rounded-2xl text-white shadow-md"><i class="fas fa-vial text-xl"></i></div>
+                        <div>
+                            <h4 class="font-black text-lg mb-2 text-blue-800">Interactive Testing</h4>
+                            <p class="text-sm text-gray-700 leading-relaxed font-bold">브라우저에서 직접 데이터를 입력하고 <strong>실제 응답</strong>을 확인합니다.</p>
+                        </div>
+                    </div>
+                    <div class="swagger-feature-card">
+                        <div class="bg-green-600 p-4 rounded-2xl text-white shadow-md"><i class="fas fa-file-invoice text-xl"></i></div>
+                        <div>
+                            <h4 class="font-black text-lg mb-2 text-green-800">Automatic Documentation</h4>
+                            <p class="text-sm text-gray-700 leading-relaxed font-bold">Pydantic 모델에 기반해 <strong>요청/응답 구조</strong>가 자동 생성됩니다.</p>
+                        </div>
+                    </div>
+                    <div class="swagger-feature-card">
+                        <div class="bg-orange-600 p-4 rounded-2xl text-white shadow-md"><i class="fas fa-sync text-xl"></i></div>
+                        <div>
+                            <h4 class="font-black text-lg mb-2 text-orange-800">Code Sync</h4>
+                            <p class="text-sm text-gray-700 leading-relaxed font-bold">코드 수정 시 문서가 <strong>실시간으로 업데이트</strong>됩니다.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-slate-900 rounded-3xl p-10 text-white overflow-hidden shadow-2xl border-4 border-slate-800">
+                    <div class="flex items-center justify-between mb-8 border-b border-slate-700 pb-5">
+                        <div class="flex items-center gap-3">
+                            <div class="w-4 h-4 rounded-full bg-rose-500 shadow-[0_0_10px_#f43f5e]"></div>
+                            <div class="w-4 h-4 rounded-full bg-amber-500 shadow-[0_0_10px_#f59e0b]"></div>
+                            <div class="w-4 h-4 rounded-full bg-emerald-500 shadow-[0_0_10px_#10b981]"></div>
+                            <span class="text-sm font-black text-slate-400 ml-3 tracking-widest uppercase">Swagger UI Mockup</span>
+                        </div>
+                        <div class="text-slate-500 font-mono text-sm">POST /api/chat</div>
+                    </div>
+                    
+                    <div class="bg-white text-slate-900 p-8 rounded-2xl shadow-2xl">
+                        <div class="flex items-center gap-6 bg-emerald-50 border-2 border-emerald-200 p-5 rounded-xl mb-8 shadow-sm">
+                            <span class="bg-emerald-600 text-white px-5 py-2 rounded-lg text-sm font-black shadow-md">POST</span>
+                            <span class="font-mono font-black text-lg">/api/chat</span>
+                        </div>
+
+                        <div class="pl-6 border-l-4 border-emerald-100 py-2 space-y-8">
+                            <div class="space-y-4">
+                                <div class="flex items-center justify-between">
+                                    <h5 class="text-sm font-black text-slate-500 uppercase tracking-widest">Request Body</h5>
+                                    <button class="bg-blue-700 text-white px-6 py-2 rounded-full text-xs font-black shadow-lg hover:scale-105 transition-transform">Try it out</button>
+                                </div>
+                                <div class="bg-slate-900 text-blue-300 p-6 rounded-xl font-mono text-sm shadow-inner border border-slate-700">
+                                    {<br>
+                                    &nbsp;&nbsp;"prompt": <span class="text-amber-300">"안녕!"</span>,<br>
+                                    &nbsp;&nbsp;"temperature": <span class="text-emerald-300">0.7</span><br>
+                                    }
+                                </div>
+                            </div>
+                            <div class="space-y-4">
+                                <h5 class="text-sm font-black text-slate-500 uppercase tracking-widest">Responses</h5>
+                                <div class="bg-emerald-900/10 border-2 border-emerald-200 p-6 rounded-xl font-mono text-sm">
+                                    <div class="text-xs font-black text-emerald-800 mb-3 uppercase tracking-tighter">Response Body (Server Output):</div>
+                                    <div class="text-slate-800 font-bold">
+                                        {<br>
+                                        &nbsp;&nbsp;"status": <span class="text-blue-700">"success"</span>,<br>
+                                        &nbsp;&nbsp;"answer": <span class="text-emerald-700">"반가워요! 무엇을 도와드릴까요?"</span><br>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 6: Response -->
+            <section id="section-response" class="mb-24">
+                <div class="flex items-center gap-4 mb-8">
+                    <span class="bg-blue-600 text-white w-12 h-12 rounded-2xl flex items-center justify-center font-black text-xl shadow-lg">6</span>
+                    <h3 class="text-3xl font-black">HTTP 응답(Response)의 구성 요소</h3>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-12 text-sm">
+                    <div class="bg-white p-10 rounded-3xl border border-gray-200 shadow-xl">
+                        <h4 class="font-black text-gray-900 mb-8 flex items-center gap-3 text-2xl">
+                            <i class="fas fa-fingerprint text-blue-600"></i> Status Code (상태 코드)
+                        </h4>
+                        <div class="space-y-6">
+                            <div class="flex items-center justify-between border-b border-gray-100 pb-4">
+                                <span class="status-badge bg-green-100 text-green-800">200 OK</span>
+                                <span class="text-gray-900 font-black">요청 성공!</span>
+                            </div>
+                            <div class="flex items-center justify-between border-b border-gray-100 pb-4">
+                                <span class="status-badge bg-amber-100 text-amber-800">400 Bad Request</span>
+                                <span class="text-gray-900 font-black">클라이언트 요청 오류</span>
+                            </div>
+                            <div class="flex items-center justify-between border-b border-gray-100 pb-4">
+                                <span class="status-badge bg-amber-100 text-amber-800">404 Not Found</span>
+                                <span class="text-gray-900 font-black">경로를 찾을 수 없음</span>
+                            </div>
+                            <div class="flex items-center justify-between border-b border-gray-100 pb-4">
+                                <span class="status-badge bg-rose-100 text-rose-800">422 Unprocessable</span>
+                                <span class="text-gray-900 font-black">데이터 검증(Pydantic) 실패</span>
+                            </div>
+                            <div class="flex items-center justify-between border-b border-gray-100 pb-4">
+                                <span class="status-badge bg-rose-200 text-rose-900">500 Internal Error</span>
+                                <span class="text-gray-900 font-black">서버측 로직 오류</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-10 rounded-3xl border border-gray-200 shadow-xl">
+                        <h4 class="font-black text-gray-900 mb-8 flex items-center gap-3 text-2xl">
+                            <i class="fas fa-box-open text-blue-600"></i> Response Body (응답 본문)
+                        </h4>
+                        <p class="text-gray-800 mb-4 font-bold text-base">서버가 사용자에게 돌려주는 <strong>실제 JSON 데이터</strong>입니다.</p>
+                        <pre class="!p-6 !text-[15px]"><code>{
+  "status": "success",
+  "answer": "안녕하세요!",
+  "usage": { "total_tokens": 128 }
+}</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 7: Pydantic Roles -->
+            <section id="section-pydantic" class="mb-24">
+                <div class="flex items-center gap-4 mb-8">
+                    <span class="bg-blue-600 text-white w-12 h-12 rounded-2xl flex items-center justify-center font-black text-xl shadow-lg">7</span>
+                    <h3 class="text-3xl font-black">Pydantic의 핵심 역할</h3>
+                </div>
+                
+                <div class="bg-white p-10 rounded-3xl border border-gray-200 shadow-xl space-y-10">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <div class="pydantic-role-card">
+                            <h4 class="font-black text-blue-700 mb-3 text-lg">
+                                <i class="fas fa-check-double mr-2"></i>
+                                <span class="info-tooltip">
+                                    타입 검증
+                                    <div class="tooltip-box shadow-2xl">
+                                        <div class="font-black mb-3 text-blue-800 border-b-2 border-blue-100 pb-2 text-base">주요 파이썬 자료형</div>
+                                        <table class="tooltip-table">
+                                            <tbody>
+                                                <tr><td><span class="type-code">int</span></td><td class="font-bold">정수형 (1, 10, -5)</td></tr>
+                                                <tr><td><span class="type-code">str</span></td><td class="font-bold">문자열 ("안녕")</td></tr>
+                                                <tr><td><span class="type-code">float</span></td><td class="font-bold">실수형 (3.14)</td></tr>
+                                                <tr><td><span class="type-code">bool</span></td><td class="font-bold">논리형 (True/False)</td></tr>
+                                                <tr><td><span class="type-code">list</span></td><td class="font-bold">목록 ([1, 2, 3])</td></tr>
+                                                <tr><td><span class="type-code">dict</span></td><td class="font-bold">사전 ({"key": "val"})</td></tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </span>
+                            </h4>
+                            <p class="text-sm text-gray-900 leading-relaxed font-bold">입력값이 `int`, `str`, 'list' 등과 일치하는지 체크합니다.</p>
+                        </div>
+                        <div class="pydantic-role-card">
+                            <h4 class="font-black text-blue-700 mb-3 text-lg"><i class="fas fa-magic mr-2"></i>자동 형변환</h4>
+                            <p class="text-sm text-gray-900 leading-relaxed font-bold">`"100"`이 들어와도 숫자로 정의되어 있으면 `100`으로 변환해 줍니다.</p>
+                        </div>
+                        <div class="pydantic-role-card">
+                            <h4 class="font-black text-blue-700 mb-3 text-lg"><i class="fas fa-cog mr-2"></i>기본값 설정</h4>
+                            <p class="text-sm text-gray-900 leading-relaxed font-bold">값이 없을 때 미리 정해둔 기본값을 자동으로 할당합니다.</p>
+                        </div>
+                        <div class="pydantic-role-card">
+                            <h4 class="font-black text-blue-700 mb-3 text-lg"><i class="fas fa-asterisk mr-2"></i>필수/옵션 구분</h4>
+                            <p class="text-sm text-gray-900 leading-relaxed font-bold">`...`을 사용해 필수 필드를 지정하거나 선택적 필드를 구분합니다.</p>
+                        </div>
+                        <div class="pydantic-role-card">
+                            <h4 class="font-black text-blue-700 mb-3 text-lg"><i class="fas fa-sync-alt mr-2"></i>객체 변환</h4>
+                            <p class="text-sm text-gray-900 leading-relaxed font-bold">JSON 데이터를 다루기 쉬운 파이썬 객체로 자유롭게 변환합니다.</p>
+                        </div>
+                        <div class="pydantic-role-card">
+                            <h4 class="font-black text-blue-700 mb-3 text-lg"><i class="fas fa-bug mr-2"></i>에러 자동 생성</h4>
+                            <p class="text-sm text-gray-900 leading-relaxed font-bold">검증 실패 시 구체적인 JSON 에러 메시지를 만들어 줍니다.</p>
+                        </div>
+                    </div>
+
+                    <div class="space-y-4">
+                        <pre><code><span class="code-keyword">from</span> pydantic <span class="code-keyword">import</span> BaseModel, Field <span class="code-comment"># 라이브러리 임포트</span>
+
+<span class="code-keyword">class</span> <span class="code-func">ChatRequest</span>(BaseModel):
+    prompt: str = Field(..., min_length=<span class="code-string">2</span>) <span class="code-comment"># 필수 & 최소 2자</span>
+    temperature: float = Field(default=<span class="code-string">0.7</span>) <span class="code-comment"># 선택 & 기본값 0.7</span></code></pre>
+                        <p class="text-base text-slate-800 mt-4 p-5 bg-slate-50 rounded-xl border-l-8 border-slate-400 font-bold leading-relaxed">
+                            <strong>BaseModel</strong>은 Pydantic 라이브러리의 핵심으로, 파이썬 객체에 <strong>'데이터 검증(Validation)'</strong>과 '타입 힌트(Type Hinting)' 능력을 부여하는 역할을 합니다.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 8: LLM -->
+            <section id="section-llm" class="mb-24">
+                <div class="flex items-center gap-4 mb-8">
+                    <span class="bg-blue-600 text-white w-12 h-12 rounded-2xl flex items-center justify-center font-black text-xl shadow-lg">8</span>
+                    <h3 class="text-3xl font-black">온프레미스 LLM 연동 실무</h3>
+                </div>
+                <div class="bg-white p-10 rounded-3xl border border-gray-200 shadow-xl space-y-10">
+                    <div class="bg-rose-50 p-8 rounded-2xl border-2 border-rose-100 text-rose-900 flex items-start gap-6 shadow-sm">
+                        <i class="fas fa-shield-alt text-4xl text-rose-600"></i>
+                        <div>
+                            <p class="font-black tracking-tight text-2xl text-rose-800 mb-2 uppercase">Security Policy</p>
+                            <p class="text-lg leading-relaxed font-bold">API Key는 절대 코드에 적지 말고 별도 파일(<strong>.env</strong>)에 숨겨서 관리하세요.</p>
+                        </div>
+                    </div>
+                    <pre><code>GPT_OSS_BASE_URL=http://192.168.1.128:9800
+YOUR_GPT_OSS_KEY=sk-xxxx-xxxx</code></pre>
+                </div>
+            </section>
+
+            <!-- Section 9: Run -->
+            <section id="section-run" class="mb-24">
+                <div class="flex items-center gap-4 mb-8 text-sm">
+                    <span class="bg-orange-600 text-white w-14 h-14 rounded-2xl flex items-center justify-center font-black italic text-xl shadow-lg">실습</span>
+                    <h3 class="text-3xl font-black">실습: 서버 실행 명령</h3>
+                </div>
+                <div class="space-y-8">
+                    <pre class="!bg-orange-950 !border-orange-900 !text-orange-100"><code>uv run uvicorn main:app --reload --host 127.0.0.1 --port 8000</code></pre>
+                    <div class="p-10 bg-orange-50 border-l-8 border-orange-500 rounded-r-3xl shadow-md">
+                        <p class="text-xl text-orange-900 font-black mb-4"><i class="fas fa-terminal mr-3"></i>명령어 상세 설명</p>
+                        <p class="text-lg text-orange-800 leading-relaxed font-bold">
+                            <span class="bg-orange-200 px-2 py-1 rounded">main.py</span>의 FastAPI 앱을, 현재 내 PC의 <span class="bg-orange-200 px-2 py-1 rounded text-orange-900">8000번 포트</span>에서, <span class="text-rose-600 underline decoration-4 underline-offset-4">코드를 수정하면 즉시 서버가 재시작</span>되도록, <span class="italic">uv</span> 격리 환경으로 실행하라는 강력한 명령입니다.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 10: Checklist -->
+            <section id="section-checklist" class="mb-40">
+                <div class="flex items-center gap-4 mb-8">
+                    <span class="bg-blue-700 text-white w-12 h-12 rounded-2xl flex items-center justify-center font-black shadow-lg text-xl">10</span>
+                    <h3 class="text-3xl font-black">강의 마무리 체크리스트</h3>
+                </div>
+                <div class="bg-white rounded-3xl shadow-2xl border-2 border-blue-50 p-12 space-y-8">
+                    <div class="flex items-start gap-6 group">
+                        <input type="checkbox" id="c1" class="check-item w-8 h-8 mt-1 border-2 border-gray-300 rounded-lg cursor-pointer">
+                        <label for="c1" class="text-gray-900 text-xl leading-relaxed cursor-pointer font-black group-hover:text-blue-700 transition-colors">
+                            FE/BE 역할을 구분하고, 사용자 입력 → 서버 요청 → 응답 표시 흐름을 이해한다.
+                        </label>
+                    </div>
+                    <div class="flex items-start gap-6 group">
+                        <input type="checkbox" id="c2" class="check-item w-8 h-8 mt-1 border-2 border-gray-300 rounded-lg cursor-pointer">
+                        <label for="c2" class="text-gray-900 text-xl leading-relaxed cursor-pointer font-black group-hover:text-blue-700 transition-colors">
+                            로컬에서 서버를 실행해보고 REST API(GET/POST) 개념을 이해한다.
+                        </label>
+                    </div>
+                    <div class="flex items-start gap-6 group">
+                        <input type="checkbox" id="c3" class="check-item w-8 h-8 mt-1 border-2 border-gray-300 rounded-lg cursor-pointer">
+                        <label for="c3" class="text-gray-900 text-xl leading-relaxed cursor-pointer font-black group-hover:text-blue-700 transition-colors">
+                            API 명세를 보고 요청(Request)과 응답(Response) 구조를 파악할 수 있다.
+                        </label>
+                    </div>
+                    <div class="flex items-start gap-6 group">
+                        <input type="checkbox" id="c4" class="check-item w-8 h-8 mt-1 border-2 border-gray-300 rounded-lg cursor-pointer">
+                        <label for="c4" class="text-gray-900 text-xl leading-relaxed cursor-pointer font-black group-hover:text-blue-700 transition-colors">
+                            API 명세를 보고 필수/선택 파라미터를 구분할 수 있다.
+                        </label>
+                    </div>
+                    <div class="flex items-start gap-6 group">
+                        <input type="checkbox" id="c5" class="check-item w-8 h-8 mt-1 border-2 border-gray-300 rounded-lg cursor-pointer">
+                        <label for="c5" class="text-gray-900 text-xl leading-relaxed cursor-pointer font-black group-hover:text-blue-700 transition-colors">
+                            필요한 경우 AI툴에 API 설계나 구현을 요청할 수 있다.
+                        </label>
+                    </div>
+                </div>
+            </section>
+
+            <footer class="border-t-4 border-gray-200 pt-12 pb-20 text-center text-gray-500 text-lg font-black tracking-tighter">
+                <p>© 2024 Web Dev & API Basics Workshop. Noto Sans KR Bold Theme.</p>
+            </footer>
+        </main>
+    </div>
+
+    <script>
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.sidebar-link');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (pageYOffset >= (sectionTop - 300)) current = section.getAttribute('id');
+            });
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').includes(current)) link.classList.add('active');
+            });
+        });
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = link.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+    <script src="../embed-autoscroll.js"></script>
+</body>
+</html>
