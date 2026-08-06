@@ -204,6 +204,10 @@
         .slide-term-notes__item + .slide-term-notes__item { margin-top: 0.14rem; }
         .slide-term-notes__term { font-weight: 800; color: #33271F; }
         .slide-term-notes__term::before { content: '* '; color: #8A7B6E; font-weight: 800; }
+        .week-topics { display: flex; align-items: center; gap: 0.65rem; flex-wrap: wrap; margin: 0 0 0.65rem; padding: 0.5rem 0.75rem; background: #F0EAE0; border-radius: 8px; }
+        .week-topics__label { flex-shrink: 0; font-size: 0.72rem; font-weight: 800; color: #8A7B6E; letter-spacing: -0.01em; line-height: 1.2; }
+        .week-topics__list { display: flex; flex-wrap: wrap; align-items: center; gap: 0.35rem; min-width: 0; }
+        .week-topics__chip { display: inline-flex; align-items: center; font-size: 0.78rem; font-weight: 700; color: #33271F; background: #fff; border-radius: 6px; padding: 0.28rem 0.65rem; line-height: 1.3; word-break: keep-all; }
         .week-photo-main img { width: 100%; flex: 1; min-height: 0; object-fit: contain; display: block; background: #fff; padding: 6px; }
         .week-photo-main figcaption { flex-shrink: 0; font-size: 9.5px; font-weight: 700; text-align: center; padding: 4px 6px 6px; color: #33271F; background: #FBF8F3; line-height: 1.3; }
         .week-photo-subs { display: flex; flex-direction: column; gap: 0.5rem; min-height: 0; }
@@ -274,8 +278,6 @@
         .practice-exchange-col__figure { flex: 0 0 auto; min-height: min(140px, 22vh); max-height: min(160px, 24vh); margin: 0.28rem 0 0; display: flex; align-items: center; justify-content: center; border-radius: 8px; overflow: hidden; background: #FBF8F3; line-height: 0; }
         .practice-exchange-col__figure img { width: 100%; height: 100%; display: block; object-fit: contain; object-position: center center; }
         .practice-exchange-item { background: #fff; border: 1px solid #F0EAE0; border-radius: 8px; padding: 0.38rem 0.45rem 0.36rem; min-width: 0; }
-        .practice-exchange-col--question .practice-exchange-item { border-left: 3px solid #33271F; }
-        .practice-exchange-col--discussion .practice-exchange-item { border-left: 3px solid #F5B041; }
         .practice-exchange-item__meta { display: flex; align-items: center; margin-bottom: 0.18rem; }
         .practice-exchange-item__tag { font-size: 0.52rem; font-weight: 700; color: #8A7B6E; background: #FBF8F3; border-radius: 4px; padding: 0.06rem 0.28rem; line-height: 1.25; }
         .practice-exchange-item__q { font-size: 0.64rem; font-weight: 800; color: #33271F; margin: 0 0 0.14rem; line-height: 1.38; }
@@ -288,6 +290,7 @@
         .slide-practice-qa > div { display: flex; flex-direction: column; min-height: 0; flex: 0 0 auto; max-height: none; }
         .slide-practice-qa > div > p.leading-relaxed { margin-bottom: 0.45rem !important; font-size: 0.8125rem !important; line-height: 1.45 !important; }
         .slide-practice-qa .practice-exchange-layout { flex: 0 0 auto; min-height: 0; height: var(--slide-43-panel-height); max-height: var(--slide-43-panel-height); }
+        .slide-practice-qa .practice-exchange-columns { grid-template-columns: minmax(0, 1.28fr) minmax(0, 1fr); }
         .slide-practice-qa .practice-exchange-col { position: relative; padding: 0.34rem; }
         .slide-practice-qa .practice-exchange-col__figure { display: flex; flex: 0 0 auto; min-height: min(216px, 30vh); max-height: min(236px, 34vh); margin: 0.22rem 0 0; }
         .slide-practice-qa .practice-exchange-col--question .practice-exchange-col__list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.2rem; align-content: start; }
@@ -302,6 +305,11 @@
         .slide-practice-qa .practice-exchange-item__take { font-size: 0.5rem; line-height: 1.34; }
         .slide-practice-qa .practice-exchange-item__points { gap: 0.06rem; }
         .slide-practice-qa .practice-exchange-item__points li { font-size: 0.5rem; line-height: 1.32; gap: 0.16rem; }
+        .slide-practice-qa .practice-exchange-col--discussion .practice-exchange-item__title { margin-bottom: 0.18rem; }
+        .slide-practice-qa .practice-exchange-col--discussion .practice-exchange-item__points { gap: 0.16rem; margin-top: 0.04rem; padding-bottom: 0.06rem; }
+        .slide-practice-qa .practice-exchange-col--discussion .practice-exchange-item__points li { line-height: 1.45; }
+        .slide-practice-qa .practice-exchange-col--question .practice-exchange-item__q { margin-bottom: 0.18rem; }
+        .slide-practice-qa .practice-exchange-col--question .practice-exchange-item__take { margin-top: 0.04rem; padding-bottom: 0.06rem; line-height: 1.45; }
         .interview-fields-figure { flex: 0 0 auto; height: min(360px, 44vh); max-height: min(360px, 44vh); min-height: 0; margin: 0; display: flex; flex-direction: column; background: #fff; border: 1px solid #F0EAE0; border-radius: 8px; padding: 0.4rem 0.65rem 0.5rem; overflow: hidden; }
         .interview-fields-caption { flex-shrink: 0; font-size: 0.68rem; font-weight: 700; color: #8A7B6E; text-align: center; margin: 0 0 0.25rem; }
         .interview-fields-img { flex: 1; min-height: 0; width: 100%; object-fit: contain; display: block; }
@@ -309,15 +317,15 @@
         .week-present-cell img { width: 100%; flex: 1; min-height: 0; object-fit: cover; display: block; }
         .week-present-cell figcaption { flex-shrink: 0; font-size: 9.5px; font-weight: 700; text-align: center; padding: 4px 6px 6px; color: #33271F; background: #FBF8F3; line-height: 1.3; }
         .week-split-layout { display: grid; grid-template-columns: minmax(0, 1.65fr) minmax(0, 1fr); gap: 0.75rem; height: min(440px, calc(100vh - 270px)); max-height: 460px; margin-top: 0.75rem; min-height: 0; }
-        .week-split-layout--poc { grid-template-columns: minmax(0, 1.22fr) minmax(0, 0.78fr); height: min(560px, calc(100vh - 228px)); max-height: 580px; align-items: stretch; margin-top: 0; }
+        .week-split-layout--poc { grid-template-columns: minmax(0, 1.22fr) minmax(0, 0.78fr); height: min(500px, calc(100vh - 268px)); max-height: 520px; align-items: stretch; margin-top: 0; }
         .week-split-left { min-height: 0; min-width: 0; }
-        .week-split-left--poc { display: flex; flex-direction: column; gap: 0.55rem; min-height: 0; overflow: hidden; padding-right: 2px; }
-        .slide-body-poc-workshop { overflow: hidden; margin-top: 0.15rem; }
+        .week-split-left--poc { display: flex; flex-direction: column; gap: 0.45rem; min-height: 0; overflow: hidden; padding-right: 2px; }
+        .slide-body-poc-workshop { overflow: hidden; margin-top: 0.1rem; }
         .week-split-layout--poc .week-split-photos { height: 100%; }
-        .poc-workshop-goals { flex-shrink: 0; padding: 0.95rem 1.05rem !important; }
-        .poc-workshop-goals .week-goals-title { font-size: 0.82rem; font-weight: 800; color: #33271F; margin: 0 0 0.6rem; }
-        .poc-workshop-goals__list { display: flex; flex-direction: column; gap: 0.5rem; margin: 0; padding: 0; list-style: none; }
-        .poc-workshop-goals__list li { font-size: 0.8125rem; line-height: 1.48; }
+        .poc-workshop-goals { flex-shrink: 0; padding: 0.65rem 0.85rem !important; }
+        .poc-workshop-goals .week-goals-title { font-size: 0.78rem; font-weight: 800; color: #33271F; margin: 0 0 0.35rem; }
+        .poc-workshop-goals__list { display: flex; flex-direction: column; gap: 0.28rem; margin: 0; padding: 0; list-style: none; }
+        .poc-workshop-goals__list li { font-size: 0.78rem; line-height: 1.4; }
         .poc-workshop-materials { display: flex; flex-direction: column; gap: 0.55rem; flex-shrink: 0; }
         .poc-workshop-material { margin: 0; display: flex; flex-direction: column; background: #fff; border-radius: 8px; overflow: hidden; flex-shrink: 0; }
         .poc-workshop-material img { width: 100%; height: auto; display: block; object-fit: contain; padding: 8px; background: #fff; }
@@ -338,9 +346,9 @@
         .poc-workshop-material--html .poc-problem { border: none; box-shadow: none; border-radius: 0; }
         .poc-workshop-material__cap { margin: 0; font-size: 9.5px; font-weight: 700; text-align: center; padding: 4px 6px 6px; color: #33271F; background: #FBF8F3; line-height: 1.25; border-top: 1px solid #F0EAE0; }
         .poc-trigger { background: #fff; border-radius: 8px; overflow: hidden; border: 1px solid #E5E7EB; box-shadow: 0 1px 3px rgba(51, 39, 31, 0.06); }
-        .poc-trigger__mission { background: #EEF6FF; padding: 0.72rem 0.85rem; border-bottom: 1px solid #D8E8FF; }
-        .poc-trigger__mission-title { margin: 0 0 0.32rem; font-size: 0.74rem; font-weight: 800; color: #2563EB; letter-spacing: 0.01em; }
-        .poc-trigger__mission-quote { margin: 0; font-size: 0.68rem; font-weight: 600; color: #4B5563; line-height: 1.48; }
+        .poc-trigger__mission { background: #EEF6FF; padding: 0.55rem 0.85rem; border-bottom: 1px solid #D8E8FF; }
+        .poc-trigger__mission-title { margin: 0; font-size: 0.74rem; font-weight: 800; color: #2563EB; letter-spacing: 0.01em; }
+        .poc-trigger__mission-quote { margin: 0; font-size: 0.7rem; font-weight: 600; color: #4B5563; line-height: 1.4; word-break: keep-all; }
         .poc-trigger__body { padding: 0.62rem 0.68rem 0.7rem; background: #fff; }
         .poc-trigger__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.42rem; }
         .poc-trigger__item { border: 1px solid #E5E7EB; border-radius: 8px; padding: 0.52rem 0.58rem; background: #fff; min-width: 0; }
@@ -1057,8 +1065,7 @@
             ];
             return `<div class="poc-trigger">
                 <div class="poc-trigger__mission">
-                    <p class="poc-trigger__mission-title">핵심 미션</p>
-                    <p class="poc-trigger__mission-quote">"AI 아이디어가 아니라, 업무 현장의 진짜 불편함을 찾으세요."</p>
+                    <p class="poc-trigger__mission-quote"><span class="poc-trigger__mission-title">핵심 미션</span> : "AI 아이디어가 아니라, 업무 현장의 진짜 불편함을 찾으세요."</p>
                 </div>
                 <div class="poc-trigger__body">
                     <div class="poc-trigger__grid">${triggers.map(([label, t, d]) =>
@@ -1115,7 +1122,12 @@
                     ${p.caption ? `<figcaption>${p.caption}</figcaption>` : ''}
                 </figure>`;
             };
-            const chips = (topics || []).map(t => `<span class="inline-block bg-beige text-ink text-xs font-medium px-3 py-1.5 rounded-lg mr-2 mb-2">${t}</span>`).join('');
+            const chips = (topics || []).length
+                ? `<div class="week-topics">
+                    <span class="week-topics__label">키워드</span>
+                    <div class="week-topics__list">${topics.map(t => `<span class="week-topics__chip">${t}</span>`).join('')}</div>
+                </div>`
+                : '';
             const goalsList = goals && goals.length
                 ? `<p class="week-goals-title">🎯 목표</p><ul>${goals.map(g => `<li class="flex items-start gap-2 text-ink/85"><span class="text-pug shrink-0 mt-0.5">•</span><span>${g}</span></li>`).join('')}</ul>`
                 : '';
@@ -1224,10 +1236,10 @@
             const isDesignConsult = photoLayout === 'design-consult';
             const termNotesBlock = buildTermNotes(termNotes);
             const bodyCore = isPocWorkshop
-                ? `<div class="slide-body-poc-workshop">${photos}</div>`
+                ? `${chips}<div class="slide-body-poc-workshop">${photos}</div>`
                 : isDesignConsult
                     ? photos
-                : `<div class="bg-card rounded-lg p-4 mb-3"><div class="flex flex-wrap gap-1">${chips}</div></div>${goalsBlock}${photos}`;
+                : `${chips}${goalsBlock}${photos}`;
             const body = `${bodyCore}${termNotesBlock}`;
             return contentSlide({
                 label: `Education · ${week}`,
@@ -1432,11 +1444,7 @@
                 ],
                 photoLayout: 'llm-api',
                 photoFit: 'cover',
-                photoTall: true,
-                termNotes: [
-                    ['FastAPI', 'Python으로 API를 빠르게 만드는 도구'],
-                    ['On-premise LLM', 'DRB 서버에 설치해 쓰는 사내 AI']
-                ]
+                photoTall: true
             },
             { week: '4월 3주차', title: 'Git · GitHub', topics: ['Git 개념·Repository', 'Commit / Push / Pull', 'GitHub Flow', 'PoC 코드 버전 관리'],
                 message: 'FastAPI 실습 코드를 <strong class="text-ink">Git 저장소</strong>로 관리하고, Commit·Push·Pull 흐름을 익혔습니다. <strong class="text-ink">GitHub Flow</strong>로 브랜치·코드 리뷰·병합까지 PoC 개발에 맞게 연습했습니다.',
