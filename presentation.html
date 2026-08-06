@@ -24,7 +24,7 @@
     <style>
         /* ── 슬라이드 패널 높이 (값만 수정) ── */
         :root {
-            --slide-43-panel-height: min(calc(100vh - 210px), 780px); /* 43 · 실습 Q&A */
+            --slide-43-panel-height: min(calc((100vh - 210px) * 0.75), 585px); /* 43 · 실습 Q&A · 본문 3/4 */
             --slide-47-row-1-height: min(320px, 38vh); /* 47 · 1행 (카드 1~4) */
             --slide-47-row-2-height: min(220px, 26vh); /* 47 · 2행 (카드 5~7) · 1행보다 낮게 */
             --slide-47-panel-height: calc(var(--slide-47-row-1-height) + var(--slide-47-row-2-height) + 1.6rem); /* gap + 패딩 포함, 직접 수정 불필요 */
@@ -58,22 +58,25 @@
         .slide-curriculum > div > div:last-child { display: flex; flex-direction: column; min-height: 0; flex: 1; }
         .curriculum-split { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.75rem; flex: 1; min-height: 0; height: 100%; max-height: calc(100vh - 215px); align-items: stretch; margin-top: 0.1rem; }
         .curriculum-split__col { min-width: 0; min-height: 0; height: 100%; display: flex; flex-direction: column; overflow: hidden; background: #fff; border: 1px solid #F0EAE0; border-radius: 10px; box-shadow: 0 1px 3px rgba(51,39,31,.04); }
-        .curriculum-split__scroll { flex: 1; min-height: 0; overflow-y: auto; overflow-x: hidden; padding: 0 0 0.45rem; scrollbar-gutter: stable; scrollbar-width: thin; scrollbar-color: #CBBBA8 #F0EAE0; }
+        .curriculum-split__scroll { flex: 1; min-height: 0; overflow-y: auto; overflow-x: hidden; padding: 0 0 0.45rem; scrollbar-width: thin; scrollbar-color: #CBBBA8 #F0EAE0; }
         .curriculum-split__scroll::-webkit-scrollbar { width: 6px; }
         .curriculum-split__scroll::-webkit-scrollbar-thumb { background: #CBBBA8; border-radius: 999px; }
         .curriculum-split__scroll::-webkit-scrollbar-track { background: transparent; }
-        .curriculum-split .tbl-curriculum { table-layout: fixed; width: 100%; border-collapse: collapse; }
+        .curriculum-split .tbl-curriculum { table-layout: fixed; width: 100%; min-width: 100%; border-collapse: collapse; }
+        .curriculum-split .tbl-curriculum thead th,
+        .curriculum-split .tbl-curriculum tbody td { box-sizing: border-box; }
         .curriculum-split .tbl-curriculum thead th { font-size: 0.68rem; padding: 0.45rem 0.55rem; position: sticky; top: 0; z-index: 3; background: #F0EAE0 !important; border-bottom: 1px solid #E5DFD5; box-shadow: none; border-radius: 0 !important; }
         .curriculum-split .tbl-curriculum thead th:first-child { border-top-left-radius: 8px !important; border-bottom-left-radius: 0 !important; padding-left: 0.55rem; }
-        .curriculum-split .tbl-curriculum thead th:last-child { border-top-right-radius: 8px !important; border-bottom-right-radius: 0 !important; padding-right: 0.55rem; }
+        .curriculum-split .tbl-curriculum thead th:last-child { border-top-right-radius: 8px !important; border-bottom-right-radius: 0 !important; padding-right: 0.55rem; box-shadow: 8px 0 0 #F0EAE0; }
         .curriculum-split .tbl-curriculum thead th::before { content: ''; position: absolute; left: 0; right: 0; bottom: 100%; height: 100vh; background: #fff; z-index: -1; pointer-events: none; }
-        .curriculum-split .tbl-curriculum thead th:nth-child(1) { width: 19%; padding-left: 0.55rem; padding-right: 0.3rem; }
-        .curriculum-split .tbl-curriculum thead th:nth-child(2) { width: 27%; }
-        .curriculum-split .tbl-curriculum thead th:nth-child(3) { width: 54%; padding-right: 0.55rem; }
+        .curriculum-split .tbl-curriculum thead th:last-child::after { content: ''; position: absolute; top: 0; bottom: -1px; left: 100%; width: 8px; background: #F0EAE0; }
+        .curriculum-split .tbl-curriculum thead th:nth-child(1) { width: 18%; padding-left: 0.55rem; padding-right: 0.3rem; }
+        .curriculum-split .tbl-curriculum thead th:nth-child(2) { width: 32%; }
+        .curriculum-split .tbl-curriculum thead th:nth-child(3) { width: 50%; padding-right: 0.55rem; }
         .curriculum-split .tbl-curriculum tbody td { font-size: 0.65rem; line-height: 1.4; padding: 0.42rem 0.55rem; vertical-align: top; }
-        .curriculum-split .tbl-curriculum tbody td:first-child { min-width: 0; max-width: none; width: 19%; padding-left: 0.55rem; padding-right: 0.3rem; font-size: 0.64rem; line-height: 1.35; word-break: keep-all; }
-        .curriculum-split .tbl-curriculum tbody td:nth-child(2) { width: 27%; }
-        .curriculum-split .tbl-curriculum tbody td:nth-child(3) { width: 54%; padding-right: 0.55rem; }
+        .curriculum-split .tbl-curriculum tbody td:first-child { min-width: 0; max-width: none; width: 18%; padding-left: 0.55rem; padding-right: 0.3rem; font-size: 0.64rem; line-height: 1.35; word-break: keep-all; }
+        .curriculum-split .tbl-curriculum tbody td:nth-child(2) { width: 32%; }
+        .curriculum-split .tbl-curriculum tbody td:nth-child(3) { width: 50%; padding-right: 0.55rem; }
         .curriculum-split .tbl-curriculum .cur-main { font-size: 0.65rem; line-height: 1.38; }
         .curriculum-split .tbl-curriculum .cur-block-title { font-size: 0.62rem; }
         .curriculum-split .tbl-curriculum .cur-detail { gap: 0.28rem; }
@@ -234,28 +237,38 @@
         .slide-poc-present .week-present-grid { margin-top: 0.5rem; height: min(540px, calc(100vh - 260px)); max-height: 560px; width: 100%; }
         .list-slide-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.45rem 0.85rem; }
         @media (min-width: 1024px) { .list-slide-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
-        .interview-body { display: flex; flex-direction: column; gap: 0.6rem; }
-        .interview-goals-box { background: #F0EAE0; border-radius: 8px; padding: 1rem 1.2rem; flex-shrink: 0; min-height: 0; }
-        .interview-goals-split { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.75rem; flex-shrink: 0; }
+        .slide-interview > div > p.leading-relaxed { margin-bottom: 1rem !important; max-width: none !important; }
+        .interview-body { display: flex; flex-direction: column; gap: 0.9rem; }
+        .interview-goals-split { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; flex: 0 0 auto; align-items: stretch; }
         @media (max-width: 900px) { .interview-goals-split { grid-template-columns: 1fr; } }
-        .interview-goals-heading { font-size: 0.75rem; font-weight: 800; color: #33271F; margin: 0 0 0.35rem; flex-shrink: 0; }
-        .interview-goals-title { font-size: 0.75rem; font-weight: 800; color: #33271F; margin: 0 0 0.6rem; }
-        .interview-goals-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.5rem 1.25rem; margin: 0; padding: 0; list-style: none; }
-        .interview-goals-list { display: flex; flex-direction: column; gap: 0.5rem; margin: 0; padding: 0; list-style: none; }
-        @media (min-width: 1024px) { .interview-goals-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.55rem 1.5rem; } }
-        .interview-goal-item { display: flex; align-items: flex-start; gap: 0.5rem; font-size: 0.8125rem; font-weight: 600; line-height: 1.4; color: #33271F; }
-        @media (min-width: 768px) { .interview-goal-item { font-size: 0.9375rem; } }
-        .interview-goal-check { flex-shrink: 0; margin-top: 0.1rem; padding: 0.3rem; background: #F5B041; color: #33271F; border-radius: 4px; display: inline-flex; }
-        .interview-goal-check [data-lucide="check"] { width: 0.75rem; height: 0.75rem; }
-        .interview-highlight { padding: 0.6rem 0.85rem; font-size: 0.8125rem; line-height: 1.45; flex-shrink: 0; }
+        .interview-panel { display: flex; flex-direction: column; min-height: 0; background: #FFFFFF; border-radius: 8px; padding: 1.25rem 1.35rem; gap: 1rem; }
+        .interview-panel__label { align-self: flex-start; margin: 0; padding: 0.32rem 0.75rem; background: #F5B041; color: #33271F; font-size: 0.9rem; font-weight: 800; border-radius: 6px; letter-spacing: -0.01em; line-height: 1.2; flex-shrink: 0; }
+        .interview-panel__cards { display: flex; flex-direction: column; gap: 1.15rem; }
+        .interview-topic { display: flex; flex-direction: column; gap: 0.65rem; padding-top: 1.05rem; border-top: 1px solid #F0EAE0; }
+        .interview-panel__cards .interview-topic:first-child { border-top: 0; padding-top: 0; }
+        .interview-topic__head { display: flex; align-items: center; gap: 0.55rem; }
+        .interview-topic__num { flex-shrink: 0; width: 1.4rem; height: 1.4rem; border-radius: 999px; background: #F5B041; color: #33271F; font-size: 0.78rem; font-weight: 800; display: inline-flex; align-items: center; justify-content: center; line-height: 1; }
+        .interview-topic__title { margin: 0; font-size: 1.08rem; font-weight: 800; color: #33271F; line-height: 1.3; letter-spacing: -0.01em; word-break: keep-all; }
+        .interview-topic__list { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+        .interview-topic__item { display: flex; align-items: flex-start; gap: 0.55rem; font-size: 1rem; font-weight: 600; line-height: 1.5; color: #33271F; word-break: keep-all; }
+        .interview-topic__bar { flex-shrink: 0; width: 0.45rem; height: 0.45rem; margin-top: 0.45rem; border-radius: 2px; background: #F5B041; }
+        .interview-common { background: #FFFFFF; border-radius: 8px; padding: 1.1rem 1.25rem; flex-shrink: 0; }
+        .interview-common__head { display: flex; align-items: center; gap: 0.55rem; margin: 0 0 0.75rem; }
+        .interview-common__mark { flex-shrink: 0; width: 0.35rem; height: 1rem; border-radius: 2px; background: #F5B041; }
+        .interview-common__label { margin: 0; font-size: 0.95rem; font-weight: 800; color: #33271F; letter-spacing: -0.01em; line-height: 1.3; }
+        .interview-common__row { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.65rem; }
+        @media (max-width: 900px) { .interview-common__row { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+        .interview-common__chip { display: flex; align-items: center; justify-content: center; background: #F0EAE0; border-radius: 8px; padding: 0.85rem 0.8rem; text-align: center; font-size: 0.98rem; font-weight: 700; color: #33271F; line-height: 1.35; word-break: keep-all; }
+        .interview-common__chip strong { font-weight: 800; }
+        .opening-tray { background: #F0EAE0; padding: 0.6rem; border-radius: 10px; height: 100%; min-height: 0; display: flex; flex-direction: column; }
         .opening-split { align-items: stretch; }
-        .opening-split__table { display: flex; flex-direction: column; height: 100%; min-height: 0; }
+        .opening-split__table { display: flex; flex-direction: column; height: 100%; min-height: 0; background: #fff; border-radius: 8px; padding: 1rem 1.1rem; overflow: hidden; }
         .opening-split__tbl { flex: 1; width: 100%; height: 100%; }
         .opening-split__tbl tbody { height: 100%; }
         .opening-split__tbl tbody tr { height: 20%; }
         .opening-split__tbl tbody td { vertical-align: middle; font-size: 0.98rem; line-height: 1.5; padding: 0.85rem 1.1rem; }
         .opening-split__tbl tbody td:first-child { font-size: 0.95rem; }
-        .opening-pug-panel { min-height: 0; gap: 1rem; height: 100%; }
+        .opening-pug-panel { min-height: 0; gap: 1rem; height: 100%; background: #fff; border-radius: 8px; padding: 1rem 1.1rem; }
         .opening-pug-panel__title { font-size: 1.2rem; font-weight: 800; color: #33271F; line-height: 1.4; margin: 0; letter-spacing: -0.01em; flex-shrink: 0; }
         .opening-pug-panel__title span { color: #C8860A; }
         .opening-pug-panel__figure { margin: 0; line-height: 0; flex: 1; min-height: 0; display: flex; align-items: center; justify-content: center; width: 100%; }
@@ -284,10 +297,10 @@
         .practice-exchange-item__points { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 0.1rem; }
         .practice-exchange-item__points li { display: flex; align-items: flex-start; gap: 0.24rem; font-size: 0.56rem; line-height: 1.4; color: #33271F; }
         .practice-exchange-item__points li::before { content: '·'; flex-shrink: 0; font-weight: 800; color: #F5B041; }
-        .slide-practice-qa { justify-content: flex-start !important; padding-top: 1.25rem !important; padding-bottom: 4.5rem !important; }
-        .slide-practice-qa > div { display: flex; flex-direction: column; min-height: 0; flex: 1; max-height: none; }
+        .slide-practice-qa { justify-content: center !important; padding-top: 0 !important; padding-bottom: 4.5rem !important; }
+        .slide-practice-qa > div { display: flex; flex-direction: column; min-height: 0; flex: 0 0 auto; max-height: none; }
         .slide-practice-qa > div > p.leading-relaxed { margin-bottom: 0.45rem !important; font-size: 0.8125rem !important; line-height: 1.45 !important; }
-        .slide-practice-qa .practice-exchange-layout { flex: 1; min-height: 0; height: auto; max-height: none; }
+        .slide-practice-qa .practice-exchange-layout { flex: 0 0 auto; min-height: 0; height: var(--slide-43-panel-height); max-height: var(--slide-43-panel-height); }
         .slide-practice-qa .practice-exchange-col { position: relative; padding: 0.34rem; }
         .slide-practice-qa .practice-exchange-col__figure { display: flex; flex: 0 0 auto; min-height: min(216px, 30vh); max-height: min(236px, 34vh); margin: 0.22rem 0 0; }
         .slide-practice-qa .practice-exchange-col--question .practice-exchange-col__list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.2rem; align-content: start; }
@@ -492,22 +505,33 @@
         .slide-checklist-full > div > h2 { margin-bottom: 0.5rem !important; font-size: 1.95rem !important; }
         .checklist-overview-panel { flex: 0 0 auto; height: var(--slide-47-panel-height); min-height: 0; display: flex; flex-direction: column; background: #F0EAE0; border: 1px solid #E5DFD5; border-radius: 10px; padding: 0.55rem; box-shadow: 0 2px 14px rgba(51,39,31,.07); }
         .checklist-overview-grid { flex: 0 0 auto; min-height: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-template-rows: var(--slide-47-row-1-height) var(--slide-47-row-2-height); gap: 0.5rem; align-items: stretch; height: calc(var(--slide-47-row-1-height) + var(--slide-47-row-2-height) + 0.5rem); }
-        .checklist-overview-card { background: #fff; border: 1px solid #F0EAE0; border-left: 3px solid #F5B041; border-radius: 8px; padding: 0.55rem 0.52rem 0.48rem; min-width: 0; min-height: 0; height: 100%; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 1px 4px rgba(51,39,31,.05); }
-        .checklist-overview-card__head { display: flex; align-items: center; gap: 0.35rem; margin-bottom: 0.32rem; padding-bottom: 0.28rem; border-bottom: 1px solid #F0EAE0; flex-shrink: 0; }
-        .checklist-overview-card__num { display: inline-flex; align-items: center; justify-content: center; min-width: 1.2rem; height: 1.2rem; padding: 0 0.2rem; border-radius: 4px; background: #33271F; color: #fff; font-size: 0.6rem; font-weight: 800; flex-shrink: 0; line-height: 1; }
-        .checklist-overview-card__title { font-size: 0.72rem; font-weight: 800; color: #33271F; line-height: 1.28; margin: 0; letter-spacing: -0.01em; }
-        .checklist-overview-card__body { flex: 0 1 auto; min-height: 0; display: flex; flex-direction: column; gap: 0.24rem; overflow-y: auto; }
-        .checklist-overview-card__block { flex-shrink: 0; }
-        .checklist-overview-card__block:last-child { margin-bottom: 0; }
-        .checklist-overview-card__sub { font-size: 0.6rem; font-weight: 700; color: #8A7B6E; margin: 0 0 0.1rem; line-height: 1.22; }
-        .checklist-overview-card__list { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 0.14rem; }
-        .checklist-overview-card__list li { display: flex; align-items: flex-start; gap: 0.28rem; font-size: 0.6rem; line-height: 1.42; color: #33271F; }
-        .checklist-overview-card__list li::before { content: ''; flex-shrink: 0; width: 0.46rem; height: 0.46rem; margin-top: 0.06rem; border: 1.5px solid #CBBBA8; border-radius: 2px; background: #FBF8F3; }
+        .checklist-overview-card { background: #fff; border: 1.5px solid #D9CFC2; border-radius: 8px; padding: 0.55rem 0.58rem 0.5rem; min-width: 0; min-height: 0; height: 100%; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 2px 8px rgba(51,39,31,.08); }
+        .checklist-overview-card__head { display: flex; align-items: center; gap: 0.35rem; margin-bottom: 0.35rem; padding-bottom: 0.32rem; border-bottom: 2px solid #F5B041; flex-shrink: 0; }
+        .checklist-overview-card__num { display: inline-flex; align-items: center; justify-content: center; min-width: 1.25rem; height: 1.25rem; padding: 0 0.22rem; border-radius: 4px; background: #33271F; color: #fff; font-size: 0.62rem; font-weight: 800; flex-shrink: 0; line-height: 1; }
+        .checklist-overview-card__title { font-size: 0.74rem; font-weight: 800; color: #33271F; line-height: 1.28; margin: 0; letter-spacing: -0.01em; }
+        .checklist-overview-card__body { flex: 0 1 auto; min-height: 0; display: flex; flex-direction: column; gap: 0.42rem; overflow-y: auto; }
+        .checklist-overview-card__block { flex-shrink: 0; padding-bottom: 0.28rem; border-bottom: 1px solid #F3EEE6; }
+        .checklist-overview-card__block:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+        .checklist-overview-card__sub { font-size: 0.58rem; font-weight: 800; color: #33271F; margin: 0 0 0.18rem; line-height: 1.25; letter-spacing: -0.01em; }
+        .checklist-overview-card__list { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 0.1rem; }
+        .checklist-overview-card__list li { display: flex; align-items: flex-start; gap: 0.28rem; font-size: 0.56rem; line-height: 1.4; color: #6B5C50; }
+        .checklist-overview-card__list li::before { content: ''; flex-shrink: 0; width: 0.42rem; height: 0.42rem; margin-top: 0.12rem; border: 1.5px solid #C4B5A5; border-radius: 2px; background: #fff; font-weight: normal; color: transparent; line-height: 1; }
         .closing-layout { display: grid; grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr); gap: 1.25rem; align-items: stretch; height: min(480px, calc(100vh - 250px)); max-height: 500px; }
-        .culture-growth-figure { margin: 0; border-radius: 10px; overflow: hidden; background: #FBF8F3; border: 1px solid #F0EAE0; line-height: 0; height: min(210px, 26vh); display: flex; align-items: center; justify-content: center; }
-        .culture-growth-figure img { width: 100%; height: 100%; object-fit: contain; object-position: center; display: block; }
-        .tbl-culture-change thead th { font-size: 0.95rem; padding: 0.8rem 1.1rem; }
-        .tbl-culture-change tbody td { font-size: 1rem; line-height: 1.5; padding: 0.85rem 1.1rem; }
+        .culture-split { display: grid; grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr); gap: 1rem; align-items: stretch; height: min(400px, calc(100vh - 280px)); max-height: 420px; }
+        .culture-split__shifts { margin: 0; height: 100%; min-height: 0; display: flex; flex-direction: column; gap: 0.55rem; }
+        .culture-shift { flex: 1; min-height: 0; display: flex; flex-direction: column; justify-content: center; gap: 0.45rem; background: #FFFFFF; border-radius: 8px; padding: 0.72rem 0.9rem 0.7rem; }
+        .culture-shift__head { display: flex; align-items: center; gap: 0.55rem; min-width: 0; }
+        .culture-shift__num { flex-shrink: 0; width: 1.45rem; height: 1.45rem; border-radius: 999px; background: #F5B041; color: #33271F; font-size: 0.68rem; font-weight: 800; display: inline-flex; align-items: center; justify-content: center; line-height: 1; }
+        .culture-shift__change { display: flex; align-items: center; flex-wrap: wrap; gap: 0.35rem 0.45rem; min-width: 0; font-size: 0.92rem; font-weight: 800; color: #33271F; line-height: 1.3; letter-spacing: -0.01em; }
+        .culture-shift__from { color: #8A7B6E; font-weight: 700; }
+        .culture-shift__arrow { color: #F5B041; font-weight: 800; }
+        .culture-shift__to { color: #33271F; }
+        .culture-shift__cases { margin: 0; padding: 0 0 0 2rem; list-style: none; display: flex; flex-direction: column; gap: 0.22rem; }
+        .culture-shift__cases li { display: flex; align-items: flex-start; gap: 0.35rem; font-size: 0.78rem; line-height: 1.4; color: #33271F; word-break: keep-all; }
+        .culture-shift__cases li::before { content: '＊'; flex-shrink: 0; width: auto; height: auto; margin-top: 0; border: none; border-radius: 0; background: none; font-weight: 700; color: #F5B041; line-height: 1.4; }
+        .culture-split__video { margin: 0; min-height: 0; height: 100%; display: flex; flex-direction: column; border-radius: 8px; overflow: hidden; background: #FFFFFF; }
+        .culture-split__video video { width: 100%; flex: 1; min-height: 0; object-fit: cover; object-position: center; display: block; background: #F0EAE0; pointer-events: none; }
+        .culture-split__video figcaption { flex-shrink: 0; font-size: 0.68rem; font-weight: 700; text-align: center; padding: 0.4rem 0.5rem; color: #33271F; background: #F0EAE0; line-height: 1.3; }
         .closing-copy { display: flex; flex-direction: column; justify-content: center; gap: 1rem; min-height: 0; }
         .closing-copy__badge { display: inline-flex; align-items: center; gap: 0.4rem; align-self: flex-start; background: #F5B041; color: #33271F; font-size: 0.78rem; font-weight: 800; padding: 0.35rem 0.75rem; border-radius: 8px; }
         .closing-copy__lead { font-size: 1.35rem; font-weight: 800; color: #33271F; line-height: 1.45; margin: 0; }
@@ -886,9 +910,6 @@
                             </div>
                         </header>
                         <div class="practice-exchange-col__list">${PRACTICE_QUESTIONS.map(renderPracticeQuestionItem).join('')}</div>
-                        <figure class="practice-exchange-col__figure">
-                            <img src="assets/43-practice-exchange/practice-questions.png" alt="실습 중 개념 질문 일러스트">
-                        </figure>
                     </section>
                     <section class="practice-exchange-col practice-exchange-col--discussion">
                         <header class="practice-exchange-col__head">
@@ -897,9 +918,6 @@
                             </div>
                         </header>
                         <div class="practice-exchange-col__list">${PRACTICE_DISCUSSIONS.map(renderPracticeDiscussionItem).join('')}</div>
-                        <figure class="practice-exchange-col__figure">
-                            <img src="assets/43-practice-exchange/practice-discussions.png" alt="실습 중 관점 나누기 일러스트">
-                        </figure>
                     </section>
                 </div>
             </div>`;
@@ -915,49 +933,82 @@
             dList.scrollTop = 0;
         }
 
-        function buildInterviewGoalItems(goals) {
-            return goals.map(g =>
-                `<li class="interview-goal-item"><span class="interview-goal-check"><i data-lucide="check"></i></span><span>${g}</span></li>`
+        function buildInterviewTopic(num, title, items) {
+            const list = items.map(item =>
+                `<li class="interview-topic__item"><span class="interview-topic__bar" aria-hidden="true"></span><span>${item}</span></li>`
             ).join('');
+            return `<article class="interview-topic">
+                <div class="interview-topic__head">
+                    <span class="interview-topic__num">${num}</span>
+                    <h3 class="interview-topic__title">${title}</h3>
+                </div>
+                <ul class="interview-topic__list">${list}</ul>
+            </article>`;
         }
 
-        function buildInterviewGoalsCard(title, goals) {
-            return `<div class="interview-goals-box">
-                <p class="interview-goals-title">${title}</p>
-                <ul class="interview-goals-list">${buildInterviewGoalItems(goals)}</ul>
-            </div>`;
+        function buildInterviewPanel(title, topics) {
+            return `<section class="interview-panel">
+                <p class="interview-panel__label">${title}</p>
+                <div class="interview-panel__cards">${topics.join('')}</div>
+            </section>`;
         }
 
         function buildInterviewSlide() {
-            const technicalGoals = [
-                '각자의 도메인·업무 파악',
-                'AI 적용 현황 및 문제점 확인',
-                '희망 학습 주제와 성장 방향 확인',
-                'PoC 지원·운영 방향 설계'
-            ];
-            const operationalGoals = [
-                '정기 참여 가능 시간대 확인',
-                '부재 시 대체 가능 인원 확인',
-                '활동 제약 조건·일정 조율'
+            const technical = buildInterviewPanel(
+                '기술적 관점',
+                [
+                    buildInterviewTopic('1', 'AI 활용 기술 수준', [
+                        'AI · 자동화 · 바이브코딩 경험 수준을 파악',
+                        'Cursor, Copilot, ChatGPT 등 현재 사용 도구 확인',
+                        '실무에 이미 적용 중인 AI 활용 범위 점검'
+                    ]),
+                    buildInterviewTopic('2', 'AI 적용 프로젝트 니즈 · 관심 분야', [
+                        '직무·업무별 AI 적용이 필요한 영역 도출',
+                        '보유 중인 AI 기반 프로젝트 아이디어 확인',
+                        '단기 PoC로 실행 가능한 과제 우선순위 정리'
+                    ])
+                ]
+            );
+            const operational = buildInterviewPanel(
+                '운영적 관점',
+                [
+                    buildInterviewTopic('1', '학습 · 성장 방향', [
+                        'PUG에서 희망하는 교육 주제와 난이도 확인',
+                        '활용 · 개발 · 설계 등 목표 수준 파악',
+                        '비전공자 기준으로 학습 우선순위 조율'
+                    ]),
+                    buildInterviewTopic('2', '참여 가능 조건 · 제약', [
+                        '주간 시간 투자 가능 여부와 밀도 확인',
+                        '특정 기간 업무 밀집 등 일정 제약 파악',
+                        '정기 모임 참여 가능한 시간대 조율'
+                    ])
+                ]
+            );
+            const common = [
+                '실무형 코칭',
+                '보안 가이드',
+                '기술 전문가 협업',
+                '<strong>실제 산출물 중심</strong> 활동'
             ];
             return contentSlide({
                 label: 'Interview · 사전 인터뷰',
                 title: 'PUG 멤버 사전 인터뷰',
-                message: 'PoC 수행 가능성과 필요한 지원 사항을 확인하기 위한 과정이었습니다.',
+                message: '멤버별 현황과 제약을 파악해, <strong class="text-ink">맞춤 커리큘럼</strong>과 <strong class="text-ink">PoC 지원 방향</strong>을 설계하기 위한 과정이었습니다.',
                 wide: true,
                 compact: true,
+                alignTop: false,
                 slideClass: 'slide-interview',
                 body: `<div class="interview-body">
-                    <p class="interview-goals-heading">🎯 인터뷰에서 확인한 것</p>
-                    <div class="interview-goals-split">
-                        ${buildInterviewGoalsCard('기술적 관점', technicalGoals)}
-                        ${buildInterviewGoalsCard('운영적 관점', operationalGoals)}
+                    <div class="interview-goals-split">${technical}${operational}</div>
+                    <div class="interview-common">
+                        <div class="interview-common__head">
+                            <span class="interview-common__mark" aria-hidden="true"></span>
+                            <p class="interview-common__label">인터뷰에서 공통으로 확인된 요구사항</p>
+                        </div>
+                        <div class="interview-common__row">
+                            ${common.map(c => `<div class="interview-common__chip">${c}</div>`).join('')}
+                        </div>
                     </div>
-                    <div class="interview-highlight bg-beige rounded-lg">공통 요구사항: 실무형 코칭, 보안 가이드, 기술 전문가 협업, <strong class="text-ink">실제 산출물 중심</strong> 활동</div>
-                    <figure class="interview-fields-figure">
-                        <figcaption class="interview-fields-caption">인터뷰 결과 · 분야별 PoC</figcaption>
-                        <img src="assets/10-poc-fields/poc-fields.png" alt="분야별 PoC" class="interview-fields-img">
-                    </figure>
                 </div>`
             });
         }
@@ -1200,19 +1251,24 @@
                 title: 'AI PUG의 시작 - AI 활용과 문화 확산',
                 message: 'AI 활용에 대한 관심은 높아졌지만, 실제 업무에 어떻게 적용할지는 각자 막막한 상황이었습니다. AI PUG는 이런 고민을 함께 풀어가기 위해 시작된 <strong class="text-ink">자발적 학습·공유 그룹</strong>이었습니다.',
                 body: `<div class="opening-split grid lg:grid-cols-5 gap-6 items-stretch">
-                    <div class="lg:col-span-3 opening-split__table bg-card rounded-lg p-6"><table class="tbl nowrap-first opening-split__tbl"><tbody>
-                        <tr><td>출범</td><td><strong class="text-ink">2025년 7월</strong></td></tr>
-                        <tr><td>그룹명</td><td>AI Power User Group <strong class="text-ink">(15명)</strong></td></tr>
-                        <tr><td>목적</td><td>사내 AI 활용 역량 강화 및 자발적 지식 공유 문화 확산</td></tr>
-                        <tr><td>운영 방식</td><td><strong class="text-ink">정기 모임</strong>, <strong class="text-ink">캐쥬얼 모임(자율)</strong>, AI 활용 사례 공유, 실습 중심 활동</td></tr>
-                        <tr><td>출발점</td><td>AI를 실제 업무에 활용하고 싶은 구성원들의 참여</td></tr>
-                    </tbody></table></div>
-                    <div class="lg:col-span-2 opening-pug-panel bg-card rounded-lg p-6 self-stretch flex flex-col items-center justify-center text-center">
-                        <p class="opening-pug-panel__title">AI PowerUserGroup <span>(PUG)</span></p>
-                        <figure class="opening-pug-panel__figure">
-                            <img src="assets/01-opening/pug-mascot.png" alt="PUG 마스코트" loading="lazy">
-                        </figure>
-                    </div></div>`
+                    <div class="lg:col-span-3 opening-tray">
+                        <div class="opening-split__table"><table class="tbl nowrap-first opening-split__tbl"><tbody>
+                            <tr><td>출범</td><td><strong class="text-ink">2025년 7월</strong></td></tr>
+                            <tr><td>그룹명</td><td>AI Power User Group <strong class="text-ink">(15명)</strong></td></tr>
+                            <tr><td>목적</td><td>사내 AI 활용 역량 강화 및 자발적 지식 공유 문화 확산</td></tr>
+                            <tr><td>운영 방식</td><td><strong class="text-ink">정기 모임</strong>, <strong class="text-ink">캐쥬얼 모임(자율)</strong>, AI 활용 사례 공유, 실습 중심 활동</td></tr>
+                            <tr><td>출발점</td><td>AI를 실제 업무에 활용하고 싶은 구성원들의 참여</td></tr>
+                        </tbody></table></div>
+                    </div>
+                    <div class="lg:col-span-2 opening-tray">
+                        <div class="opening-pug-panel self-stretch flex flex-col items-center justify-center text-center">
+                            <p class="opening-pug-panel__title">AI PowerUserGroup <span>(PUG)</span></p>
+                            <figure class="opening-pug-panel__figure">
+                                <img src="assets/01-opening/pug-mascot.png" alt="PUG 마스코트" loading="lazy">
+                            </figure>
+                        </div>
+                    </div>
+                </div>`
             }),
 
             contentSlide({
@@ -1273,7 +1329,7 @@
 
             contentSlide({
                 label: '2026 Direction · 전환',
-                title: '2026년 전환 - 인터뷰에서 PoC까지',
+                title: '2026년, 어떻게 바꿨나',
                 message: '2025년 회고를 바탕으로 <strong class="text-ink">업무 문제 해결(PoC)</strong> 중심으로 전환하며, 운영 · 멤버 · 보안을 아래와 같이 개선했습니다.',
                 slideClass: 'slide-perspective',
                 body: `${buildMemberDeptGrid(MEMBER_DEPTS)}
@@ -1594,7 +1650,6 @@
                             </ul></div>
                             <div class="cur-block"><div class="cur-block-title">연동·설정</div><ul>
                                 <li>port·.env 환경변수 설정·API 키 관리</li>
-                                <li>FE–BE 연동 테스트·CORS 등 연결 오류 대응</li>
                             </ul></div>
                         </div></td></tr>
                     </tbody>
@@ -1602,14 +1657,10 @@
                     <div class="curriculum-split__col"><div class="curriculum-split__scroll"><table class="tbl tbl-curriculum">
                     <thead><tr><th>학습 주제</th><th>주요 학습 내용</th><th>상세</th></tr></thead>
                     <tbody>
-                        <tr><td>LLM 기본 원리<br>및 활용</td><td class="cur-main">LLM 강점/한계 · 컨텍스트 · Temperature 등 옵션</td><td><div class="cur-detail">
+                        <tr><td>LLM 기본 원리<br>및 활용</td><td class="cur-main">LLM 강점/한계 · Temperature 등 옵션 · RAG</td><td><div class="cur-detail">
                             <div class="cur-block"><div class="cur-block-title">LLM 이해</div><ul>
                                 <li>강점/한계, 시스템·유저 프롬프트 구분</li>
                                 <li>Temperature 값 변경·응답 차이 체감</li>
-                            </ul></div>
-                            <div class="cur-block"><div class="cur-block-title">컨텍스트 설계</div><ul>
-                                <li>컨텍스트 재전송 필요 상황 경험</li>
-                                <li>고정/동적 컨텍스트·길이 제한 고려</li>
                             </ul></div>
                             <div class="cur-block"><div class="cur-block-title">LLM API</div><ul>
                                 <li>API 호출 흐름 구현·응답 수신</li>
@@ -1629,23 +1680,17 @@
                                 <li>PoC 목표·MVP 범위·기술 스택 선정</li>
                             </ul></div>
                         </div></td></tr>
-                        <tr><td>배포와 운영</td><td class="cur-main">로컬 vs 운영 환경 · 빌드→배포→실행</td><td><div class="cur-detail">
+                        <tr><td>배포와 운영</td><td class="cur-main">로컬 vs 운영 환경 · 호스팅·DNS</td><td><div class="cur-detail">
                             <div class="cur-block"><div class="cur-block-title">배포 방식</div><ul>
                                 <li>로컬 실행·온프레미스/Azure 배포 방식</li>
                             </ul></div>
                             <div class="cur-block"><div class="cur-block-title">용어 학습</div><ul>
                                 <li>호스팅·DNS·환경변수 설정</li>
                             </ul></div>
-                            <div class="cur-block"><div class="cur-block-title">배포 파이프라인</div><ul>
-                                <li>자동화된 배포 흐름(빌드→배포→실행)</li>
-                            </ul></div>
                         </div></td></tr>
-                        <tr><td>자동화 &amp;<br>오케스트레이션</td><td class="cur-main">n8n·Power Automate · 트리거 · LLM 삽입</td><td><div class="cur-detail">
+                        <tr><td>자동화 &amp;<br>오케스트레이션</td><td class="cur-main">n8n·Power Automate · LLM 삽입</td><td><div class="cur-detail">
                             <div class="cur-block"><div class="cur-block-title">자동화 구성</div><ul>
                                 <li>n8n/PA/RPA 자동화 구성 경험</li>
-                            </ul></div>
-                            <div class="cur-block"><div class="cur-block-title">트리거</div><ul>
-                                <li>Webhook·스케줄·이벤트 트리거 실행</li>
                             </ul></div>
                             <div class="cur-block"><div class="cur-block-title">워크플로</div><ul>
                                 <li>수집→처리→게시 흐름·LLM 삽입 자동화</li>
@@ -1659,29 +1704,20 @@
                                 <li>GitHub 코드 변경·관리 흐름 경험</li>
                             </ul></div>
                         </div></td></tr>
-                        <tr><td>AI 에이전트 관점</td><td class="cur-main">업무→에이전트 전환, MVP 구조 설계</td><td><div class="cur-detail">
+                        <tr><td>AI 에이전트 관점</td><td class="cur-main">업무→에이전트 전환 · LLM+API+DB 구조</td><td><div class="cur-detail">
                             <div class="cur-block"><div class="cur-block-title">시나리오 설계</div><ul>
                                 <li>업무→에이전트 대체 시나리오·역할·입출력 정의</li>
                             </ul></div>
                             <div class="cur-block"><div class="cur-block-title">구조 구성</div><ul>
                                 <li>LLM+API+DB 결합 구조 구성</li>
                             </ul></div>
-                            <div class="cur-block"><div class="cur-block-title">MVP 구현</div><ul>
-                                <li>작동하는 MVP 수준 구현</li>
-                            </ul></div>
                         </div></td></tr>
-                        <tr><td>UI / UX</td><td class="cur-main">Design vs UX · UI 컴포넌트 · 디자인 시스템 · AI 디자인 도구</td><td><div class="cur-detail">
+                        <tr><td>UI / UX</td><td class="cur-main">Design vs UX · AI 디자인 도구</td><td><div class="cur-detail">
                             <div class="cur-block"><div class="cur-block-title">UI/UX 이해</div><ul>
                                 <li>Design vs UX 구분·사용자 관점 화면 설계</li>
-                                <li>정보 구조·레이아웃·가독성 기본 원칙</li>
-                            </ul></div>
-                            <div class="cur-block"><div class="cur-block-title">컴포넌트·디자인 시스템</div><ul>
-                                <li>버튼·입력·카드 등 UI 컴포넌트 이해</li>
-                                <li>디자인 가이드·색·타이포 일관성 적용</li>
                             </ul></div>
                             <div class="cur-block"><div class="cur-block-title">AI·바이브 코딩 적용</div><ul>
                                 <li>v0 등 AI 디자인 도구로 화면 시안 생성</li>
-                                <li>PoC UI 개선·Tailwind·shadcn/ui 활용</li>
                             </ul></div>
                         </div></td></tr>
                     </tbody>
@@ -2295,7 +2331,6 @@
                 message: 'API부터 DB 설계까지 다양한 주제에서 질문과 토론이 오가며, 혼자 배우던 방식에서 함께 성장하는 구조로 바뀌었습니다.',
                 wide: true,
                 compact: true,
-                alignTop: true,
                 slideClass: 'slide-practice-qa',
                 body: buildPracticeExchangeBody()
             }),
@@ -2320,22 +2355,48 @@
                 label: 'Effect · Closing',
                 title: 'AI 활용 문화, 조직에 뿌리내리다',
                 message: 'PUG의 성장은 AI 도구를 더 잘 쓰게 된 것이 아니라, 현업 문제를 AI 관점으로 다시 정의하고 해결 가능성을 검증하는 방식의 성장입니다.',
-                body: `<div class="bg-card rounded-lg p-6 mb-4"><table class="tbl tbl-culture-change nowrap-first">
-                    <thead><tr><th>변화</th><th>의미</th></tr></thead>
-                    <tbody>
-                        <tr><td>도구 중심 → 문제 중심</td><td>AI 활용의 목적이 명확해짐</td></tr>
-                        <tr><td>학습 중심 → 실행 중심</td><td>실제 업무 적용 가능성 검증</td></tr>
-                        <tr><td>개인 경험 → 공동 피드백</td><td>함께 개선하는 구조로 변화</td></tr>
-                    </tbody>
-                </table></div>
-                <figure class="culture-growth-figure mb-4">
-                    <img src="assets/45-ai-culture/ai-problem-solving.png" alt="현업 문제를 AI로 풀어보는 협업 일러스트" loading="lazy">
-                </figure>
-                <div class="bg-ink text-card rounded-lg p-6 md:p-8 text-center">
-                    <p class="text-xl md:text-2xl font-bold leading-relaxed">
-                        AI PUG의 성장은 <span class="text-taupe">AI 사용법의 성장</span>이 아니라,<br>
-                        현업 문제를 <span class="text-pug">AI로 풀어보는 방식의 성장</span>입니다.
-                    </p>
+                wide: true,
+                compact: true,
+                body: `<div class="culture-split">
+                    <div class="culture-split__shifts">
+                        <article class="culture-shift">
+                            <div class="culture-shift__head">
+                                <span class="culture-shift__num">1</span>
+                                <p class="culture-shift__change"><span class="culture-shift__from">도구 중심</span><span class="culture-shift__arrow">→</span><span class="culture-shift__to">문제 중심</span></p>
+                            </div>
+                            <ul class="culture-shift__cases">
+                                <li>PoC 아이디어 워크숍 · 현업 과제 도출</li>
+                                <li>문제 정의 · PoC 목표·범위 설정</li>
+                                <li>멤버별 PoC 주제 발표</li>
+                            </ul>
+                        </article>
+                        <article class="culture-shift">
+                            <div class="culture-shift__head">
+                                <span class="culture-shift__num">2</span>
+                                <p class="culture-shift__change"><span class="culture-shift__from">학습 중심</span><span class="culture-shift__arrow">→</span><span class="culture-shift__to">실행 중심</span></p>
+                            </div>
+                            <ul class="culture-shift__cases">
+                                <li>업무 키워드 뉴스 요약 → Teams 자동 발송</li>
+                                <li>현업 데이터로 RAG 챗봇 시연·검증</li>
+                                <li>Outlook·Teams API로 실제 업무 연동</li>
+                            </ul>
+                        </article>
+                        <article class="culture-shift">
+                            <div class="culture-shift__head">
+                                <span class="culture-shift__num">3</span>
+                                <p class="culture-shift__change"><span class="culture-shift__from">개인 경험</span><span class="culture-shift__arrow">→</span><span class="culture-shift__to">공동 피드백</span></p>
+                            </div>
+                            <ul class="culture-shift__cases">
+                                <li>실습 중 질문·토론 공유</li>
+                                <li>코드·디자인 1:1 피드백</li>
+                                <li>전문가 강의·간담회 Q&A</li>
+                            </ul>
+                        </article>
+                    </div>
+                    <figure class="culture-split__video">
+                        <video src="assets/45-ai-culture/joint-feedback.mp4" autoplay muted loop playsinline preload="auto"></video>
+                        <figcaption>질문과 피드백이 오가는 현장</figcaption>
+                    </figure>
                 </div>`
             }),
 
@@ -2461,11 +2522,14 @@
 
         function renderChecklistCard(cat, idx) {
             const { num, name } = parseChecklistTitle(cat.title);
-            const subs = cat.subs.map(s => `
+            const subs = cat.subs.map(s => {
+                const subLabel = s.sub.replace(/^\d+-\d+\.\s*/, '');
+                return `
                 <div class="checklist-overview-card__block">
-                    <p class="checklist-overview-card__sub">${s.sub}</p>
+                    <p class="checklist-overview-card__sub">${subLabel}</p>
                     <ul class="checklist-overview-card__list">${s.items.map(item => `<li>${item}</li>`).join('')}</ul>
-                </div>`).join('');
+                </div>`;
+            }).join('');
             return `<article class="checklist-overview-card">
                 <header class="checklist-overview-card__head">
                     <span class="checklist-overview-card__num">${num || idx + 1}</span>
@@ -2761,7 +2825,7 @@
         const EMBED_SCROLL_SELECTOR = '.embed-scroll-iframe';
         const CONVENTION_GUIDE_SELECTOR = '.week-guide-embed--convention .week-guide-iframe';
         const CONVENTION_TABS = ['intro', 'naming', 'folder', 'markdown', 'git', 'monorepo'];
-        const CONVENTION_TAB_INTERVAL_MS = 1125;
+        const CONVENTION_TAB_INTERVAL_MS = 2500;
         let conventionTabTimer = null;
         let conventionTabIndex = 0;
         const EMBED_SCROLL_SPEED = 170;
