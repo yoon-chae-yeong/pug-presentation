@@ -1,4 +1,6 @@
-/** slide-scripts.txt 로드 · 파싱 (presenter.html에서 initSlideScripts() 호출) */
+/** slide-scripts.txt 로드 · 파싱 (presenter.html에서 initSlideScripts() 호출)
+ *  Live Server 등 http(s)로 열어야 합니다. file:// 더블클릭은 지원하지 않습니다.
+ */
 let SLIDE_TITLES = [];
 let SLIDE_SCRIPTS = [];
 
@@ -41,26 +43,19 @@ function parseSlideScriptsFile(raw) {
 }
 
 async function loadSlideScriptsRaw() {
-    if (typeof window.SLIDE_SCRIPTS_RAW === 'string' && window.SLIDE_SCRIPTS_RAW.trim()) {
-        return window.SLIDE_SCRIPTS_RAW;
+    if (location.protocol === 'file:') {
+        throw new Error(
+            'file://로 열면 스크립트를 불러올 수 없습니다. presenter.html을 Live Server(Open with Live Server)로 여세요.'
+        );
     }
 
-    if (location.protocol !== 'file:') {
-        try {
-            const res = await fetch(`slide-scripts.txt?_${Date.now()}`);
-            if (res.ok) return await res.text();
-        } catch (_) { /* file:// 또는 네트워크 오류 → raw.js fallback */ }
-    }
-
-    return null;
+    const res = await fetch(`slide-scripts.txt?_${Date.now()}`);
+    if (!res.ok) throw new Error(`slide-scripts.txt를 불러오지 못했습니다 (${res.status})`);
+    return await res.text();
 }
 
 async function initSlideScripts() {
     const raw = await loadSlideScriptsRaw();
-    if (!raw) {
-        throw new Error('slide-scripts.raw.js가 없습니다. slide-scripts.txt 수정 후 node sync-scripts.mjs 실행');
-    }
-
     const parsed = parseSlideScriptsFile(raw);
     if (!parsed.scripts.length) throw new Error('slide-scripts.txt에 스크립트가 없습니다.');
 
