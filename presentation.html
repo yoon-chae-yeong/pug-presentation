@@ -30,6 +30,42 @@
             --slide-47-panel-height: calc(var(--slide-47-row-1-height) + var(--slide-47-row-2-height) + 1.6rem); /* gap + 패딩 포함, 직접 수정 불필요 */
         }
         body { font-family: 'Inter', 'Noto Sans KR', sans-serif; }
+        .cover-meta {
+            position: absolute;
+            left: 50%;
+            bottom: 9.75rem;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.85rem;
+            flex-wrap: wrap;
+            text-align: center;
+            z-index: 2;
+            max-width: calc(100% - 16rem);
+        }
+        .cover-meta__value {
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: #8A7B6E;
+            line-height: 1.4;
+            word-break: keep-all;
+        }
+        .cover-meta__value .dot { color: #B8A99A; margin: 0 0.22rem; font-weight: 600; }
+        .cover-meta__sep {
+            width: 1px;
+            height: 0.85rem;
+            background: #D4CBC0;
+            flex-shrink: 0;
+        }
+        .slide[data-part="cover"] { position: relative; }
+        .cover-avatar { position: absolute; right: 2.75rem; bottom: 5.75rem; width: 11rem; height: 11rem; border-radius: 50%; overflow: hidden; border: 4px solid #fff; box-shadow: 0 8px 28px rgba(51,39,31,.18); background: #F0EAE0; z-index: 2; }
+        .cover-avatar img { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; }
+        @media (max-width: 768px) {
+            .cover-avatar { right: 1.25rem; bottom: 4.75rem; width: 6.75rem; height: 6.75rem; }
+            .cover-meta { bottom: 7rem; max-width: calc(100% - 2.5rem); }
+        }
+        .deck-nav { box-shadow: 0 4px 16px rgba(51, 39, 31, 0.12), 0 1px 3px rgba(51, 39, 31, 0.06); }
         .slide { display: none; animation: fade 0.35s ease; }
         .slide.active { display: flex; }
         @keyframes fade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
@@ -219,6 +255,20 @@
         .week-photo-sub--stacked img.week-photo-sub__header { flex: 0 0 auto; max-height: 48px; object-fit: contain; padding: 5px 8px 2px; background: #fff; }
         .week-photo-sub--stacked img.week-photo-sub__body { flex: 1; min-height: 0; }
         .week-present-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-template-rows: repeat(2, minmax(0, 1fr)); gap: 0.5rem; margin-top: 0.75rem; height: min(500px, calc(100vh - 230px)); max-height: 520px; }
+        .showcase-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-template-rows: repeat(2, minmax(0, 1fr)); gap: 0.4rem; margin-top: 0; flex: 1; min-height: 0; height: auto; max-height: none; width: 100%; }
+        .slide-showcase > div > p.text-sm.font-bold { margin-bottom: 0.35rem !important; }
+        .slide-showcase > div > h2 { margin-bottom: 0.35rem !important; }
+        .slide-showcase > div > p.leading-relaxed { margin-bottom: 0.35rem !important; font-size: 0.8125rem; max-width: none !important; }
+        .slide-showcase .week-topics { margin-bottom: 0.45rem; padding: 0.35rem 0.65rem; }
+        .slide-showcase .week-topics__chip { padding: 0.2rem 0.55rem; font-size: 0.72rem; }
+        .showcase-cell { border-radius: 8px; overflow: hidden; background: #fff; min-height: 0; display: flex; flex-direction: column; line-height: 0; }
+        .showcase-cell img { width: 100%; flex: 1; min-height: 0; object-fit: cover; object-position: right center; display: block; background: #F0EAE0; }
+        .showcase-cell--slide img { object-fit: contain; object-position: center; background: #FBF8F3; }
+        .showcase-cell figcaption { flex-shrink: 0; font-size: 0.62rem; font-weight: 700; text-align: center; padding: 0.28rem 0.35rem; color: #33271F; background: #FBF8F3; line-height: 1.25; word-break: keep-all; }
+        .showcase-cell--note { justify-content: center; gap: 0.45rem; padding: 0.85rem 0.9rem; background: #FBF8F3; line-height: 1.35; }
+        .showcase-cell__eyebrow { margin: 0; font-size: 0.62rem; font-weight: 800; color: #C8860A; letter-spacing: 0.02em; }
+        .showcase-cell__title { margin: 0; font-size: 0.88rem; font-weight: 800; color: #33271F; line-height: 1.35; word-break: keep-all; }
+        .showcase-cell__text { margin: 0; font-size: 0.68rem; font-weight: 600; color: #4A3C33; line-height: 1.45; word-break: keep-all; }
         .slide-poc-present .week-present-grid { margin-top: 0; height: min(500px, calc(100vh - 300px)); max-height: 520px; width: 100%; }
         .slide-poc-present > div > p.leading-relaxed { margin-bottom: 0.55rem !important; }
         .list-slide-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.45rem 0.85rem; }
@@ -232,17 +282,17 @@
         .interview-panel__title { margin: 0; font-size: 0.95rem; font-weight: 800; color: #33271F; line-height: 1.3; }
         .interview-panel__title span { color: #C8860A; }
         .tbl-interview-compare { width: 100%; margin: 0; }
-        .tbl-interview-compare thead th { font-size: 0.82rem; padding: 0.55rem 0.85rem; background: #F0EAE0; color: #33271F; }
+        .tbl-interview-compare thead th { font-size: 0.82rem; padding: 0.55rem 0.85rem; background: #FBF8F3; color: #33271F; }
         .tbl-interview-compare tbody td { font-size: 0.86rem; line-height: 1.45; padding: 0.72rem 0.85rem; vertical-align: middle; word-break: keep-all; }
-        .tbl-interview-compare tbody td:first-child { width: 12%; font-weight: 800; color: #33271F; white-space: nowrap; background: #FBF8F3; }
+        .tbl-interview-compare tbody td:first-child { width: 12%; font-weight: 800; color: #33271F; white-space: nowrap; }
         .tbl-interview-compare tbody td:nth-child(2) { width: 26%; font-weight: 700; color: #33271F; }
         .tbl-interview-compare tbody td:last-child { vertical-align: top; }
         .tbl-interview-compare .interview-sub { display: block; margin-top: 0.22rem; font-size: 0.74rem; font-weight: 500; color: #8A7B6E; line-height: 1.4; }
-        .interview-common-panel { background: #F0EAE0; border-radius: 8px; padding: 0.7rem 0.85rem 0.8rem; }
+        .interview-common-panel { background: #fff; border-radius: 8px; padding: 0.7rem 0.85rem 0.8rem; }
         .interview-common-panel .interview-panel__head { border-bottom-color: #F5B041; margin-bottom: 0.55rem; padding-bottom: 0.4rem; }
         .interview-common-panel .interview-panel__title { font-size: 0.9rem; }
         .interview-common-block__grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.45rem; }
-        .interview-common-chip { display: flex; align-items: center; gap: 0.45rem; min-height: 2.55rem; padding: 0.45rem 0.55rem; background: #fff; border-radius: 8px; }
+        .interview-common-chip { display: flex; align-items: center; gap: 0.45rem; min-height: 2.55rem; padding: 0.45rem 0.55rem; background: #FBF8F3; border-radius: 8px; }
         .interview-common-chip__num { flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center; width: 1.35rem; height: 1.35rem; border-radius: 4px; background: #33271F; color: #fff; font-size: 0.65rem; font-weight: 800; line-height: 1; }
         .interview-common-chip__label { font-size: 0.8rem; font-weight: 700; color: #33271F; line-height: 1.3; word-break: keep-all; }
         @media (max-width: 900px) {
@@ -256,8 +306,8 @@
         .opening-split__tbl { flex: 1; width: 100%; height: 100%; }
         .opening-split__tbl tbody { height: 100%; }
         .opening-split__tbl tbody tr { height: 20%; }
-        .opening-split__tbl tbody td { vertical-align: middle; font-size: 0.98rem; line-height: 1.5; padding: 0.85rem 1.1rem; }
-        .opening-split__tbl tbody td:first-child { font-size: 0.95rem; }
+        .opening-split__tbl tbody td { vertical-align: middle; font-size: 1.08rem; line-height: 1.5; padding: 0.85rem 1.1rem; }
+        .opening-split__tbl tbody td:first-child { font-size: 1.18rem; font-weight: 700; }
         .opening-pug-panel { min-height: 0; gap: 1rem; height: 100%; background: #fff; border-radius: 8px; padding: 1rem 1.1rem; }
         .opening-pug-panel__title { font-size: 1.2rem; font-weight: 800; color: #33271F; line-height: 1.4; margin: 0; letter-spacing: -0.01em; flex-shrink: 0; }
         .opening-pug-panel__title span { color: #C8860A; }
@@ -530,6 +580,23 @@
         .culture-split__video { margin: 0; min-height: 0; height: 100%; display: flex; flex-direction: column; border-radius: 8px; overflow: hidden; background: #FFFFFF; }
         .culture-split__video video { width: 100%; flex: 1; min-height: 0; object-fit: cover; object-position: center; display: block; background: #F0EAE0; pointer-events: none; }
         .culture-split__video figcaption { flex-shrink: 0; font-size: 0.68rem; font-weight: 700; text-align: center; padding: 0.4rem 0.5rem; color: #33271F; background: #F0EAE0; line-height: 1.3; }
+        .culture-diffuse { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 1rem; align-items: stretch; height: min(460px, calc(100vh - 250px)); max-height: 480px; }
+        .culture-diffuse__photo { margin: 0; min-height: 0; height: 100%; display: flex; flex-direction: column; border-radius: 8px; overflow: hidden; background: #fff; }
+        .culture-diffuse__photo img { width: 100%; flex: 1; min-height: 0; object-fit: cover; object-position: center; display: block; background: #F0EAE0; }
+        .culture-diffuse__photo figcaption { flex-shrink: 0; font-size: 0.68rem; font-weight: 700; text-align: center; padding: 0.4rem 0.55rem; color: #8A7B6E; background: #FBF8F3; line-height: 1.3; }
+        .culture-diffuse__points { margin: 0; height: 100%; min-height: 0; display: flex; flex-direction: column; gap: 0.5rem; }
+        .culture-diffuse-card { flex: 1; min-height: 0; display: flex; flex-direction: column; justify-content: center; gap: 0.35rem; background: #fff; border-radius: 8px; padding: 0.65rem 0.85rem; }
+        .culture-diffuse-card__head { display: flex; align-items: flex-start; gap: 0.5rem; min-width: 0; }
+        .culture-diffuse-card__num { flex-shrink: 0; width: 1.35rem; height: 1.35rem; border-radius: 5px; background: #F5B041; color: #33271F; font-size: 0.68rem; font-weight: 800; display: inline-flex; align-items: center; justify-content: center; line-height: 1; margin-top: 0.05rem; }
+        .culture-diffuse-card__title { margin: 0; font-size: 0.84rem; font-weight: 800; color: #33271F; line-height: 1.35; letter-spacing: -0.01em; word-break: keep-all; }
+        .culture-diffuse-card__body { margin: 0; font-size: 0.72rem; font-weight: 500; color: #4A3C33; line-height: 1.45; word-break: keep-all; }
+        .culture-diffuse-card__quote { margin: 0.1rem 0 0; padding: 0.4rem 0.55rem; background: #FBF8F3; border-radius: 6px; font-size: 0.7rem; font-weight: 700; color: #33271F; line-height: 1.4; word-break: keep-all; }
+        .culture-diffuse-card__quote .arrow { color: #F5B041; font-weight: 800; margin: 0 0.2rem; }
+        .culture-diffuse-card__chips { display: flex; flex-wrap: wrap; gap: 0.28rem; margin-top: 0.1rem; }
+        .culture-diffuse-card__chip { display: inline-flex; align-items: center; padding: 0.18rem 0.45rem; background: #FBF8F3; border-radius: 999px; font-size: 0.62rem; font-weight: 700; color: #33271F; line-height: 1.3; word-break: keep-all; }
+        .culture-diffuse-card__note { margin: 0.05rem 0 0; font-size: 0.68rem; font-weight: 600; color: #8A7B6E; line-height: 1.4; word-break: keep-all; }
+        .slide-culture-diffuse { justify-content: center !important; padding-top: 2.25rem !important; padding-bottom: 4rem !important; overflow: hidden; }
+        .slide-culture-diffuse > div > p.leading-relaxed { margin-bottom: 0.55rem !important; font-size: 0.8125rem; max-width: none !important; }
         .closing-copy { display: flex; flex-direction: column; justify-content: center; gap: 1rem; min-height: 0; }
         .closing-copy__badge { display: inline-flex; align-items: center; gap: 0.4rem; align-self: flex-start; background: #F5B041; color: #33271F; font-size: 0.78rem; font-weight: 800; padding: 0.35rem 0.75rem; border-radius: 8px; }
         .closing-copy__lead { font-size: 1.35rem; font-weight: 800; color: #33271F; line-height: 1.45; margin: 0; }
@@ -659,18 +726,18 @@
 
     <main id="deck" class="w-full h-screen"></main>
 
-    <div class="fixed bottom-5 left-1/2 -translate-x-1/2 z-50 flex items-center gap-3 bg-card rounded-full px-3 py-2">
-        <button onclick="goToPart('toc')" class="p-2 rounded-full hover:bg-beige text-ink transition" aria-label="목차" title="목차 (T)">
-            <i data-lucide="list" class="w-5 h-5"></i>
+    <div class="deck-nav fixed bottom-5 left-1/2 -translate-x-1/2 z-50 flex items-center gap-2 bg-card rounded-full px-2.5 py-1">
+        <button onclick="goToPart('toc')" class="p-1.5 rounded-full hover:bg-beige text-ink transition" aria-label="목차" title="목차 (T)">
+            <i data-lucide="list" class="w-4 h-4"></i>
         </button>
-        <button onclick="changeSlide(-1)" class="p-2 rounded-full hover:bg-beige text-ink transition" aria-label="이전">
-            <i data-lucide="chevron-left" class="w-5 h-5"></i>
+        <button onclick="changeSlide(-1)" class="p-1.5 rounded-full hover:bg-beige text-ink transition" aria-label="이전">
+            <i data-lucide="chevron-left" class="w-4 h-4"></i>
         </button>
         <span class="text-sm font-semibold text-ink tabular-nums px-1">
             <span id="cur">1</span><span class="text-taupe"> / <span id="total">0</span></span>
         </span>
-        <button onclick="changeSlide(1)" class="p-2 rounded-full hover:bg-beige text-ink transition" aria-label="다음">
-            <i data-lucide="chevron-right" class="w-5 h-5"></i>
+        <button onclick="changeSlide(1)" class="p-1.5 rounded-full hover:bg-beige text-ink transition" aria-label="다음">
+            <i data-lucide="chevron-right" class="w-4 h-4"></i>
         </button>
     </div>
 
@@ -1253,6 +1320,14 @@
                     <h1 class="text-5xl md:text-6xl font-extrabold tracking-tight leading-tight">AI PUG<br>성장 히스토리</h1>
                     <p class="text-base text-taupe max-w-2xl leading-relaxed">사내 AI 활용 역량을 높이고, 현업 중심의 AI 실험과<br>지식 공유 문화를 확산해온 AI PUG의 여정.</p>
                 </div>
+                <div class="cover-meta">
+                    <span class="cover-meta__value">윤채영<span class="dot">·</span>디지털전략센터 AI솔루션팀</span>
+                    <span class="cover-meta__sep" aria-hidden="true"></span>
+                    <span class="cover-meta__value">2026.07.01</span>
+                </div>
+                <div class="cover-avatar" aria-hidden="true">
+                    <img src="assets/01-opening/presenter-yoon.png" alt="발표자 윤채영">
+                </div>
             </section>`,
 
             buildTocSlide(),
@@ -1694,7 +1769,51 @@
                 </div>`
             }),
 
-            ...WEEKLY.map(w => weekSlide(w))
+            ...WEEKLY.map(w => weekSlide(w)),
+
+            contentSlide({
+                label: 'Showcase · PoC 발표',
+                title: 'AI PUG Showcase · 멤버 PoC 발표',
+                message: '상반기 학습·실습으로 만든 <strong class="text-ink">현업 PoC</strong>를 Showcase에서 발표하며, 부서별 업무 문제를 AI로 풀어본 성과를 공유했습니다.',
+                compact: true,
+                wide: true,
+                alignTop: true,
+                slideClass: 'slide-showcase',
+                body: `${buildKeywordTopics(['Showcase', 'PoC 발표', '현업 적용', '멤버 공유'])}<div class="showcase-grid">
+                    <figure class="showcase-cell showcase-cell--slide">
+                        <img src="assets/47-pug-showcase/showcase-1.png" alt="촉각센서 데이터 분석 자동화 시스템 PoC" loading="lazy">
+                        <figcaption>촉각센서 데이터 분석 자동화 시스템</figcaption>
+                    </figure>
+                    <figure class="showcase-cell showcase-cell--slide">
+                        <img src="assets/47-pug-showcase/showcase-2.png" alt="MOMO AI 회의 비서 PoC" loading="lazy">
+                        <figcaption>MOMO · AI 회의 비서</figcaption>
+                    </figure>
+                    <figure class="showcase-cell showcase-cell--slide">
+                        <img src="assets/47-pug-showcase/showcase-3.png" alt="임가공비 분석 시스템 PoC" loading="lazy">
+                        <figcaption>임가공비 분석 · 견적 검증</figcaption>
+                    </figure>
+                    <figure class="showcase-cell showcase-cell--slide">
+                        <img src="assets/47-pug-showcase/showcase-4.png" alt="VEDA 사내 업무 기록 검색 PoC" loading="lazy">
+                        <figcaption>VEDA · 사내 업무 기록 검색</figcaption>
+                    </figure>
+                    <figure class="showcase-cell showcase-cell--slide">
+                        <img src="assets/47-pug-showcase/showcase-5.png" alt="ATHENA 지식화 관제센터 PoC" loading="lazy">
+                        <figcaption>ATHENA · 지식화 관제센터</figcaption>
+                    </figure>
+                    <figure class="showcase-cell showcase-cell--slide">
+                        <img src="assets/47-pug-showcase/showcase-6.png" alt="Check-Mate 재무팀 PoC" loading="lazy">
+                        <figcaption>Check-Mate · 재무팀 업무흐름을 한눈에</figcaption>
+                    </figure>
+                    <figure class="showcase-cell showcase-cell--slide">
+                        <img src="assets/47-pug-showcase/showcase-7.png" alt="생산팀 수율 프로세스 혁신 PoC" loading="lazy">
+                        <figcaption>생산팀 수율 프로세스 혁신</figcaption>
+                    </figure>
+                    <figure class="showcase-cell showcase-cell--slide">
+                        <img src="assets/47-pug-showcase/showcase-8.png" alt="러버 트랙 BOM · Rubber Track Builder Pro" loading="lazy">
+                        <figcaption>러버 트랙 BOM · 자연어 AI</figcaption>
+                    </figure>
+                </div>`
+            })
         ];
 
         // ── PART 3: 디지털전략센터 × PUG ──
@@ -2346,6 +2465,60 @@
             }),
 
             buildMemberRadarSlide(),
+
+            contentSlide({
+                label: 'Effect · 문화 확산',
+                title: '전사적 AI 문화 확산 포인트',
+                message: 'Showcase를 통해 확인된 AI 문화가 조직 전반으로 확산되는 세 가지 관점입니다.',
+                wide: true,
+                compact: true,
+                slideClass: 'slide-culture-diffuse',
+                body: `<div class="culture-diffuse">
+                    <figure class="culture-diffuse__photo">
+                        <img src="assets/45-ai-culture/showcase-group.png" alt="AI PUG Showcase 단체 사진" loading="lazy">
+                        <figcaption>캠퍼스D 부산 폼다빈치 · AI PUG Showcase</figcaption>
+                    </figure>
+                    <div class="culture-diffuse__points">
+                        <article class="culture-diffuse-card">
+                            <div class="culture-diffuse-card__head">
+                                <span class="culture-diffuse-card__num">1</span>
+                                <h3 class="culture-diffuse-card__title">AI가 일부 전문가만의 기술이 아니라는 인식 확산</h3>
+                            </div>
+                            <p class="culture-diffuse-card__body">각 부서 PUG 멤버가 본인 업무 문제를 PoC로 구현한 사례를 공유하면서, AI가 특정 직군만의 영역이 아니라는 인식이 확산되었습니다.</p>
+                            <p class="culture-diffuse-card__quote">“AI는 개발자·데이터 조직만 쓰는 것”<span class="arrow">→</span>“내 업무 문제도 AI로 개선할 수 있다”</p>
+                        </article>
+                        <article class="culture-diffuse-card">
+                            <div class="culture-diffuse-card__head">
+                                <span class="culture-diffuse-card__num">2</span>
+                                <h3 class="culture-diffuse-card__title">현업 문제 중심의 AI 활용 사례 제시</h3>
+                            </div>
+                            <p class="culture-diffuse-card__body">추상적인 기술 소개가 아니라, 실제 업무 불편을 기반으로 한 PoC가 소개되었습니다.</p>
+                            <div class="culture-diffuse-card__chips">
+                                <span class="culture-diffuse-card__chip">판례 자료 정리</span>
+                                <span class="culture-diffuse-card__chip">견적 비교</span>
+                                <span class="culture-diffuse-card__chip">회의 일정 조율</span>
+                                <span class="culture-diffuse-card__chip">업무 영향 관리</span>
+                                <span class="culture-diffuse-card__chip">정보 조사·검토</span>
+                                <span class="culture-diffuse-card__chip">데이터 DB 검색</span>
+                            </div>
+                            <p class="culture-diffuse-card__note">AI가 ‘신기한 기술’이 아니라 ‘업무 방식을 개선하는 도구’로 받아들여지기 시작했습니다.</p>
+                        </article>
+                        <article class="culture-diffuse-card">
+                            <div class="culture-diffuse-card__head">
+                                <span class="culture-diffuse-card__num">3</span>
+                                <h3 class="culture-diffuse-card__title">부서 간 적용 가능성에 대한 공감 형성</h3>
+                            </div>
+                            <div class="culture-diffuse-card__chips">
+                                <span class="culture-diffuse-card__chip">“우리 부서에도 적용하고 싶다”</span>
+                                <span class="culture-diffuse-card__chip">“우리도 한번 검토하고 싶다”</span>
+                                <span class="culture-diffuse-card__chip">“바로 도입하고 싶다”</span>
+                            </div>
+                            <p class="culture-diffuse-card__body">현업 부서의 사례가 유사 업무를 가진 다른 부서에서도 참고 가능하다는 점이 확인되었습니다.</p>
+                            <p class="culture-diffuse-card__note">Showcase는 부서를 넘어 AI 활용 아이디어가 확산되는 장이 되었습니다.</p>
+                        </article>
+                    </div>
+                </div>`
+            }),
 
             contentSlide({
                 label: 'Effect · Closing',
