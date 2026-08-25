@@ -147,8 +147,10 @@
         .slide-review-activities > div > p.leading-relaxed { margin-bottom: 0.5rem !important; font-size: 0.8125rem; max-width: none !important; }
         .review-activities-layout { display: flex; flex-direction: column; gap: 0.5rem; }
         .review-activities-table-wrap { flex-shrink: 0; background: #fff; border-radius: 8px; padding: 0.65rem 0.85rem; border: 1px solid #F0EAE0; }
-        .review-activities-table-wrap .tbl-compact thead th { font-size: 0.78rem; padding: 0.45rem 0.8rem; }
-        .review-activities-table-wrap .tbl-compact tbody td { font-size: 0.8rem; padding: 0.38rem 0.8rem; line-height: 1.4; vertical-align: middle; }
+        .review-activities-table-wrap .tbl-compact thead th { font-size: 0.88rem; font-weight: 800; padding: 0.5rem 0.85rem; color: #33271F; }
+        .review-activities-table-wrap .tbl-compact tbody td { font-size: 0.92rem; font-weight: 700; padding: 0.48rem 0.85rem; line-height: 1.45; vertical-align: middle; color: #33271F; }
+        .review-activities-table-wrap .tbl-compact tbody td:first-child { font-weight: 800; }
+        .review-activities-table-wrap .tbl-compact tbody td:last-child { color: #4A3C33; font-weight: 700; }
         .review-activities-photos { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.5rem; flex: 0 0 auto; height: min(calc((100vh - 400px) * 1.2), 336px); max-height: min(calc((100vh - 400px) * 1.2), 336px); overflow: hidden; }
         .review-activities-photo { margin: 0; min-height: 0; display: flex; flex-direction: column; border-radius: 8px; overflow: hidden; border: 1px solid #F0EAE0; background: #fff; box-shadow: 0 1px 3px rgba(51,39,31,.06); }
         .review-activities-photo img { width: 100%; flex: 1; min-height: 0; object-fit: cover; object-position: center; display: block; background: #F0EAE0; }
@@ -159,17 +161,21 @@
         .pain-merge .opening-tray__panel { border-radius: 10px; }
         .tbl-pain-compare { width: 100%; margin: 0; }
         .tbl-pain-compare thead th { font-size: 0.88rem; padding: 0.75rem 1rem; }
-        .tbl-pain-compare tbody td { font-size: 0.9rem; line-height: 1.45; padding: 0.9rem 1rem; vertical-align: top; word-break: keep-all; font-weight: 700; color: #33271F; }
+        .tbl-pain-compare tbody td { font-size: 0.9rem; line-height: 1.45; padding: 0.9rem 1rem; vertical-align: top; word-break: keep-all; font-weight: 500; color: #33271F; }
         .tbl-pain-compare tbody td:first-child { width: 14%; font-weight: 800; color: #33271F; white-space: nowrap; }
+        .tbl-pain-compare tbody td strong { font-weight: 800; color: #33271F; }
         .tbl-pain-compare .pain-sub { display: block; margin-top: 0.28rem; font-size: 0.78rem; font-weight: 500; color: #8A7B6E; line-height: 1.4; }
-        .tbl-pain-compare .col-2026 { font-weight: 700; color: #33271F; }
+        .tbl-pain-compare .col-2026 { font-weight: 500; color: #33271F; }
         .pain-depts-block { margin-top: 0.85rem; padding-top: 0.85rem; border-top: 1px solid #F0EAE0; }
         .pain-depts-block__title { margin: 0 0 0.2rem; font-size: 0.82rem; font-weight: 800; color: #33271F; line-height: 1.3; }
         .pain-depts-block__title span { color: #C8860A; }
         .pain-depts-block__desc { margin: 0 0 0.55rem; font-size: 0.75rem; color: #8A7B6E; line-height: 1.4; word-break: keep-all; }
-        .pain-depts-block__grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.4rem; }
-        .pain-depts-block__grid .member-dept-block { min-height: 2rem; padding: 0.35rem 0.3rem; background: #FBF8F3; border: 1px solid #E8DFD0; }
-        .pain-depts-block__grid .member-dept-block__label { font-size: 0.72rem; }
+        .pain-depts-block__groups { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 0.45rem; }
+        .pain-depts-group { display: flex; flex-direction: column; gap: 0.35rem; min-width: 0; padding: 0.45rem 0.5rem; background: #FBF8F3; border: 1px solid #E8DFD0; border-radius: 6px; }
+        .pain-depts-group__company { margin: 0; font-size: 0.68rem; font-weight: 800; color: #C62828; line-height: 1.25; letter-spacing: -0.01em; }
+        .pain-depts-group__teams { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.3rem; width: 100%; }
+        .pain-depts-group__team { display: flex; align-items: center; justify-content: center; width: 100%; min-height: 1.7rem; padding: 0.22rem 0.45rem; box-sizing: border-box; background: #fff; border: 1px solid #E8DFD0; border-radius: 5px; font-size: 0.72rem; font-weight: 700; color: #33271F; line-height: 1.25; word-break: keep-all; text-align: center; }
+        .pain-depts-group:first-child .pain-depts-group__teams { grid-template-columns: repeat(4, minmax(0, 1fr)); }
         .slide-pain-merge > div > p.leading-relaxed { margin-bottom: 0.85rem !important; max-width: none !important; }
         .embed-scroll-bar { display: flex; justify-content: center; margin-top: 0.4rem; flex-shrink: 0; }
         .embed-scroll-btn { display: inline-flex; align-items: center; gap: 0.35rem; padding: 0.5rem 1.2rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 700; color: #33271F; background: #F5B041; border: none; cursor: pointer; transition: background 0.2s, opacity 0.2s; font-family: inherit; }
@@ -177,7 +183,8 @@
         .embed-scroll-btn.is-hidden { display: none; }
         .embed-scroll-btn i { width: 14px; height: 14px; }
         @media (max-width: 900px) {
-            .pain-depts-block__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+            .pain-depts-block__groups { grid-template-columns: 1fr; }
+            .pain-depts-group:first-child .pain-depts-group__teams { grid-template-columns: repeat(2, minmax(0, 1fr)); }
         }
         .week-photo-layout { display: grid; grid-template-columns: 1.55fr 1fr; gap: 0.75rem; height: min(420px, calc(100vh - 300px)); max-height: 420px; margin-top: 0.75rem; }
         .week-photo-layout--equal { grid-template-columns: 1fr 1fr; }
@@ -255,16 +262,19 @@
         .week-photo-sub--stacked img.week-photo-sub__header { flex: 0 0 auto; max-height: 48px; object-fit: contain; padding: 5px 8px 2px; background: #fff; }
         .week-photo-sub--stacked img.week-photo-sub__body { flex: 1; min-height: 0; }
         .week-present-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-template-rows: repeat(2, minmax(0, 1fr)); gap: 0.5rem; margin-top: 0.75rem; height: min(500px, calc(100vh - 230px)); max-height: 520px; }
-        .showcase-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-template-rows: repeat(2, minmax(0, 1fr)); gap: 0.4rem; margin-top: 0; flex: 1; min-height: 0; height: auto; max-height: none; width: 100%; }
-        .slide-showcase > div > p.text-sm.font-bold { margin-bottom: 0.35rem !important; }
-        .slide-showcase > div > h2 { margin-bottom: 0.35rem !important; }
-        .slide-showcase > div > p.leading-relaxed { margin-bottom: 0.35rem !important; font-size: 0.8125rem; max-width: none !important; }
-        .slide-showcase .week-topics { margin-bottom: 0.45rem; padding: 0.35rem 0.65rem; }
-        .slide-showcase .week-topics__chip { padding: 0.2rem 0.55rem; font-size: 0.72rem; }
-        .showcase-cell { border-radius: 8px; overflow: hidden; background: #fff; min-height: 0; display: flex; flex-direction: column; line-height: 0; }
-        .showcase-cell img { width: 100%; flex: 1; min-height: 0; object-fit: cover; object-position: right center; display: block; background: #F0EAE0; }
-        .showcase-cell--slide img { object-fit: contain; object-position: center; background: #FBF8F3; }
-        .showcase-cell figcaption { flex-shrink: 0; font-size: 0.62rem; font-weight: 700; text-align: center; padding: 0.28rem 0.35rem; color: #33271F; background: #FBF8F3; line-height: 1.25; word-break: keep-all; }
+        .showcase-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.85rem 0.9rem; margin-top: 0; width: 100%; height: auto; max-height: none; }
+        .slide-showcase { padding-top: 3.25rem !important; padding-bottom: 4rem !important; justify-content: center !important; }
+        .slide-showcase > div { display: flex; flex-direction: column; flex: 0 1 auto; width: 100%; min-height: 0; }
+        .slide-showcase > div > p.text-sm.font-bold { margin-bottom: 0.25rem !important; font-size: 0.72rem; }
+        .slide-showcase > div > h2 { margin-bottom: 0.3rem !important; font-size: 1.7rem !important; line-height: 1.25 !important; }
+        .slide-showcase > div > p.leading-relaxed { margin-bottom: 0.55rem !important; font-size: 0.8rem; max-width: none !important; line-height: 1.45; }
+        .slide-showcase .week-topics { margin-bottom: 0.65rem; }
+        .slide-showcase > div > div { min-height: 0; flex: 0 1 auto; display: block; width: 100%; overflow: visible; }
+        .showcase-cell { margin: 0; border-radius: 0; overflow: visible; background: transparent; min-height: 0; display: flex; flex-direction: column; line-height: 0; width: 100%; }
+        .showcase-cell img { width: 100%; aspect-ratio: 16 / 10; height: auto; flex: none; object-fit: contain; object-position: center; display: block; background: #F0EAE0; border-radius: 6px; }
+        .showcase-cell--slide img { object-fit: contain; object-position: center; background: #F0EAE0; }
+        .showcase-cell--left img { object-position: left center; }
+        .showcase-cell figcaption { flex-shrink: 0; width: 100%; box-sizing: border-box; display: flex; align-items: center; justify-content: center; min-height: 1.75rem; font-size: 0.72rem; font-weight: 700; text-align: center; padding: 0.4rem 0.15rem 0; color: #4A3C33; background: transparent; border: none; line-height: 1.3; word-break: keep-all; }
         .showcase-cell--note { justify-content: center; gap: 0.45rem; padding: 0.85rem 0.9rem; background: #FBF8F3; line-height: 1.35; }
         .showcase-cell__eyebrow { margin: 0; font-size: 0.62rem; font-weight: 800; color: #C8860A; letter-spacing: 0.02em; }
         .showcase-cell__title { margin: 0; font-size: 0.88rem; font-weight: 800; color: #33271F; line-height: 1.35; word-break: keep-all; }
@@ -292,9 +302,8 @@
         .interview-common-panel .interview-panel__head { border-bottom-color: #F5B041; margin-bottom: 0.55rem; padding-bottom: 0.4rem; }
         .interview-common-panel .interview-panel__title { font-size: 0.9rem; }
         .interview-common-block__grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.45rem; }
-        .interview-common-chip { display: flex; align-items: center; gap: 0.45rem; min-height: 2.55rem; padding: 0.45rem 0.55rem; background: #FBF8F3; border-radius: 8px; }
-        .interview-common-chip__num { flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center; width: 1.35rem; height: 1.35rem; border-radius: 4px; background: #33271F; color: #fff; font-size: 0.65rem; font-weight: 800; line-height: 1; }
-        .interview-common-chip__label { font-size: 0.8rem; font-weight: 700; color: #33271F; line-height: 1.3; word-break: keep-all; }
+        .interview-common-chip { display: flex; align-items: center; justify-content: center; min-height: 2.55rem; padding: 0.5rem 0.6rem; background: #FBF8F3; border-radius: 8px; text-align: center; }
+        .interview-common-chip__label { font-size: 0.95rem; font-weight: 700; color: #33271F; line-height: 1.35; word-break: keep-all; }
         @media (max-width: 900px) {
             .interview-common-block__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
         }
@@ -565,7 +574,7 @@
         .checklist-overview-card__list li { display: flex; align-items: flex-start; gap: 0.28rem; font-size: 0.56rem; line-height: 1.4; color: #6B5C50; }
         .checklist-overview-card__list li::before { content: ''; flex-shrink: 0; width: 0.42rem; height: 0.42rem; margin-top: 0.12rem; border: 1.5px solid #C4B5A5; border-radius: 2px; background: #fff; font-weight: normal; color: transparent; line-height: 1; }
         .closing-layout { display: grid; grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr); gap: 1.25rem; align-items: stretch; height: min(480px, calc(100vh - 250px)); max-height: 500px; }
-        .culture-split { display: grid; grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr); gap: 1rem; align-items: stretch; height: min(400px, calc(100vh - 280px)); max-height: 420px; }
+        .culture-split { display: grid; grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr); gap: 1rem; align-items: stretch; height: min(400px, calc(100vh - 280px)); max-height: 420px; }
         .culture-split__shifts { margin: 0; height: 100%; min-height: 0; display: flex; flex-direction: column; gap: 0.55rem; }
         .culture-shift { flex: 1; min-height: 0; display: flex; flex-direction: column; justify-content: center; gap: 0.45rem; background: #FFFFFF; border-radius: 8px; padding: 0.72rem 0.9rem 0.7rem; }
         .culture-shift__head { display: flex; align-items: center; gap: 0.55rem; min-width: 0; }
@@ -576,7 +585,7 @@
         .culture-shift__to { color: #33271F; }
         .culture-shift__cases { margin: 0; padding: 0 0 0 2rem; list-style: none; display: flex; flex-direction: column; gap: 0.22rem; }
         .culture-shift__cases li { display: flex; align-items: flex-start; gap: 0.35rem; font-size: 0.78rem; line-height: 1.4; color: #33271F; word-break: keep-all; }
-        .culture-shift__cases li::before { content: '＊'; flex-shrink: 0; width: auto; height: auto; margin-top: 0; border: none; border-radius: 0; background: none; font-weight: 700; color: #F5B041; line-height: 1.4; }
+        .culture-shift__cases li::before { content: ''; flex-shrink: 0; width: 0.35rem; height: 0.35rem; margin-top: 0.45rem; border-radius: 50%; background: #F5B041; }
         .culture-split__video { margin: 0; min-height: 0; height: 100%; display: flex; flex-direction: column; border-radius: 8px; overflow: hidden; background: #FFFFFF; }
         .culture-split__video video { width: 100%; flex: 1; min-height: 0; object-fit: cover; object-position: center; display: block; background: #F0EAE0; pointer-events: none; }
         .culture-split__video figcaption { flex-shrink: 0; font-size: 0.68rem; font-weight: 700; text-align: center; padding: 0.4rem 0.5rem; color: #33271F; background: #F0EAE0; line-height: 1.3; }
@@ -822,9 +831,14 @@
             return `<div class="bg-card rounded-lg perspective-panel"><p class="perspective-panel__title">${title}</p><ul class="perspective-panel__list">${items.map(buildPerspectiveItem).join('')}</ul></div>`;
         }
 
-        function buildPainMergeBody(depts) {
-            const deptBlocks = depts.map(d =>
-                `<div class="member-dept-block"><span class="member-dept-block__label">${d}</span></div>`
+        function buildPainMergeBody(groups) {
+            const groupBlocks = groups.map(g =>
+                `<div class="pain-depts-group">
+                    <p class="pain-depts-group__company">${g.company}</p>
+                    <div class="pain-depts-group__teams">${g.teams.map(t =>
+                        `<span class="pain-depts-group__team">${t}</span>`
+                    ).join('')}</div>
+                </div>`
             ).join('');
             return `<div class="pain-merge" id="pain-review-grid">
                 <div class="opening-tray">
@@ -840,40 +854,49 @@
                             <tbody>
                                 <tr>
                                     <td>운영진</td>
-                                    <td>멤버 파악·진도 조율 한계<span class="pain-sub">요구·성장 방향 파악 어려움 · 인원 과다·이탈</span></td>
-                                    <td class="pain-col-2026 col-2026">사전 인터뷰 · 8개 부문 집중반<span class="pain-sub">과제·성장 방향 파악 · PoC 시간 사전 확보</span></td>
+                                    <td><strong class="text-ink">멤버 파악·진도 조율 한계</strong><span class="pain-sub">요구·성장 방향 파악 어려움 · 인원 과다·이탈</span></td>
+                                    <td class="pain-col-2026 col-2026"><strong class="text-ink">사전 인터뷰 · 8개 부문 집중반</strong><span class="pain-sub">과제·성장 방향 파악 · PoC 시간 사전 확보</span></td>
                                 </tr>
                                 <tr>
                                     <td>멤버</td>
-                                    <td>학습 시간·우선순위 부족<span class="pain-sub">현업 병행 · 비전공자 중심의 우선순위 혼란</span></td>
-                                    <td class="pain-col-2026 col-2026">시간 확보 · 맞춤 커리큘럼<span class="pain-sub">주 1회 정기 모임 · PoC 연결 학습 설계</span></td>
+                                    <td><strong class="text-ink">학습 시간·우선순위 부족</strong><span class="pain-sub">현업 병행 · 비전공자 중심의 우선순위 혼란</span></td>
+                                    <td class="pain-col-2026 col-2026"><strong class="text-ink">시간 확보 · 맞춤 커리큘럼</strong><span class="pain-sub">주 1회 정기 모임 · PoC 연결 학습 설계</span></td>
                                 </tr>
                                 <tr>
                                     <td>보안</td>
-                                    <td>보안·아카이빙 미흡<span class="pain-sub">보안 미고려 시스템 증가 · 로컬 저장·휘발</span></td>
-                                    <td class="pain-col-2026 col-2026">보안 가이드 · 산출물 아카이빙<span class="pain-sub">온프레미스 LLM · GitHub Organization</span></td>
+                                    <td><strong class="text-ink">보안·아카이빙 미흡</strong><span class="pain-sub">보안 미고려 시스템 증가 · 로컬 저장·휘발</span></td>
+                                    <td class="pain-col-2026 col-2026"><strong class="text-ink">보안 가이드 · 산출물 아카이빙</strong><span class="pain-sub">온프레미스 LLM · GitHub Organization</span></td>
                                 </tr>
                             </tbody>
                         </table>
                         <div class="pain-depts-block">
                             <p class="pain-depts-block__title">2026 집중반 · <span>8개 부문</span></p>
                             <p class="pain-depts-block__desc">AI 확산·도입이 필요한 부문을 우선적으로 선정했습니다.</p>
-                            <div class="pain-depts-block__grid">${deptBlocks}</div>
+                            <div class="pain-depts-block__groups">${groupBlocks}</div>
                         </div>
                     </div>
                 </div>
             </div>`;
         }
 
-        const MEMBER_DEPTS = ['재무', 'People', '연구소', '트랙개발', '생산', '영업', '벨트설계', '사업기획'];
+        const MEMBER_DEPT_GROUPS = [
+            { company: '동일고무벨트', teams: ['재무팀', '연구소', '트랙개발팀', '설계개발팀'] },
+            { company: 'DRB동일', teams: ['People팀', '사업기획팀'] },
+            { company: 'DRB오토모티브', teams: ['생산팀', '영업팀'] }
+        ];
 
-        function buildMemberDeptGrid(depts, title = '집중반 멤버 · 8개 부문') {
-            const blocks = depts.map(d =>
-                `<div class="member-dept-block"><span class="member-dept-block__label">${d}</span></div>`
+        function buildMemberDeptGrid(groups, title = '집중반 멤버 · 8개 부문') {
+            const groupBlocks = groups.map(g =>
+                `<div class="pain-depts-group">
+                    <p class="pain-depts-group__company">${g.company}</p>
+                    <div class="pain-depts-group__teams">${g.teams.map(t =>
+                        `<span class="pain-depts-group__team">${t}</span>`
+                    ).join('')}</div>
+                </div>`
             ).join('');
             return `<div class="member-dept-section">
                 <p class="member-dept-section__title">${title}</p>
-                <div class="member-dept-grid">${blocks}</div>
+                <div class="pain-depts-block__groups">${groupBlocks}</div>
             </div>`;
         }
 
@@ -1031,8 +1054,8 @@
                 '기술 전문가 협업',
                 '실제 산출물 중심 활동'
             ];
-            const commonBlocks = common.map((c, i) =>
-                `<div class="interview-common-chip"><span class="interview-common-chip__num">${i + 1}</span><span class="interview-common-chip__label">${c}</span></div>`
+            const commonBlocks = common.map((c) =>
+                `<div class="interview-common-chip"><span class="interview-common-chip__label">${c}</span></div>`
             ).join('');
             return contentSlide({
                 label: 'Interview · 사전 인터뷰',
@@ -1060,7 +1083,7 @@
                                 <tr>
                                     <td rowspan="2">기술관점</td>
                                     <td>AI 활용 기술 수준</td>
-                                    <td>경험 수준 · 사용 도구 파악<span class="interview-sub">자동화·바이브코딩 · Cursor/Copilot/ChatGPT · 실무 적용 범위</span></td>
+                                    <td><strong class="text-ink">경험 수준 · 사용 도구 파악</strong><span class="interview-sub">자동화·바이브코딩 · Cursor/Copilot/ChatGPT · 실무 적용 범위</span></td>
                                 </tr>
                                 <tr>
                                     <td>AI 적용 프로젝트 니즈</td>
@@ -1069,7 +1092,7 @@
                                 <tr>
                                     <td rowspan="2">운영관점</td>
                                     <td>학습 · 성장 방향</td>
-                                    <td>희망 주제 · 목표 수준 파악<span class="interview-sub">교육 주제·난이도 · 활용·개발·설계 · 비전공자 우선순위</span></td>
+                                    <td><strong class="text-ink">희망 주제 · 목표 수준 파악</strong><span class="interview-sub">교육 주제·난이도 · 활용·개발·설계 · 비전공자 우선순위</span></td>
                                 </tr>
                                 <tr>
                                     <td>참여 가능 조건 · 제약</td>
@@ -1323,7 +1346,7 @@
                 <div class="cover-meta">
                     <span class="cover-meta__value">윤채영<span class="dot">·</span>디지털전략센터 AI솔루션팀</span>
                     <span class="cover-meta__sep" aria-hidden="true"></span>
-                    <span class="cover-meta__value">2026.07.01</span>
+                        <span class="cover-meta__value">2026.08.28</span>
                 </div>
                 <div class="cover-avatar" aria-hidden="true">
                     <img src="assets/01-opening/presenter-yoon.png" alt="발표자 윤채영">
@@ -1397,7 +1420,7 @@
                 compact: true,
                 wide: true,
                 slideClass: 'slide-perspective slide-pain-merge',
-                body: buildPainMergeBody(MEMBER_DEPTS)
+                body: buildPainMergeBody(MEMBER_DEPT_GROUPS)
             })
         ];
 
@@ -1774,23 +1797,23 @@
             contentSlide({
                 label: 'Showcase · PoC 발표',
                 title: 'AI PUG Showcase · 멤버 PoC 발표',
-                message: '상반기 학습·실습으로 만든 <strong class="text-ink">현업 PoC</strong>를 Showcase에서 발표하며, 부서별 업무 문제를 AI로 풀어본 성과를 공유했습니다.',
+                message: '상반기 학습·실습으로 만든 <strong class="text-ink">현업 PoC</strong>를 발표하며, 부서별 업무 문제를 AI로 풀어본 성과를 공유했습니다.',
                 compact: true,
                 wide: true,
                 alignTop: true,
                 slideClass: 'slide-showcase',
                 body: `${buildKeywordTopics(['Showcase', 'PoC 발표', '현업 적용', '멤버 공유'])}<div class="showcase-grid">
-                    <figure class="showcase-cell showcase-cell--slide">
-                        <img src="assets/47-pug-showcase/showcase-1.png" alt="촉각센서 데이터 분석 자동화 시스템 PoC" loading="lazy">
-                        <figcaption>촉각센서 데이터 분석 자동화 시스템</figcaption>
-                    </figure>
-                    <figure class="showcase-cell showcase-cell--slide">
+                    <figure class="showcase-cell showcase-cell--slide showcase-cell--left">
                         <img src="assets/47-pug-showcase/showcase-2.png" alt="MOMO AI 회의 비서 PoC" loading="lazy">
                         <figcaption>MOMO · AI 회의 비서</figcaption>
                     </figure>
-                    <figure class="showcase-cell showcase-cell--slide">
+                    <figure class="showcase-cell showcase-cell--slide showcase-cell--left">
                         <img src="assets/47-pug-showcase/showcase-3.png" alt="임가공비 분석 시스템 PoC" loading="lazy">
                         <figcaption>임가공비 분석 · 견적 검증</figcaption>
+                    </figure>
+                    <figure class="showcase-cell showcase-cell--slide showcase-cell--left">
+                        <img src="assets/47-pug-showcase/showcase-1.png" alt="촉각센서 데이터 분석 자동화 시스템 PoC" loading="lazy">
+                        <figcaption>촉각센서 데이터 분석 자동화 시스템</figcaption>
                     </figure>
                     <figure class="showcase-cell showcase-cell--slide">
                         <img src="assets/47-pug-showcase/showcase-4.png" alt="VEDA 사내 업무 기록 검색 PoC" loading="lazy">
@@ -1858,7 +1881,7 @@
                 { src: 'assets/33-google-subscription/serpapi.png', caption: 'SerpApi - Google Search API' }
             ]},
             { icon: 'github', title: '개발 환경 · GitHub Organization',
-                topics: ['GitHub Organization', '코드 공유', '협업', '버전 관리'],
+                topics: [],
                 video: 'assets/34-github-org/github-org.mp4', videoCompact: true },
             { icon: 'book-open', title: '개발 환경 · 표준 기술스택 가이드',
                 topics: ['표준 기술스택', 'Front / Back', 'DB', 'AI / ML'],
@@ -1875,7 +1898,7 @@
                 { src: 'assets/36-book/book-members-4.png', caption: '강응준님 & 박지훈님' }
             ]},
             { icon: 'flask-conical', title: '개발 환경 · AI Playground 안내',
-                topics: ['AI Playground', '사내 LLM', '실습 환경', '보안'],
+                topics: [],
                 video: 'assets/37-ai-playground/ai-playground.mp4' },
             { icon: 'code-2', title: '개발 환경 · API 개발 지원',
                 topics: ['API Playground', 'Power Automate', 'Graph API', 'Outlook · Teams'],
