@@ -146,45 +146,383 @@
         .slide-review-activities { overflow: hidden; }
         .slide-review-activities > div > p.leading-relaxed { margin-bottom: 0.5rem !important; font-size: 0.8125rem; max-width: none !important; }
         .review-activities-layout { display: flex; flex-direction: column; gap: 0.5rem; }
-        .review-activities-table-wrap { flex-shrink: 0; background: #fff; border-radius: 8px; padding: 0.65rem 0.85rem; border: 1px solid #F0EAE0; }
-        .review-activities-table-wrap .tbl-compact thead th { font-size: 0.88rem; font-weight: 800; padding: 0.5rem 0.85rem; color: #33271F; }
-        .review-activities-table-wrap .tbl-compact tbody td { font-size: 0.92rem; font-weight: 700; padding: 0.48rem 0.85rem; line-height: 1.45; vertical-align: middle; color: #33271F; }
-        .review-activities-table-wrap .tbl-compact tbody td:first-child { font-weight: 800; }
-        .review-activities-table-wrap .tbl-compact tbody td:last-child { color: #4A3C33; font-weight: 700; }
+        .review-activities-table-wrap { flex-shrink: 0; background: #fff; border-radius: 8px; padding: 0.75rem 0.95rem; overflow: hidden; }
+        .review-activities-table-wrap .tbl thead th { font-size: 0.82rem; font-weight: 700; padding: 0.55rem 0.95rem; }
+        .review-activities-table-wrap .tbl tbody td { font-size: 0.9rem; font-weight: 600; padding: 0.55rem 0.95rem; line-height: 1.45; vertical-align: middle; }
+        .review-activities-table-wrap .tbl tbody tr:first-child td { border-top: none; }
+        .review-activities-table-wrap .tbl tbody td:first-child { font-weight: 700; }
+        .review-activities-table-wrap .tbl tbody td:last-child { color: #4A3C33; font-weight: 600; }
         .review-activities-photos { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.5rem; flex: 0 0 auto; height: min(calc((100vh - 400px) * 1.2), 336px); max-height: min(calc((100vh - 400px) * 1.2), 336px); overflow: hidden; }
         .review-activities-photo { margin: 0; min-height: 0; display: flex; flex-direction: column; border-radius: 8px; overflow: hidden; border: 1px solid #F0EAE0; background: #fff; box-shadow: 0 1px 3px rgba(51,39,31,.06); }
         .review-activities-photo img { width: 100%; flex: 1; min-height: 0; object-fit: cover; object-position: center; display: block; background: #F0EAE0; }
         .review-activities-photo figcaption { flex-shrink: 0; font-size: 0.68rem; font-weight: 700; text-align: center; padding: 0.32rem 0.5rem; color: #33271F; background: #FBF8F3; line-height: 1.25; }
         .review-activities-summary { flex-shrink: 0; font-size: 0.72rem; line-height: 1.45; padding: 0.5rem 0.75rem !important; margin-top: 0 !important; }
-        .pain-merge { display: flex; flex-direction: column; gap: 0; }
-        .pain-merge .opening-tray { margin: 0; background: transparent; padding: 0; }
-        .pain-merge .opening-tray__panel { border-radius: 10px; }
-        .tbl-pain-compare { width: 100%; margin: 0; }
-        .tbl-pain-compare thead th { font-size: 0.88rem; padding: 0.75rem 1rem; }
-        .tbl-pain-compare tbody td { font-size: 0.9rem; line-height: 1.45; padding: 0.9rem 1rem; vertical-align: top; word-break: keep-all; font-weight: 500; color: #33271F; }
-        .tbl-pain-compare tbody td:first-child { width: 14%; font-weight: 800; color: #33271F; white-space: nowrap; }
-        .tbl-pain-compare tbody td strong { font-weight: 800; color: #33271F; }
-        .tbl-pain-compare .pain-sub { display: block; margin-top: 0.28rem; font-size: 0.78rem; font-weight: 500; color: #8A7B6E; line-height: 1.4; }
-        .tbl-pain-compare .col-2026 { font-weight: 500; color: #33271F; }
-        .pain-depts-block { margin-top: 0.85rem; padding-top: 0.85rem; border-top: 1px solid #F0EAE0; }
-        .pain-depts-block__title { margin: 0 0 0.2rem; font-size: 0.82rem; font-weight: 800; color: #33271F; line-height: 1.3; }
-        .pain-depts-block__title span { color: #C8860A; }
-        .pain-depts-block__desc { margin: 0 0 0.55rem; font-size: 0.75rem; color: #8A7B6E; line-height: 1.4; word-break: keep-all; }
+        .pain-merge { display: flex; flex-direction: column; gap: 0; flex: 1; min-height: 0; height: 100%; }
+        .strategy-board {
+            background: #FFFFFF;
+            border-radius: 8px;
+            padding: 1.4rem 1.6rem 0;
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            flex: 1;
+            min-height: 0;
+            height: 100%;
+            overflow: hidden;
+        }
+        .strategy-kicker {
+            margin: 0 0 1rem;
+            font-size: 1.08rem;
+            font-weight: 800;
+            color: #33271F;
+            line-height: 1.2;
+            letter-spacing: -0.01em;
+            text-align: left;
+        }
+        .strategy-kicker span {
+            color: #F5B041;
+        }
+        .strategy-support .strategy-kicker span {
+            margin-left: 0.15rem;
+        }
+        .strategy-main {
+            display: grid;
+            grid-template-columns: minmax(6.75rem, 0.7fr) minmax(0, 3.55fr);
+            gap: 0 1rem;
+            flex: 1;
+            min-height: 0;
+            align-items: stretch;
+            padding-bottom: 0.35rem;
+        }
+        .strategy-cadence {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: flex-start;
+            min-width: 0;
+            padding: 0 1.4rem 0.4rem 0;
+            border-right: 1px solid #E8DFD0;
+        }
+        .strategy-cadence__values {
+            display: flex;
+            flex-direction: column;
+            gap: 0.2rem;
+            margin-top: 0.1rem;
+        }
+        .strategy-cadence__value {
+            margin: 0;
+            font-size: 1.85rem;
+            font-weight: 800;
+            color: #8B3A3A;
+            line-height: 1.15;
+            letter-spacing: -0.03em;
+            word-break: keep-all;
+        }
+        .strategy-cadence__note {
+            margin: auto 0 0.15rem;
+            padding-top: 1.1rem;
+            font-size: 0.84rem;
+            font-weight: 700;
+            color: #8A7B6E;
+            line-height: 1.4;
+            word-break: keep-all;
+        }
+        .strategy-ops {
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            min-height: 0;
+            padding: 0;
+        }
+        .strategy-ops__pillars {
+            display: grid;
+            grid-template-columns: minmax(0, 0.75fr) minmax(0, 0.8fr) minmax(0, 0.8fr);
+            gap: 0;
+            flex: 1;
+            align-items: start;
+        }
+        .strategy-ops__pillar {
+            display: flex;
+            flex-direction: column;
+            gap: 0.65rem;
+            min-width: 0;
+            padding: 0 0.85rem;
+            background: transparent;
+            border: none;
+            border-left: 1px solid #E8DFD0;
+        }
+        .strategy-ops__pillar:first-child {
+            border-left: none;
+            padding-left: 0;
+        }
+        .strategy-ops__pillar:last-child { padding-right: 0; }
+        .strategy-ops__pillar-head {
+            display: flex;
+            flex-direction: column;
+            gap: 0.28rem;
+        }
+        .strategy-ops__num {
+            font-size: 0.8rem;
+            font-weight: 800;
+            color: #F5B041;
+            letter-spacing: 0.06em;
+            line-height: 1;
+        }
+        .strategy-ops__pillar-title {
+            margin: 0;
+            font-size: 0.95rem;
+            font-weight: 800;
+            color: #33271F;
+            line-height: 1.35;
+            letter-spacing: -0.02em;
+            word-break: keep-all;
+            overflow-wrap: normal;
+            min-height: 0;
+        }
+        .strategy-ops__list {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.42rem;
+        }
+        .strategy-ops__list li {
+            position: relative;
+            padding-left: 0.85rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #33271F;
+            line-height: 1.4;
+            word-break: keep-all;
+        }
+        .strategy-ops__list li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0.5rem;
+            width: 0.26rem;
+            height: 0.26rem;
+            border-radius: 50%;
+            background: #33271F;
+        }
+        .pain-depts-block { margin: 0; padding: 0.85rem 1.1rem 0.95rem; background: #FFFFFF; border-radius: 8px; }
+        .pain-depts-block__title { margin: 0 0 0.55rem; font-size: 0.86rem; font-weight: 800; color: #33271F; line-height: 1.3; }
+        .pain-depts-block__title span { color: #F5B041; }
         .pain-depts-block__groups { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 0.45rem; }
-        .pain-depts-group { display: flex; flex-direction: column; gap: 0.35rem; min-width: 0; padding: 0.45rem 0.5rem; background: #FBF8F3; border: 1px solid #E8DFD0; border-radius: 6px; }
+        .pain-depts-group { display: flex; flex-direction: column; gap: 0.35rem; min-width: 0; padding: 0.45rem 0.5rem; background: #F0EAE0; border: none; border-radius: 6px; }
         .pain-depts-group__company { margin: 0; font-size: 0.68rem; font-weight: 800; color: #C62828; line-height: 1.25; letter-spacing: -0.01em; }
         .pain-depts-group__teams { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.3rem; width: 100%; }
-        .pain-depts-group__team { display: flex; align-items: center; justify-content: center; width: 100%; min-height: 1.7rem; padding: 0.22rem 0.45rem; box-sizing: border-box; background: #fff; border: 1px solid #E8DFD0; border-radius: 5px; font-size: 0.72rem; font-weight: 700; color: #33271F; line-height: 1.25; word-break: keep-all; text-align: center; }
+        .pain-depts-group__team { display: flex; align-items: center; justify-content: center; width: 100%; min-height: 1.7rem; padding: 0.22rem 0.45rem; box-sizing: border-box; background: #fff; border: none; border-radius: 5px; font-size: 0.72rem; font-weight: 700; color: #33271F; line-height: 1.25; word-break: keep-all; text-align: center; }
         .pain-depts-group:first-child .pain-depts-group__teams { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-        .slide-pain-merge > div > p.leading-relaxed { margin-bottom: 0.85rem !important; max-width: none !important; }
+        .strategy-support {
+            margin: 1.15rem 0 0;
+            padding: 0.95rem 1.6rem 1.1rem;
+            background: #F0EAE0;
+            border: none;
+            border-radius: 0;
+            margin-left: -1.6rem;
+            margin-right: -1.6rem;
+        }
+        .strategy-support .strategy-kicker { margin-bottom: 0.55rem; }
+        .strategy-support__grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 0;
+            align-items: center;
+        }
+        .strategy-support__item {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            text-align: left;
+            min-height: 0;
+            padding: 0.15rem 1.15rem;
+            margin: 0;
+            background: transparent;
+            border: none;
+            border-left: 1px solid #D9CFC0;
+            border-radius: 0;
+            font-size: 1.05rem;
+            font-weight: 800;
+            color: #33271F;
+            line-height: 1.35;
+            word-break: keep-all;
+        }
+        .strategy-support__item:first-child {
+            border-left: none;
+            padding-left: 0;
+        }
+        .strategy-support__item:last-child { padding-right: 0; }
+        .strategy-support__item:not(:last-child)::after { display: none; }
+        .strategy-support__item::before { display: none; }
+        .slide-pain-merge > div {
+            max-width: 66rem !important;
+            margin-left: auto;
+            margin-right: auto;
+            width: 100%;
+        }
+        .slide-pain-merge > div > p.leading-relaxed { margin-bottom: 0.7rem !important; max-width: none !important; font-size: 0.9rem; }
+        .support-overview {
+            display: grid;
+            grid-template-columns: 1.05fr repeat(3, minmax(0, 1fr));
+            grid-template-rows: auto auto;
+            gap: 0.7rem;
+            flex: 0 0 auto;
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+            margin: 0;
+            align-content: start;
+        }
+        .support-overview__hero {
+            grid-column: 1;
+            grid-row: 1 / 3;
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            height: 100%;
+            min-height: 0;
+            padding: 1.05rem 1.1rem 0.95rem;
+            background: #33271F;
+            border-radius: 8px;
+            color: #FBF8F3;
+            box-sizing: border-box;
+        }
+        .support-overview__hero-eyebrow {
+            margin: 0 0 0.4rem;
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: rgba(251, 248, 243, 0.72);
+            letter-spacing: 0.02em;
+            line-height: 1.25;
+        }
+        .support-overview__hero-title {
+            margin: 0 0 0.45rem;
+            font-size: 1.18rem;
+            font-weight: 800;
+            color: #F5B041;
+            line-height: 1.3;
+            word-break: keep-all;
+        }
+        .support-overview__hero-desc {
+            margin: 0 0 0.65rem;
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: rgba(251, 248, 243, 0.88);
+            line-height: 1.4;
+            word-break: keep-all;
+        }
+        .support-overview__hero-photo {
+            margin-top: auto;
+            border-radius: 6px;
+            overflow: hidden;
+            flex: 1 1 auto;
+            min-height: 0;
+            max-height: 48%;
+            background: #1F1712;
+        }
+        .support-overview__hero-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            display: block;
+        }
+        .support-overview__card {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 0.3rem;
+            width: 100%;
+            min-width: 0;
+            min-height: 0;
+            aspect-ratio: 1 / 1;
+            padding: 1.05rem 1.1rem;
+            background: #F0EAE0;
+            border-radius: 8px;
+            box-sizing: border-box;
+            box-shadow: none;
+        }
+        .support-overview__card-title {
+            margin: 0;
+            font-size: 1.05rem;
+            font-weight: 800;
+            color: #33271F;
+            line-height: 1.25;
+            word-break: keep-all;
+        }
+        .support-overview__card-sub {
+            margin: 0;
+            font-size: 0.82rem;
+            font-weight: 700;
+            color: #8A7B6E;
+            line-height: 1.3;
+            word-break: keep-all;
+        }
+        .support-overview__card-body {
+            margin: 0;
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: #4A3C33;
+            line-height: 1.35;
+            word-break: keep-all;
+        }
+        .support-overview__card--soft {
+            background: #F0EAE0;
+        }
+        .slide-support-overview > div > p.leading-relaxed {
+            margin-bottom: 0.9rem !important;
+            max-width: none !important;
+            font-size: 0.9rem;
+        }
+        .slide-support-overview > div {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: stretch;
+            width: 100%;
+        }
         .embed-scroll-bar { display: flex; justify-content: center; margin-top: 0.4rem; flex-shrink: 0; }
         .embed-scroll-btn { display: inline-flex; align-items: center; gap: 0.35rem; padding: 0.5rem 1.2rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 700; color: #33271F; background: #F5B041; border: none; cursor: pointer; transition: background 0.2s, opacity 0.2s; font-family: inherit; }
         .embed-scroll-btn:hover { background: #E5A030; }
         .embed-scroll-btn.is-hidden { display: none; }
         .embed-scroll-btn i { width: 14px; height: 14px; }
         @media (max-width: 900px) {
+            .strategy-main { grid-template-columns: 1fr; gap: 1.1rem; }
+            .strategy-cadence { border-right: none; border-bottom: 1px solid #E8DFD0; padding: 0 0 1rem; }
+            .strategy-ops__pillars { grid-template-columns: 1fr; gap: 1rem; }
+            .strategy-ops__pillar { border-left: none; padding: 0; }
+            .strategy-ops__pillar-title { min-height: 0; }
+            .strategy-support { margin-left: -1.6rem; margin-right: -1.6rem; }
+            .strategy-support__grid { grid-template-columns: 1fr; gap: 0.45rem; }
+            .strategy-support__item { border-left: none; padding: 0; }
             .pain-depts-block__groups { grid-template-columns: 1fr; }
             .pain-depts-group:first-child .pain-depts-group__teams { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+            .support-overview {
+                grid-template-columns: 1fr;
+                grid-template-rows: auto;
+                width: 100%;
+            }
+            .support-overview__hero {
+                grid-column: 1;
+                grid-row: auto;
+                height: auto;
+                min-height: 240px;
+            }
+            .support-overview__hero-photo {
+                flex: 0 0 auto;
+                height: 120px;
+                max-height: none;
+            }
+            .support-overview__card {
+                width: 100%;
+                aspect-ratio: auto;
+                min-height: 0;
+                height: auto;
+                padding: 1rem 1.1rem;
+            }
         }
         .week-photo-layout { display: grid; grid-template-columns: 1.55fr 1fr; gap: 0.75rem; height: min(420px, calc(100vh - 300px)); max-height: 420px; margin-top: 0.75rem; }
         .week-photo-layout--equal { grid-template-columns: 1fr 1fr; }
@@ -606,7 +944,7 @@
         .culture-diffuse-card__note { margin: 0.05rem 0 0; font-size: 0.68rem; font-weight: 600; color: #8A7B6E; line-height: 1.4; word-break: keep-all; }
         .slide-culture-diffuse { justify-content: center !important; padding-top: 2.25rem !important; padding-bottom: 4rem !important; overflow: hidden; }
         .slide-culture-diffuse > div > p.leading-relaxed { margin-bottom: 0.55rem !important; font-size: 0.8125rem; max-width: none !important; }
-        .closing-copy { display: flex; flex-direction: column; justify-content: center; gap: 1rem; min-height: 0; }
+        .closing-copy { display: flex; flex-direction: column; justify-content: flex-end; gap: 1rem; min-height: 0; }
         .closing-copy__badge { display: inline-flex; align-items: center; gap: 0.4rem; align-self: flex-start; background: #F5B041; color: #33271F; font-size: 0.78rem; font-weight: 800; padding: 0.35rem 0.75rem; border-radius: 8px; }
         .closing-copy__lead { font-size: 1.35rem; font-weight: 800; color: #33271F; line-height: 1.45; margin: 0; }
         .closing-copy__text { font-size: 0.92rem; color: #4A3C33; line-height: 1.65; margin: 0; }
@@ -736,7 +1074,7 @@
     <main id="deck" class="w-full h-screen"></main>
 
     <div class="deck-nav fixed bottom-5 left-1/2 -translate-x-1/2 z-50 flex items-center gap-2 bg-card rounded-full px-2.5 py-1">
-        <button onclick="goToPart('toc')" class="p-1.5 rounded-full hover:bg-beige text-ink transition" aria-label="목차" title="목차 (T)">
+        <button onclick="goToPart('part1')" class="p-1.5 rounded-full hover:bg-beige text-ink transition" aria-label="목차" title="PART 1 (T)">
             <i data-lucide="list" class="w-4 h-4"></i>
         </button>
         <button onclick="changeSlide(-1)" class="p-1.5 rounded-full hover:bg-beige text-ink transition" aria-label="이전">
@@ -791,9 +1129,10 @@
             </section>`;
         }
 
-        function sectionDivider(part, title, subtitle, partId = '') {
+        function sectionDivider(part, title, subtitle, partId = '', { active = false } = {}) {
             const dataAttr = partId ? ` data-part="${partId}"` : '';
-            return `<section class="slide w-full h-screen flex-col items-center justify-center px-8"${dataAttr}>
+            const activeCls = active ? ' active' : '';
+            return `<section class="slide${activeCls} w-full h-screen flex-col items-center justify-center px-8"${dataAttr}>
                 <div class="max-w-3xl w-full text-center flex flex-col items-center gap-6">
                     <div class="inline-flex items-center gap-2 bg-ink text-card px-4 py-2 rounded-lg text-sm font-bold">${part}</div>
                     <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight leading-tight">${title}</h1>
@@ -831,51 +1170,108 @@
             return `<div class="bg-card rounded-lg perspective-panel"><p class="perspective-panel__title">${title}</p><ul class="perspective-panel__list">${items.map(buildPerspectiveItem).join('')}</ul></div>`;
         }
 
-        function buildPainMergeBody(groups) {
-            const groupBlocks = groups.map(g =>
-                `<div class="pain-depts-group">
-                    <p class="pain-depts-group__company">${g.company}</p>
-                    <div class="pain-depts-group__teams">${g.teams.map(t =>
-                        `<span class="pain-depts-group__team">${t}</span>`
-                    ).join('')}</div>
-                </div>`
+        function buildPainMergeBody() {
+            const pillars = [
+                {
+                    title: '현업 솔루션 개발을 위한 기획 세션 마련',
+                    points: ['현업 문제 도출', 'AI 접목 + 해결 방향 도출', '문제의 크기, 성공 기준 정의']
+                },
+                {
+                    title: 'AI 활용 역량 향상을 위한 커리큘럼 설계',
+                    points: ['PUG 멤버 인터뷰를 통한 성장 방향성 파악', 'AI 활용도 향상을 위한 커리큘럼 설계', '웹 개발 & AI 기초 강의 지원']
+                },
+                {
+                    title: '개인 산출물 관리를 위한 버전 관리 교육',
+                    points: ['Git · GitHub 활용법 안내', '개인 단위 산출물 이력 관리', '변경 추적 · 백업으로 산출물 보호']
+                }
+            ];
+            const supports = ['실무형 코칭', '보안 가이드 제공', '디전센 기술 전문가 매칭'];
+            const pillarBlocks = pillars.map((item, idx) =>
+                `<article class="strategy-ops__pillar">
+                    <div class="strategy-ops__pillar-head">
+                        <span class="strategy-ops__num">${String(idx + 1).padStart(2, '0')}</span>
+                        <h3 class="strategy-ops__pillar-title">${item.title}</h3>
+                    </div>
+                    <ul class="strategy-ops__list">${item.points.map(p => `<li>${p}</li>`).join('')}</ul>
+                </article>`
+            ).join('');
+            const supportBlocks = supports.map((label) =>
+                `<div class="strategy-support__item">${label}</div>`
             ).join('');
             return `<div class="pain-merge" id="pain-review-grid">
-                <div class="opening-tray">
-                    <div class="opening-tray__panel">
-                        <table class="tbl tbl-pain-compare nowrap-first">
-                            <thead>
-                                <tr>
-                                    <th>관점</th>
-                                    <th>2025 한계</th>
-                                    <th class="pain-col-2026">2026 개선</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>운영진</td>
-                                    <td><strong class="text-ink">멤버 파악·진도 조율 한계</strong><span class="pain-sub">요구·성장 방향 파악 어려움 · 인원 과다·이탈</span></td>
-                                    <td class="pain-col-2026 col-2026"><strong class="text-ink">사전 인터뷰 · 8개 부문 집중반</strong><span class="pain-sub">과제·성장 방향 파악 · PoC 시간 사전 확보</span></td>
-                                </tr>
-                                <tr>
-                                    <td>멤버</td>
-                                    <td><strong class="text-ink">학습 시간·우선순위 부족</strong><span class="pain-sub">현업 병행 · 비전공자 중심의 우선순위 혼란</span></td>
-                                    <td class="pain-col-2026 col-2026"><strong class="text-ink">시간 확보 · 맞춤 커리큘럼</strong><span class="pain-sub">주 1회 정기 모임 · PoC 연결 학습 설계</span></td>
-                                </tr>
-                                <tr>
-                                    <td>보안</td>
-                                    <td><strong class="text-ink">보안·아카이빙 미흡</strong><span class="pain-sub">보안 미고려 시스템 증가 · 로컬 저장·휘발</span></td>
-                                    <td class="pain-col-2026 col-2026"><strong class="text-ink">보안 가이드 · 산출물 아카이빙</strong><span class="pain-sub">온프레미스 LLM · GitHub Organization</span></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <div class="pain-depts-block">
-                            <p class="pain-depts-block__title">2026 집중반 · <span>8개 부문</span></p>
-                            <p class="pain-depts-block__desc">AI 확산·도입이 필요한 부문을 우선적으로 선정했습니다.</p>
-                            <div class="pain-depts-block__groups">${groupBlocks}</div>
-                        </div>
+                <div class="strategy-board">
+                    <div class="strategy-main">
+                        <aside class="strategy-cadence">
+                            <h3 class="strategy-kicker">모임 주기</h3>
+                            <div class="strategy-cadence__values">
+                                <p class="strategy-cadence__value">주 1회</p>
+                                <p class="strategy-cadence__value">Full 타임</p>
+                            </div>
+                            <p class="strategy-cadence__note">정기 모임으로<br>실행 리듬 고정</p>
+                        </aside>
+                        <section class="strategy-ops">
+                            <div class="strategy-ops__pillars">${pillarBlocks}</div>
+                        </section>
                     </div>
+                    <footer class="strategy-support">
+                        <h3 class="strategy-kicker">COMMON 공통 지원사항 · <span>3가지</span></h3>
+                        <div class="strategy-support__grid">${supportBlocks}</div>
+                    </footer>
                 </div>
+            </div>`;
+        }
+
+        function buildSupportOverviewBody() {
+            const cards = [
+                {
+                    title: '온라인 강의',
+                    sub: '필요한 강의만 선별',
+                    body: 'LLM 이론 · GitHub · n8n 자동화 · 바이브 코딩'
+                },
+                {
+                    title: 'AI 도구 구독',
+                    sub: '유료 도구 · API 키 지원',
+                    body: 'Google AI Pro · OpenAI · SerpApi'
+                },
+                {
+                    title: '개발 환경',
+                    sub: 'GitHub Organization',
+                    body: '산출물 이력 관리 · 표준 기술스택 가이드'
+                },
+                {
+                    title: '공통 언어 만들기',
+                    sub: 'IT 기초 서적 배부',
+                    body: '비전공자를 위한 이해할 수 있는 IT 지식'
+                },
+                {
+                    title: '사내 AI 인프라',
+                    sub: 'AI Playground 안내',
+                    body: '사내 LLM 환경에서 안전하게 실험'
+                },
+                {
+                    title: 'API 개발 지원',
+                    sub: 'API Playground',
+                    body: 'Outlook · Teams 연동을 실제 PoC에 연결',
+                    soft: true
+                }
+            ];
+            const cardBlocks = cards.map((c) =>
+                `<article class="support-overview__card${c.soft ? ' support-overview__card--soft' : ''}">
+                    <h3 class="support-overview__card-title">${c.title}</h3>
+                    <p class="support-overview__card-sub">${c.sub}</p>
+                    <p class="support-overview__card-body">${c.body}</p>
+                </article>`
+            ).join('');
+            return `<div class="support-overview">
+                <aside class="support-overview__hero">
+                    <p class="support-overview__hero-eyebrow">사내 전문가 연결</p>
+                    <h3 class="support-overview__hero-title">AI · Dev · Data<br>UI/UX 실무 강의</h3>
+                    <p class="support-overview__hero-desc">코드 리뷰, 사내 LLM Q&amp;A, 머신러닝·NLP, UI/UX까지 실무진이 직접 강의하고 코칭했습니다.</p>
+                    <figure class="support-overview__hero-photo">
+                        <img src="assets/26-web-dev-lecture/lecture-code-review.png" alt="실무 강의 · 코드 리뷰" loading="lazy">
+                    </figure>
+                </aside>
+                ${cardBlocks}
             </div>`;
         }
 
@@ -1065,6 +1461,7 @@
                 compact: true,
                 alignTop: false,
                 slideClass: 'slide-interview',
+                partId: 'part2',
                 body: `<div class="interview-merge">
                     <section class="interview-panel">
                         <header class="interview-panel__head">
@@ -1336,7 +1733,6 @@
 
         // ── PART 1: PUG 출범, 2025 활동 + 회고 ──
         const part1 = [
-            // Cover
             `<section class="slide active w-full h-screen flex-col items-center justify-center px-8" data-part="cover">
                 <div class="max-w-3xl w-full text-center flex flex-col items-center gap-7">
                     <div class="inline-flex items-center gap-2 bg-pug text-ink px-4 py-2 rounded-lg text-sm font-bold">🐶 AI Power User Group</div>
@@ -1346,21 +1742,18 @@
                 <div class="cover-meta">
                     <span class="cover-meta__value">윤채영<span class="dot">·</span>디지털전략센터 AI솔루션팀</span>
                     <span class="cover-meta__sep" aria-hidden="true"></span>
-                        <span class="cover-meta__value">2026.08.28</span>
+                    <span class="cover-meta__value">2026.08.28</span>
                 </div>
                 <div class="cover-avatar" aria-hidden="true">
                     <img src="assets/01-opening/presenter-yoon.png" alt="발표자 윤채영">
                 </div>
             </section>`,
 
-            buildTocSlide(),
-
-            sectionDivider(PARTS[0].badge, PARTS[0].title, PARTS[0].subtitle, PARTS[0].id),
-
             contentSlide({
                 label: 'PUG 소개 · Opening',
                 title: 'AI PUG의 시작 - AI 활용과 문화 확산',
                 message: 'AI 활용 관심은 높았지만 업무 적용은 막막했습니다. AI PUG는 그 고민을 함께 풀어가기 위한 <strong class="text-ink">자발적 학습·공유 그룹</strong>이었습니다.',
+                partId: 'part1',
                 body: `<div class="opening-split grid lg:grid-cols-5 gap-6 items-stretch">
                     <div class="lg:col-span-3 opening-tray">
                         <div class="opening-split__table"><table class="tbl nowrap-first opening-split__tbl"><tbody>
@@ -1388,7 +1781,7 @@
                 compact: true,
                 slideClass: 'slide-review-activities',
                 body: `<div class="review-activities-layout">
-                <div class="review-activities-table-wrap"><table class="tbl tbl-compact">
+                <div class="review-activities-table-wrap"><table class="tbl nowrap-first">
                     <thead><tr><th>월</th><th>주요 활동</th><th>키워드</th></tr></thead>
                     <tbody>
                         <tr><td>7월</td><td>PUG 출범, 운영 방안 기획 및 검토</td><td>출범</td></tr>
@@ -1408,19 +1801,18 @@
                         <figcaption>2차 (Gemini API 실습)</figcaption>
                     </figure>
                 </div>
-                <div class="bg-beige rounded-lg review-activities-summary">주요 성과: AI 도구 활용 경험 공유, 바이브 코딩·LLM API 실습, RPA·AI 시스템 아이디어 발굴, 협업 네트워크 형성
-                </div>
                 </div>`
             }),
 
             contentSlide({
-                label: '2025 → 2026 · 회고와 전환',
-                title: '무엇이 아쉬웠고, 어떻게 바꿨나',
-                message: 'AI 학습·공유 문화는 만들었지만 한계가 있었습니다. 2026년에는 <strong class="text-ink">8개 부문 집중반</strong>으로 구체화하고, <strong class="text-ink">업무 문제 해결(PoC)</strong> 중심으로 전환했습니다.',
+                label: 'Strategy · 2026',
+                title: '2026 운영 전략',
+                message: '학습·공유를 넘어, <strong class="text-ink">확산이 필요한 부문에 집중</strong>하고 <strong class="text-ink">업무 문제 해결(PoC)</strong>을 중심으로 운영합니다.',
                 compact: true,
                 wide: true,
+                alignTop: true,
                 slideClass: 'slide-perspective slide-pain-merge',
-                body: buildPainMergeBody(MEMBER_DEPT_GROUPS)
+                body: buildPainMergeBody()
             })
         ];
 
@@ -1610,10 +2002,6 @@
         ];
 
         const part2 = [
-            sectionDivider(PARTS[1].badge, PARTS[1].title, PARTS[1].subtitle, PARTS[1].id),
-
-            buildInterviewSlide(),
-
             contentSlide({
                 label: 'PoC · 멤버 소개',
                 title: '멤버별 PoC 주제 소개',
@@ -1621,6 +2009,7 @@
                 compact: true,
                 wide: true,
                 slideClass: 'slide-poc-present',
+                partId: 'part2',
                 body: `${buildKeywordTopics(['킥오프', 'PoC 주제', '부서 문제', '멤버 발표', '실제 문제'])}<div class="week-present-grid">
                     <figure class="week-present-cell">
                         <img src="assets/10-poc-fields/poc-kickoff.png" alt="PUG 집중반 킥오프 미팅" loading="lazy">
@@ -1671,49 +2060,39 @@
                         <tr><td>웹 &amp; 시스템 구조</td><td class="cur-main">FE/BE 역할 · 클라이언트·서버 · REST API 흐름</td><td><div class="cur-detail">
                             <div class="cur-block"><div class="cur-block-title">FE/BE 분리</div><ul>
                                 <li>FE·BE 역할 구분, 화면 처리 vs 비즈니스·데이터 처리</li>
-                                <li>사용자 입력→서버 요청→응답 표시 흐름 이해</li>
                             </ul></div>
                             <div class="cur-block"><div class="cur-block-title">클라이언트·서버</div><ul>
                                 <li>브라우저(클라이언트)와 서버의 요청·응답 관계</li>
-                                <li>로컬 서버 실행·포트 개념·개발/운영 환경 차이</li>
                             </ul></div>
                             <div class="cur-block"><div class="cur-block-title">REST API</div><ul>
                                 <li>GET/POST 등 HTTP 메서드·엔드포인트 개념</li>
-                                <li>Request/Response 구조·JSON 데이터 주고받기</li>
                             </ul></div>
                         </div></td></tr>
                         <tr><td>DB 기초 개념</td><td class="cur-main">테이블/행/컬럼 · PK/FK · SQL CRUD · Flask 연동</td><td><div class="cur-detail">
                             <div class="cur-block"><div class="cur-block-title">테이블 구조</div><ul>
                                 <li>테이블·행(레코드)·컬럼(필드) 개념 이해</li>
-                                <li>데이터 타입·스키마·실무 데이터 저장 방식</li>
                             </ul></div>
                             <div class="cur-block"><div class="cur-block-title">Key·관계</div><ul>
                                 <li>PK/FK 개념·1:N 등 테이블 관계 설명</li>
-                                <li>ERD로 엔티티 관계 시각화·조인 개념</li>
                             </ul></div>
                             <div class="cur-block"><div class="cur-block-title">SQL·CRUD</div><ul>
                                 <li>SELECT/INSERT/UPDATE/DELETE 기본 쿼리</li>
-                                <li>Flask·API와 DB 연동·CRUD 실습 경험</li>
                             </ul></div>
                         </div></td></tr>
                         <tr><td>API 구현·활용</td><td class="cur-main">AI 요구사항 정의·단계적 확장</td><td><div class="cur-detail">
                             <div class="cur-block"><div class="cur-block-title">명세·구현</div><ul>
                                 <li>Request/Response 구조·필수/선택 파라미터 파악</li>
-                                <li>AI 도구로 API 설계·구현 요청</li>
                             </ul></div>
                             <div class="cur-block"><div class="cur-block-title">AI 협업 코딩</div><ul>
                                 <li>자연어 요구사항 정의·단계적 기능 확장</li>
-                                <li>에러 로그 기반 AI 재질문·문제 해결</li>
                             </ul></div>
                         </div></td></tr>
                         <tr><td>Full Stack 개발</td><td class="cur-main">에러 로그 재질문 · 로컬 실행 · 환경변수 · FE–BE 연동</td><td><div class="cur-detail">
                             <div class="cur-block"><div class="cur-block-title">AI 협업 디버깅</div><ul>
                                 <li>에러 로그·스택 트레이스를 AI에 전달해 원인 분석</li>
-                                <li>재질문·단계별 수정으로 문제 해결 경험</li>
                             </ul></div>
                             <div class="cur-block"><div class="cur-block-title">로컬 개발환경</div><ul>
                                 <li>IDE·런타임·패키지 설치 등 개발환경 구성</li>
-                                <li>백엔드 서버 실행·터미널 로그 확인</li>
                             </ul></div>
                             <div class="cur-block"><div class="cur-block-title">연동·설정</div><ul>
                                 <li>port·.env 환경변수 설정·API 키 관리</li>
@@ -1727,21 +2106,17 @@
                         <tr><td>LLM 기본 원리<br>및 활용</td><td class="cur-main">LLM 강점/한계 · Temperature 등 옵션 · RAG</td><td><div class="cur-detail">
                             <div class="cur-block"><div class="cur-block-title">LLM 이해</div><ul>
                                 <li>강점/한계, 시스템·유저 프롬프트 구분</li>
-                                <li>Temperature 값 변경·응답 차이 체감</li>
                             </ul></div>
                             <div class="cur-block"><div class="cur-block-title">LLM API</div><ul>
                                 <li>API 호출 흐름 구현·응답 수신</li>
-                                <li>온프레미스(사내 구축) LLM API 실 호출</li>
                             </ul></div>
                             <div class="cur-block"><div class="cur-block-title">RAG</div><ul>
                                 <li>적용 전/후·할루시네이션 완화 체감</li>
-                                <li>Chunking·Top-K 검색 결과 비교</li>
                             </ul></div>
                         </div></td></tr>
                         <tr><td>프로젝트 기획</td><td class="cur-main">학습 내용 기반 프로젝트 기획</td><td><div class="cur-detail">
                             <div class="cur-block"><div class="cur-block-title">과제 도출</div><ul>
                                 <li>업무 과제 도출·현황(AS-IS) 정리</li>
-                                <li>AI·자동화 적용 지점 식별</li>
                             </ul></div>
                             <div class="cur-block"><div class="cur-block-title">PoC 설계</div><ul>
                                 <li>PoC 목표·MVP 범위·기술 스택 선정</li>
@@ -1849,19 +2224,6 @@
                 { src: 'assets/26-web-dev-lecture/lecture-ai-dev-connect.png', caption: '사내 LLM 활용 관련 Q&A (AI솔루션팀 진완혁)' },
                 { src: 'assets/26-web-dev-lecture/lecture-uiux-design.png', caption: 'UI/UX 디자인 강의(디지털진화팀 심수정)' }
             ]},
-            { icon: 'users', title: '디지털전략센터 · Leader\'s Talk',
-                topics: ['Leader\'s Talk', 'AI 시대', 'AI Playground', '간담회'],
-                meetingReveal: true, photos: [
-                { src: 'assets/28-meeting/meeting-reflection.png', caption: 'AI 시대에 대한 고찰 (정민석님)' },
-                { src: 'assets/28-meeting/meeting-playground.png', caption: 'AI Playground 소개 (신민규님)' }
-            ], overlayPhoto: { src: 'assets/28-meeting/meeting-dinner.png', caption: '간담회 식사', note: 'Power User Group의 P를 나타낸 포즈입니다 ^^' }},
-            { icon: 'message-square', title: '운영 지원 · 게시판 · 실습자료 · 미팅노트',
-                topics: ['Teams 게시판', '실습자료', '미팅노트', '아카이빙'],
-                opsSupportTriple: {
-                video: { src: 'assets/29-teams-channel/teams-channel.mp4', rate: 1.5, label: 'Teams 게시판 활동 요약' },
-                materials: { src: 'assets/30-weekly-materials/weekly-materials-folders.png', label: '주차별 실습자료 공유' },
-                notion: { src: 'assets/31-meeting-notes/meeting-notes-list.png', label: 'PUG Meeting Notes 아카이빙' }
-            }},
             { icon: 'graduation-cap', title: '개발 환경 · 온라인 강의 선별',
                 topics: ['인프런', 'LLM', 'GitHub', 'n8n', '바이브 코딩'],
                 desc: 'PoC 수행에 필요한 AI·개발 역량 강화를 위해 인프런 등 온라인 강의를 선별·추천했습니다.', photoBanner: true, photos: [
@@ -2395,8 +2757,17 @@
         }
 
         const part3 = [
-            sectionDivider(PARTS[2].badge, PARTS[2].title, PARTS[2].subtitle, PARTS[2].id),
-            ...SUPPORT.map(supportSlide)
+            contentSlide({
+                label: 'Support · 디지털전략센터 × PUG',
+                title: '멤버가 개발에만 집중할 환경',
+                message: '강의 · 도구 · 협업 환경을 디지털전략센터가 준비했습니다. 팀에서 멤버를 보내주시면 그대로 쓰실 수 있습니다.',
+                compact: true,
+                wide: true,
+                alignTop: false,
+                slideClass: 'slide-support-overview',
+                partId: 'part3',
+                body: buildSupportOverviewBody()
+            })
         ];
 
         // ── PART 4: 활동 효과 ──
@@ -2594,7 +2965,7 @@
 
             contentSlide({
                 label: 'Next',
-                title: '다음 PoC로, 함께 나아갑니다',
+                title: 'PUG의 다음 여정이 시작됩니다',
                 message: '학습·실습·PoC·피드백을 거치며, 다음 실험으로 이어갑니다.',
                 compact: true,
                 wide: true,
@@ -3383,7 +3754,7 @@
             else if (['ArrowLeft','PageUp'].includes(e.key)) { e.preventDefault(); changeSlide(-1); }
             else if (e.key === 'Home') { current = 0; render(); }
             else if (e.key === 'End') { current = slides.length - 1; render(); }
-            else if (e.key === 't' || e.key === 'T') { goToPart('toc'); }
+            else if (e.key === 't' || e.key === 'T') { goToPart('part1'); }
         });
         window.addEventListener('resize', () => {
             if (slides[current]?.querySelector('#practice-exchange-panel')) syncPracticeExchangeHeights();
