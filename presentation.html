@@ -438,7 +438,7 @@
             width: 100%;
             min-width: 0;
             min-height: 0;
-            aspect-ratio: 1 / 1;
+            aspect-ratio: 4 / 3;
             padding: 1.05rem 1.1rem;
             background: #F0EAE0;
             border-radius: 8px;
@@ -447,7 +447,7 @@
         }
         .support-overview__card-title {
             margin: 0;
-            font-size: 1.05rem;
+            font-size: 1.3rem;  
             font-weight: 800;
             color: #33271F;
             line-height: 1.25;
@@ -1173,12 +1173,12 @@
         function buildPainMergeBody() {
             const pillars = [
                 {
-                    title: '현업 솔루션 개발을 위한 기획 세션 마련',
+                    title: '현업 솔루션 개발을 위한 기획 세션',
                     points: ['현업 문제 도출', 'AI 접목 + 해결 방향 도출', '문제의 크기, 성공 기준 정의']
                 },
                 {
-                    title: 'AI 활용 역량 향상을 위한 커리큘럼 설계',
-                    points: ['PUG 멤버 인터뷰를 통한 성장 방향성 파악', 'AI 활용도 향상을 위한 커리큘럼 설계', '웹 개발 & AI 기초 강의 지원']
+                    title: 'AI 활용 역량 향상을 위한 커리큘럼',
+                    points: ['인터뷰를 통한 성장 방향성 파악', 'AI 활용도 향상을 위한 커리큘럼 설계', '웹 개발 & AI 기초 강의 지원']
                 },
                 {
                     title: '개인 산출물 관리를 위한 버전 관리 교육',
@@ -1224,23 +1224,23 @@
         function buildSupportOverviewBody() {
             const cards = [
                 {
-                    title: '온라인 강의',
+                    title: '온라인 강의 선별',
                     sub: '필요한 강의만 선별',
                     body: 'LLM 이론 · GitHub · n8n 자동화 · 바이브 코딩'
                 },
                 {
-                    title: 'AI 도구 구독',
+                    title: 'AI 도구 구독 지원',
                     sub: '유료 도구 · API 키 지원',
                     body: 'Google AI Pro · OpenAI · SerpApi'
                 },
                 {
-                    title: '개발 환경',
+                    title: '산출물 · 버전 관리 가이드',
                     sub: 'GitHub Organization',
                     body: '산출물 이력 관리 · 표준 기술스택 가이드'
                 },
                 {
-                    title: '공통 언어 만들기',
-                    sub: 'IT 기초 서적 배부',
+                    title: 'IT 기초 서적 배부',
+                    sub: '공통 언어 만들기',
                     body: '비전공자를 위한 이해할 수 있는 IT 지식'
                 },
                 {
@@ -2060,39 +2060,49 @@
                         <tr><td>웹 &amp; 시스템 구조</td><td class="cur-main">FE/BE 역할 · 클라이언트·서버 · REST API 흐름</td><td><div class="cur-detail">
                             <div class="cur-block"><div class="cur-block-title">FE/BE 분리</div><ul>
                                 <li>FE·BE 역할 구분, 화면 처리 vs 비즈니스·데이터 처리</li>
+                                <li>사용자 입력→서버 요청→응답 표시 흐름 이해</li>
                             </ul></div>
                             <div class="cur-block"><div class="cur-block-title">클라이언트·서버</div><ul>
                                 <li>브라우저(클라이언트)와 서버의 요청·응답 관계</li>
+                                <li>로컬 서버 실행·포트 개념·개발/운영 환경 차이</li>
                             </ul></div>
                             <div class="cur-block"><div class="cur-block-title">REST API</div><ul>
                                 <li>GET/POST 등 HTTP 메서드·엔드포인트 개념</li>
+                                <li>Request/Response 구조·JSON 데이터 주고받기</li>
                             </ul></div>
                         </div></td></tr>
                         <tr><td>DB 기초 개념</td><td class="cur-main">테이블/행/컬럼 · PK/FK · SQL CRUD · Flask 연동</td><td><div class="cur-detail">
                             <div class="cur-block"><div class="cur-block-title">테이블 구조</div><ul>
                                 <li>테이블·행(레코드)·컬럼(필드) 개념 이해</li>
+                                <li>데이터 타입·스키마·실무 데이터 저장 방식</li>
                             </ul></div>
                             <div class="cur-block"><div class="cur-block-title">Key·관계</div><ul>
                                 <li>PK/FK 개념·1:N 등 테이블 관계 설명</li>
+                                <li>ERD로 엔티티 관계 시각화·조인 개념</li>
                             </ul></div>
                             <div class="cur-block"><div class="cur-block-title">SQL·CRUD</div><ul>
                                 <li>SELECT/INSERT/UPDATE/DELETE 기본 쿼리</li>
+                                <li>Flask·API와 DB 연동·CRUD 실습 경험</li>
                             </ul></div>
                         </div></td></tr>
                         <tr><td>API 구현·활용</td><td class="cur-main">AI 요구사항 정의·단계적 확장</td><td><div class="cur-detail">
                             <div class="cur-block"><div class="cur-block-title">명세·구현</div><ul>
                                 <li>Request/Response 구조·필수/선택 파라미터 파악</li>
+                                <li>AI 도구로 API 설계·구현 요청</li>
                             </ul></div>
                             <div class="cur-block"><div class="cur-block-title">AI 협업 코딩</div><ul>
                                 <li>자연어 요구사항 정의·단계적 기능 확장</li>
+                                <li>에러 로그 기반 AI 재질문·문제 해결</li>
                             </ul></div>
                         </div></td></tr>
                         <tr><td>Full Stack 개발</td><td class="cur-main">에러 로그 재질문 · 로컬 실행 · 환경변수 · FE–BE 연동</td><td><div class="cur-detail">
                             <div class="cur-block"><div class="cur-block-title">AI 협업 디버깅</div><ul>
                                 <li>에러 로그·스택 트레이스를 AI에 전달해 원인 분석</li>
+                                <li>재질문·단계별 수정으로 문제 해결 경험</li>
                             </ul></div>
                             <div class="cur-block"><div class="cur-block-title">로컬 개발환경</div><ul>
                                 <li>IDE·런타임·패키지 설치 등 개발환경 구성</li>
+                                <li>백엔드 서버 실행·터미널 로그 확인</li>
                             </ul></div>
                             <div class="cur-block"><div class="cur-block-title">연동·설정</div><ul>
                                 <li>port·.env 환경변수 설정·API 키 관리</li>
@@ -2106,17 +2116,21 @@
                         <tr><td>LLM 기본 원리<br>및 활용</td><td class="cur-main">LLM 강점/한계 · Temperature 등 옵션 · RAG</td><td><div class="cur-detail">
                             <div class="cur-block"><div class="cur-block-title">LLM 이해</div><ul>
                                 <li>강점/한계, 시스템·유저 프롬프트 구분</li>
+                                <li>Temperature 값 변경·응답 차이 체감</li>
                             </ul></div>
                             <div class="cur-block"><div class="cur-block-title">LLM API</div><ul>
                                 <li>API 호출 흐름 구현·응답 수신</li>
+                                <li>온프레미스(사내 구축) LLM API 실 호출</li>
                             </ul></div>
                             <div class="cur-block"><div class="cur-block-title">RAG</div><ul>
                                 <li>적용 전/후·할루시네이션 완화 체감</li>
+                                <li>Chunking·Top-K 검색 결과 비교</li>
                             </ul></div>
                         </div></td></tr>
                         <tr><td>프로젝트 기획</td><td class="cur-main">학습 내용 기반 프로젝트 기획</td><td><div class="cur-detail">
                             <div class="cur-block"><div class="cur-block-title">과제 도출</div><ul>
                                 <li>업무 과제 도출·현황(AS-IS) 정리</li>
+                                <li>AI·자동화 적용 지점 식별</li>
                             </ul></div>
                             <div class="cur-block"><div class="cur-block-title">PoC 설계</div><ul>
                                 <li>PoC 목표·MVP 범위·기술 스택 선정</li>
@@ -2759,7 +2773,7 @@
         const part3 = [
             contentSlide({
                 label: 'Support · 디지털전략센터 × PUG',
-                title: '멤버가 개발에만 집중할 환경',
+                title: 'AI PoC 개발 집중 환경 마련',
                 message: '강의 · 도구 · 협업 환경을 디지털전략센터가 준비했습니다. 팀에서 멤버를 보내주시면 그대로 쓰실 수 있습니다.',
                 compact: true,
                 wide: true,
@@ -2832,8 +2846,6 @@
         }
 
         const part4 = [
-            sectionDivider(PARTS[3].badge, PARTS[3].title, PARTS[3].subtitle, PARTS[3].id),
-
             contentSlide({
                 label: 'Effect · 함께 배우기',
                 title: '실습에서 함께 질문하고 배우기',
@@ -2841,6 +2853,7 @@
                 wide: true,
                 compact: true,
                 slideClass: 'slide-practice-qa',
+                partId: 'part4',
                 body: buildPracticeExchangeBody()
             }),
 
