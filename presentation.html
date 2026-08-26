@@ -98,7 +98,7 @@
             display: grid;
             grid-template-columns: repeat(4, minmax(0, 1fr));
             grid-template-rows: repeat(3, minmax(0, 1fr));
-            gap: 0.7rem;
+            gap: 0.4rem;
             width: 100%;
             flex: 1 1 auto;
             min-height: 0;
@@ -117,7 +117,7 @@
             min-height: 0;
             padding: 1rem 1.1rem;
             background: #FFFFFF;
-            border-radius: 10px;
+            border-radius: 8px;
             box-sizing: border-box;
         }
         .curriculum-topic__label {
@@ -410,7 +410,7 @@
         .slide-pain-merge > div > p.leading-relaxed { margin-bottom: 0.7rem !important; max-width: none !important; font-size: 0.9rem; }
         .support-overview {
             display: grid;
-            grid-template-columns: 1.05fr repeat(3, minmax(0, 1fr));
+            grid-template-columns: 1.45fr repeat(3, minmax(0, 1fr));
             grid-template-rows: auto auto;
             gap: 0.7rem;
             flex: 0 0 auto;
@@ -429,49 +429,71 @@
             height: 100%;
             min-height: 0;
             padding: 1.05rem 1.1rem 0.95rem;
-            background: #33271F;
+            background: #F0EAE0;
             border-radius: 8px;
             color: #FBF8F3;
             box-sizing: border-box;
         }
         .support-overview__hero-eyebrow {
-            margin: 0 0 0.4rem;
-            font-size: 0.72rem;
+            margin: 0 0 0.55rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1.5px solid #FFFFFF;
+            font-size: 1.55rem;
             font-weight: 700;
-            color: rgba(251, 248, 243, 0.72);
+            color: #000000;
             letter-spacing: 0.02em;
             line-height: 1.25;
         }
-        .support-overview__hero-title {
-            margin: 0 0 0.45rem;
-            font-size: 1.18rem;
-            font-weight: 800;
-            color: #F5B041;
-            line-height: 1.3;
-            word-break: keep-all;
-        }
-        .support-overview__hero-desc {
-            margin: 0 0 0.65rem;
-            font-size: 0.82rem;
-            font-weight: 600;
-            color: rgba(251, 248, 243, 0.88);
-            line-height: 1.4;
-            word-break: keep-all;
-        }
-        .support-overview__hero-photo {
-            margin-top: auto;
-            border-radius: 6px;
-            overflow: hidden;
+        .support-overview__experts {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            column-gap: 0.45rem;
+            row-gap: 0.55rem;
             flex: 1 1 auto;
             min-height: 0;
-            max-height: 48%;
-            background: #1F1712;
+            margin-top: 0.15rem;
         }
-        .support-overview__hero-photo img {
+        .support-overview__expert {
+            display: flex;
+            flex-direction: column;
+            gap: 0.28rem;
+            min-width: 0;
+            min-height: 0;
+        }
+        .support-overview__expert:nth-child(-n+2) {
+            padding-bottom: 0.5rem;
+            border-bottom: 1.5px solid #FFFFFF;
+        }
+        .support-overview__expert-role {
+            margin: 0;
+            font-size: 0.72rem;
+            font-weight: 800;
+            color: #000000;
+            line-height: 1.2;
+            letter-spacing: 0.01em;
+        }
+        .support-overview__expert-name {
+            margin: 0;
+            font-size: 0.62rem;
+            font-weight: 700;
+            color: #4A3C33;
+            line-height: 1.25;
+            word-break: keep-all;
+        }
+        .support-overview__expert-photo {
+            margin: 0;
+            flex: 1 1 auto;
+            min-height: 0;
+            border-radius: 6px;
+            overflow: hidden;
+            background: #FFFFFF;
+            aspect-ratio: 5 / 4.5;
+        }
+        .support-overview__expert-photo img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            object-position: center;
+            object-position: center top;
             display: block;
         }
         .support-overview__card {
@@ -482,7 +504,7 @@
             width: 100%;
             min-width: 0;
             min-height: 0;
-            aspect-ratio: 4 / 3;
+            aspect-ratio: 4 / 3.6;
             padding: 1.05rem 1.1rem;
             background: #FFFFFF;
             border-radius: 8px;
@@ -555,10 +577,12 @@
                 height: auto;
                 min-height: 240px;
             }
-            .support-overview__hero-photo {
+            .support-overview__experts {
                 flex: 0 0 auto;
-                height: 120px;
-                max-height: none;
+            }
+            .support-overview__expert-photo {
+                aspect-ratio: 1 / 1;
+                max-height: 110px;
             }
             .support-overview__card {
                 width: 100%;
@@ -643,15 +667,95 @@
         .week-photo-sub--guide-header img { flex: 0 0 auto; max-height: 148px; object-fit: contain; padding: 4px 6px; background: #2d3748; }
         .week-photo-sub--stacked img.week-photo-sub__header { flex: 0 0 auto; max-height: 48px; object-fit: contain; padding: 5px 8px 2px; background: #fff; }
         .week-photo-sub--stacked img.week-photo-sub__body { flex: 1; min-height: 0; }
+        .slide-week-edu .slide-head-row {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) auto;
+            gap: 1rem 1.25rem;
+            align-items: stretch;
+            margin-bottom: 1rem;
+        }
+        .slide-week-edu .slide-head-main {
+            min-width: 0;
+        }
+        .slide-week-edu .slide-head-main .slide-msg {
+            margin-bottom: 0;
+        }
+        .slide-week-edu .week-effect {
+            width: min(17rem, 32vw);
+            max-width: 18rem;
+            padding: 1rem 1.15rem;
+            background: #000000;
+            border: none;
+            border-radius: 8px;
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .week-effect__text {
+            margin: 0;
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: #FFFFFF;
+            line-height: 1.45;
+            word-break: keep-all;
+            text-align: center;
+            white-space: pre-line;
+        }
         .week-present-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-template-rows: repeat(2, minmax(0, 1fr)); gap: 0.5rem; margin-top: 0.75rem; height: min(500px, calc(100vh - 230px)); max-height: 520px; }
-        .showcase-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.95rem 1rem; margin-top: 0; width: 100%; height: auto; max-height: none; }
+        .showcase-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.85rem 1rem; margin-top: 0; width: 100%; height: auto; max-height: none; }
         .slide-showcase { padding-top: 2.5rem !important; padding-bottom: 3.5rem !important; justify-content: center !important; }
         .slide-showcase > div { display: flex; flex-direction: column; justify-content: center; flex: 0 1 auto; width: 100%; min-height: 0; }
         .slide-showcase > div > p.text-sm.font-bold { margin-bottom: 0.25rem !important; font-size: 0.72rem; }
         .slide-showcase > div > h2 { margin-bottom: 0.3rem !important; font-size: 1.7rem !important; line-height: 1.25 !important; }
-        .slide-showcase > div > p.leading-relaxed { margin-bottom: 0.85rem !important; font-size: 0.8rem; max-width: none !important; line-height: 1.45; }
+        .slide-showcase > div > p.leading-relaxed { margin-bottom: 0.75rem !important; font-size: 0.8rem; max-width: none !important; line-height: 1.45; }
         .slide-showcase .week-topics { display: none; }
         .slide-showcase > div > div { min-height: 0; flex: 0 1 auto; display: block; width: 100%; overflow: visible; }
+        .showcase-thumb {
+            margin: 0;
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+            background: #FFFFFF;
+            border-radius: 8px;
+            padding: 0.7rem 0.75rem 0.75rem;
+            box-sizing: border-box;
+        }
+        .showcase-thumb__who { margin: 0; font-size: 0.68rem; font-weight: 800; color: #8A7B6E; line-height: 1.25; }
+        .showcase-thumb__title {
+            margin: 0;
+            padding-bottom: 0.4rem;
+            border-bottom: 2px solid #F5B041;
+            font-size: 0.92rem;
+            font-weight: 800;
+            color: #33271F;
+            line-height: 1.3;
+            word-break: keep-all;
+        }
+        .showcase-thumb__media {
+            margin: 0.15rem 0 0;
+            width: 100%;
+            aspect-ratio: 18 / 9;
+            overflow: hidden;
+            border-radius: 6px;
+            background: #F0EAE0;
+            line-height: 0;
+        }
+        .showcase-thumb__media--bg-white { background: #FFFFFF; }
+        .showcase-thumb__img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            object-position: center;
+            display: block;
+            transform-origin: center center;
+        }
+        .showcase-thumb__img--scale-110 { transform: scale(1.1); }
+        .showcase-thumb__img--scale-120 { transform: scale(1.2); }
+        .showcase-thumb__img--pos-top { object-position: center top; transform-origin: center top; }
+        .showcase-thumb__img--pos-bottom { object-position: center bottom; transform-origin: center bottom; }
+        .showcase-thumb__img--pos-center { object-position: center center; transform-origin: center center; }
         .showcase-cell { margin: 0; border-radius: 0; overflow: visible; background: transparent; min-height: 0; display: flex; flex-direction: column; line-height: 0; width: 100%; }
         .showcase-cell img { width: 100%; aspect-ratio: 18 / 9; height: auto; flex: none; object-fit: contain; object-position: center; display: block; background: #F0EAE0; border-radius: 6px; }
         .showcase-cell--slide img { object-fit: contain; object-position: center; background: #F0EAE0; }
@@ -1148,7 +1252,7 @@
         const deck = document.getElementById('deck');
 
         // ── Slide builders ──
-        const PARTS = [
+        const PARTS = [ 
             { id: 'part1', badge: 'PART 1', title: 'PUG 출범 · 2025 활동', subtitle: '어떻게 시작했고, 무엇이 부족했는가', tocLabel: 'PUG 출범과 2025년 회고' },
             { id: 'part2', badge: 'PART 2', title: '인터뷰 · 커리큘럼 · 교육', subtitle: '업무 요구사항 파악부터 맞춤형 학습까지', tocLabel: '2026년 PUG 활동' },
             { id: 'part3', badge: 'PART 3', title: '디지털전략센터 X PUG ', subtitle: '사내 전문가 연결과 운영 지원', tocLabel: '디지털전략센터 지원 전략' },
@@ -1185,7 +1289,7 @@
             </section>`;
         }
 
-        function contentSlide({ label, title, message, body, scroll = false, wide = false, alignTop = false, compact = false, titleExtra, slideClass = '', partId = '' }) {
+        function contentSlide({ label, title, message, body, scroll = false, wide = false, alignTop = false, compact = false, titleExtra, slideClass = '', partId = '', headAside = '' }) {
             const scrollCls = scroll ? ' py-12 overflow-y-auto' : '';
             const alignCls = alignTop ? ' justify-start pt-6 pb-16 overflow-hidden' : ' justify-center pb-14';
             const maxW = wide ? 'max-w-6xl' : 'max-w-5xl';
@@ -1194,13 +1298,21 @@
             const titleBlock = titleExtra
                 ? `<div class="slide-title-row shrink-0"><h2 class="${titleCls.replace(' mb-2', '').replace(' mb-3', '')}">${title}</h2>${titleExtra}</div>`
                 : `<h2 class="${titleCls} shrink-0">${title}</h2>`;
+            const messageBlock = message
+                ? `<p class="slide-msg text-sm text-ink/80 leading-relaxed shrink-0">${message}</p>`
+                : '';
+            const headBlock = headAside
+                ? `<div class="slide-head-row">
+                    <div class="slide-head-main">${titleBlock}${messageBlock}</div>
+                    ${headAside}
+                </div>`
+                : `${titleBlock}${message ? `<p class="slide-msg text-sm text-ink/80 leading-relaxed ${msgMb} shrink-0">${message}</p>` : ''}`;
             const slideExtraCls = slideClass ? ` ${slideClass}` : '';
             const partAttr = partId ? ` data-part="${partId}"` : '';
             return `<section class="slide w-full h-screen flex-col${alignCls} px-8 lg:px-24${scrollCls}${slideExtraCls}"${partAttr}>
                 <div class="${maxW} w-full mx-auto min-h-0${alignTop ? ' flex flex-col flex-1 overflow-hidden' : ''}">
                     <p class="text-sm font-bold text-pug mb-2 uppercase tracking-wider shrink-0">${label}</p>
-                    ${titleBlock}
-                    ${message ? `<p class="slide-msg text-sm text-ink/80 leading-relaxed ${msgMb} shrink-0">${message}</p>` : ''}
+                    ${headBlock}
                     <div class="${alignTop ? 'min-h-0 flex-1 overflow-hidden flex flex-col' : ''}">${body}</div>
                 </div>
             </section>`;
@@ -1278,7 +1390,7 @@
                     body: 'Google AI Pro · OpenAI · SerpApi'
                 },
                 {
-                    title: '산출물 · 버전 관리 가이드',
+                    title: '산출물·버전 관리 가이드',
                     sub: 'GitHub Organization',
                     body: '산출물 이력 관리 · 표준 기술스택 가이드'
                 },
@@ -1288,7 +1400,7 @@
                     body: '비전공자를 위한 이해할 수 있는 IT 지식'
                 },
                 {
-                    title: '사내 AI 인프라',
+                    title: '사내 Infra 활용 가이드',
                     sub: 'AI Playground 안내',
                     body: '사내 LLM 환경에서 안전하게 실험'
                 },
@@ -1306,14 +1418,25 @@
                     <p class="support-overview__card-body">${c.body}</p>
                 </article>`
             ).join('');
+            const experts = [
+                { role: 'Web · Infra', name: '디지털진화팀 송영복', src: 'assets/48-experts/expert-1-song-youngbok.png' },
+                { role: 'AI · Data', name: 'AI솔루션팀 윤채영', src: 'assets/48-experts/expert-2-yoon-chaeyeong.png' },
+                { role: 'AI · LLM', name: 'AI솔루션팀 진완혁', src: 'assets/48-experts/expert-3-jin-wanhyeok.png' },
+                { role: 'Design · UI/UX', name: '디지털진화팀 심수정', src: 'assets/48-experts/expert-4-shim-sujeong.png' }
+            ];
+            const expertBlocks = experts.map((e) =>
+                `<article class="support-overview__expert">
+                    <p class="support-overview__expert-role">${e.role}</p>
+                    <p class="support-overview__expert-name">${e.name}</p>
+                    <figure class="support-overview__expert-photo">
+                        <img src="${e.src}" alt="${e.role} · ${e.name}" loading="lazy">
+                    </figure>
+                </article>`
+            ).join('');
             return `<div class="support-overview">
                 <aside class="support-overview__hero">
                     <p class="support-overview__hero-eyebrow">사내 전문가 연결</p>
-                    <h3 class="support-overview__hero-title">AI · Dev · Data<br>UI/UX 실무 강의</h3>
-                    <p class="support-overview__hero-desc">코드 리뷰, 사내 LLM Q&amp;A, 머신러닝·NLP, UI/UX까지 실무진이 직접 강의하고 코칭했습니다.</p>
-                    <figure class="support-overview__hero-photo">
-                        <img src="assets/26-web-dev-lecture/lecture-code-review.png" alt="실무 강의 · 코드 리뷰" loading="lazy">
-                    </figure>
+                    <div class="support-overview__experts">${expertBlocks}</div>
                 </aside>
                 ${cardBlocks}
             </div>`;
@@ -1633,6 +1756,29 @@
             ).join('')}</div>`;
         }
 
+        function buildShowcaseThumb({ who, title, src, alt, bg, scale, pos }) {
+            const mediaCls = ['showcase-thumb__media', bg === 'white' && 'showcase-thumb__media--bg-white'].filter(Boolean).join(' ');
+            const imgCls = [
+                'showcase-thumb__img',
+                scale === 1.1 && 'showcase-thumb__img--scale-110',
+                scale === 1.2 && 'showcase-thumb__img--scale-120',
+                pos === 'top' && 'showcase-thumb__img--pos-top',
+                pos === 'bottom' && 'showcase-thumb__img--pos-bottom',
+                pos === 'center' && 'showcase-thumb__img--pos-center'
+            ].filter(Boolean).join(' ');
+            return `<article class="showcase-thumb">
+                <p class="showcase-thumb__who">${who}</p>
+                <h3 class="showcase-thumb__title">${title}</h3>
+                <div class="${mediaCls}">
+                    <img class="${imgCls}" src="${src}" alt="${alt || title}" loading="lazy">
+                </div>
+            </article>`;
+        }
+
+        function buildShowcaseThumbGrid(items) {
+            return `<div class="showcase-grid">${items.map(buildShowcaseThumb).join('')}</div>`;
+        }
+
         function buildKeywordTopics(topics) {
             if (!topics?.length) return '';
             return `<div class="week-topics">
@@ -1641,7 +1787,12 @@
             </div>`;
         }
 
-        function weekSlide({ week, title, topics, message, goals, goalsMaterials, mainImage, mainImages, mainExtra, subImages, photoLayout, photoFit, photoTall, photoGrid, goalsLeft, goalsLayout, embedGuide, embedGuideImage, embedGuideVariant, embedGuideTitle, embedGuideScroll = true, termNotes }) {
+        function buildWeekEffect(effect) {
+            if (!effect) return '';
+            return `<aside class="week-effect"><p class="week-effect__text">${effect}</p></aside>`;
+        }
+
+        function weekSlide({ week, title, topics, message, goals, goalsMaterials, mainImage, mainImages, mainExtra, subImages, photoLayout, photoFit, photoTall, photoGrid, goalsLeft, goalsLayout, embedGuide, embedGuideImage, embedGuideVariant, embedGuideTitle, embedGuideScroll = true, termNotes, effect }) {
             const renderPhotoSub = (p, altFallback = '') => {
                 const stacked = !!p.headerSrc;
                 const figureCls = ['week-photo-sub', stacked && 'week-photo-sub--stacked', p.compact && 'week-photo-sub--compact', p.tableRef && 'week-photo-sub--table-ref', p.flat && 'week-photo-sub--flat'].filter(Boolean).join(' ');
@@ -1759,10 +1910,9 @@
                 : '';
             const isPocWorkshop = goalsLayout === 'poc-workshop';
             const termNotesBlock = buildTermNotes(termNotes);
-            const bodyCore = isPocWorkshop
-                ? `${chips}<div class="slide-body-poc-workshop">${photos}</div>`
-                : `${chips}${goalsBlock}${photos}`;
-            const body = `${bodyCore}${termNotesBlock}`;
+            const body = isPocWorkshop
+                ? `${chips}<div class="slide-body-poc-workshop">${photos}</div>${termNotesBlock}`
+                : `${chips}${goalsBlock}${photos}${termNotesBlock}`;
             return contentSlide({
                 label: `Education · ${week}`,
                 title,
@@ -1771,6 +1921,8 @@
                 wide: !!(photoGrid || mainImage || mainImages?.length || goalsLeft || embedGuide),
                 alignTop: false,
                 scroll: false,
+                slideClass: 'slide-week-edu',
+                headAside: buildWeekEffect(effect),
                 body
             });
         }
@@ -1862,7 +2014,8 @@
 
         // ── PART 2: 인터뷰 → 커리큘럼 → 교육 ──
         const WEEKLY = [
-            { week: '2월 4주차', title: '코딩 기본 문법 · 변수·함수', topics: ['Python 입문·중급', '변수·자료형', '함수', '조건·반복문'],
+            { effect: '프로그래밍 기초 역량강화',
+                week: '2월 4주차', title: '코딩 기본 문법 · 변수·함수', topics: ['Python 입문·중급', '변수·자료형', '함수', '조건·반복문'],
                 message: '인터뷰·커리큘럼 착수 전, Python 기본 문법·변수·함수 개념을 <strong class="text-ink">개인 학습</strong>했습니다.',
                 mainImage: { src: 'assets/11-feb-python/youtube-python.png', caption: 'YouTube · 파이썬 3시간 완성 (김플 스튜디오)' },
                 subImages: [
@@ -1872,7 +2025,8 @@
                 photoLayout: 'feb-python',
                 photoTall: true
             },
-            { week: '3월 1주차', title: '웹·시스템 구조 · 바이브 코딩', topics: ['프론트엔드·백엔드(FE/BE) 역할 구분', 'REST API 흐름', 'AI 협업 코딩 방식', '요구사항 정의·단계적 확장'],
+            { effect: 'Web 시스템 구조 이해',
+                week: '3월 1주차', title: '웹·시스템 구조 · 바이브 코딩', topics: ['프론트엔드·백엔드(FE/BE) 역할 구분', 'REST API 흐름', 'AI 협업 코딩 방식', '요구사항 정의·단계적 확장'],
                 message: '<strong class="text-ink">바이브 코딩</strong>과 <strong class="text-ink">웹·시스템 구조</strong>를 주제로, FE/BE 역할·클라이언트–서버·API 흐름과 개발 기초 용어를 함께 맞춰 봤습니다.',
                 mainImage: { src: 'assets/12-vibe-coding/main-session.jpg', caption: '바이브 코딩 · 웹·시스템 구조 교육 세션' },
                 mainExtra: `<div class="week-terms-strip">
@@ -1900,7 +2054,8 @@
                 ],
                 photoTall: true
             },
-            { week: '3월 2주차', title: 'API · SQL · CRUD 실습', topics: ['Flask 기초', 'SQL 개념', '테이블/행/컬럼', '데이터 CRUD 실습'],
+            { effect: '통신구조 이해 & 데이터베이스 기초 확보',
+                week: '3월 2주차', title: 'API · SQL · CRUD 실습', topics: ['Flask 기초', 'SQL 개념', '테이블/행/컬럼', '데이터 CRUD 실습'],
                 message: 'PoC에서 자주 다루는 <strong class="text-ink">API</strong>와 <strong class="text-ink">SQL CRUD</strong>를 중심으로, Flask로 요청·응답을 구현하고 DB 연동 실습까지 진행했습니다.',
                 mainImage: { src: 'assets/13-flask-sql/rest-api-diagram.png', caption: 'REST API — Client · Server · HTTP · JSON' },
                 embedGuideImage: { src: 'assets/13-flask-sql/sql-rdb-diagram.png', caption: 'SQL · 관계형 데이터베이스(RDB)' },
@@ -1910,7 +2065,8 @@
                     ['Flask', 'Python으로 웹·API를 만드는 가벼운 도구(학습·프로토타입용)']
                 ]
             },
-            { week: '3월 3주차', title: '생성형 AI · LLM · RAG', topics: ['인공지능의 의미·핵심 개념', 'NLP · LLM · 생성형 AI 동작', 'LLM 강점/한계', 'Temperature·프롬프트', 'LLM API 호출', '사전학습·파인튜닝·RAG 차이', 'LangChain·RAG 관계' ],
+            { effect: 'LLM & RAG 챗봇구현',
+                week: '3월 3주차', title: '생성형 AI · LLM · RAG', topics: ['인공지능의 의미·핵심 개념', 'NLP · LLM · 생성형 AI 동작', 'LLM 강점/한계', 'Temperature·프롬프트', 'LLM API 호출', '사전학습·파인튜닝·RAG 차이', 'LangChain·RAG 관계' ],
                 message: 'AI·NLP·LLM 개념부터 <strong class="text-ink">사전학습·파인튜닝·RAG</strong> 차이까지 학습하고, API·임베딩 실습 후 <strong class="text-ink">슬기로운 DRB 생활</strong> 데이터로 RAG 챗봇을 만들어 봤습니다.',
                 mainImage: { src: 'assets/14-llm-rag/main-llm-session.png', caption: 'LLM·RAG 교육 세션' },
                 subImages: [
@@ -1919,7 +2075,8 @@
                 ],
                 photoTall: true
             },
-            { week: '3월 4주차', title: 'RAG 챗봇 · 개인 발표', topics: ['RAG 챗봇 구현', '개인 발표', 'PoC 챗봇 사례 공유'],
+            { effect: '현업 도메인 문제 적용',
+                week: '3월 4주차', title: 'RAG 챗봇 · 개인 발표', topics: ['RAG 챗봇 구현', '개인 발표', 'PoC 챗봇 사례 공유'],
                 message: '3월 3주차 RAG 학습을 바탕으로, 멤버별 <strong class="text-ink">PoC 챗봇</strong>을 구현하고 <strong class="text-ink">개인 발표</strong>로 공유했습니다.',
                 photoGrid: [
                     { src: 'assets/15-rag-chatbot/present-1-vscode.png', caption: '강응준님 발표: PoC 챗봇 사례' },
@@ -1930,7 +2087,8 @@
                     { src: 'assets/15-rag-chatbot/present-6-pug-archive.png', caption: '박다솜님 발표: PoC 챗봇 사례' }
                 ]
             },
-            { week: '3월 4주차', title: 'RPA 자동화', topics: ['n8n 워크플로 구성', '사내 Teams OAuth 연동', '실습1 · 키워드 뉴스 요약', '실습2 · 랜덤 발표 순서'],
+            { effect: 'RPA 자동화 역량 강화',
+                week: '3월 4주차', title: 'RPA 자동화', topics: ['n8n 워크플로 구성', '사내 Teams OAuth 연동', '실습1 · 키워드 뉴스 요약', '실습2 · 랜덤 발표 순서'],
                 message: '공개 튜토리얼과 달리, 교육용 <strong class="text-ink">사내 Teams·OAuth</strong>로 실습했습니다. <span class="nb">RSS → ChatGPT 요약 → Teams 전송</span>과 엑셀 랜덤 발표 자동화까지 진행했습니다.',
                 mainImage: { src: 'assets/15-n8n/n8n-session.png', caption: 'n8n 자동화 교육 세션' },
                 subImages: [
@@ -1941,7 +2099,8 @@
                 photoFit: 'cover',
                 photoTall: true
             },
-            { week: '4월 1주차', title: 'PoC 기획 · 아이디어 워크숍', topics: ['업무 과제 도출', '현재 업무 현황(AS-IS) 정리', 'PoC 목표·범위 설정', '기술 스택 선정'],
+            { effect: 'PoC 기획안 도출',
+                week: '4월 1주차', title: 'PoC 기획 · 아이디어 워크숍', topics: ['업무 과제 도출', '현재 업무 현황(AS-IS) 정리', 'PoC 목표·범위 설정', '기술 스택 선정'],
                 message: '각자의 업무 문제를 AI로 어떻게 풀지 구체적으로 고민하고, <strong class="text-ink">실행 가능한 PoC 설계 초안</strong>까지 정리했습니다.',
                 goals: [
                     '각 참여자가 <strong class="text-ink">실제 해결 가능한 문제 1개</strong>를 정의',
@@ -1959,7 +2118,8 @@
                     { src: 'assets/16-poc-idea/sub-workshop-2.png', caption: 'PoC 설계 협업' }
                 ]
             },
-            { week: '4월 3주차', title: 'API 개발 심화 · 사내 LLM 연동', topics: ['FastAPI · 온프레미스 LLM', 'Request/Response·파라미터', 'AI 도구 API 설계·구현', 'Swagger UI'],
+            { effect: '사내 LLM 연동<br>API 설계 역량 강화',
+                week: '4월 3주차', title: 'API 개발 심화 · 사내 LLM 연동', topics: ['FastAPI · 온프레미스 LLM', 'Request/Response·파라미터', 'AI 도구 API 설계·구현', 'Swagger UI'],
                 message: 'FastAPI로 <strong class="text-ink">사내 구축(On-premise) LLM</strong>에 연동했습니다. Request/Response·파라미터를 파악하고 AI 도구로 API를 설계·구현했으며, <strong class="text-ink">Swagger UI</strong>로 엔드포인트를 확인했습니다.',
                 mainImage: { src: 'assets/26-web-dev-lecture/lecture-onprem-llm.png', caption: 'API 개발 심화 (FastAPI)' },
                 embedGuide: 'assets/17-fastapi-git/fastapi-guide.html',
@@ -1969,7 +2129,8 @@
                 photoFit: 'cover',
                 photoTall: true
             },
-            { week: '4월 3주차', title: 'Git · GitHub', topics: ['Git 개념·Repository', 'Commit / Push / Pull', 'GitHub Flow', 'PoC 코드 버전 관리'],
+            { effect: '코드 버전 관리 역량 강화',
+                week: '4월 3주차', title: 'Git · GitHub', topics: ['Git 개념·Repository', 'Commit / Push / Pull', 'GitHub Flow', 'PoC 코드 버전 관리'],
                 message: 'FastAPI 실습 코드를 <strong class="text-ink">Git 저장소</strong>로 관리하며 Commit·Push·Pull을 익혔습니다. <strong class="text-ink">GitHub Flow</strong>로 브랜치·리뷰·병합까지 PoC에 맞게 연습했습니다.',
                 mainImage: { src: 'assets/17-fastapi-git/sub-git-distributed-vcs.png', caption: 'Distributed Version Control · Commit / Push / Pull' },
                 subImages: [
@@ -1981,7 +2142,8 @@
                     ['GitHub', '코드를 팀과 공유·관리하는 웹 플랫폼']
                 ]
             },
-            { week: '4월 4주차', title: 'Webhook · 배포 흐름', topics: ['Webhook API', 'FastAPI', 'POST 요청 처리', 'n8n·Teams 연동', '빌드→배포→실행'],
+            { effect: '풀스택 연동',
+                week: '4월 4주차', title: 'BackEnd · FrontEnd · API 연동', topics: ['Webhook API', 'FastAPI', 'POST 요청 처리', 'n8n·Teams 연동', '빌드→배포→실행'],
                 message: 'FastAPI로 <strong class="text-ink">웹훅 서버</strong>를 구현하고, <span class="nb">프론트엔드 → 서버 → 메시지 전송</span>까지 <strong class="text-ink">전체 배포 흐름</strong>을 실습했습니다.',
                 mainImage: { src: 'assets/18-webhook-api/main-activity.png', caption: 'Webhook·배포 실습 세션' },
                 subImages: [
@@ -1990,7 +2152,8 @@
                 ],
                 photoTall: true
             },
-            { week: '4월 4주차', title: 'UI/UX 기초', topics: ['Design vs UX', 'UI 컴포넌트', '디자인 시스템', 'AI 디자인 도구'],
+            { effect: '사용자 중심 설계 이해',
+                week: '4월 4주차', title: 'UI/UX 기초', topics: ['Design vs UX', 'UI 컴포넌트', '디자인 시스템', 'AI 디자인 도구'],
                 message: '<strong class="text-ink">Design vs UX</strong> 개념과 UI 컴포넌트·디자인 시스템을 학습하고, <strong class="text-ink">AI 디자인 도구</strong>로 화면 시안을 만들어 봤습니다.',
                 mainImage: { src: 'assets/19-uiux-basics/uiux-v0-design.png', caption: 'Google stitch AI 디자인 - Pastel Modernism 적용' },
                 subImages: [
@@ -2000,14 +2163,16 @@
                 photoLayout: 'uiux',
                 photoTall: true
             },
-            { week: '4월 5주차', title: 'AI 에이전트 · 멀티에이전트', topics: ['에이전트 역할·입출력', 'LLM과 에이전트 차이', 'Multi-Agent 패턴', 'MVP 구조 설계'],
+            { effect: 'AI 에이전트 구조 이해 및 MVP 설계 역량 강화',
+                week: '4월 5주차', title: 'AI 에이전트 · 멀티에이전트', topics: ['에이전트 역할·입출력', 'LLM과 에이전트 차이', 'Multi-Agent 패턴', 'MVP 구조 설계'],
                 message: 'PUG GitHub에 <strong class="text-ink">market-research-crew</strong> 실습 레포와 CrewAI 멀티에이전트 가이드를 공유했습니다.',
                 mainImage: { src: 'assets/20-agent/github-repo.png', caption: 'PUG GitHub · market-research-crew 실습' },
                 embedGuide: 'assets/20-agent/agent-guide.html',
                 embedGuideVariant: 'agent',
                 photoTall: true
             },
-            { week: '5월 1주차', title: 'Quiz Race · IT 지식 · 개발 개념', topics: ['Quiz Race', 'IT 기초 지식', '비전공자'],
+            { effect: 'IT·개발 기초 지식 점검 및 학습 동기 강화',
+                week: '5월 1주차', title: 'Quiz Race · IT 지식 · 개발 개념', topics: ['Quiz Race', 'IT 기초 지식', '비전공자'],
                 message: '「비전공자를 위한 이해할 수 있는 IT 지식」 교재로 <strong class="text-ink">Quiz Race</strong>를 진행하며, 개발 기초 개념을 게임형으로 점검했습니다.',
                 mainImages: [
                     { src: 'assets/21-quiz-race/quiz-lap3-get-post.png', caption: '「비전공자를 위한 이해할 수 있는 IT 지식」 · Quiz Race 교재' },
@@ -2019,7 +2184,8 @@
                 photoTall: true,
                 photoLayout: 'quiz-race'
             },
-            { week: '5월 4주차', title: '개발 컨벤션 가이드', topics: ['코딩 컨벤션', '개발 가이드', '협업 규칙', 'PoC 품질'],
+            { effect: '개발표준 가이드 제공',
+                week: '5월 4주차', title: '개발 컨벤션 가이드', topics: ['코딩 컨벤션', '개발 가이드', '협업 규칙', 'PoC 품질'],
                 message: 'PoC 코드 품질과 협업을 위해 <strong class="text-ink">개발 컨벤션 가이드</strong>를 학습하고, GitHub에 공유된 가이드를 함께 확인했습니다.',
                 mainImage: { src: 'assets/22-dev-convention/main-session.png', caption: '개발 컨벤션 가이드 교육 세션' },
                 subImages: [
@@ -2032,7 +2198,8 @@
                 photoLayout: 'convention',
                 photoTall: true
             },
-            { week: '6월 3주차', title: 'PoC UI/UX · 디자인 가이드',
+            { effect: '디자인 전문가 피드백<br>UI/UX 개선',
+                week: '6월 3주차', title: 'PoC UI/UX · 디자인 가이드',
                 topics: ['UI/UX 강의', '1:1 디자인 피드백', '바이브 코딩 디자인 가이드', 'PoC 화면 개선'],
                 message: '디지털진화팀 심수정님과 <strong class="text-ink">UI/UX 강의·1:1 피드백</strong>을 진행하고, 바이브 코딩 디자인 가이드를 공유했습니다.',
                 embedGuide: 'assets/27-design-consulting/vibe-coding-design-guide.html',
@@ -2048,7 +2215,7 @@
         const part2 = [
             contentSlide({
                 label: 'Curriculum · 커리큘럼',
-                title: '맞춤형 커리큘럼 · 교육 자료 (16주차)',
+                title: '맞춤형 커리큘럼 · 교육 자료 (12주차)',
                 message: '인터뷰 결과를 반영해 PoC 수행에 필요한 역량을 <strong class="text-ink">단계적으로 쌓는 맞춤형 커리큘럼</strong>을 제작하고, 교육 자료를 선별했습니다.',
                 compact: true,
                 wide: true,
@@ -2180,59 +2347,35 @@
             ...WEEKLY.map(w => weekSlide(w)),
 
             contentSlide({
-                label: 'Showcase · PoC 발표',
+                label: 'Showcase · PoC 발표 · 1부',
                 title: 'AI PUG Showcase · 멤버 PoC 발표',
                 message: '상반기 학습·실습으로 만든 <strong class="text-ink">현업 PoC</strong>를 발표하며, 부서별 업무 문제를 AI로 풀어본 성과를 공유했습니다.',
                 compact: true,
                 wide: true,
                 alignTop: false,
                 slideClass: 'slide-showcase',
-                body: `<div class="showcase-grid">
-                    <figure class="showcase-cell showcase-cell--slide">
-                        <img src="assets/47-pug-showcase/showcase-2.png" alt="MOMO AI 회의 비서 PoC" loading="lazy">
-                        <figcaption>MOMO · AI 회의 비서</figcaption>
-                    </figure>
-                    <figure class="showcase-cell showcase-cell--slide">
-                        <img src="assets/47-pug-showcase/showcase-3.png" alt="임가공비 분석 시스템 PoC" loading="lazy">
-                        <figcaption>임가공비 분석 · 견적 검증</figcaption>
-                    </figure>
-                    <figure class="showcase-cell showcase-cell--slide">
-                        <img src="assets/47-pug-showcase/showcase-1.png" alt="촉각센서 데이터 분석 자동화 시스템 PoC" loading="lazy">
-                        <figcaption>촉각센서 데이터 분석 자동화 시스템</figcaption>
-                    </figure>
-                    <figure class="showcase-cell showcase-cell--slide">
-                        <img src="assets/47-pug-showcase/showcase-4.png" alt="VEDA 사내 업무 기록 검색 PoC" loading="lazy">
-                        <figcaption>VEDA · 사내 업무 기록 검색</figcaption>
-                    </figure>
-                </div>`
+                body: buildShowcaseThumbGrid([
+                    { who: '김보근 · People팀', title: 'MOMO · AI 회의 비서', src: 'assets/47-pug-showcase/showcase-2.png', scale: 1.1, pos: 'bottom' },
+                    { who: '강주혁 · 재무팀', title: 'Check-Mate · 결산 업무 관제', src: 'assets/47-pug-showcase/showcase-6.png', bg: 'white' },
+                    { who: '현재호 · 설계개발팀', title: 'VEDA · 온프레미스 개인용 RAG', src: 'assets/47-pug-showcase/showcase-4.png', bg: 'white' },
+                    { who: '강응준 · 사업기획팀', title: 'ATHENA · 지식 자산화 시스템', src: 'assets/47-pug-showcase/showcase-5.png' }
+                ])
             }),
 
             contentSlide({
-                label: 'Showcase · PoC 발표',
+                label: 'Showcase · PoC 발표 · 2부',
                 title: 'AI PUG Showcase · 멤버 PoC 발표',
                 message: '상반기 학습·실습으로 만든 <strong class="text-ink">현업 PoC</strong>를 발표하며, 부서별 업무 문제를 AI로 풀어본 성과를 공유했습니다.',
                 compact: true,
                 wide: true,
                 alignTop: false,
                 slideClass: 'slide-showcase',
-                body: `<div class="showcase-grid">
-                    <figure class="showcase-cell showcase-cell--slide">
-                        <img src="assets/47-pug-showcase/showcase-5.png" alt="ATHENA 지식화 관제센터 PoC" loading="lazy">
-                        <figcaption>ATHENA · 지식화 관제센터</figcaption>
-                    </figure>
-                    <figure class="showcase-cell showcase-cell--slide">
-                        <img src="assets/47-pug-showcase/showcase-6.png" alt="Check-Mate 재무팀 PoC" loading="lazy">
-                        <figcaption>Check-Mate · 재무팀 업무흐름을 한눈에</figcaption>
-                    </figure>
-                    <figure class="showcase-cell showcase-cell--slide">
-                        <img src="assets/47-pug-showcase/showcase-7.png" alt="생산팀 수율 프로세스 혁신 PoC" loading="lazy">
-                        <figcaption>생산팀 수율 프로세스 혁신</figcaption>
-                    </figure>
-                    <figure class="showcase-cell showcase-cell--slide">
-                        <img src="assets/47-pug-showcase/showcase-8.png" alt="러버 트랙 BOM · Rubber Track Builder Pro" loading="lazy">
-                        <figcaption>러버 트랙 BOM · 자연어 AI</figcaption>
-                    </figure>
-                </div>`
+                body: buildShowcaseThumbGrid([
+                    { who: '윤성수 · 트랙개발팀', title: '러버트랙 BOM · 데이터 자산화', src: 'assets/47-pug-showcase/showcase-8.png', scale: 1.1, pos: 'center' },
+                    { who: '김진용 · 양산 영업팀', title: '임가공비 분석 · 견적 검증', src: 'assets/47-pug-showcase/showcase-3.png', scale: 1.1, pos: 'top' },
+                    { who: '박지훈 · 양산 생산팀', title: '수율 대시보드 · AI 어시스턴트', src: 'assets/47-pug-showcase/showcase-7.png', scale: 1.1, pos: 'top' },
+                    { who: '박다솜 · 선행연구소', title: '촉각 센서 데이터 분석 자동화', src: 'assets/47-pug-showcase/showcase-1.png' }
+                ])
             })
         ];
 
@@ -2939,7 +3082,6 @@
                 partId: 'closing',
                 body: `<div class="closing-layout">
                     <div class="closing-copy">
-                        <span class="closing-copy__badge">🐶 AI Power User Group</span>
                         <p class="closing-copy__lead">PUG의 여정은,<br>아직 끝나지 않았습니다</p>
                         <p class="closing-copy__text">2025년의 고민에서 출발해, 2026년에는 현업 문제를 AI로 풀어보는 실험실로 성장했습니다. 이제 PoC와 협업으로 더 멀리 갑니다.</p>
                         <p class="closing-copy__hero">현업 문제를 <span class="text-pug">AI로 풀어보는 방식</span>의 성장을 계속 이어갑니다.</p>
