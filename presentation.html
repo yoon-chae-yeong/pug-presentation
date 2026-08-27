@@ -2452,6 +2452,147 @@
             });
         }
 
+        // ── 체크리스트 40문항 데이터 및 슬라이드 빌더 ──
+        const CHECKLIST = [
+            { title: '1. 코딩 기초 이해', subs: [
+                { sub: '1-1. 기본 개념 및 언어', items: [
+                    '변수/자료형/함수 개념을 이해하고 간단한 함수 작성이 가능하다',
+                    'JavaScript 또는 Python 중 1개로 기본 문법을 활용할 수 있다',
+                    '간단한 스크립트로 업무 자동화를 해본 경험이 있다'
+                ]},
+                { sub: '1-2. DB 기초 개념', items: [
+                    '테이블/행/컬럼 개념을 이해한다',
+                    '관계형 DB Key(PK/FK) 개념을 이해하고 테이블 관계를 설명할 수 있다'
+                ]},
+                { sub: '1-3. FE / BE 분리 이해', items: [
+                    'FE에서 처리해야 할 일과 BE에서 처리해야 할 일을 구분할 수 있다',
+                    'FE/BE 역할을 구분하고, 사용자 입력 → 서버 요청 → 응답 표시 흐름을 이해한다',
+                    '로컬에서 서버를 실행해보고 REST API(GET/POST) 개념을 이해한다'
+                ]}
+            ]},
+            { title: '2. 바이브 코딩 역량', subs: [
+                { sub: '2-1. AI와 협업하는 코딩 방식', items: [
+                    '요구사항을 자연어로 명확히 정의하고, 단계적으로 기능을 확장할 수 있다',
+                    '에러 로그 기반으로 AI에게 재질문하며 문제를 해결할 수 있다'
+                ]},
+                { sub: '2-2. 개발환경 & 서버 실행', items: [
+                    '(직접 또는 AI 도구 활용) 로컬 개발환경 구성 및 서버 실행이 가능하다',
+                    'port / .env 설정을 만져보고 FE–BE 연동 테스트를 진행해본 경험이 있다'
+                ]},
+                { sub: '2-3. API 구현 및 활용', items: [
+                    'API 명세를 보고 요청(Request)과 응답(Response) 구조를 파악할 수 있다',
+                    'API 명세를 보고 필수/선택 파라미터를 구분할 수 있다',
+                    '필요한 경우 AI 도구에 API 설계나 구현을 요청할 수 있다'
+                ]}
+            ]},
+            { title: '3. LLM 기본 원리 및 활용', subs: [
+                { sub: '3-1. LLM 이해', items: [
+                    'LLM의 강점과 한계를 설명할 수 있다',
+                    '시스템 프롬프트와 유저 프롬프트를 구분할 수 있다',
+                    'Temperature 개념을 이해하고 값을 바꿔가며 응답 차이를 체감해보았다'
+                ]},
+                { sub: '3-2. 컨텍스트 설계 기초', items: [
+                    '컨텍스트 재전송이 필요한 상황을 직접 겪어본다',
+                    '고정 컨텍스트와 동적 컨텍스트를 나눠 설계해보고 길이 제한을 고려해본다'
+                ]},
+                { sub: '3-3. LLM API 활용', items: [
+                    'LLM API 호출 흐름을 따라 구현해보고 응답을 받아보았다',
+                    '온프레미스(사내 구축) LLM API를 실제로 호출해 사용해보았다'
+                ]},
+                { sub: '3-4. RAG 기초 이해', items: [
+                    'RAG 적용 전/후 차이를 비교해보고 할루시네이션 완화 효과를 체감해보았다',
+                    'Chunking과 Top-K 검색을 설정해 검색 결과 차이를 확인해보았다'
+                ]}
+            ]},
+            { title: '4. 오케스트레이션 & 업무 자동화', subs: [
+                { sub: '4. 자동화 구축 및 연동', items: [
+                    'n8n / Power Automate / RPA 중 하나 이상으로 자동화를 직접 구성해본 경험이 있다',
+                    'Webhook·스케줄·이벤트 기반 트리거를 설정해 실행해보았다',
+                    '"수집 → 처리 → 게시" 흐름을 자동화 툴로 구현해보았다',
+                    '중간 단계에 LLM을 삽입해 트리거/스케줄 기반으로 실행해보았다'
+                ]}
+            ]},
+            { title: '5. Git & 협업 기초', subs: [
+                { sub: '5. 버전 관리 및 형상 관리', items: [
+                    'Git의 역할을 이해한다',
+                    'Git 저장소(Repository)를 생성할 수 있다',
+                    'GitHub을 통해 코드 변경·관리 흐름을 경험해보았다'
+                ]}
+            ]},
+            { title: '6. 배포와 운영', subs: [
+                { sub: '6. 인프라 및 환경 설정', items: [
+                    '로컬 환경에서의 서비스 실행을 이해한다',
+                    '조직 내에서의 배포 방식(온프레미스, Azure Cloud)에 대해 이해한다',
+                    '호스팅과 DNS의 개념에 대해 이해하고 실무 적용 방식에 대해 이해한다',
+                    '배포와 운영에 필요한 환경변수 설정을 이해한다',
+                    '자동화된 배포 흐름(빌드→배포→실행)의 필요성에 대해 공감한다'
+                ]}
+            ]},
+            { title: '7. AI 에이전트 관점 종합 역량', subs: [
+                { sub: '7. 에이전트 설계 및 구현', items: [
+                    '특정 업무를 AI 에이전트로 대체하는 시나리오를 직접 설계해보았다',
+                    '에이전트의 역할·입력·출력을 정의해보았다',
+                    'LLM + API + DB를 결합한 구조를 실제로 구성해보았다',
+                    '에이전트를 "작동하는 MVP" 수준까지 구현해보았다'
+                ]}
+            ]}
+        ];
+
+        const CHECKLIST_SHORT = ['코딩 기초', '바이브 코딩', 'LLM 활용', '자동화', 'Git 협업', '배포 운영', 'AI 에이전트'];
+
+        function parseChecklistTitle(title) {
+            const m = title.match(/^(\d+)\.\s*(.+)$/);
+            return m ? { num: m[1], name: m[2] } : { num: '', name: title };
+        }
+
+        function stopChecklistAutoLoop() {}
+
+        function renderChecklistCard(cat, idx) {
+            const { num, name } = parseChecklistTitle(cat.title);
+            const subs = cat.subs.map(s => {
+                const subLabel = s.sub.replace(/^\d+-\d+\.\s*/, '');
+                return `
+                <div class="checklist-overview-card__block">
+                    <p class="checklist-overview-card__sub">${subLabel}</p>
+                    <ul class="checklist-overview-card__list">${s.items.map(item => `<li>${item}</li>`).join('')}</ul>
+                </div>`;
+            }).join('');
+            return `<article class="checklist-overview-card">
+                <header class="checklist-overview-card__head">
+                    <span class="checklist-overview-card__num">${num || idx + 1}</span>
+                    <h3 class="checklist-overview-card__title">${name || CHECKLIST_SHORT[idx]}</h3>
+                </header>
+                <div class="checklist-overview-card__body">${subs}</div>
+            </article>`;
+        }
+
+        function renderChecklistBody() {
+            const gridEl = document.getElementById('checklist-overview');
+            if (!gridEl) return;
+            gridEl.innerHTML = CHECKLIST.map(renderChecklistCard).join('');
+        }
+
+        function initChecklistInteractive() {
+            renderChecklistBody();
+        }
+
+        function buildChecklistSlide() {
+            return contentSlide({
+                label: 'Effect · 역량 측정',
+                title: '웹·AI 개발 체크리스트 40문항',
+                message: 'PUG 시작 전·후, <strong class="text-ink">동일 40문항 자기점검</strong>으로 7개 역량 영역의 Before / After를 비교했습니다.',
+                compact: true,
+                wide: true,
+                slideClass: 'slide-checklist-full',
+                partId: 'part2',
+                body: `${buildKeywordTopics(['40문항', 'Before / After', '7개 역량', '자기점검'])}<div class="checklist-slide-body">
+                    <div class="checklist-overview-panel" id="checklist-panel">
+                        <div class="checklist-overview-grid" id="checklist-overview"></div>
+                    </div>
+                </div>`
+            });
+        }
+
         const part2 = [
             contentSlide({
                 label: 'Curriculum · 커리큘럼',
@@ -2552,6 +2693,8 @@
             ...WEEKLY.map(w => weekSlide(w)),
 
             buildMemberRadarSlide(),
+
+            buildChecklistSlide(),
 
             contentSlide({
                 label: 'Effect · 함께 배우기',
@@ -3224,128 +3367,6 @@
         deck.innerHTML = [...part1, ...part2, ...part3, ...part4].join('');
 
         // ── Radar chart (member) ──
-        const CHECKLIST = [
-            { title: '1. 코딩 기초 이해', subs: [
-                { sub: '1-1. 기본 개념 및 언어', items: [
-                    '변수/자료형/함수 개념을 이해하고 간단한 함수 작성이 가능하다',
-                    'JavaScript 또는 Python 중 1개로 기본 문법을 활용할 수 있다',
-                    '간단한 스크립트로 업무 자동화를 해본 경험이 있다'
-                ]},
-                { sub: '1-2. DB 기초 개념', items: [
-                    '테이블/행/컬럼 개념을 이해한다',
-                    '관계형 DB Key(PK/FK) 개념을 이해하고 테이블 관계를 설명할 수 있다'
-                ]},
-                { sub: '1-3. FE / BE 분리 이해', items: [
-                    'FE에서 처리해야 할 일과 BE에서 처리해야 할 일을 구분할 수 있다',
-                    'FE/BE 역할을 구분하고, 사용자 입력 → 서버 요청 → 응답 표시 흐름을 이해한다',
-                    '로컬에서 서버를 실행해보고 REST API(GET/POST) 개념을 이해한다'
-                ]}
-            ]},
-            { title: '2. 바이브 코딩 역량', subs: [
-                { sub: '2-1. AI와 협업하는 코딩 방식', items: [
-                    '요구사항을 자연어로 명확히 정의하고, 단계적으로 기능을 확장할 수 있다',
-                    '에러 로그 기반으로 AI에게 재질문하며 문제를 해결할 수 있다'
-                ]},
-                { sub: '2-2. 개발환경 & 서버 실행', items: [
-                    '(직접 또는 AI 도구 활용) 로컬 개발환경 구성 및 서버 실행이 가능하다',
-                    'port / .env 설정을 만져보고 FE–BE 연동 테스트를 진행해본 경험이 있다'
-                ]},
-                { sub: '2-3. API 구현 및 활용', items: [
-                    'API 명세를 보고 요청(Request)과 응답(Response) 구조를 파악할 수 있다',
-                    'API 명세를 보고 필수/선택 파라미터를 구분할 수 있다',
-                    '필요한 경우 AI 도구에 API 설계나 구현을 요청할 수 있다'
-                ]}
-            ]},
-            { title: '3. LLM 기본 원리 및 활용', subs: [
-                { sub: '3-1. LLM 이해', items: [
-                    'LLM의 강점과 한계를 설명할 수 있다',
-                    '시스템 프롬프트와 유저 프롬프트를 구분할 수 있다',
-                    'Temperature 개념을 이해하고 값을 바꿔가며 응답 차이를 체감해보았다'
-                ]},
-                { sub: '3-2. 컨텍스트 설계 기초', items: [
-                    '컨텍스트 재전송이 필요한 상황을 직접 겪어본다',
-                    '고정 컨텍스트와 동적 컨텍스트를 나눠 설계해보고 길이 제한을 고려해본다'
-                ]},
-                { sub: '3-3. LLM API 활용', items: [
-                    'LLM API 호출 흐름을 따라 구현해보고 응답을 받아보았다',
-                    '온프레미스(사내 구축) LLM API를 실제로 호출해 사용해보았다'
-                ]},
-                { sub: '3-4. RAG 기초 이해', items: [
-                    'RAG 적용 전/후 차이를 비교해보고 할루시네이션 완화 효과를 체감해보았다',
-                    'Chunking과 Top-K 검색을 설정해 검색 결과 차이를 확인해보았다'
-                ]}
-            ]},
-            { title: '4. 오케스트레이션 & 업무 자동화', subs: [
-                { sub: '4. 자동화 구축 및 연동', items: [
-                    'n8n / Power Automate / RPA 중 하나 이상으로 자동화를 직접 구성해본 경험이 있다',
-                    'Webhook·스케줄·이벤트 기반 트리거를 설정해 실행해보았다',
-                    '"수집 → 처리 → 게시" 흐름을 자동화 툴로 구현해보았다',
-                    '중간 단계에 LLM을 삽입해 트리거/스케줄 기반으로 실행해보았다'
-                ]}
-            ]},
-            { title: '5. Git & 협업 기초', subs: [
-                { sub: '5. 버전 관리 및 형상 관리', items: [
-                    'Git의 역할을 이해한다',
-                    'Git 저장소(Repository)를 생성할 수 있다',
-                    'GitHub을 통해 코드 변경·관리 흐름을 경험해보았다'
-                ]}
-            ]},
-            { title: '6. 배포와 운영', subs: [
-                { sub: '6. 인프라 및 환경 설정', items: [
-                    '로컬 환경에서의 서비스 실행을 이해한다',
-                    '조직 내에서의 배포 방식(온프레미스, Azure Cloud)에 대해 이해한다',
-                    '호스팅과 DNS의 개념에 대해 이해하고 실무 적용 방식에 대해 이해한다',
-                    '배포와 운영에 필요한 환경변수 설정을 이해한다',
-                    '자동화된 배포 흐름(빌드→배포→실행)의 필요성에 대해 공감한다'
-                ]}
-            ]},
-            { title: '7. AI 에이전트 관점 종합 역량', subs: [
-                { sub: '7. 에이전트 설계 및 구현', items: [
-                    '특정 업무를 AI 에이전트로 대체하는 시나리오를 직접 설계해보았다',
-                    '에이전트의 역할·입력·출력을 정의해보았다',
-                    'LLM + API + DB를 결합한 구조를 실제로 구성해보았다',
-                    '에이전트를 "작동하는 MVP" 수준까지 구현해보았다'
-                ]}
-            ]}
-        ];
-
-        const CHECKLIST_SHORT = ['코딩 기초', '바이브 코딩', 'LLM 활용', '자동화', 'Git 협업', '배포 운영', 'AI 에이전트'];
-
-        function parseChecklistTitle(title) {
-            const m = title.match(/^(\d+)\.\s*(.+)$/);
-            return m ? { num: m[1], name: m[2] } : { num: '', name: title };
-        }
-
-        function stopChecklistAutoLoop() {}
-
-        function renderChecklistCard(cat, idx) {
-            const { num, name } = parseChecklistTitle(cat.title);
-            const subs = cat.subs.map(s => {
-                const subLabel = s.sub.replace(/^\d+-\d+\.\s*/, '');
-                return `
-                <div class="checklist-overview-card__block">
-                    <p class="checklist-overview-card__sub">${subLabel}</p>
-                    <ul class="checklist-overview-card__list">${s.items.map(item => `<li>${item}</li>`).join('')}</ul>
-                </div>`;
-            }).join('');
-            return `<article class="checklist-overview-card">
-                <header class="checklist-overview-card__head">
-                    <span class="checklist-overview-card__num">${num || idx + 1}</span>
-                    <h3 class="checklist-overview-card__title">${name || CHECKLIST_SHORT[idx]}</h3>
-                </header>
-                <div class="checklist-overview-card__body">${subs}</div>
-            </article>`;
-        }
-
-        function renderChecklistBody() {
-            const gridEl = document.getElementById('checklist-overview');
-            if (!gridEl) return;
-            gridEl.innerHTML = CHECKLIST.map(renderChecklistCard).join('');
-        }
-
-        function initChecklistInteractive() {
-            renderChecklistBody();
-        }
         let memberRadarInstances = [];
         let memberRadarAutoTimer = null;
         let memberRadarAnimFrame = null;
