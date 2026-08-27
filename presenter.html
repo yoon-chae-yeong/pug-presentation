@@ -19,15 +19,9 @@
             font-family: 'Inter', 'Noto Sans KR', sans-serif;
             display: flex; flex-direction: column; overflow: hidden;
         }
-        .top-bar {
-            flex-shrink: 0; display: flex; align-items: center; justify-content: space-between;
-            gap: 1rem; padding: 0.75rem 1.25rem; background: var(--panel);
-            border-bottom: 1px solid rgba(255,255,255,.08);
-        }
-        .timer-block { display: flex; align-items: center; flex: 1; justify-content: flex-start; }
-        .timer { font-size: 1.6rem; font-weight: 800; color: var(--pug); font-variant-numeric: tabular-nums; letter-spacing: 0.04em; }
-        .timer-idle { color: var(--muted); font-size: 1rem; font-weight: 600; }
-        .top-bar__right { display: flex; align-items: center; gap: 0.5rem; flex-shrink: 0; }
+        .timer-block { display: flex; align-items: center; }
+        .timer { font-size: 1.35rem; font-weight: 800; color: var(--pug); font-variant-numeric: tabular-nums; letter-spacing: 0.04em; }
+        .timer-idle { color: var(--muted); font-size: 1.1rem; font-weight: 600; }
         .btn {
             display: inline-flex; align-items: center; gap: 0.35rem;
             padding: 0.45rem 0.9rem; border-radius: 9999px; border: none;
@@ -106,24 +100,28 @@
         .script-text { margin: 0; font-size: 1.15rem; line-height: 1.8; word-break: keep-all; }
         .script-text .script-em { color: var(--pug); font-weight: 600; }
         .nav-bar {
+            position: relative;
             flex-shrink: 0; display: flex; align-items: center; justify-content: center;
-            gap: 1rem; padding: 0.85rem 1.25rem; background: var(--panel);
+            padding: 0.85rem 1.25rem; background: var(--panel);
             border-top: 1px solid rgba(245,176,65,.2);
+        }
+        .nav-bar__left {
+            position: absolute; left: 1.25rem; top: 50%; transform: translateY(-50%);
+            display: flex; align-items: center;
+        }
+        .nav-bar__center {
+            display: flex; align-items: center; justify-content: center;
+            gap: 1rem;
+        }
+        .nav-bar__right {
+            position: absolute; right: 1.25rem; top: 50%; transform: translateY(-50%);
+            display: flex; align-items: center; gap: 0.5rem;
         }
         .nav-count { font-size: 0.85rem; font-weight: 700; font-variant-numeric: tabular-nums; color: rgba(255,255,255,.55); min-width: 4.5rem; text-align: center; }
         .nav-count span { color: var(--pug); }
     </style>
 </head>
 <body>
-    <header class="top-bar">
-        <div class="timer-block">
-            <span id="timer" class="timer timer-idle">—:—</span>
-        </div>
-        <div class="top-bar__right">
-            <button type="button" id="timer-toggle-btn" class="btn btn--primary"><i data-lucide="play"></i><span>발표 시작</span></button>
-        </div>
-    </header>
-
     <main class="main">
         <section class="slide-preview" aria-label="현재 슬라이드">
             <div class="slide-preview__meta">현재 <span id="current-num">1</span> / <span id="current-total">0</span></div>
@@ -146,9 +144,19 @@
     </main>
 
     <footer class="nav-bar">
-        <button type="button" id="prev-btn" class="btn btn--ghost" aria-label="이전"><i data-lucide="chevron-left"></i> 이전</button>
-        <span id="nav-count" class="nav-count"><span>1</span> / 0</span>
-        <button type="button" id="next-btn" class="btn btn--primary" aria-label="다음">다음 <i data-lucide="chevron-right"></i></button>
+        <div class="nav-bar__left">
+            <div class="timer-block">
+                <span id="timer" class="timer timer-idle">—:—</span>
+            </div>
+        </div>
+        <div class="nav-bar__center">
+            <button type="button" id="prev-btn" class="btn btn--ghost" aria-label="이전"><i data-lucide="chevron-left"></i> 이전</button>
+            <span id="nav-count" class="nav-count"><span>1</span> / 0</span>
+            <button type="button" id="next-btn" class="btn btn--primary" aria-label="다음">다음 <i data-lucide="chevron-right"></i></button>
+        </div>
+        <div class="nav-bar__right">
+            <button type="button" id="timer-toggle-btn" class="btn btn--primary"><i data-lucide="play"></i><span>발표 시작</span></button>
+        </div>
     </footer>
 
     <script src="presenter-sync.js"></script>

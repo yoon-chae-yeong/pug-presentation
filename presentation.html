@@ -770,7 +770,7 @@
             justify-content: space-between;
             gap: 0.5rem;
             padding-bottom: 0.4rem;
-            border-bottom: 2px solid #F5B041;
+            border-bottom: 1px solid #E5DFD5;
         }
         .showcase-thumb__title {
             margin: 0;
@@ -2396,6 +2396,62 @@
             }
         ];
 
+        // ── 멤버별 역량 성장 데이터 및 슬라이드 빌더 ──
+        const MEMBER_RADAR_LABELS = ['코딩\n기초', '바이브\n코딩', 'LLM\n활용', '자동화', 'Git\n협업', '배포\n운영', 'AI\n에이전트'];
+        const MEMBER_GROWTH = [
+            { name: '멤버1', before: [0, 0, 11, 0, 0, 0, 0], after: [75, 71, 78, 75, 100, 60, 100] },
+            { name: '멤버2', before: [75, 29, 56, 25, 0, 20, 50], after: [75, 71, 89, 100, 100, 100, 100] },
+            { name: '멤버3', before: [38, 0, 0, 0, 0, 0, 0], after: [100, 71, 78, 100, 100, 100, 100] },
+            { name: '멤버4', before: [25, 57, 22, 0, 100, 0, 50], after: [100, 86, 89, 75, 100, 60, 75] },
+            { name: '멤버5', before: [0, 0, 11, 0, 33, 0, 0], after: [100, 86, 100, 100, 100, 40, 50] },
+            { name: '멤버6', before: [50, 29, 0, 0, 100, 40, 25], after: [100, 71, 78, 75, 100, 60, 100] },
+            { name: '멤버7', before: [50, 29, 22, 25, 0, 0, 0], after: [100, 100, 100, 100, 100, 100, 100] },
+            { name: '멤버8', before: [63, 86, 78, 75, 100, 60, 100], after: [100, 100, 100, 100, 100, 100, 100] }
+        ];
+
+        function memberAvg(values) {
+            return Math.round(values.reduce((sum, v) => sum + v, 0) / values.length);
+        }
+
+        function buildMemberRadarSlide() {
+            const cells = MEMBER_GROWTH.map((m, i) => {
+                const avgB = memberAvg(m.before);
+                const avgA = memberAvg(m.after);
+                return `<div class="member-radar-cell">
+                    <p class="member-radar-name">${m.name}</p>
+                    <p class="member-radar-delta">${avgB}% → <span>${avgA}%</span></p>
+                    <div class="member-radar-canvas-wrap"><canvas id="memberRadar${i}"></canvas></div>
+                </div>`;
+            }).join('');
+            const summaryAside = `<aside class="member-radar-summary-aside" aria-label="역량 성장 요약">
+                <div class="checklist-stat">
+                    <p class="checklist-stat__label">평균 달성률</p>
+                    <p class="checklist-stat__value">28% → <span class="text-pug">89%</span></p>
+                </div>
+                <div class="checklist-stat">
+                    <p class="checklist-stat__label">평균 체크 항목</p>
+                    <p class="checklist-stat__value">11.0 → <span class="text-pug">35.6</span>개</p>
+                </div>
+                <div class="checklist-stat">
+                    <p class="checklist-stat__label">전체 변화</p>
+                    <p class="checklist-stat__value text-pug">+61%p</p>
+                </div>
+            </aside>`;
+            return contentSlide({
+                label: 'Effect · 역량 강화',
+                title: '멤버별 역량 성장',
+                message: '같은 40문항 기준으로 멤버별 <strong class="text-ink">Before(회색) → After(주황)</strong> 변화를 확인했습니다.',
+                compact: true,
+                wide: true,
+                alignTop: true,
+                slideClass: 'slide-member-radar',
+                headAside: summaryAside,
+                body: `<div class="member-radar-wrap">
+                    <div id="member-radar-grid" class="member-radar-grid">${cells}</div>
+                </div>`
+            });
+        }
+
         const part2 = [
             contentSlide({
                 label: 'Curriculum · 커리큘럼',
@@ -2494,6 +2550,19 @@
             }),
 
             ...WEEKLY.map(w => weekSlide(w)),
+
+            buildMemberRadarSlide(),
+
+            contentSlide({
+                label: 'Effect · 함께 배우기',
+                title: '실습에서 함께 질문하고 배우기',
+                message: 'API부터 DB 설계까지 다양한 주제에서 질문과 토론이 오가며, 혼자 배우던 방식에서 함께 성장하는 구조로 바뀌었습니다.',
+                wide: true,
+                compact: true,
+                slideClass: 'slide-practice-qa',
+                partId: 'part2',
+                body: buildPracticeExchangeBody()
+            }),
 
             contentSlide({
                 label: 'Showcase · PoC 발표 · 1부',
@@ -3073,75 +3142,7 @@
         const part3 = [];
 
         // ── PART 4: 활동 효과 ──
-        const MEMBER_RADAR_LABELS = ['코딩\n기초', '바이브\n코딩', 'LLM\n활용', '자동화', 'Git\n협업', '배포\n운영', 'AI\n에이전트'];
-        const MEMBER_GROWTH = [
-            { name: '멤버1', before: [0, 0, 11, 0, 0, 0, 0], after: [75, 71, 78, 75, 100, 60, 100] },
-            { name: '멤버2', before: [75, 29, 56, 25, 0, 20, 50], after: [75, 71, 89, 100, 100, 100, 100] },
-            { name: '멤버3', before: [38, 0, 0, 0, 0, 0, 0], after: [100, 71, 78, 100, 100, 100, 100] },
-            { name: '멤버4', before: [25, 57, 22, 0, 100, 0, 50], after: [100, 86, 89, 75, 100, 60, 75] },
-            { name: '멤버5', before: [0, 0, 11, 0, 33, 0, 0], after: [100, 86, 100, 100, 100, 40, 50] },
-            { name: '멤버6', before: [50, 29, 0, 0, 100, 40, 25], after: [100, 71, 78, 75, 100, 60, 100] },
-            { name: '멤버7', before: [50, 29, 22, 25, 0, 0, 0], after: [100, 100, 100, 100, 100, 100, 100] },
-            { name: '멤버8', before: [63, 86, 78, 75, 100, 60, 100], after: [100, 100, 100, 100, 100, 100, 100] }
-        ];
-
-        function memberAvg(values) {
-            return Math.round(values.reduce((sum, v) => sum + v, 0) / values.length);
-        }
-
-        function buildMemberRadarSlide() {
-            const cells = MEMBER_GROWTH.map((m, i) => {
-                const avgB = memberAvg(m.before);
-                const avgA = memberAvg(m.after);
-                return `<div class="member-radar-cell">
-                    <p class="member-radar-name">${m.name}</p>
-                    <p class="member-radar-delta">${avgB}% → <span>${avgA}%</span></p>
-                    <div class="member-radar-canvas-wrap"><canvas id="memberRadar${i}"></canvas></div>
-                </div>`;
-            }).join('');
-            const summaryAside = `<aside class="member-radar-summary-aside" aria-label="역량 성장 요약">
-                <div class="checklist-stat">
-                    <p class="checklist-stat__label">평균 달성률</p>
-                    <p class="checklist-stat__value">28% → <span class="text-pug">89%</span></p>
-                </div>
-                <div class="checklist-stat">
-                    <p class="checklist-stat__label">평균 체크 항목</p>
-                    <p class="checklist-stat__value">11.0 → <span class="text-pug">35.6</span>개</p>
-                </div>
-                <div class="checklist-stat">
-                    <p class="checklist-stat__label">전체 변화</p>
-                    <p class="checklist-stat__value text-pug">+61%p</p>
-                </div>
-            </aside>`;
-            return contentSlide({
-                label: 'Effect · 역량 강화',
-                title: '멤버별 역량 성장',
-                message: '같은 40문항 기준으로 멤버별 <strong class="text-ink">Before(회색) → After(주황)</strong> 변화를 확인했습니다.',
-                compact: true,
-                wide: true,
-                alignTop: true,
-                slideClass: 'slide-member-radar',
-                headAside: summaryAside,
-                body: `<div class="member-radar-wrap">
-                    <div id="member-radar-grid" class="member-radar-grid">${cells}</div>
-                </div>`
-            });
-        }
-
         const part4 = [
-            contentSlide({
-                label: 'Effect · 함께 배우기',
-                title: '실습에서 함께 질문하고 배우기',
-                message: 'API부터 DB 설계까지 다양한 주제에서 질문과 토론이 오가며, 혼자 배우던 방식에서 함께 성장하는 구조로 바뀌었습니다.',
-                wide: true,
-                compact: true,
-                slideClass: 'slide-practice-qa',
-                partId: 'part4',
-                body: buildPracticeExchangeBody()
-            }),
-
-            buildMemberRadarSlide(),
-
             contentSlide({
                 label: 'Effect · Closing',
                 title: 'AI 활용 문화, 조직에 뿌리내리다',
