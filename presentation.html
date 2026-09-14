@@ -197,7 +197,7 @@
         .pug-roadmap::before {
             content: "";
             position: absolute;
-            top: 3.05rem;
+            top: 4.35rem;
             left: 2%;
             right: 2%;
             height: 3px;
@@ -213,7 +213,7 @@
         }
         .pug-roadmap__period {
             margin: 0 0 0.9rem;
-            font-size: 1rem;
+            font-size: 2rem;
             font-weight: 800;
             color: #33271F;
             line-height: 1.3;
@@ -243,11 +243,19 @@
             box-shadow: 0 4px 14px rgba(51, 39, 31, 0.06);
         }
         .pug-roadmap__title {
-            margin: 0 0 0.85rem;
+            margin: 0 0 0.5rem;
             font-size: 1.22rem;
             font-weight: 800;
             color: #33271F;
             line-height: 1.35;
+            text-align: center;
+        }
+        .pug-roadmap__count {
+            margin: 0 0 0.65rem;
+            color: #C8860A;
+            font-size: 1.75rem;
+            font-weight: 800;
+            line-height: 1.2;
             text-align: center;
         }
         .pug-roadmap__list {
@@ -261,6 +269,8 @@
         .pug-roadmap__list li + li { margin-top: 0.45rem; }
         @media (max-width: 768px) {
             .pug-roadmap { gap: 0.6rem; }
+            .pug-roadmap::before { top: 3.3rem; }
+            .pug-roadmap__period { font-size: 1.2rem; }
             .pug-roadmap__card { min-height: 10rem; padding: 0.85rem; }
             .pug-roadmap__title { font-size: 0.95rem; }
             .pug-roadmap__list { font-size: 0.82rem; }
@@ -2167,28 +2177,28 @@
                 <div class="max-w-3xl w-full text-center flex flex-col items-center gap-7">
                     <div class="inline-flex items-center gap-2 bg-pug text-ink px-4 py-2 rounded-lg text-sm font-bold">🐶 AI Power User Group</div>
                     <h1 class="text-7xl md:text-7xl font-extrabold tracking-tight leading-tight">AI PUG<br>Growth Journey</h1>
-                    <p class="text-base text-taupe max-w-2xl leading-relaxed">사내 AI 활용 역량을 높이고, 현업 중심의 AI 실험과<br>지식 공유 문화를 확산해온 AI PUG의 여정.</p>
+                    <p class="text-base text-taupe max-w-2xl leading-relaxed">Our journey to strengthen AI capabilities, experiment with real business challenges,<br>and build a culture of knowledge sharing.</p>
                 </div>
                 <div class="cover-meta">
-                    <span class="cover-meta__value">윤채영<span class="dot">·</span>디지털전략센터 AI솔루션팀</span>
+                    <span class="cover-meta__value">윤채영<span class="dot">·</span>Digital Strategy Center<span class="dot">·</span>AI Solution</span>
                     <span class="cover-meta__sep" aria-hidden="true"></span>
                     <span class="cover-meta__value">2026.09.17</span>
                 </div>
             </section>`,
 
             contentSlide({
-                label: 'PUG 소개 · Opening',
-                title: 'AI PUG의 시작 - AI 활용과 문화 확산',
-                message: 'AI 활용 관심은 높았지만 업무 적용은 막막했습니다. AI PUG는 그 고민을 함께 풀어가기 위한 <strong class="text-ink">자발적 학습·공유 그룹</strong>이었습니다.',
+                label: 'PUG Introduction · Opening',
+                title: 'How AI PUG Began: Expanding AI Culture',
+                message: 'Interest in AI was high, but applying it at work remained challenging. AI PUG was formed as a <strong class="text-ink">voluntary learning and knowledge-sharing group</strong> to address this challenge together.',
                 partId: 'part1',
                 body: `<div class="opening-split grid lg:grid-cols-5 gap-6 items-stretch">
                     <div class="lg:col-span-3 opening-tray">
                         <div class="opening-split__table"><table class="tbl nowrap-first opening-split__tbl"><tbody>
-                            <tr><td>출범</td><td><strong class="text-ink">2025년 7월</strong></td></tr>
-                            <tr><td>그룹명</td><td>AI Power User Group <strong class="text-ink">(15명)</strong></td></tr>
-                            <tr><td>목적</td><td>사내 AI 활용 역량 강화 및 자발적 지식 공유 문화 확산</td></tr>
-                            <tr><td>운영 방식</td><td><strong class="text-ink">정기 모임</strong>, <strong class="text-ink">캐쥬얼 모임(자율)</strong>, AI 활용 사례 공유, 실습 중심 활동</td></tr>
-                            <tr><td>출발점</td><td>AI를 실제 업무에 활용하고 싶은 구성원들의 참여</td></tr>
+                            <tr><td>Launch</td><td>2025.07.</td></tr>
+                            <tr><td>Group Name</td><td>AI Power User Group</td></tr>
+                            <tr><td>Purpose</td><td>AI 업무 활용 역량 강화 · 지식 공유</td></tr>
+                            <tr><td>How We Operate</td><td>정기·자율 모임 · 사례 공유 · 실습</td></tr>
+                            <tr><td>Starting Point</td><td>AI를 업무에 적용하려는 구성원들 참여</td></tr>
                         </tbody></table></div>
                     </div>
                     <div class="lg:col-span-2 opening-tray">
@@ -2203,28 +2213,30 @@
             }),
 
             contentSlide({
-                label: 'PUG Journey · 활동 확장',
-                title: 'PUG 활동의 확장 여정',
-                message: '자발적 학습 모임에서 출발해, <strong class="text-ink">현업 PoC 집중반</strong>과 <strong class="text-ink">Mini PUG</strong>로 활동 범위를 넓혀가고 있습니다.',
+                label: 'PUG Journey · Expansion',
+                title: 'How PUG Has Evolved',
+                message: 'Starting as a voluntary learning group, PUG has expanded into <strong class="text-ink">hands-on PoC programs</strong> and <strong class="text-ink">Mini PUGs</strong>.',
                 compact: true,
                 slideClass: 'slide-review-activities',
                 body: `<div class="pug-roadmap">
                     <article class="pug-roadmap__phase">
-                        <p class="pug-roadmap__period">2025년 하반기</p>
+                        <p class="pug-roadmap__period">2H 2025</p>
                         <span class="pug-roadmap__node" aria-hidden="true"></span>
                         <div class="pug-roadmap__card">
-                            <h3 class="pug-roadmap__title">PUG 출범 · 학습과 공유</h3>
+                            <h3 class="pug-roadmap__title">PUG Launch</h3>
+                            <p class="pug-roadmap__count">+15명</p>
                             <ul class="pug-roadmap__list">
                                 <li>AI 활용 사례 공유</li>
-                                <li>Copilot · Gemini API 실습</li>
+                                <li>Vibe Coding Practice</li>
                             </ul>
                         </div>
                     </article>
                     <article class="pug-roadmap__phase">
-                        <p class="pug-roadmap__period">2026년 상반기</p>
+                        <p class="pug-roadmap__period">1H 2026</p>
                         <span class="pug-roadmap__node" aria-hidden="true"></span>
                         <div class="pug-roadmap__card">
                             <h3 class="pug-roadmap__title">PUG 집중반 1기</h3>
+                            <p class="pug-roadmap__count">+8명</p>
                             <ul class="pug-roadmap__list">
                                 <li>8개 부문 · 12주 집중 과정</li>
                                 <li>현업 PoC 개발 · Showcase</li>
@@ -2232,10 +2244,11 @@
                         </div>
                     </article>
                     <article class="pug-roadmap__phase">
-                        <p class="pug-roadmap__period">2026년 하반기</p>
+                        <p class="pug-roadmap__period">2H 2026</p>
                         <span class="pug-roadmap__node" aria-hidden="true"></span>
                         <div class="pug-roadmap__card">
                             <h3 class="pug-roadmap__title">집중반 2기 · Mini PUG</h3>
+                            <p class="pug-roadmap__count">+40명</p>
                             <ul class="pug-roadmap__list">
                                 <li>PUG 집중반 2기 운영</li>
                                 <li>주제별 Mini PUG 확산</li>
@@ -2247,8 +2260,8 @@
 
             contentSlide({
                 label: 'Strategy · 2026',
-                title: '2026 운영 전략',
-                message: '학습·공유를 넘어, <strong class="text-ink">확산이 필요한 부문에 집중</strong>하고 <strong class="text-ink">업무 문제 해결(PoC)</strong>을 중심으로 운영합니다.',
+                title: '2026 Operating Strategy',
+                message: 'Moving beyond learning and sharing, we focus on <strong class="text-ink">teams where AI adoption is most needed</strong> and on <strong class="text-ink">solving real business problems through PoCs</strong>.',
                 compact: true,
                 wide: true,
                 alignTop: true,
@@ -2257,15 +2270,15 @@
             }),
 
             contentSlide({
-                label: 'Support · 디지털전략센터 × PUG',
-                title: 'AI PoC 개발 집중 환경 마련',
-                message: '강의 · 도구 · 협업 환경을 디지털전략센터가 준비했습니다. 하반기에도 동일하게 진행됩니다.',
+                label: 'Support · Digital Strategy Center × PUG',
+                title: 'Enabling AI PoC Development',
+                message: 'The Digital Strategy Center provides training, tools, and a collaborative environment, with the same support continuing in the second half of the year.',
                 compact: true,
                 wide: true,
                 alignTop: false,
                 slideClass: 'slide-support-overview',
                 partId: 'part3',
-                headAside: buildWeekEffect('디지털전략센터 Support'),
+                headAside: buildWeekEffect('Digital Strategy Center Support'),
                 body: buildSupportOverviewBody()
             })
         ];
@@ -2512,9 +2525,9 @@
                 </div>
             </aside>`;
             return contentSlide({
-                label: 'Effect · 역량 강화',
-                title: '멤버별 역량 성장',
-                message: '같은 40문항 기준으로 멤버별 <strong class="text-ink">Before(회색) → After(주황)</strong> 변화를 확인했습니다.',
+                label: 'Impact · Skill Development',
+                title: 'Skill Growth by Participant',
+                message: 'Using the same 40-item checklist, we compared each participant’s <strong class="text-ink">Before (gray) → After (orange)</strong> results.',
                 compact: true,
                 wide: true,
                 alignTop: true,
@@ -2652,9 +2665,9 @@
 
         function buildChecklistSlide() {
             return contentSlide({
-                label: 'Effect · 역량 측정',
-                title: '웹·AI 개발 체크리스트 40문항',
-                message: 'PUG 시작 전·후, <strong class="text-ink">동일 40문항 자기점검</strong>으로 7개 역량 영역의 Before / After를 비교했습니다.',
+                label: 'Impact · Skill Assessment',
+                title: '40-Item Web & AI Development Checklist',
+                message: 'Before and after the program, participants completed the <strong class="text-ink">same 40-item self-assessment</strong> across seven skill areas.',
                 compact: true,
                 wide: true,
                 slideClass: 'slide-checklist-full',
@@ -2669,96 +2682,96 @@
 
         const part2 = [
             contentSlide({
-                label: 'Curriculum · 커리큘럼',
-                title: '맞춤형 커리큘럼 · 교육 자료 (12주차)',
-                message: '인터뷰 결과를 반영해 PoC 수행에 필요한 역량을 <strong class="text-ink">단계적으로 쌓는 맞춤형 커리큘럼</strong>을 제작하고, 교육 자료를 선별했습니다.',
+                label: 'Curriculum · Learning Program',
+                title: 'A 12-Week Customized Curriculum',
+                message: 'Based on participant interviews, we designed a <strong class="text-ink">step-by-step curriculum</strong> and selected learning resources for PoC development.',
                 compact: true,
                 wide: true,
                 slideClass: 'slide-curriculum',
                 partId: 'part2',
                 body: `<div class="curriculum-topics">
                 <article class="curriculum-topic">
-                    <p class="curriculum-topic__label">2월 4주</p>
+                    <p class="curriculum-topic__label">Feb · Week 4</p>
                     <div class="curriculum-topic__body">
-                    <h3 class="curriculum-topic__title">코딩 기초</h3>
+                    <h3 class="curriculum-topic__title">Programming Base</h3>
                     <p class="curriculum-topic__keys">Python 문법 · 변수 · 함수</p>
                     </div>
                 </article>
                 <article class="curriculum-topic">
-                    <p class="curriculum-topic__label">3월 1주</p>
+                    <p class="curriculum-topic__label">Mar · Week 1</p>
                     <div class="curriculum-topic__body">
-                    <h3 class="curriculum-topic__title">웹 · 시스템 구조</h3>
-                    <p class="curriculum-topic__keys">FE/BE · 클라이언트·서버 · API</p>
+                    <h3 class="curriculum-topic__title">Web · FE/DE 구조</h3>
+                    <p class="curriculum-topic__keys">FE/BE · Client·Server · API</p>
                     </div>
                 </article>
                 <article class="curriculum-topic">
-                    <p class="curriculum-topic__label">3월 2주</p>
+                    <p class="curriculum-topic__label">Mar · Week 2</p>
                     <div class="curriculum-topic__body">
                     <h3 class="curriculum-topic__title">API · SQL</h3>
                     <p class="curriculum-topic__keys">Flask · DB · CRUD 실습</p>
                     </div>
                 </article>
                 <article class="curriculum-topic">
-                    <p class="curriculum-topic__label">3월 3주</p>
+                    <p class="curriculum-topic__label">Mar · Week 3</p>
                     <div class="curriculum-topic__body">
-                    <h3 class="curriculum-topic__title">LLM 활용</h3>
+                    <h3 class="curriculum-topic__title">On premise LLM</h3>
                     <p class="curriculum-topic__keys">프롬프트 · API · RAG</p>
                     </div>
                 </article>
                 <article class="curriculum-topic">
-                    <p class="curriculum-topic__label">3월 4주</p>
+                    <p class="curriculum-topic__label">Mar · Week 4</p>
                     <div class="curriculum-topic__body">
-                    <h3 class="curriculum-topic__title">RAG · 자동화</h3>
-                    <p class="curriculum-topic__keys">챗봇 · n8n · Teams 연동</p>
+                    <h3 class="curriculum-topic__title">RAG · Automation</h3>
+                    <p class="curriculum-topic__keys">Chatbot · n8n · Teams 연동</p>
                     </div>
                 </article>
                 <article class="curriculum-topic">
-                    <p class="curriculum-topic__label">4월 1주</p>
+                    <p class="curriculum-topic__label">Apr · Week 1</p>
                     <div class="curriculum-topic__body">
                     <h3 class="curriculum-topic__title">프로젝트 기획</h3>
                     <p class="curriculum-topic__keys">과제 도출 · PoC 설계</p>
                     </div>
                 </article>
                 <article class="curriculum-topic">
-                    <p class="curriculum-topic__label">4월 3주</p>
+                    <p class="curriculum-topic__label">Apr · Week 3</p>
                     <div class="curriculum-topic__body">
                     <h3 class="curriculum-topic__title">API · Git</h3>
-                    <p class="curriculum-topic__keys">사내 LLM · Commit/Push/Pull</p>
+                    <p class="curriculum-topic__keys">On premise LLM · Commit/Push/Pull</p>
                     </div>
                 </article>
                 <article class="curriculum-topic">
-                    <p class="curriculum-topic__label">4월 4주</p>
+                    <p class="curriculum-topic__label">Apr · Week 4</p>
                     <div class="curriculum-topic__body">
                     <h3 class="curriculum-topic__title">배포 · UI/UX</h3>
-                    <p class="curriculum-topic__keys">Webhook · 호스팅 · 디자인</p>
+                    <p class="curriculum-topic__keys">Webhook · Hosting · Degin</p>
                     </div>
                 </article>
                 <article class="curriculum-topic">
-                    <p class="curriculum-topic__label">4월 5주</p>
+                    <p class="curriculum-topic__label">Apr · Week 5</p>
                     <div class="curriculum-topic__body">
-                    <h3 class="curriculum-topic__title">AI 에이전트</h3>
+                    <h3 class="curriculum-topic__title">AI Agent</h3>
                     <p class="curriculum-topic__keys">시나리오 · LLM+API+DB</p>
                     </div>
                 </article>
                 <article class="curriculum-topic">
-                    <p class="curriculum-topic__label">5월 1주</p>
+                    <p class="curriculum-topic__label">May · Week 1</p>
                     <div class="curriculum-topic__body">
-                    <h3 class="curriculum-topic__title">IT 기초 · Quiz</h3>
+                    <h3 class="curriculum-topic__title">IT Base · Quiz</h3>
                     <p class="curriculum-topic__keys">Quiz Race · 개발 개념</p>
                     </div>
                 </article>
                 <article class="curriculum-topic">
-                    <p class="curriculum-topic__label">5월 4주</p>
+                    <p class="curriculum-topic__label">May · Week 4</p>
                     <div class="curriculum-topic__body">
                     <h3 class="curriculum-topic__title">개발 컨벤션</h3>
                     <p class="curriculum-topic__keys">코딩 가이드 · 협업 규칙</p>
                     </div>
                 </article>
                 <article class="curriculum-topic">
-                    <p class="curriculum-topic__label">6월 3주</p>
+                    <p class="curriculum-topic__label">Jun · Week 3</p>
                     <div class="curriculum-topic__body">
                     <h3 class="curriculum-topic__title">PoC UI/UX</h3>
-                    <p class="curriculum-topic__keys">디자인 피드백 · 화면 개선</p>
+                    <p class="curriculum-topic__keys">Degine Feedback · UI 개선</p>
                     </div>
                 </article>
                 </div>`
@@ -2766,14 +2779,12 @@
 
             // 10분 발표용: 주차별 상세 12장은 제외하고 위 커리큘럼 요약 1장으로 전달
 
-            buildMemberRadarSlide(),
-
             buildChecklistSlide(),
 
             contentSlide({
-                label: 'Effect · 함께 배우기',
-                title: '실습에서 함께 질문하고 배우기',
-                message: 'API부터 DB 설계까지 다양한 주제에서 질문과 토론이 오가며, 혼자 배우던 방식에서 함께 성장하는 구조로 바뀌었습니다.',
+                label: 'Impact · Collaborative Learning',
+                title: 'Learning Through Questions and Practice',
+                message: 'Questions and discussions—from APIs to database design—turned individual learning into shared growth.',
                 wide: true,
                 compact: true,
                 slideClass: 'slide-practice-qa',
@@ -2782,9 +2793,9 @@
             }),
 
             contentSlide({
-                label: 'Showcase · PoC 발표 · 1부',
-                title: 'AI PUG Showcase · 멤버 PoC 발표',
-                message: '상반기 학습·실습으로 만든 <strong class="text-ink">현업 PoC</strong>를 발표하며, 부서별 업무 문제를 AI로 풀어본 성과를 공유했습니다.',
+                label: 'Showcase · PoC Presentations · Part 1',
+                title: 'AI PUG Showcase · Member PoC Projects',
+                message: 'Members presented <strong class="text-ink">workplace PoCs</strong> built through the first-half program, demonstrating how AI can address department-specific challenges.',
                 compact: true,
                 wide: true,
                 alignTop: false,
@@ -2798,9 +2809,9 @@
             }),
 
             contentSlide({
-                label: 'Showcase · PoC 발표 · 2부',
-                title: 'AI PUG Showcase · 멤버 PoC 발표',
-                message: '상반기 학습·실습으로 만든 <strong class="text-ink">현업 PoC</strong>를 발표하며, 부서별 업무 문제를 AI로 풀어본 성과를 공유했습니다.',
+                label: 'Showcase · PoC Presentations · Part 2',
+                title: 'AI PUG Showcase · Member PoC Projects',
+                message: 'Members presented <strong class="text-ink">workplace PoCs</strong> built through the first-half program, demonstrating how AI can address department-specific challenges.',
                 compact: true,
                 wide: true,
                 alignTop: false,
@@ -3361,9 +3372,9 @@
         // ── PART 4: 활동 효과 ──
         const part4 = [
             contentSlide({
-                label: 'Effect · Closing',
-                title: 'AI 활용 문화, 조직에 뿌리내리다',
-                message: 'PUG의 성장은 도구 숙련이 아니라, 현업 문제를 AI 관점으로 다시 정의하고 해결 가능성을 검증하는 방식의 성장입니다.',
+                label: 'Impact · Closing',
+                title: 'Building an AI Culture Across the Organization',
+                message: 'PUG growth is not simply about mastering tools. It is about reframing workplace challenges through an AI lens and validating practical solutions.',
                 wide: true,
                 compact: true,
                 body: `<div class="culture-split">
@@ -3411,27 +3422,27 @@
 
             contentSlide({
                 label: 'Next',
-                title: 'PUG의 다음 여정이 시작됩니다',
-                message: '학습·실습·PoC·피드백을 거치며, 다음 실험으로 이어갑니다.',
+                title: 'The Next Chapter: Growing Together Across DRB',
+                message: 'With the second intensive program underway, PUG is expanding through Mini PUGs and connecting AI practices across DRB.',
                 compact: true,
                 wide: true,
                 partId: 'closing',
                 body: `<div class="closing-layout">
                     <div class="closing-copy">
                         <dl class="closing-recruit">
-                            <div class="closing-recruit__row"><dt class="closing-recruit__label">대상 직급</dt><dd class="closing-recruit__value">G1 / G2</dd></div>
-                            <div class="closing-recruit__row"><dt class="closing-recruit__label">모집 인원</dt><dd class="closing-recruit__value">최대 0명 (인원제한)</dd></div>
-                            <div class="closing-recruit__row"><dt class="closing-recruit__label">활동 시작일</dt><dd class="closing-recruit__value">2026년 9월 2주 예정</dd></div>
-                            <div class="closing-recruit__row"><dt class="closing-recruit__label">정기 모임</dt><dd class="closing-recruit__value">매주 1회 Full Day</dd></div>
+                            <div class="closing-recruit__row"><dt class="closing-recruit__label">NOW</dt><dd class="closing-recruit__value">집중반 2기 운영 중</dd></div>
+                            <div class="closing-recruit__row"><dt class="closing-recruit__label">EXPAND</dt><dd class="closing-recruit__value">Mini PUG 확산</dd></div>
+                            <div class="closing-recruit__row"><dt class="closing-recruit__label">CONNECT</dt><dd class="closing-recruit__value">해외법인 사례 공유</dd></div>
+                            <div class="closing-recruit__row"><dt class="closing-recruit__label">TOGETHER</dt><dd class="closing-recruit__value">글로벌 AI 네트워크</dd></div>
                         </dl>
                         <div class="closing-copy__main">
-                            <p class="closing-copy__lead">PUG의 여정은,<br>아직 끝나지 않았습니다</p>
-                            <p class="closing-copy__text">2025년의 고민에서 출발해, 2026년에는 현업 문제를 AI로 풀어보는 실험실로 성장했습니다. 이제 PoC와 협업으로 더 멀리 갑니다.</p>
+                            <p class="closing-copy__lead">PUG의 다음 여정은,<br>더 많은 경험을 연결하는 것입니다</p>
+                            <p class="closing-copy__text">국내에서 쌓은 PoC 경험과 학습 방식을 해외법인과 공유하고, 각 법인의 AI 활용 사례를 서로 연결해 함께 성장하고자 합니다.</p>
                         </div>
                     </div>
                     <figure class="closing-photo">
                         <img src="assets/46-closing/group-photo.png" alt="AI PUG 멤버 단체 사진" loading="lazy">
-                        <figcaption>벚꽃길에서 함께한 PUG 멤버</figcaption>
+                        <figcaption>함께 배우고 성장해온 PUG 멤버</figcaption>
                     </figure>
                 </div>`
             })
