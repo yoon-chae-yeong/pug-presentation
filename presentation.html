@@ -559,27 +559,29 @@
             width: 100%;
             height: 100%;
             min-height: 0;
-            padding: 1.05rem 1.1rem 0.95rem;
-            background: #F0EAE0;
-            border-radius: 8px;
+            padding: 1.1rem;
+            background: #33271F;
+            border-radius: 6px;
             color: #FBF8F3;
             box-sizing: border-box;
+            box-shadow: 0 8px 24px rgba(51, 39, 31, 0.14);
         }
         .support-overview__hero-eyebrow {
-            margin: 0 0 0.55rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 1.5px solid #FFFFFF;
-            font-size: 1.55rem;
-            font-weight: 700;
-            color: #000000;
-            letter-spacing: 0.02em;
+            margin: 0 0 0.7rem;
+            padding-bottom: 0.55rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+            font-size: 1.85rem;
+            font-weight: 800;
+            color: #FFFFFF;
+            letter-spacing: -0.01em;
             line-height: 1.25;
+            text-align: center;
         }
         .support-overview__experts {
             display: grid;
             grid-template-columns: repeat(2, minmax(0, 1fr));
-            column-gap: 0.45rem;
-            row-gap: 0.55rem;
+            grid-template-rows: repeat(2, minmax(0, 1fr));
+            gap: 0.55rem;
             flex: 1 1 auto;
             min-height: 0;
             margin-top: 0.15rem;
@@ -587,45 +589,46 @@
         .support-overview__expert {
             display: flex;
             flex-direction: column;
-            gap: 0.28rem;
+            align-items: center;
+            justify-content: center;
             min-width: 0;
             min-height: 0;
+            padding: 0.55rem 0.4rem;
+            aspect-ratio: 1 / 1;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            border-radius: 4px;
+            transition: transform 0.2s ease, background 0.2s ease;
         }
-        .support-overview__expert:nth-child(-n+2) {
-            padding-bottom: 0.5rem;
-            border-bottom: 1.5px solid #FFFFFF;
+        .support-overview__expert:hover {
+            transform: translateY(-2px);
+            background: rgba(255, 255, 255, 0.13);
+        }
+        .support-overview__expert-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 3.1rem;
+            height: 3.1rem;
+            margin-bottom: 0.55rem;
+            border-radius: 4px;
+            color: #33271F;
+            background: #F5B041;
+        }
+        .support-overview__expert-icon i {
+            width: 1.7rem;
+            height: 1.7rem;
         }
         .support-overview__expert-role {
             margin: 0;
-            font-size: 0.72rem;
+            padding: 0;
+            font-size: 1.28rem;
             font-weight: 800;
-            color: #000000;
-            line-height: 1.2;
-            letter-spacing: 0.01em;
-        }
-        .support-overview__expert-name {
-            margin: 0;
-            font-size: 0.62rem;
-            font-weight: 700;
-            color: #4A3C33;
+            color: #FFFFFF;
             line-height: 1.25;
+            letter-spacing: -0.01em;
+            text-align: center;
             word-break: keep-all;
-        }
-        .support-overview__expert-photo {
-            margin: 0;
-            flex: 1 1 auto;
-            min-height: 0;
-            border-radius: 6px;
-            overflow: hidden;
-            background: #FFFFFF;
-            aspect-ratio: 5 / 4.5;
-        }
-        .support-overview__expert-photo img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: center top;
-            display: block;
         }
         .support-overview__card {
             display: flex;
@@ -716,10 +719,6 @@
             }
             .support-overview__experts {
                 flex: 0 0 auto;
-            }
-            .support-overview__expert-photo {
-                aspect-ratio: 1 / 1;
-                max-height: 110px;
             }
             .support-overview__card {
                 width: 100%;
@@ -1749,18 +1748,15 @@
                 </article>`
             ).join('');
             const experts = [
-                { role: 'Web · Infra', name: '디지털진화팀 송영복', src: 'assets/48-experts/expert-1-song-youngbok.png' },
-                { role: 'AI · Data', name: 'AI솔루션팀 윤채영', src: 'assets/48-experts/expert-2-yoon-chaeyeong.png' },
-                { role: 'AI · LLM', name: 'AI솔루션팀 진완혁', src: 'assets/48-experts/expert-3-jin-wanhyeok.png' },
-                { role: 'Design · UI/UX', name: '디지털진화팀 심수정', src: 'assets/48-experts/expert-4-shim-sujeong.png' }
+                { role: 'Web · Infra', icon: 'code-2' },
+                { role: 'Data Science', icon: 'chart-no-axes-combined' },
+                { role: 'AI · LLM', icon: 'bot' },
+                { role: 'Design · UI/UX', icon: 'palette' }
             ];
             const expertBlocks = experts.map((e) =>
                 `<article class="support-overview__expert">
+                    <span class="support-overview__expert-icon"><i data-lucide="${e.icon}"></i></span>
                     <p class="support-overview__expert-role">${e.role}</p>
-                    <p class="support-overview__expert-name">${e.name}</p>
-                    <figure class="support-overview__expert-photo">
-                        <img src="${e.src}" alt="${e.role} · ${e.name}" loading="lazy">
-                    </figure>
                 </article>`
             ).join('');
             return `<div class="support-overview">
