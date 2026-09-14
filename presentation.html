@@ -234,6 +234,8 @@
             box-shadow: 0 0 0 2px #33271F;
         }
         .pug-roadmap__card {
+            display: flex;
+            flex-direction: column;
             width: 100%;
             min-height: 11rem;
             padding: 1.35rem 1.5rem;
@@ -258,6 +260,14 @@
             line-height: 1.2;
             text-align: center;
         }
+        .pug-roadmap__count small {
+            display: block;
+            margin-top: 0.18rem;
+            color: #8A7B6E;
+            font-size: 0.64rem;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+        }
         .pug-roadmap__list {
             margin: 0;
             padding-left: 1.15rem;
@@ -267,6 +277,42 @@
             line-height: 1.7;
         }
         .pug-roadmap__list li + li { margin-top: 0.45rem; }
+        .pug-roadmap__people {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: auto;
+            padding-top: 0.65rem;
+            color: #8A7B6E;
+            line-height: 1;
+            text-align: center;
+            white-space: nowrap;
+        }
+        .pug-roadmap__people span {
+            display: inline-block;
+            font-size: 1.35rem;
+            filter: drop-shadow(0 1px 1px rgba(51, 39, 31, 0.12));
+        }
+        .pug-roadmap__people span + span { margin-left: -0.18rem; }
+        .pug-roadmap__phase:nth-child(1) .pug-roadmap__people { opacity: 0.55; }
+        .pug-roadmap__phase:nth-child(2) .pug-roadmap__people { opacity: 0.75; }
+        .pug-roadmap__phase:nth-child(3) .pug-roadmap__people { opacity: 1; }
+        .pug-roadmap__logos {
+            display: grid;
+            grid-template-columns: repeat(var(--logo-count), minmax(0, 1fr));
+            align-items: center;
+            gap: 0.45rem;
+            width: 100%;
+            margin-top: 0.7rem;
+            padding-top: 0.65rem;
+            border-top: 1px solid #F0EAE0;
+        }
+        .pug-roadmap__logos img {
+            width: 100%;
+            height: 1.15rem;
+            object-fit: contain;
+            display: block;
+        }
         @media (max-width: 768px) {
             .pug-roadmap { gap: 0.6rem; }
             .pug-roadmap::before { top: 3.3rem; }
@@ -1267,16 +1313,13 @@
         .closing-layout { display: grid; grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr); gap: 1.25rem; align-items: stretch; height: min(480px, calc(100vh - 250px)); max-height: 500px; }
         .culture-split { display: grid; grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr); gap: 1rem; align-items: stretch; height: min(400px, calc(100vh - 280px)); max-height: 420px; }
         .culture-split__shifts { margin: 0; height: 100%; min-height: 0; display: flex; flex-direction: column; gap: 0.55rem; }
-        .culture-shift { flex: 1; min-height: 0; display: flex; flex-direction: column; justify-content: center; gap: 0.45rem; background: #FFFFFF; border-radius: 8px; padding: 0.72rem 0.9rem 0.7rem; }
-        .culture-shift__head { display: flex; align-items: center; gap: 0.55rem; min-width: 0; }
-        .culture-shift__num { flex-shrink: 0; width: 1.45rem; height: 1.45rem; border-radius: 999px; background: #F5B041; color: #33271F; font-size: 0.68rem; font-weight: 800; display: inline-flex; align-items: center; justify-content: center; line-height: 1; }
-        .culture-shift__change { display: flex; align-items: center; flex-wrap: wrap; gap: 0.35rem 0.45rem; min-width: 0; font-size: 0.92rem; font-weight: 800; color: #33271F; line-height: 1.3; letter-spacing: -0.01em; }
+        .culture-shift { flex: 1; min-height: 0; display: flex; flex-direction: column; justify-content: center; background: #FFFFFF; border-radius: 8px; padding: 1.1rem 1.25rem; }
+        .culture-shift__head { display: flex; align-items: center; gap: 0.9rem; min-width: 0; }
+        .culture-shift__num { flex-shrink: 0; width: 2rem; height: 2rem; border-radius: 999px; background: #F5B041; color: #33271F; font-size: 0.9rem; font-weight: 800; display: inline-flex; align-items: center; justify-content: center; line-height: 1; }
+        .culture-shift__change { display: flex; align-items: center; flex-wrap: wrap; gap: 0.45rem 0.65rem; min-width: 0; font-size: 1.4rem; font-weight: 800; color: #33271F; line-height: 1.3; letter-spacing: -0.01em; }
         .culture-shift__from { color: #8A7B6E; font-weight: 700; }
         .culture-shift__arrow { color: #F5B041; font-weight: 800; }
         .culture-shift__to { color: #33271F; }
-        .culture-shift__cases { margin: 0; padding: 0 0 0 2rem; list-style: none; display: flex; flex-direction: column; gap: 0.22rem; }
-        .culture-shift__cases li { display: flex; align-items: flex-start; gap: 0.35rem; font-size: 0.78rem; line-height: 1.4; color: #33271F; word-break: keep-all; }
-        .culture-shift__cases li::before { content: ''; flex-shrink: 0; width: 0.35rem; height: 0.35rem; margin-top: 0.45rem; border-radius: 50%; background: #F5B041; }
         .culture-split__video { margin: 0; min-height: 0; height: 100%; display: flex; flex-direction: column; border-radius: 8px; overflow: hidden; background: #FFFFFF; }
         .culture-split__video video { width: 100%; flex: 1; min-height: 0; object-fit: cover; object-position: center; display: block; background: #F0EAE0; pointer-events: none; }
         .culture-split__video figcaption { flex-shrink: 0; font-size: 0.68rem; font-weight: 700; text-align: center; padding: 0.4rem 0.5rem; color: #33271F; background: #F0EAE0; line-height: 1.3; }
@@ -1352,7 +1395,49 @@
         .closing-copy__hero .text-pug { color: #F5B041; }
         .closing-photo { border-radius: 12px; overflow: hidden; border: 1px solid #F0EAE0; box-shadow: 0 8px 28px rgba(51,39,31,.12); margin: 0; height: 100%; min-height: 0; background: #F0EAE0; display: flex; flex-direction: column; }
         .closing-photo img { width: 100%; flex: 1; min-height: 0; object-fit: cover; display: block; }
+        .closing-photo--map { background: #FFFFFF; }
+        .closing-photo--map img { object-fit: contain; object-position: center; padding: 0.8rem; background: #FFFFFF; }
         .closing-photo figcaption { font-size: 0.72rem; font-weight: 700; text-align: center; padding: 0.5rem 0.65rem; color: #33271F; background: #FBF8F3; line-height: 1.3; }
+        .closing-global { display: flex; flex-direction: column; gap: 0.75rem; width: 100%; height: min(520px, calc(100vh - 220px)); }
+        .closing-global__map { position: relative; flex: 1 1 auto; min-height: 0; margin: 0; overflow: hidden; border-radius: 12px; background: #F4F3F1; }
+        .closing-global__map img { width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; }
+        .closing-global__site {
+            position: absolute;
+            left: var(--x);
+            top: var(--y);
+            z-index: 2;
+            width: 0.7rem;
+            height: 0.7rem;
+            transform: translate(-50%, -50%);
+            border: 2px solid #FFFFFF;
+            border-radius: 50%;
+            background: #33271F;
+            box-shadow: 0 0 0 2px #33271F, 0 3px 10px rgba(51, 39, 31, 0.2);
+        }
+        .closing-global__site-label {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(calc(-50% + var(--dx, 0px)), calc(-50% + var(--dy, -24px)));
+            padding: 0.3rem 0.55rem;
+            border-radius: 5px;
+            color: #FFFFFF;
+            background: #33271F;
+            box-shadow: 0 3px 10px rgba(51, 39, 31, 0.16);
+            font-size: 0.58rem;
+            font-weight: 800;
+            line-height: 1.2;
+            white-space: nowrap;
+        }
+        .closing-global__site--office {
+            background: #E6002D;
+            box-shadow: 0 0 0 2px #E6002D, 0 3px 10px rgba(51, 39, 31, 0.2);
+        }
+        .closing-global__site--office .closing-global__site-label { background: #E6002D; }
+        .closing-global__pillars { flex: 0 0 auto; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.7rem; }
+        .closing-global__pillar { min-width: 0; padding: 0.65rem 0.8rem; background: #FFFFFF; border: 1px solid #E8DFD0; border-radius: 8px; text-align: center; }
+        .closing-global__label { margin: 0 0 0.2rem; color: #C8860A; font-size: 0.62rem; font-weight: 800; letter-spacing: 0.08em; }
+        .closing-global__value { margin: 0; color: #33271F; font-size: 0.95rem; font-weight: 800; line-height: 1.3; }
         .checklist-stat { background: #F0EAE0; border: 1px solid #E5DDD3; border-radius: 8px; padding: 0.45rem 0.65rem; }
         .checklist-stat__label { font-size: 0.6rem; font-weight: 700; color: #8A7B6E; margin-bottom: 0.1rem; }
         .checklist-stat__value { font-size: 0.78rem; font-weight: 800; color: #33271F; line-height: 1.25; }
@@ -1578,24 +1663,24 @@
         function buildPainMergeBody() {
             const columns = [
                 {
-                    title: '모임 주기',
-                    values: ['주 1회', 'Full 타임'],
+                    title: '활동 주기',
+                    values: ['Weekly', 'Full-Day Sessions'],
                     note: '정기 모임으로<br>실행 리듬 고정'
                 },
                 {
-                    title: '전문가 매칭',
-                    values: ['디지털 전략센터', '실무진 매칭'],
-                    note: '강의·코칭으로<br>실무 실행 지원'
+                    title: '실무진 협업',
+                    values: ['디지털전략센터', '전문가 연계'],
+                    note: '강의·코칭을<br>함께 진행'
                 },
                 {
-                    title: '가이드 제공',
-                    values: ['보안·개발', '가이드 제공'],
-                    note: '산출물 보호와<br>협업 기준 정립'
+                    title: '공통 기준 마련',
+                    values: ['보안·개발', '가이드 정립'],
+                    note: '산출물 보호와<br>협업 기준 마련'
                 },
                 {
-                    title: '체계 수립',
-                    values: ['실무 맞춤형', '커리큘럼'],
-                    note: '현업 문제 해결을 위한<br>실효성 있는 강의'
+                    title: '맞춤 과정 운영',
+                    values: ['실무 중심', '커리큘럼'],
+                    note: '현업 문제 해결형<br>교육 진행'
                 }
             ];
             const columnBlocks = columns.map((col, idx) =>
@@ -1607,7 +1692,7 @@
                     ${col.note ? `<p class="strategy-cadence__note">${col.note}</p>` : ''}
                 </aside>`
             ).join('');
-            const supports = ['실무형 코칭', '보안 가이드 제공', '디전센 기술 전문가 매칭'];
+            const supports = ['실무형 코칭 진행', '보안 가이드 마련', '기술 전문가와 협업'];
             const supportBlocks = supports.map((label) =>
                 `<div class="strategy-support__item">${label}</div>`
             ).join('');
@@ -1615,7 +1700,7 @@
                 <div class="strategy-board">
                     <div class="strategy-main">${columnBlocks}</div>
                     <footer class="strategy-support">
-                        <h3 class="strategy-kicker">공통 지원사항 · <span>3가지</span></h3>
+                        <h3 class="strategy-kicker">함께 만든 실행 기반 · <span>3가지</span></h3>
                         <div class="strategy-support__grid">${supportBlocks}</div>
                     </footer>
                 </div>
@@ -1625,33 +1710,33 @@
         function buildSupportOverviewBody() {
             const cards = [
                 {
-                    title: '온라인 강의 선별',
-                    sub: '필요한 강의만 선별',
+                    title: '학습 자료 큐레이션',
+                    sub: '필요한 콘텐츠 중심',
                     body: 'LLM 이론 · GitHub · n8n 자동화 · 바이브 코딩'
                 },
                 {
-                    title: 'AI 도구 구독 지원',
-                    sub: '유료 도구 · API 키 지원',
+                    title: 'AI 도구 활용 환경',
+                    sub: '도구 · API 기반 실습',
                     body: 'Google AI Pro · OpenAI · SerpApi'
                 },
                 {
-                    title: '산출물·버전 관리 가이드',
-                    sub: 'GitHub Organization',
-                    body: '산출물 이력 관리 · 표준 기술스택 가이드'
+                    title: '산출물·버전 관리 기준',
+                    sub: '공통 협업 방식',
+                    body: 'GitHub Organization · 표준 기술스택'
                 },
                 {
-                    title: 'IT 기초 서적 배부',
+                    title: 'IT 기초 공통 학습',
                     sub: '공통 언어 만들기',
-                    body: '비전공자를 위한 이해할 수 있는 IT 지식'
+                    body: '비전공자도 함께 이해하는 IT 기초'
                 },
                 {
-                    title: '사내 Infra 활용 가이드',
-                    sub: 'AI Playground 안내',
+                    title: '사내 Infra 활용',
+                    sub: 'AI Playground 실습',
                     body: '사내 LLM 환경에서 안전하게 실험'
                 },
                 {
-                    title: 'API 개발 지원',
-                    sub: 'API Playground',
+                    title: 'API 연동 실습',
+                    sub: 'API Playground 활용',
                     body: 'Outlook · Teams 연동을 실제 PoC에 연결',
                     soft: true
                 }
@@ -1680,7 +1765,7 @@
             ).join('');
             return `<div class="support-overview">
                 <aside class="support-overview__hero" id="support-overview-hero">
-                    <p class="support-overview__hero-eyebrow">사내 실무진 연결</p>
+                    <p class="support-overview__hero-eyebrow">분야별 실무진 협업</p>
                     <div class="support-overview__experts">${expertBlocks}</div>
                 </aside>
                 ${cardBlocks}
@@ -2196,7 +2281,7 @@
                         <div class="opening-split__table"><table class="tbl nowrap-first opening-split__tbl"><tbody>
                             <tr><td>Launch</td><td>2025.07.</td></tr>
                             <tr><td>Group Name</td><td>AI Power User Group</td></tr>
-                            <tr><td>Purpose</td><td>AI 업무 활용 역량 강화 · 지식 공유</td></tr>
+                            <tr><td>Purpose</td><td>AI Skills · Knowledge Sharing</td></tr>
                             <tr><td>How We Operate</td><td>정기·자율 모임 · 사례 공유 · 실습</td></tr>
                             <tr><td>Starting Point</td><td>AI를 업무에 적용하려는 구성원들 참여</td></tr>
                         </tbody></table></div>
@@ -2224,44 +2309,63 @@
                         <span class="pug-roadmap__node" aria-hidden="true"></span>
                         <div class="pug-roadmap__card">
                             <h3 class="pug-roadmap__title">PUG Launch</h3>
-                            <p class="pug-roadmap__count">+15명</p>
+                            <p class="pug-roadmap__count">+15명<small>TOTAL 15</small></p>
                             <ul class="pug-roadmap__list">
                                 <li>AI 활용 사례 공유</li>
                                 <li>Vibe Coding Practice</li>
                             </ul>
+                            <div class="pug-roadmap__people" role="img" aria-label="15 participants"><span>👤</span><span>👤</span><span>👤</span></div>
+                            <div class="pug-roadmap__logos" style="--logo-count: 3" aria-label="참여 법인">
+                                <img src="assets/03-roadmap/drb-industrial.png" alt="DRB 동일고무벨트" loading="lazy">
+                                <img src="assets/03-roadmap/drb-dongil.png" alt="DRB동일" loading="lazy">
+                                <img src="assets/03-roadmap/drb-automotive.png" alt="DRB Automotive" loading="lazy">
+                            </div>
                         </div>
                     </article>
                     <article class="pug-roadmap__phase">
                         <p class="pug-roadmap__period">1H 2026</p>
                         <span class="pug-roadmap__node" aria-hidden="true"></span>
                         <div class="pug-roadmap__card">
-                            <h3 class="pug-roadmap__title">PUG 집중반 1기</h3>
-                            <p class="pug-roadmap__count">+8명</p>
+                            <h3 class="pug-roadmap__title">집중반 1기</h3>
+                            <p class="pug-roadmap__count">+8명<small>TOTAL 23</small></p>
                             <ul class="pug-roadmap__list">
                                 <li>8개 부문 · 12주 집중 과정</li>
                                 <li>현업 PoC 개발 · Showcase</li>
                             </ul>
+                            <div class="pug-roadmap__people" role="img" aria-label="23 cumulative participants"><span>👤</span><span>👤</span><span>👤</span><span>👤</span><span>👤</span></div>
+                            <div class="pug-roadmap__logos" style="--logo-count: 3" aria-label="참여 법인">
+                                <img src="assets/03-roadmap/drb-industrial.png" alt="DRB 동일고무벨트" loading="lazy">
+                                <img src="assets/03-roadmap/drb-dongil.png" alt="DRB동일" loading="lazy">
+                                <img src="assets/03-roadmap/drb-automotive.png" alt="DRB Automotive" loading="lazy">
+                            </div>
                         </div>
                     </article>
                     <article class="pug-roadmap__phase">
                         <p class="pug-roadmap__period">2H 2026</p>
                         <span class="pug-roadmap__node" aria-hidden="true"></span>
                         <div class="pug-roadmap__card">
-                            <h3 class="pug-roadmap__title">집중반 2기 · Mini PUG</h3>
-                            <p class="pug-roadmap__count">+40명</p>
+                            <h3 class="pug-roadmap__title">집중반 2기 + Mini PUG</h3>
+                            <p class="pug-roadmap__count">+40명<small>TOTAL 63</small></p>
                             <ul class="pug-roadmap__list">
                                 <li>PUG 집중반 2기 운영</li>
-                                <li>주제별 Mini PUG 확산</li>
+                                <li>부문별 Mini PUG 확산</li>
                             </ul>
+                            <div class="pug-roadmap__people" role="img" aria-label="63 cumulative participants"><span>👤</span><span>👤</span><span>👤</span><span>👤</span><span>👤</span><span>👤</span><span>👤</span><span>👤</span><span>👤</span></div>
+                            <div class="pug-roadmap__logos" style="--logo-count: 2" aria-label="참여 법인">
+                                <img src="assets/03-roadmap/drb-industrial.png" alt="DRB 동일고무벨트" loading="lazy">
+                                <img src="assets/03-roadmap/drb-dongil.png" alt="DRB동일" loading="lazy">
+                                <img src="assets/03-roadmap/drb-automotive.png" alt="DRB Automotive" loading="lazy">
+                                <img src="assets/03-roadmap/drb-automation.png" alt="DRB Automation" loading="lazy">
+                            </div>
                         </div>
                     </article>
                 </div>`
             }),
 
             contentSlide({
-                label: 'Strategy · 2026',
-                title: '2026 Operating Strategy',
-                message: 'Moving beyond learning and sharing, we focus on <strong class="text-ink">teams where AI adoption is most needed</strong> and on <strong class="text-ink">solving real business problems through PoCs</strong>.',
+                label: 'Approach · 2026',
+                title: 'What We Put into Practice in 2026',
+                message: 'We moved beyond learning and sharing by bringing together <strong class="text-ink">a consistent operating rhythm</strong>, <strong class="text-ink">expert collaboration</strong>, and <strong class="text-ink">hands-on PoC development</strong>.',
                 compact: true,
                 wide: true,
                 alignTop: true,
@@ -2270,15 +2374,15 @@
             }),
 
             contentSlide({
-                label: 'Support · Digital Strategy Center × PUG',
-                title: 'Enabling AI PoC Development',
-                message: 'The Digital Strategy Center provides training, tools, and a collaborative environment, with the same support continuing in the second half of the year.',
+                label: 'Program Model · PUG',
+                title: 'What Made the PUG Program Work',
+                message: 'PUG combined <strong class="text-ink">people, learning resources, tools, and shared standards</strong> to turn ideas into workplace PoCs.',
                 compact: true,
                 wide: true,
                 alignTop: false,
                 slideClass: 'slide-support-overview',
                 partId: 'part3',
-                headAside: buildWeekEffect('Digital Strategy Center Support'),
+                headAside: buildWeekEffect('Six Program Enablers'),
                 body: buildSupportOverviewBody()
             })
         ];
@@ -2778,8 +2882,6 @@
             }),
 
             // 10분 발표용: 주차별 상세 12장은 제외하고 위 커리큘럼 요약 1장으로 전달
-
-            buildChecklistSlide(),
 
             contentSlide({
                 label: 'Impact · Collaborative Learning',
@@ -3382,35 +3484,20 @@
                         <article class="culture-shift">
                             <div class="culture-shift__head">
                                 <span class="culture-shift__num">1</span>
-                                <p class="culture-shift__change"><span class="culture-shift__from">도구 중심</span><span class="culture-shift__arrow">→</span><span class="culture-shift__to">문제 중심</span></p>
+                                <p class="culture-shift__change"><span class="culture-shift__from">Tool-Centered</span><span class="culture-shift__arrow">→</span><span class="culture-shift__to">Problem-Solving</span></p>
                             </div>
-                            <ul class="culture-shift__cases">
-                                <li>PoC 아이디어 워크숍 · 현업 과제 도출</li>
-                                <li>문제 정의 · PoC 목표·범위 설정</li>
-                                <li>멤버별 PoC 주제 발표</li>
-                            </ul>
                         </article>
                         <article class="culture-shift">
                             <div class="culture-shift__head">
                                 <span class="culture-shift__num">2</span>
-                                <p class="culture-shift__change"><span class="culture-shift__from">학습 중심</span><span class="culture-shift__arrow">→</span><span class="culture-shift__to">실행 중심</span></p>
+                                <p class="culture-shift__change"><span class="culture-shift__from">Practice</span><span class="culture-shift__arrow">→</span><span class="culture-shift__to">Real-World Application</span></p>
                             </div>
-                            <ul class="culture-shift__cases">
-                                <li>업무 키워드 뉴스 요약 → Teams 자동 발송</li>
-                                <li>현업 데이터로 RAG 챗봇 시연·검증</li>
-                                <li>Outlook·Teams API로 실제 업무 연동</li>
-                            </ul>
                         </article>
                         <article class="culture-shift">
                             <div class="culture-shift__head">
                                 <span class="culture-shift__num">3</span>
-                                <p class="culture-shift__change"><span class="culture-shift__from">개인 경험</span><span class="culture-shift__arrow">→</span><span class="culture-shift__to">공동 피드백</span></p>
+                                <p class="culture-shift__change"><span class="culture-shift__from">Individual Experience</span><span class="culture-shift__arrow">→</span><span class="culture-shift__to">Shared Feedback</span></p>
                             </div>
-                            <ul class="culture-shift__cases">
-                                <li>실습 중 질문·토론 공유</li>
-                                <li>코드·디자인 1:1 피드백</li>
-                                <li>전문가 강의·간담회 Q&A</li>
-                            </ul>
                         </article>
                     </div>
                     <figure class="culture-split__video">
@@ -3422,28 +3509,31 @@
 
             contentSlide({
                 label: 'Next',
-                title: 'The Next Chapter: Growing Together Across DRB',
-                message: 'With the second intensive program underway, PUG is expanding through Mini PUGs and connecting AI practices across DRB.',
+                title: 'From Local Ideas to Shared AI Growth',
+                message: 'Connecting people, practices, and real-world AI use cases across DRB.',
                 compact: true,
                 wide: true,
                 partId: 'closing',
-                body: `<div class="closing-layout">
-                    <div class="closing-copy">
-                        <dl class="closing-recruit">
-                            <div class="closing-recruit__row"><dt class="closing-recruit__label">NOW</dt><dd class="closing-recruit__value">집중반 2기 운영 중</dd></div>
-                            <div class="closing-recruit__row"><dt class="closing-recruit__label">EXPAND</dt><dd class="closing-recruit__value">Mini PUG 확산</dd></div>
-                            <div class="closing-recruit__row"><dt class="closing-recruit__label">CONNECT</dt><dd class="closing-recruit__value">해외법인 사례 공유</dd></div>
-                            <div class="closing-recruit__row"><dt class="closing-recruit__label">TOGETHER</dt><dd class="closing-recruit__value">글로벌 AI 네트워크</dd></div>
-                        </dl>
-                        <div class="closing-copy__main">
-                            <p class="closing-copy__lead">PUG의 다음 여정은,<br>더 많은 경험을 연결하는 것입니다</p>
-                            <p class="closing-copy__text">국내에서 쌓은 PoC 경험과 학습 방식을 해외법인과 공유하고, 각 법인의 AI 활용 사례를 서로 연결해 함께 성장하고자 합니다.</p>
-                        </div>
-                    </div>
-                    <figure class="closing-photo">
-                        <img src="assets/46-closing/group-photo.png" alt="AI PUG 멤버 단체 사진" loading="lazy">
-                        <figcaption>함께 배우고 성장해온 PUG 멤버</figcaption>
+                body: `<div class="closing-global">
+                    <figure class="closing-global__map">
+                        <img src="assets/46-closing/drb-global-map-background.png" alt="DRB 글로벌 네트워크 세계지도" loading="lazy">
+                        <span class="closing-global__site" style="--x: 38%; --y: 27%; --dx: -8px; --dy: -25px"><span class="closing-global__site-label">🏭 Russia Plant</span></span>
+                        <span class="closing-global__site" style="--x: 25%; --y: 38%; --dx: -10px; --dy: -25px"><span class="closing-global__site-label">🏭 Slovakia Plant</span></span>
+                        <span class="closing-global__site" style="--x: 49%; --y: 40%; --dx: 24px; --dy: -27px"><span class="closing-global__site-label">🏭 China Qingdao Plant</span></span>
+                        <span class="closing-global__site" style="--x: 44%; --y: 49%; --dx: -58px; --dy: -5px"><span class="closing-global__site-label">🏭 China Chongqing Plant</span></span>
+                        <span class="closing-global__site closing-global__site--office" style="--x: 48%; --y: 50%; --dx: 30px; --dy: 24px"><span class="closing-global__site-label">🏢 China Shanghai Sales Office</span></span>
+                        <span class="closing-global__site closing-global__site--office" style="--x: 54%; --y: 46%; --dx: 48px; --dy: -4px"><span class="closing-global__site-label">🏢 Japan Sales Office</span></span>
+                        <span class="closing-global__site closing-global__site--office" style="--x: 43%; --y: 59%; --dx: -70px; --dy: 5px"><span class="closing-global__site-label">🏢 Vietnam Hanoi Office</span></span>
+                        <span class="closing-global__site" style="--x: 46%; --y: 61%; --dx: 48px; --dy: 18px"><span class="closing-global__site-label">🏭 Vietnam Plant</span></span>
+                        <span class="closing-global__site closing-global__site--office" style="--x: 48%; --y: 70%; --dx: -42px; --dy: 24px"><span class="closing-global__site-label">🏢 Indonesia Sales Office</span></span>
+                        <span class="closing-global__site closing-global__site--office" style="--x: 80%; --y: 48%; --dx: 30px; --dy: -24px"><span class="closing-global__site-label">🏢 US Sales Office</span></span>
                     </figure>
+                    <div class="closing-global__pillars">
+                        <article class="closing-global__pillar"><p class="closing-global__label">NOW</p><p class="closing-global__value">Cohort 2 in Progress</p></article>
+                        <article class="closing-global__pillar"><p class="closing-global__label">EXPAND</p><p class="closing-global__value">Mini PUG Network</p></article>
+                        <article class="closing-global__pillar"><p class="closing-global__label">EXCHANGE</p><p class="closing-global__value">Cross-Region Learning</p></article>
+                        <article class="closing-global__pillar"><p class="closing-global__label">TOGETHER</p><p class="closing-global__value">Shared AI Growth</p></article>
+                    </div>
                 </div>`
             })
         ];
