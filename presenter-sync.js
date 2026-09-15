@@ -1,4 +1,4 @@
-/** 같은 PC의 presentation.html ↔ presenter.html 슬라이드 동기화 */
+/** 같은 PC의 index.html ↔ presenter.html 슬라이드 동기화 */
 (function (global) {
     const KEY = 'pug-presentation-sync';
     let channel = null;

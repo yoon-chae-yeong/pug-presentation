@@ -633,22 +633,41 @@
         .support-overview__card {
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            gap: 0.3rem;
+            justify-content: flex-start;
+            gap: 0;
             width: 100%;
             min-width: 0;
             min-height: 0;
             aspect-ratio: 4 / 3.6;
-            padding: 1.05rem 1.1rem;
+            padding: 0;
+            overflow: hidden;
             background: #FFFFFF;
             border: 1px solid #E8DFD0;
             border-radius: 8px;
             box-sizing: border-box;
             box-shadow: none;
         }
-        .support-overview__card-title {
+        .support-overview__card-photo {
             margin: 0;
-            font-size: 1.3rem;  
+            flex: 1 1 auto;
+            min-height: 0;
+            overflow: hidden;
+            background: #F0EAE0;
+        }
+        .support-overview__card-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center top;
+            display: block;
+        }
+        .support-overview__card-copy {
+            flex-shrink: 0;
+            padding: 0.7rem 0.85rem 0.8rem;
+        }
+        .support-overview__card-title {
+            margin: 0 0 0.22rem;
+            font-size: 1.08rem;
             font-weight: 800;
             color: #33271F;
             line-height: 1.25;
@@ -656,15 +675,15 @@
         }
         .support-overview__card-sub {
             margin: 0;
-            font-size: 0.82rem;
+            font-size: 0.74rem;
             font-weight: 700;
             color: #8A7B6E;
             line-height: 1.3;
             word-break: keep-all;
         }
         .support-overview__card-body {
-            margin: 0;
-            font-size: 0.82rem;
+            margin: 0.12rem 0 0;
+            font-size: 0.74rem;
             font-weight: 600;
             color: #4A3C33;
             line-height: 1.35;
@@ -725,7 +744,10 @@
                 aspect-ratio: auto;
                 min-height: 0;
                 height: auto;
-                padding: 1rem 1.1rem;
+            }
+            .support-overview__card-photo {
+                height: 140px;
+                flex: none;
             }
         }
         .week-photo-layout { display: grid; grid-template-columns: 1.55fr 1fr; gap: 0.75rem; height: min(420px, calc(100vh - 300px)); max-height: 420px; margin-top: 0.75rem; }
@@ -1711,40 +1733,51 @@
                 {
                     title: '학습 자료 큐레이션',
                     sub: '필요한 콘텐츠 중심',
-                    body: 'LLM 이론 · GitHub · n8n 자동화 · 바이브 코딩'
+                    body: 'LLM 이론 · GitHub · n8n 자동화 · 바이브 코딩',
+                    image: { src: 'assets/32-online-lectures/lecture-llm.png', alt: '인프런 LLM 강의' }
                 },
                 {
                     title: 'AI 도구 활용 환경',
                     sub: '도구 · API 기반 실습',
-                    body: 'Google AI Pro · OpenAI · SerpApi'
+                    body: 'Google AI Pro · OpenAI · SerpApi',
+                    image: { src: 'assets/33-google-subscription/google-ai-plans.png', alt: 'Google AI Pro 요금제' }
                 },
                 {
                     title: '산출물·버전 관리 기준',
                     sub: '공통 협업 방식',
-                    body: 'GitHub Organization · 표준 기술스택'
+                    body: 'GitHub Organization · 표준 기술스택',
+                    image: { src: 'assets/35-tech-stack/tech-stack-guide.png', alt: 'PUG 표준 기술스택 가이드' }
                 },
                 {
                     title: 'IT 기초 공통 학습',
                     sub: '공통 언어 만들기',
-                    body: '비전공자도 함께 이해하는 IT 기초'
+                    body: '비전공자도 함께 이해하는 IT 기초',
+                    image: { src: 'assets/36-book/book-distribution.png', alt: 'IT 기초 서적' }
                 },
                 {
                     title: '사내 Infra 활용',
                     sub: 'AI Playground 실습',
-                    body: '사내 LLM 환경에서 안전하게 실험'
+                    body: '사내 LLM 환경에서 안전하게 실험',
+                    image: { src: 'assets/28-meeting/meeting-playground.png', alt: 'AI Playground 소개 현장' }
                 },
                 {
                     title: 'API 연동 실습',
                     sub: 'API Playground 활용',
                     body: 'Outlook · Teams 연동을 실제 PoC에 연결',
+                    image: { src: 'assets/38-api-playground/api-playground.png', alt: 'PUG API Playground' },
                     soft: true
                 }
             ];
             const cardBlocks = cards.map((c) =>
                 `<article class="support-overview__card${c.soft ? ' support-overview__card--soft' : ''}">
-                    <h3 class="support-overview__card-title">${c.title}</h3>
-                    <p class="support-overview__card-sub">${c.sub}</p>
-                    <p class="support-overview__card-body">${c.body}</p>
+                    <figure class="support-overview__card-photo">
+                        <img src="${c.image.src}" alt="${c.image.alt}" loading="lazy">
+                    </figure>
+                    <div class="support-overview__card-copy">
+                        <h3 class="support-overview__card-title">${c.title}</h3>
+                        <p class="support-overview__card-sub">${c.sub}</p>
+                        <p class="support-overview__card-body">${c.body}</p>
+                    </div>
                 </article>`
             ).join('');
             const experts = [
